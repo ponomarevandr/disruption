@@ -1,6 +1,7 @@
 # ========== Custom
 bin
 build
+*.sublime-*
 
 
 # ========== C++
