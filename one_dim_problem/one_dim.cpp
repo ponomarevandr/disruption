@@ -6,20 +6,20 @@
 const double eps_0 = 1e-3;
 const double delta = 1e-6;
 const double l = 1.0;
-const double Gamma = 0.01;
+const double Gamma = 1.0;
 const double m = 1.0;
-const double Phi_coefficient = 1.0;
+const double Phi_coefficient = 60.0;
 
 const double duration = 1.0;
 const double width = 10;
 
 constexpr size_t X_SIZE = 1000;
-constexpr size_t T_SIZE = 100000;
 constexpr size_t X_SKIP = 1;
+constexpr size_t T_SIZE = 100000;
 constexpr size_t T_SKIP = 1000;
 
 const char* output_filename = "phi_values.csv";
-const size_t precision = 4;
+const size_t precision = 8;
 
 double phi[X_SIZE];
 double phi_next[X_SIZE];
@@ -29,7 +29,7 @@ void initialize() {
 	for (size_t i = 0; i < X_SIZE; ++i) {
 		phi[i] = 1.0;
 	}
-	phi[X_SIZE / 2] = 0.5;
+	phi[X_SIZE / 2] = 0.9;
 }
 
 double f(double phi) {
@@ -43,7 +43,7 @@ double f_hatch(double phi) {
 
 double eps_hatch(double phi) {
 	double f_phi = f(phi);
-	return eps_0 / ((f_phi + delta) * (f_phi + delta)) * f_hatch(phi);
+	return -eps_0 / ((f_phi + delta) * (f_phi + delta)) * f_hatch(phi);
 }
 
 void iteration() {
