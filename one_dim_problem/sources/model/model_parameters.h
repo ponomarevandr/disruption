@@ -1,6 +1,9 @@
 #pragma once
 
 #include <iostream>
+#include <sstream>
+#include <vector>
+#include <string>
 
 
 struct ModelParameters {
@@ -22,4 +25,14 @@ struct ModelParameters {
 	void setComputational(double dt, size_t t_skip, double dx, size_t x_skip);
 	void setSizes(double duration, double width);
 	void print(std::ostream& out) const;
+	void read(std::istream& in);
+
+	template <typename T>
+	static T fromString(const std::string& string) {
+		std::stringstream sstream(string);
+		T result;
+		sstream >> result;
+		return result;
+	}
+	static std::vector<std::string> split(const std::string& text);
 };

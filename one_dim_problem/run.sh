@@ -8,4 +8,4 @@ fi
 
 echo "==================== Starting the program..."
 cd bin
-./one_dim
+./one_dim $@

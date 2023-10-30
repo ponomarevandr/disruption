@@ -1,5 +1,7 @@
 #include "model_parameters.h"
 
+#include <map>
+
 
 void ModelParameters::setPhysical(double eps_0, double delta, double l, double Gamma, double m,
 		double Phi_coefficient) {
@@ -36,4 +38,38 @@ void ModelParameters::print(std::ostream& out) const {
 	out << "x_skip = " << x_skip << "\n";
 	out << "duration = " << duration << "\n";
 	out << "width = " << width << "\n";
+}
+
+void ModelParameters::read(std::istream& in) {
+	std::map<std::string, std::string> values;
+	std::string line;
+	while (std::getline(in, line)) {
+		std::vector<std::string> splitted = split(line);
+		values[splitted[0]] = splitted[2];
+	}
+	eps_0 = fromString<double>(values["eps_0"]);
+	delta = fromString<double>(values["delta"]);
+	l = fromString<double>(values["l"]);
+	Gamma = fromString<double>(values["Gamma"]);
+	m = fromString<double>(values["m"]);
+	Phi_coefficient = fromString<double>(values["Phi_coefficient"]);
+	dt = fromString<double>(values["dt"]);
+	t_skip = fromString<size_t>(values["t_skip"]);
+	dx = fromString<double>(values["dx"]);
+	x_skip = fromString<size_t>(values["x_skip"]);
+	duration = fromString<double>(values["duration"]);
+	width = fromString<double>(values["width"]);
+}
+
+std::vector<std::string> ModelParameters::split(const std::string& text) {
+	std::vector<std::string> result(1);
+	for (char c : text) {
+		if (std::isspace(c)) {
+			if (!result.back().empty())
+				result.emplace_back();
+			continue;
+		}
+		result.back().push_back(c);
+	}
+	return result;
 }
