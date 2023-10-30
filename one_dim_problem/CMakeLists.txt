@@ -3,7 +3,9 @@ cmake_minimum_required(VERSION 3.14)
 project(GasKinetics)
 
 set(SOURCES
-	sources/one_dim.cpp
+	sources/main.cpp
+	sources/model/model.cpp
+	sources/model/model_parameters.cpp
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
