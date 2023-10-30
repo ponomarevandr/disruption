@@ -13,19 +13,33 @@ def model_plot(model, times, **kwargs):
 	for i in t_indices:
 	    plt.plot(np.arange(len(model.phi[i])) * model.params['data_dx'], model.phi[i])
 	plt.legend(['t = {:.4f}'.format(i * model.params['data_dt']) for i in t_indices])
-	plt.figtext(0, 0,
-		'eps_0 = {}\n' +
-		'delta = {}\n' +
-		'l = {}\n' +
-		'Gamma = {}\n' +
-		'm = {}\n' +
-		'Phi_coefficient = {}'.format(
+	plt.figtext(0, 0, (
+			'eps_0 = {:.6e}\n' +
+			'delta = {:.6e}\n' +
+			'l = {:.6e}\n' +
+			'Gamma = {:.6e}\n' +
+			'm = {:.6e}\n' +
+			'Phi_coefficient = {:.6e}'
+		).format(
 			model.params['eps_0'],
 			model.params['delta'],
 			model.params['l'],
 			model.params['Gamma'],
 			model.params['m'],
 			model.params['Phi_coefficient']
+		),
+		va='top'
+	)
+	plt.figtext(0.5, 0, (
+			'dt = {:.6e}\n' +
+			'dx = {:.6e}\n' +
+			'duration = {:.6e}\n' +
+			'width = {:.6e}'
+		).format(
+			model.params['dt'],
+			model.params['dx'],
+			model.params['duration'],
+			model.params['width']
 		),
 		va='top'
 	)
