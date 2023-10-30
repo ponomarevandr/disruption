@@ -30,4 +30,4 @@ class Model:
 	
 	@property
 	def phi(self):
-		return self._df_phi.loc
+		return self._df_phi.iloc

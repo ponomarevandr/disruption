@@ -54,8 +54,8 @@ void Model::iteration() {
 	}
 	for (size_t i = 1; i + 1 < x_size; ++i) {
 		phi[i] = phi_next[i];
-		phi[i] = std::min(phi[i], 1.0);
-		phi[i] = std::max(phi[i], 0.0);
+		//phi[i] = std::min(phi[i], 1.0);
+		//phi[i] = std::max(phi[i], 0.0);
 	}
 }
 
