@@ -6,8 +6,8 @@
 
 Model::Model(const ModelParameters& params, std::ostream& out, const std::string& description):
 		params(params), out(out), description(description) {
-	x_size = static_cast<size_t>(std::round(params.width / params.dx)) + 1;
 	t_size = static_cast<size_t>(std::round(params.duration / params.dt)) + 1;
+	x_size = static_cast<size_t>(std::round(params.width / params.dx)) + 1;
 }
 
 void Model::run() {

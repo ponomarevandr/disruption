@@ -17,8 +17,8 @@ private:
 	ModelParameters params;
 	std::ostream& out;
 	std::string description;
-	size_t x_size;
 	size_t t_size;
+	size_t x_size;
 	std::vector<double> phi;
 	std::vector<double> phi_next;
 

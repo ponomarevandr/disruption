@@ -11,16 +11,16 @@ void ModelParameters::setPhysical(double eps_0, double delta, double l, double G
 	this->Phi_coefficient = Phi_coefficient;
 }
 
-void ModelParameters::setComputational(double dx, size_t x_skip, double dt, size_t t_skip) {
-	this->dx = dx;
-	this->x_skip = x_skip;
+void ModelParameters::setComputational(double dt, size_t t_skip, double dx, size_t x_skip) {
 	this->dt = dt;
 	this->t_skip = t_skip;
+	this->dx = dx;
+	this->x_skip = x_skip;
 }
 
-void ModelParameters::setSizes(double width, double duration) {
-	this->width = width;
+void ModelParameters::setSizes(double duration, double width) {
 	this->duration = duration;
+	this->width = width;
 }
 
 void ModelParameters::print(std::ostream& out) const {
@@ -30,10 +30,10 @@ void ModelParameters::print(std::ostream& out) const {
 	out << "Gamma = " << Gamma << "\n";
 	out << "m = " << m << "\n";
 	out << "Phi_coefficient = " << Phi_coefficient << "\n";
-	out << "dx = " << dx << "\n";
-	out << "x_skip = " << x_skip << "\n";
 	out << "dt = " << dt << "\n";
 	out << "t_skip = " << t_skip << "\n";
-	out << "width = " << width << "\n";
+	out << "dx = " << dx << "\n";
+	out << "x_skip = " << x_skip << "\n";
 	out << "duration = " << duration << "\n";
+	out << "width = " << width << "\n";
 }
