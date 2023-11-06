@@ -15,7 +15,7 @@ void Model::run() {
 	params.print(out);
 	initialize();
 	printValues(out);
-	for (size_t i = 0; i < t_size; i += params.t_skip) {
+	for (size_t i = 1; i < t_size; i += params.t_skip) {
 		for (size_t j = 0; j < params.t_skip; ++j) {
 			iteration();
 		}
