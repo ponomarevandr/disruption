@@ -9,7 +9,7 @@ def model_plot(model, times, **kwargs):
 		plt.title(kwargs['title'])
 	plt.xlabel('x')
 	plt.ylabel('phi')
-	t_indices = [int(t / model.params['data_dt']) for t in times]
+	t_indices = [model.t_index(t) for t in times]
 	for i in t_indices:
 	    plt.plot(np.arange(len(model.phi[i])) * model.params['data_dx'], model.phi[i])
 	plt.legend(['t = {:.4f}'.format(i * model.params['data_dt']) for i in t_indices])

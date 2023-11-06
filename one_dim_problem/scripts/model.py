@@ -29,5 +29,15 @@ class Model:
 		return self._params
 	
 	@property
+	def df_phi(self):
+		return self._df_phi
+
+	@property
 	def phi(self):
 		return self._df_phi.iloc
+
+	def t_index(self, t):
+		return int(round(t / self._params['data_dt']))
+
+	def phi_t(self, t):
+		return self._df_phi.iloc[self.t_index(t)]

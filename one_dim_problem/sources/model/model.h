@@ -23,6 +23,7 @@ private:
 	std::vector<double> phi_next;
 
 private:
+	double phi_0(double x) const;
 	void initialize();
 	double f(double phi) const;
 	double f_hatch(double phi) const;

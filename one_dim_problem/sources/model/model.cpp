@@ -23,9 +23,18 @@ void Model::run() {
 	}
 }
 
+double Model::phi_0(double x) const {
+	double x_ratio = x / params.width;
+	if (x_ratio <= 0.49 || x_ratio >= 0.51)
+		return 1.0;
+	return 0.99;
+}
+
 void Model::initialize() {
-	phi.assign(x_size, 1.0);
-	phi[x_size / 2] = 0.9;
+	phi.resize(x_size);
+	for (size_t i = 0; i < x_size; ++i) {
+		phi[i] = phi_0(i * params.dx);
+	}
 	phi_next.resize(x_size);
 }
 
