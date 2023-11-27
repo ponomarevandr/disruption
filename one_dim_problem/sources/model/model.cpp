@@ -57,7 +57,7 @@ void Model::iteration() {
 		double phi_partial_x_x = (phi[i - 1] - 2.0 * phi[i] + phi[i + 1]) /
 			(params.dx * params.dx);
 		double phi_partial_t = params.m * (0.5 * eps_hatch(phi[i]) * params.Phi_coefficient *
-			params.Phi_coefficient + params.Gamma / params.l * f_hatch(phi[i]) +
+			params.Phi_coefficient + params.Gamma / (params.l * params.l) * f_hatch(phi[i]) +
 			0.5 * params.Gamma * phi_partial_x_x);
 		phi_next[i] = phi[i] + params.dt * phi_partial_t;
 	}
