@@ -10,19 +10,19 @@ void ModelParameters::setPhysical(double eps_0, double delta, double l, double G
 	this->l = l;
 	this->Gamma = Gamma;
 	this->m = m;
-	this->Phi_coefficient = Phi_coefficient;
+	this->Phi_gradient = Phi_gradient;
 }
 
-void ModelParameters::setComputational(double dt, size_t t_skip, double dx, size_t x_skip) {
-	this->dt = dt;
-	this->t_skip = t_skip;
-	this->dx = dx;
+void ModelParameters::setComputational(size_t x_grid, size_t x_skip, size_t t_grid, size_t t_skip) {
+	this->x_grid = x_grid;
 	this->x_skip = x_skip;
+	this->t_grid = t_grid;
+	this->t_skip = t_skip;
 }
 
-void ModelParameters::setSizes(double duration, double width) {
-	this->duration = duration;
+void ModelParameters::setSizes(double width, double duration) {
 	this->width = width;
+	this->duration = duration;
 }
 
 void ModelParameters::print(std::ostream& out) const {
@@ -31,13 +31,13 @@ void ModelParameters::print(std::ostream& out) const {
 	out << "l = " << l << "\n";
 	out << "Gamma = " << Gamma << "\n";
 	out << "m = " << m << "\n";
-	out << "Phi_coefficient = " << Phi_coefficient << "\n";
-	out << "dt = " << dt << "\n";
-	out << "t_skip = " << t_skip << "\n";
-	out << "dx = " << dx << "\n";
+	out << "Phi_gradient = " << Phi_gradient << "\n";
+	out << "x_grid = " << x_grid << "\n";
 	out << "x_skip = " << x_skip << "\n";
-	out << "duration = " << duration << "\n";
+	out << "t_grid = " << t_grid << "\n";
+	out << "t_skip = " << t_skip << "\n";
 	out << "width = " << width << "\n";
+	out << "duration = " << duration << "\n";
 }
 
 void ModelParameters::read(std::istream& in) {
@@ -47,18 +47,18 @@ void ModelParameters::read(std::istream& in) {
 		std::vector<std::string> splitted = split(line);
 		values[splitted[0]] = splitted[2];
 	}
-	eps_0 = fromString<double>(values["eps_0"]);
-	delta = fromString<double>(values["delta"]);
-	l = fromString<double>(values["l"]);
-	Gamma = fromString<double>(values["Gamma"]);
-	m = fromString<double>(values["m"]);
-	Phi_coefficient = fromString<double>(values["Phi_coefficient"]);
-	dt = fromString<double>(values["dt"]);
-	t_skip = fromString<size_t>(values["t_skip"]);
-	dx = fromString<double>(values["dx"]);
-	x_skip = fromString<size_t>(values["x_skip"]);
-	duration = fromString<double>(values["duration"]);
-	width = fromString<double>(values["width"]);
+	eps_0 = fromString<double>(values.at("eps_0"));
+	delta = fromString<double>(values.at("delta"));
+	l = fromString<double>(values.at("l"));
+	Gamma = fromString<double>(values.at("Gamma"));
+	m = fromString<double>(values.at("m"));
+	Phi_gradient = fromString<double>(values.at("Phi_gradient"));
+	x_grid = fromString<size_t>(values.at("x_grid"));
+	x_skip = fromString<size_t>(values.at("x_skip"));
+	t_grid = fromString<size_t>(values.at("t_grid"));
+	t_skip = fromString<size_t>(values.at("t_skip"));
+	width = fromString<double>(values.at("width"));
+	duration = fromString<double>(values.at("duration"));
 }
 
 std::vector<std::string> ModelParameters::split(const std::string& text) {

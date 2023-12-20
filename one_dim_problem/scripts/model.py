@@ -13,14 +13,16 @@ class Model:
 		lines = file.readlines()
 		for line in lines[1:self.PARAMETERS_NUMBER + 1]:
 			splitted = line.split()
-			if 'skip' in splitted[0]:
+			if 'skip' in splitted[0] or 'grid' in splitted[0]:
 				splitted[-1] = int(splitted[-1])
 			else:
 				splitted[-1] = float(splitted[-1])
 			self._params[splitted[0]] = splitted[-1]
 		file.close()
-		self._params['data_dx'] = self._params['dx'] * self._params['x_skip']
-		self._params['data_dt'] = self._params['dt'] * self._params['t_skip']
+		self._params['dx'] = self._params['width'] / self._params['x_grid']
+		self._params['dt'] = self._params['duration'] / self._params['t_grid']
+		self._params['dx_skip'] = self._params['dx'] * self._params['x_skip']
+		self._params['dt_skip'] = self._params['dt'] * self._params['t_skip']
 		self._df_phi = pd.read_csv(filename, sep=';', header=None,
 			skiprows=self.PARAMETERS_NUMBER + 1)
 
@@ -37,7 +39,7 @@ class Model:
 		return self._df_phi.iloc
 
 	def t_index(self, t):
-		return int(round(t / self._params['data_dt']))
+		return int(round(t / self._params['dt_skip']))
 
-	def phi_t(self, t):
+	def phi_at_t(self, t):
 		return self._df_phi.iloc[self.t_index(t)]

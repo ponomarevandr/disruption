@@ -6,8 +6,8 @@
 
 Model::Model(const ModelParameters& params, std::ostream& out, const std::string& description):
 		params(params), out(out), description(description) {
-	t_size = static_cast<size_t>(std::round(params.duration / params.dt)) + 1;
-	x_size = static_cast<size_t>(std::round(params.width / params.dx)) + 1;
+	dx = params.width / params.x_grid;
+	dt = params.duration / params.t_grid;
 }
 
 void Model::run() {
@@ -15,7 +15,7 @@ void Model::run() {
 	params.print(out);
 	initialize();
 	printValues(out);
-	for (size_t i = 1; i < t_size; i += params.t_skip) {
+	for (size_t i = 1; i <= params.t_grid; i += params.t_skip) {
 		for (size_t j = 0; j < params.t_skip; ++j) {
 			iteration();
 		}
@@ -24,18 +24,19 @@ void Model::run() {
 }
 
 double Model::phi_0(double x) const {
-	double x_ratio = x / params.width;
-	if (x_ratio <= 0.49 || x_ratio >= 0.51)
+	x -= 0.5 * params.width;
+	if (x <= -0.5 * START_DENT_WIDTH || 0.5 * START_DENT_WIDTH <= x)
 		return 1.0;
-	return 0.99;
+	const double PI = 3.14159265358979324;
+	return 1.0 - 0.5 * START_DENT_DEPTH * (1.0 + std::cos(x / START_DENT_WIDTH * 2.0 * PI));
 }
 
 void Model::initialize() {
-	phi.resize(x_size);
-	for (size_t i = 0; i < x_size; ++i) {
-		phi[i] = phi_0(i * params.dx);
+	phi.resize(params.x_grid + 1);
+	for (size_t i = 0; i <= params.x_grid; ++i) {
+		phi[i] = phi_0(i * dx);
 	}
-	phi_next.resize(x_size);
+	phi_next.resize(params.x_grid + 1);
 }
 
 double Model::f(double phi) const {
@@ -53,25 +54,22 @@ double Model::eps_hatch(double phi) const {
 }
 
 void Model::iteration() { 
-	for (size_t i = 1; i + 1 < x_size; ++i) {
-		double phi_partial_x_x = (phi[i - 1] - 2.0 * phi[i] + phi[i + 1]) /
-			(params.dx * params.dx);
-		double phi_partial_t = params.m * (0.5 * eps_hatch(phi[i]) * params.Phi_coefficient *
-			params.Phi_coefficient + params.Gamma / (params.l * params.l) * f_hatch(phi[i]) +
+	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
+		double phi_partial_x_x = (phi[i - 1] - 2.0 * phi[i] + phi[i + 1]) / (dx * dx);
+		double phi_partial_t = params.m * (0.5 * eps_hatch(phi[i]) * params.Phi_gradient *
+			params.Phi_gradient + params.Gamma / (params.l * params.l) * f_hatch(phi[i]) +
 			0.5 * params.Gamma * phi_partial_x_x);
-		phi_next[i] = phi[i] + params.dt * phi_partial_t;
+		phi_next[i] = phi[i] + dt * phi_partial_t;
 	}
-	for (size_t i = 1; i + 1 < x_size; ++i) {
+	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
 		phi[i] = phi_next[i];
-		//phi[i] = std::min(phi[i], 1.0);
-		//phi[i] = std::max(phi[i], 0.0);
 	}
 }
 
 void Model::printValues(std::ostream& out) const {
-	for (size_t i = 0; i < x_size; i += params.x_skip) {
+	for (size_t i = 0; i <= params.x_grid; i += params.x_skip) {
 		out << phi[i];
-		if (i + params.x_skip < x_size)
+		if (i + params.x_skip <= params.x_grid)
 			out << ";";
 	}
 	out << "\n";
