@@ -21,8 +21,10 @@ class Model:
 		file.close()
 		self._params['dx'] = self._params['width'] / self._params['x_grid']
 		self._params['dt'] = self._params['duration'] / self._params['t_grid']
-		self._params['dx_skip'] = self._params['dx'] * self._params['x_skip']
-		self._params['dt_skip'] = self._params['dt'] * self._params['t_skip']
+		self._params['x_grid_data'] = self._params['x_grid'] // self._params['x_skip']
+		self._params['t_grid_data'] = self._params['t_grid'] // self._params['t_skip']
+		self._params['dx_data'] = self._params['dx'] * self._params['x_skip']
+		self._params['dt_data'] = self._params['dt'] * self._params['t_skip']
 		self._df_phi = pd.read_csv(filename, sep=';', header=None,
 			skiprows=self.PARAMETERS_NUMBER + 1)
 
@@ -39,7 +41,13 @@ class Model:
 		return self._df_phi.iloc
 
 	def t_index(self, t):
-		return int(round(t / self._params['dt_skip']))
+		return int(round(t / self._params['dt_data']))
 
 	def phi_at_t(self, t):
 		return self._df_phi.iloc[self.t_index(t)]
+
+
+def model_from_file(filename):
+	model = Model();
+	model.from_file(filename)
+	return model
