@@ -21,7 +21,7 @@ private:
 	double dt;
 	std::vector<double> phi;
 	std::vector<double> phi_next;
-	static constexpr double START_DENT_WIDTH = 1.0;
+	static constexpr double START_DENT_WIDTH = 0.5;
 	static constexpr double START_DENT_DEPTH = 0.05;
 
 private:

@@ -1,3 +1,4 @@
+import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -6,12 +7,14 @@ def model_plot(model, times, print_params=True, **kwargs):
 		plt.figure(figsize=kwargs['figsize'])
 	if 'title' in kwargs:
 		plt.title(kwargs['title'])
-	plt.xlabel('x')
-	plt.ylabel('phi')
+	plt.xlabel('$x$')
+	plt.ylabel('$\phi$')
 	t_indices = [model.t_index(t) for t in times]
 	for i in t_indices:
 	    plt.plot(np.arange(len(model.phi[i])) * model.params['dx_data'], model.phi[i])
-	plt.legend(['t = {:.4f}'.format(i * model.params['dt_data']) for i in t_indices])
+	#plt.legend(['$t = {:.4f}$'.format(i * model.params['dt_data']) for i in t_indices])
+	plt.legend(['$t = {:.2f}$'.format(i * model.params['dt_data']) for i in t_indices],
+		bbox_to_anchor=(1.02, 1), loc="upper left")
 	if print_params:
 		plt.figtext(0, 0, (
 				'eps_0 = {:.6e}\n' +

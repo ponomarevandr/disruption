@@ -49,8 +49,6 @@ double Model::f_hatch(double phi) const {
 }
 
 double Model::eps_hatch(double phi) const {
-	if (phi < 0)
-		return 0;
 	double f_phi = f(phi);
 	return -params.eps_0 / ((f_phi + params.delta) * (f_phi + params.delta)) * f_hatch(phi);
 }

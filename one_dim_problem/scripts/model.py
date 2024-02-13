@@ -21,8 +21,6 @@ class Model:
 		file.close()
 		self._params['dx'] = self._params['width'] / self._params['x_grid']
 		self._params['dt'] = self._params['duration'] / self._params['t_grid']
-		self._params['x_grid_data'] = self._params['x_grid'] // self._params['x_skip']
-		self._params['t_grid_data'] = self._params['t_grid'] // self._params['t_skip']
 		self._params['dx_data'] = self._params['dx'] * self._params['x_skip']
 		self._params['dt_data'] = self._params['dt'] * self._params['t_skip']
 		self._df_phi = pd.read_csv(filename, sep=';', header=None,
