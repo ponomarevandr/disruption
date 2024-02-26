@@ -25,14 +25,14 @@ void Model::run() {
 
 double Model::phi_0(double x) const {
 	const double PI = 3.14159265358979324;
-	/*x -= 0.5 * params.width;
+	x -= 0.5 * params.width;
 	if (x <= -0.5 * START_DENT_WIDTH || 0.5 * START_DENT_WIDTH <= x)
 		return 1.0;
-	return 1.0 - 0.5 * START_DENT_DEPTH * (1.0 + std::cos(x / START_DENT_WIDTH * 2.0 * PI));*/
-	const double wave_length = 2.0;
+	return 1.0 - 0.5 * START_DENT_DEPTH * (1.0 + std::cos(x / START_DENT_WIDTH * 2.0 * PI));
+	/*const double wave_length = 2.0;
 	const double wave_amplitude = 0.01;
 	const double level = 0.99;
-	return level + wave_amplitude * std::sin(2.0 * PI * x / wave_length);
+	return level + wave_amplitude * std::sin(2.0 * PI * x / wave_length);*/
 }
 
 void Model::initialize() {

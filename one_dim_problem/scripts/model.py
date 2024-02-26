@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 
 
@@ -37,6 +38,10 @@ class Model:
 	@property
 	def phi(self):
 		return self._df_phi.iloc
+
+	@property
+	def xs(self):
+		return np.arange(self._df_phi.shape[1]) * self._params['dx_data']
 
 	def t_index(self, t):
 		return int(round(t / self._params['dt_data']))
