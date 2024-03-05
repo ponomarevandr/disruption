@@ -6,6 +6,10 @@ def model_plot(model, times, print_params=True, **kwargs):
 		plt.figure(figsize=kwargs['figsize'])
 	if 'title' in kwargs:
 		plt.title(kwargs['title'])
+	if 'xlim' in kwargs:
+		plt.xlim(kwargs['xlim'])
+	if 'ylim' in kwargs:
+		plt.ylim(kwargs['ylim'])
 	plt.xlabel('$x$')
 	plt.ylabel('$\phi$')
 	t_indices = [model.t_index(t) for t in times]
