@@ -1,5 +1,6 @@
 #include "model/model_parameters.h"
 #include "model/model.h"
+#include "model/scaled_model.h"
 
 #include <iostream>
 #include <fstream>
@@ -18,7 +19,7 @@ int main(int argc, char* argv[]) {
 	fin.close();
 
 	std::ofstream fout(argv[2]);
-	Model model(params, fout << std::scientific << std::setprecision(8));
+	ScaledModel model(params, fout << std::scientific << std::setprecision(8));
 	model.run();
 	fout.close();
 	
