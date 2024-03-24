@@ -5,7 +5,6 @@ project(GasKinetics)
 set(SOURCES
 	sources/main.cpp
 	sources/model/model.cpp
-	sources/model/scaled_model.cpp
 	sources/model/model_parameters.cpp
 )
 
