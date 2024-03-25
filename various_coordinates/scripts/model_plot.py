@@ -25,8 +25,8 @@ def model_plot(model, times, print_params=True, **kwargs):
 				'l = {:.6e}\n' +
 				'Gamma = {:.6e}\n' +
 				'm = {:.6e}\n' +
-				'Phi_gradient = {:.6e}' +
-				'alpha = {:.6e}' +
+				'Phi_gradient = {:.6e}\n' +
+				'alpha = {:.6e}\n' +
 				'beta = {:.6e}'
 			).format(
 				model.params['eps_0'],
