@@ -4,7 +4,7 @@
 
 
 void ModelParameters::setPhysical(double eps_0, double delta, double l, double Gamma, double m,
-		double Phi_coefficient, double alpha, double beta) {
+		double Phi_coefficient, double alpha, double beta, size_t r_power) {
 	this->eps_0 = eps_0;
 	this->delta = delta;
 	this->l = l;
@@ -13,6 +13,7 @@ void ModelParameters::setPhysical(double eps_0, double delta, double l, double G
 	this->Phi_gradient = Phi_gradient;
 	this->alpha = alpha;
 	this->beta = beta;
+	this->r_power = r_power;
 }
 
 void ModelParameters::setComputational(size_t x_grid, size_t x_skip, size_t t_grid, size_t t_skip) {
@@ -37,6 +38,7 @@ void ModelParameters::print(std::ostream& out) const {
 	out << "Phi_gradient = " << Phi_gradient << "\n";
 	out << "alpha = " << alpha << "\n";
 	out << "beta = " << beta << "\n";
+	out << "r_power = " << r_power << "\n";
 	out << "x_grid = " << x_grid << "\n";
 	out << "x_skip = " << x_skip << "\n";
 	out << "t_grid = " << t_grid << "\n";
@@ -60,6 +62,7 @@ void ModelParameters::read(std::istream& in) {
 	Phi_gradient = fromString<double>(values.at("Phi_gradient"));
 	alpha = fromString<double>(values.at("alpha"));
 	beta = fromString<double>(values.at("beta"));
+	r_power = fromString<size_t>(values.at("r_power"));
 	x_grid = fromString<size_t>(values.at("x_grid"));
 	x_skip = fromString<size_t>(values.at("x_skip"));
 	t_grid = fromString<size_t>(values.at("t_grid"));

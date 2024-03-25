@@ -17,6 +17,10 @@ double phi_0(const ModelParameters& params, double x) {
 	return 1.0 - 0.5 * DENT_DEPTH * (1.0 + std::cos(x / DENT_WIDTH * 2.0 * PI));
 }
 
+double node(const ModelParameters& params, double x) {
+	return x;
+}
+
 int main(int argc, char* argv[]) {
 	if (argc != 3) {
 		std::cerr << "Wrong number of arguments!\n";
@@ -29,7 +33,7 @@ int main(int argc, char* argv[]) {
 	fin.close();
 
 	std::ofstream fout(argv[2]);
-	Model model(params, phi_0, fout << std::scientific << std::setprecision(8));
+	Model model(params, phi_0, node, fout << std::scientific << std::setprecision(8));
 	model.run();
 	fout.close();
 	

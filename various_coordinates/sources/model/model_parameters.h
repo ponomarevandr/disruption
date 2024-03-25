@@ -7,7 +7,7 @@
 
 
 struct ModelParameters {
-	static constexpr size_t PARAMETERS_NUMBER = 14;
+	static constexpr size_t PARAMETERS_NUMBER = 15;
 	double eps_0;
 	double delta;
 	double l;
@@ -16,6 +16,7 @@ struct ModelParameters {
 	double Phi_gradient;
 	double alpha;
 	double beta;
+	size_t r_power;
 	size_t x_grid;
 	size_t x_skip;
 	size_t t_grid;
@@ -24,7 +25,7 @@ struct ModelParameters {
 	double duration;
 
 	void setPhysical(double eps_0, double delta, double l, double Gamma, double m,
-		double Phi_gradient, double alpha, double beta);
+		double Phi_gradient, double alpha, double beta, size_t r_power);
 	void setComputational(size_t x_grid, size_t x_skip, size_t t_grid, size_t t_skip);
 	void setSizes(double width, double duration);
 	void print(std::ostream& out) const;

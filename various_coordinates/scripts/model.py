@@ -28,11 +28,15 @@ class Model:
 		self._params['t_size'] = self._params['t_grid'] // self._params['t_skip'] + 1
 		data = pd.read_csv(filename, sep=';', header=None,
 			skiprows=6 + params_number)
+		self._xs = None
 		self._df_phi = None
-		self._df_additional = data
+		self._df_additional = None
 		if has_phi:
-			self._df_phi = data.iloc[:, :self._params['x_size']]
-			self._df_additional = data.iloc[:, self._params['x_size']:]
+			self._xs = data.iloc[0, :self._params['x_size']].to_numpy()
+			self._df_phi = data.iloc[1:, :self._params['x_size']].reset_index(drop=True)
+			self._df_additional = data.iloc[1:, self._params['x_size']:].reset_index(drop=True)
+		else:
+			self._df_additional = data[1:].reset_index(drop=True)
 
 	@property
 	def params(self):
@@ -56,7 +60,7 @@ class Model:
 
 	@property
 	def xs(self):
-		return np.arange(self._df_phi.shape[1]) * self._params['dx_data']
+		return self._xs
 
 	@property
 	def ts(self):

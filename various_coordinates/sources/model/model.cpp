@@ -3,9 +3,9 @@
 #include <algorithm>
 
 
-Model::Model(const ModelParameters& params, Function_phi_0&& phi_0, std::ostream& out,
-		const std::string& details): params(params), phi_0(std::move(phi_0)), out(out),
-		details(details) {
+Model::Model(const ModelParameters& params, NumericFunction&& phi_0, NumericFunction&& node,
+		std::ostream& out, const std::string& details): params(params), phi_0(std::move(phi_0)),
+		node(std::move(node)), out(out), details(details) {
 	dx = params.width / params.x_grid;
 	dt = params.duration / params.t_grid;
 }
@@ -16,12 +16,15 @@ void Model::run() {
 	params.print(out);
 	out << (shallPrint_phi() ? "+" : "-") << "\n\n";
 	initialize();
+	iterationDerivatives();
+	printValues(out, true);
 	printValues(out);
 	if (stopCondition())
 		return;
 	for (size_t i = 1; i <= params.t_grid; i += params.t_skip) {
 		for (size_t j = 0; j < params.t_skip; ++j) {
-			iteration();
+			iterationUpdate();
+			iterationDerivatives();
 		}
 		printValues(out);
 		if (stopCondition())
@@ -38,12 +41,38 @@ std::string Model::toSingleLine(const std::string& string) {
 	return result;
 }
 
+double Model::toPower(double value, size_t power) {
+	double result = 1.0;
+	for (size_t i = 0; i < power; ++i) {
+		result *= power;
+	}
+	return result;
+}
+
 void Model::initialize() {
+	r.resize(params.x_grid + 1);
 	phi.resize(params.x_grid + 1);
 	for (size_t i = 0; i <= params.x_grid; ++i) {
-		phi[i] = phi_0(params, i * dx);
+		r[i] = node(params, i * dx);
+		phi[i] = phi_0(params, r[i]);
 	}
-	phi_next.resize(params.x_grid + 1);
+	r_mid.resize(params.x_grid);
+	dr_mid.resize(params.x_grid);
+	r_coef_mid.resize(params.x_grid);
+	for (size_t i = 0; i < params.x_grid; ++i) {
+		r_mid[i] = 0.5 * (r[i] + r[i + 1]);
+		dr_mid[i] = r[i + 1] - r[i];
+		r_coef_mid[i] = toPower(r_mid[i], params.r_power);
+	}
+	dr.resize(params.x_grid + 1, 0);
+	r_coef.resize(params.x_grid + 1, 0);
+	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
+		dr[i] = r_mid[i] - r_mid[i - 1];
+		r_coef[i] = toPower(r[i], params.r_power);
+	}
+	phi_r_mid.resize(params.x_grid);
+	phi_x_x.resize(params.x_grid + 1);
+	phi_t.resize(params.x_grid + 1);
 }
 
 double Model::f(double phi) const {
@@ -60,25 +89,33 @@ double Model::eps_phi(double phi) const {
 	return -params.eps_0 / ((f_at_phi + params.delta) * (f_at_phi + params.delta)) * f_phi(phi);
 }
 
-void Model::iteration() { 
-	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
-		double phi_x_x = (phi[i - 1] - 2.0 * phi[i] + phi[i + 1]) / (dx * dx);
-		double phi_t = params.m * (0.5 * eps_phi(phi[i]) * params.Phi_gradient *
-			params.Phi_gradient + params.Gamma / (params.l * params.l) * f_phi(phi[i]) +
-			0.5 * params.Gamma * phi_x_x);
-		phi_next[i] = phi[i] + dt * phi_t;
+void Model::iterationDerivatives() {
+	for (size_t i = 0; i < params.x_grid; ++i) {
+		phi_r_mid[i] = (phi[i + 1] - phi[i]) / dr_mid[i];
 	}
 	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
-		phi[i] = phi_next[i];
+		phi_x_x[i] = 1.0 / r_coef[i] * (r_coef_mid[i] * phi_r_mid[i] -
+			r_coef_mid[i - 1] * phi_r_mid[i - 1]) / dr[i];
+	}
+	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
+		phi_t[i] = params.m * (0.5 * eps_phi(phi[i]) * params.Phi_gradient *
+			params.Phi_gradient + params.Gamma / (params.l * params.l) * f_phi(phi[i]) +
+			0.5 * params.Gamma * phi_x_x[i]);
 	}
 }
 
-void Model::printValues(std::ostream& out) const {
+void Model::iterationUpdate() { 
+	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
+		phi[i] += dt * phi_t[i];
+	}
+}
+
+void Model::printValues(std::ostream& out, bool are_nodes) const {
 	if (shallPrint_phi()) {
 		for (size_t i = 0; i <= params.x_grid; i += params.x_skip) {
-		out << phi[i];
-		if (i + params.x_skip <= params.x_grid)
-			out << ";";
+			out << (are_nodes ? r[i] : phi[i]);
+			if (i + params.x_skip <= params.x_grid)
+				out << ";";
 		}
 	}
 	additionalOutput();
