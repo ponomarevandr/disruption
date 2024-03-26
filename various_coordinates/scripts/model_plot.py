@@ -27,7 +27,8 @@ def model_plot(model, times, print_params=True, **kwargs):
 				'm = {:.6e}\n' +
 				'Phi_gradient = {:.6e}\n' +
 				'alpha = {:.6e}\n' +
-				'beta = {:.6e}'
+				'beta = {:.6e}\n' +
+				'r_power = {:.6e}'
 			).format(
 				model.params['eps_0'],
 				model.params['delta'],
@@ -36,7 +37,8 @@ def model_plot(model, times, print_params=True, **kwargs):
 				model.params['m'],
 				model.params['Phi_gradient'],
 				model.params['alpha'],
-				model.params['beta']
+				model.params['beta'],
+				model.params['r_power']
 			),
 			va='top'
 		)

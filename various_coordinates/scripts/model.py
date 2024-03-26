@@ -37,6 +37,7 @@ class Model:
 			self._df_additional = data.iloc[1:, self._params['x_size']:].reset_index(drop=True)
 		else:
 			self._df_additional = data[1:].reset_index(drop=True)
+		self._df_additional.columns = range(self._df_additional.shape[1])
 
 	@property
 	def params(self):
@@ -64,7 +65,9 @@ class Model:
 
 	@property
 	def ts(self):
-		return np.arange(self._df_phi.shape[0]) * self._params['dt_data']
+		if self._df_phi is not None:
+			return np.arange(self._df_phi.shape[0]) * self._params['dt_data']
+		return np.arange(self._df_additional.shape[0]) * self._params['dt_data']
 
 	def t_index(self, t):
 		return int(round(t / self._params['dt_data']))

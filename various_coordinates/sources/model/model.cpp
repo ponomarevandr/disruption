@@ -1,7 +1,5 @@
 #include "model.h"
 
-#include <algorithm>
-
 
 Model::Model(const ModelParameters& params, NumericFunction&& phi_0, NumericFunction&& node,
 		std::ostream& out, const std::string& details): params(params), phi_0(std::move(phi_0)),
@@ -44,7 +42,7 @@ std::string Model::toSingleLine(const std::string& string) {
 double Model::toPower(double value, size_t power) {
 	double result = 1.0;
 	for (size_t i = 0; i < power; ++i) {
-		result *= power;
+		result *= value;
 	}
 	return result;
 }
@@ -70,9 +68,9 @@ void Model::initialize() {
 		dr[i] = r_mid[i] - r_mid[i - 1];
 		r_coef[i] = toPower(r[i], params.r_power);
 	}
-	phi_r_mid.resize(params.x_grid);
-	phi_x_x.resize(params.x_grid + 1);
-	phi_t.resize(params.x_grid + 1);
+	phi_r_mid.resize(params.x_grid, 0);
+	phi_x_x.resize(params.x_grid + 1, 0);
+	phi_t.resize(params.x_grid + 1, 0);
 }
 
 double Model::f(double phi) const {
