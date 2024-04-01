@@ -3,7 +3,7 @@
 
 Model::Model(const ModelParameters& params, NumericFunction&& phi_0, NumericFunction&& node,
 		std::ostream& out, const std::string& details): params(params), phi_0(std::move(phi_0)),
-		node(std::move(node)), out(out), details(details) {
+		node(std::move(node)), out(out), details(details), progress_bar(params.t_grid) {
 	dx = params.width / params.x_grid;
 	dt = params.duration / params.t_grid;
 }
@@ -17,14 +17,16 @@ void Model::run() {
 	iterationDerivatives();
 	printValues(out, true);
 	printValues(out);
+	progress_bar.update(0);
 	if (stopCondition())
 		return;
-	for (size_t i = 1; i <= params.t_grid; i += params.t_skip) {
+	for (size_t i = 0; i < params.t_grid; i += params.t_skip) {
 		for (size_t j = 0; j < params.t_skip; ++j) {
 			iterationUpdate();
 			iterationDerivatives();
 		}
 		printValues(out);
+		progress_bar.update(i + params.t_skip);
 		if (stopCondition())
 			break;
 	}

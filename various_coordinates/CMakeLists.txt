@@ -7,6 +7,7 @@ set(SOURCES
 	sources/model/model.cpp
 	sources/model/model_parameters.cpp
 	sources/model_to_stationary/simple.cpp
+	sources/display/progress_bar.cpp
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "model/model_parameters.h"
+#include "display/progress_bar.h"
 
 #include <iostream>
 #include <vector>
@@ -35,6 +36,7 @@ protected:
 	std::vector<double> phi_r_mid;
 	std::vector<double> phi_x_x;
 	std::vector<double> phi_t;
+	ProgressBar progress_bar;
 
 protected:
 	static std::string toSingleLine(const std::string&);
