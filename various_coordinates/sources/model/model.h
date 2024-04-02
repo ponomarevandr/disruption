@@ -34,7 +34,9 @@ protected:
 	std::vector<double> r_coef;
 	std::vector<double> r_coef_mid;
 	std::vector<double> phi_r_mid;
+	std::vector<double> phi_r_cubed_mid;
 	std::vector<double> phi_x_x;
+	std::vector<double> phi_x_cubed_x;
 	std::vector<double> phi_t;
 	ProgressBar progress_bar;
 

@@ -71,7 +71,9 @@ void Model::initialize() {
 		r_coef[i] = toPower(r[i], params.r_power);
 	}
 	phi_r_mid.resize(params.x_grid, 0);
+	phi_r_cubed_mid.resize(params.x_grid, 0);
 	phi_x_x.resize(params.x_grid + 1, 0);
+	phi_x_cubed_x.resize(params.x_grid + 1, 0);
 	phi_t.resize(params.x_grid + 1, 0);
 }
 
@@ -92,15 +94,21 @@ double Model::eps_phi(double phi) const {
 void Model::iterationDerivatives() {
 	for (size_t i = 0; i < params.x_grid; ++i) {
 		phi_r_mid[i] = (phi[i + 1] - phi[i]) / dr_mid[i];
+		phi_r_cubed_mid[i] = phi_r_mid[i] * phi_r_mid[i] * phi_r_mid[i];
 	}
 	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
 		phi_x_x[i] = 1.0 / r_coef[i] * (r_coef_mid[i] * phi_r_mid[i] -
 			r_coef_mid[i - 1] * phi_r_mid[i - 1]) / dr[i];
+		phi_x_cubed_x[i] = 1.0 / r_coef[i] * (r_coef_mid[i] * phi_r_cubed_mid[i] - 
+			r_coef_mid[i - 1] * phi_r_cubed_mid[i - 1]) / dr[i];
 	}
 	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
-		phi_t[i] = params.m * (0.5 * eps_phi(phi[i]) * params.Phi_gradient *
-			params.Phi_gradient + params.Gamma / (params.l * params.l) * f_phi(phi[i]) +
-			0.5 * params.Gamma * phi_x_x[i]);
+		phi_t[i] = params.m * (
+			0.5 * eps_phi(phi[i]) * params.Phi_gradient * params.Phi_gradient +
+			params.Gamma / (params.l * params.l) * f_phi(phi[i]) +
+			0.5 * params.Gamma * phi_x_x[i] +
+			params.beta * params.Gamma * params.l * params.l * phi_x_cubed_x[i]
+		);
 	}
 }
 
