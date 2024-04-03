@@ -124,31 +124,11 @@
 	\Gamma \left( \cfrac{1 - f(\phi)}{l^2} + \cfrac{1}{4} (\nabla \phi, \nabla \phi) \right)$
 	-- плотность свободной энергии
 	\item $\Gamma$ -- энегрия роста пробоя на единицу длины
-	\item $l$ -- величина <<размытия>> пробоя
-	\item $\epsilon(\textbf{x}, t)$ -- диэлектрическая проницаемость среды
-	\item $f(\phi)$ -- интерполирующая функция
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Математическая модель}
-\vspace{-0.5cm}
-\begin{itemize}
+	\item $l$ -- величина <<размытия>> канала пробоя
 	\item $\epsilon(\textbf{x}, t) = \cfrac{\epsilon_0(\textbf{x})}{f(\phi(\textbf{x}, t)) +
 	\delta}$ -- диэлектрическая проницаемость среды
 	\item $f(\phi) = 4 \phi^3 - 3 \phi^4$ -- интерполирующая функция
 \end{itemize}
-\begin{columns}
-\column{0.5\textwidth}
-\begin{figure}
-	\includegraphics[width=0.76\textwidth]{../figures/f_form.png}
-\end{figure}
-\column{0.5\textwidth}
-\begin{figure}
-	\hspace{-1cm}
-	\includegraphics[width=0.7\textwidth]{../figures/eps_form.png}
-\end{figure}
-\end{columns}
 \end{frame}
 
 
@@ -205,7 +185,7 @@
 	\eqref{equation_phase}: условия развития канала пробоя, границы применения разностной
 	схемы.
 \end{block}
-Для этого будем рассматривать задачу в определенных начальных условиях, упрощающих ее, но
+Для этого будем рассматривать задачу в определенных краевых условиях, упрощающих ее, но
 позволяющих установить интересующие нас свойства.
 \end{frame}
 
@@ -257,9 +237,9 @@ $$\chi(\phi) = \cfrac{1}{2} K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\p
 \begin{itemize}
 	\item Исследуем положения равновесия на устойчивость спектральным методом: к $\phi \equiv C$
 	прибавим возмущение $\delta \phi = e^{\alpha t}\cos(\omega x)$, линеаризуем уравнение на
-	$\delta \phi$
+	$\delta \phi$.
 	\item $\chi(\phi)$ возрастает в $C \Longrightarrow$ равновесие неустойчиво; $\chi(\phi)$
-	убывает в $C \Longrightarrow$ равновесие устойчиво
+	убывает в $C \Longrightarrow$ равновесие устойчиво.
 \end{itemize}
 \end{frame}
 
@@ -339,7 +319,7 @@ $$\delta_a^{b + 1} = \delta_a^b + m \tau \left( \cfrac{1}{2} K_\Phi^2 \epsilon''
 $$1 > \lambda(\theta) = 1 + m \tau \left( \cfrac{1}{2} K_\Phi^2 \epsilon''(P) +
 \cfrac{\Gamma}{l^2} f''(P) - \cfrac{2 \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \right)$$
 \begin{itemize}
-\item Исследуем вблизи $0$.
+\item Исследуем вблизи $P = 0$.
 \end{itemize}
 \end{frame}
 
@@ -380,21 +360,6 @@ $$\tau \leqslant \cfrac{1}{2m} \left( \cfrac{K_\Phi^2 \epsilon_0}{\delta^{5/3}} 
 
 
 \begin{frame}{Вычисления: проверка сходимости}
-Проводится ряд вычислений, затем результаты сравниваются по норме с лучшим в ряду.
-\begin{columns}
-\column{0.45\textwidth}
-\begin{figure}
-	\includegraphics[width=\textwidth]{../figures/convergence_fixed_nx.png}
-\end{figure}
-\column{0.45\textwidth}
-\begin{figure}
-	\includegraphics[width=\textwidth]{../figures/convergence_fixed_nt.png}
-\end{figure}
-\end{columns}
-\end{frame}
-
-
-\begin{frame}{Вычисления: проверка сходимости}
 \vspace{-0.2cm}
 \begin{figure}
 	\includegraphics[width=0.75\textwidth]{../figures/convergence_connected.png}
@@ -404,65 +369,6 @@ $$\tau \leqslant \cfrac{1}{2m} \left( \cfrac{K_\Phi^2 \epsilon_0}{\delta^{5/3}} 
 	\hspace{-0.4cm}
 	Здесь, согласно оценке устойчивости, $\tau = \cfrac{h^2}{4m \Gamma}$
 \end{center}
-\end{frame}
-
-
-\begin{frame}{Вычисления: положения равновесия}
-\begin{center}
-	$0 \leqslant \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma} < \delta^2$ -- <<слабое>> напряжение
-\end{center}
-\begin{columns}
-\column{0.45\textwidth}
-\begin{figure}
-	\includegraphics[width=\textwidth]{../figures/equilibrium_1_0.png}
-\end{figure}
-\begin{center}
-	$\phi \equiv 0$ \\
-	неустойчивое
-\end{center}
-\column{0.45\textwidth}
-\begin{figure}
-	\includegraphics[width=\textwidth]{../figures/equilibrium_1_1.png}
-\end{figure}
-\begin{center}
-	$\phi \equiv 1$ \\
-	устойчивое
-\end{center}
-\end{columns}
-\end{frame}
-
-
-\begin{frame}{Вычисления: положения равновесия}
-\begin{center}
-	$\delta^2 < \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma} < (1 + \delta)^2$ --
-	<<среднее>> напряжение
-\end{center}
-\begin{columns}
-\column{0.33\textwidth}
-\begin{figure}
-	\includegraphics[width=\textwidth]{../figures/equilibrium_2_0.png}
-\end{figure}
-\begin{center}
-	$\phi \equiv 0$ \\
-	устойчивое
-\end{center}
-\column{0.33\textwidth}
-\begin{figure}
-	\includegraphics[width=\textwidth]{../figures/equilibrium_2_05.png}
-\end{figure}
-\begin{center}
-	$\phi \equiv C_3$ \\
-	неустойчивое
-\end{center}
-\column{0.33\textwidth}
-\begin{figure}
-	\includegraphics[width=\textwidth]{../figures/equilibrium_2_1.png}
-\end{figure}
-\begin{center}
-	$\phi \equiv 1$ \\
-	устойчивое
-\end{center}
-\end{columns}
 \end{frame}
 
 
@@ -507,27 +413,20 @@ $$\pi(x, t) = \pi_1(x, t) + \pi_2(x, t) + \pi_3(x, t)$$
 
 
 \begin{frame}{Вычисления: свободная энергия}
+\vspace{-0.3cm}
 \begin{columns}
 \column{0.5\textwidth}
 \begin{figure}
-	\includegraphics[width=\textwidth]{../figures/density_electrical.png}
+	\includegraphics[width=0.75\textwidth]{../figures/density_electrical.png}
 \end{figure}
 \column{0.5\textwidth}
 \begin{figure}
-	\includegraphics[width=\textwidth]{../figures/density_depth.png}
+	\includegraphics[width=0.75\textwidth]{../figures/density_depth.png}
 \end{figure}
 \end{columns}
-\end{frame}
-
-
-\begin{frame}{Вычисления: свободная энергия}
 \vspace{-0.3cm}
 \begin{figure}
 	\includegraphics[width=0.65\textwidth]{../figures/density_surface.png}
-\end{figure}
-\vspace{-0.4cm}
-\begin{figure}
-	\includegraphics[width=0.65\textwidth]{../figures/density_total.png}
 \end{figure}
 \end{frame}
 
