@@ -32,7 +32,7 @@ double phi_0_stationary_lighter(const ModelParameters& params, double x) {
 
 double phi_0_stationary_lighter_2(const ModelParameters& params, double x) {
 	const double PI = 3.14159265358979324;
-	return 1.0 - std::exp(-70 * x);
+	return 1.0 - std::exp(-6 * x);
 }
 
 double node_regular(const ModelParameters& params, double x) {
@@ -45,7 +45,7 @@ double node_logarithmic(const ModelParameters& params, double x) {
 }
 
 double node_logarithmic_2(const ModelParameters& params, double x) {
-	const double MIN_POWER = 3.0;
+	const double MIN_POWER = 1.5;
 	return (std::exp((x / params.width - 1.0) * MIN_POWER) - std::exp(-MIN_POWER)) * params.width;
 }
 
@@ -61,9 +61,9 @@ int main(int argc, char* argv[]) {
 	fin.close();
 
 	std::ofstream fout(argv[2]);
-	ModelToStationarySimple model(params, phi_0_stationary, node_regular,
+	ModelToStationarySimple model(params, phi_0_stationary_lighter_2, node_logarithmic_2,
 		fout << std::scientific << std::setprecision(8));
-	model.setup(true, 0);
+	model.setup(true, 0, 1e-6);
 	model.run();
 	fout.close();
 	

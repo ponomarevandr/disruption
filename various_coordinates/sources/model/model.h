@@ -54,4 +54,5 @@ protected:
 	virtual bool shallPrint_phi() const;
 	virtual void additionalOutput() const;
 	virtual bool stopCondition() const;
+	virtual void iterationAdditional();
 };

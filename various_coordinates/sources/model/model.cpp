@@ -15,6 +15,7 @@ void Model::run() {
 	out << (shallPrint_phi() ? "+" : "-") << "\n\n";
 	initialize();
 	iterationDerivatives();
+	iterationAdditional();
 	printValues(out, true);
 	printValues(out);
 	progress_bar.update(0);
@@ -24,6 +25,7 @@ void Model::run() {
 		for (size_t j = 0; j < params.t_skip; ++j) {
 			iterationUpdate();
 			iterationDerivatives();
+			iterationAdditional();
 		}
 		printValues(out);
 		progress_bar.update(i + params.t_skip);
@@ -143,3 +145,5 @@ void Model::additionalOutput() const {}
 bool Model::stopCondition() const {
 	return false;
 }
+
+void Model::iterationAdditional() {}
