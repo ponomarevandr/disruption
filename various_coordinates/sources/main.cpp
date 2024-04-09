@@ -25,6 +25,15 @@ double phi_0_stationary(const ModelParameters& params, double x) {
 	return 0.5 - 0.5 * std::cos(x / params.l * PI);
 }
 
+double phi_0_stationary_shifted(const ModelParameters& params, double x) {
+	const double PI = 3.14159265358979324;
+	if (x < 0.1 * params.l)
+		return 0;
+	if (x > 1.1 * params.l)
+		return 1;
+	return 0.5 - 0.5 * std::cos((x / params.l - 0.1) * PI);
+}
+
 double phi_0_stationary_lighter(const ModelParameters& params, double x) {
 	const double PI = 3.14159265358979324;
 	return 1.0 - std::exp(-15 * x);
@@ -61,9 +70,9 @@ int main(int argc, char* argv[]) {
 	fin.close();
 
 	std::ofstream fout(argv[2]);
-	ModelToStationarySimple model(params, phi_0_stationary_lighter_2, node_logarithmic_2,
+	ModelToStationarySimple model(params, phi_0_stationary_shifted, node_regular,
 		fout << std::scientific << std::setprecision(8));
-	model.setup(true, 0, 1e-6);
+	model.setup(true, 0, 1e-2);
 	model.run();
 	fout.close();
 	

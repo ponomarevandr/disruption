@@ -26,6 +26,8 @@ protected:
 	std::string details;
 	double dx;
 	double dt;
+	size_t border_left;
+	size_t border_right;
 	std::vector<double> phi;
 	std::vector<double> r;
 	std::vector<double> r_mid;
@@ -37,6 +39,8 @@ protected:
 	std::vector<double> phi_r_cubed_mid;
 	std::vector<double> phi_x_x;
 	std::vector<double> phi_x_cubed_x;
+	std::vector<double> phi_x_x_r_mid;
+	std::vector<double> phi_x_x_x_x;
 	std::vector<double> phi_t;
 	ProgressBar progress_bar;
 
