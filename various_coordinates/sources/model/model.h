@@ -26,8 +26,6 @@ protected:
 	std::string details;
 	double dx;
 	double dt;
-	size_t border_left;
-	size_t border_right;
 	std::vector<double> phi;
 	std::vector<double> r;
 	std::vector<double> r_mid;

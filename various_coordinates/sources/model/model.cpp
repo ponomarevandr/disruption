@@ -6,8 +6,6 @@ Model::Model(const ModelParameters& params, NumericFunction&& phi_0, NumericFunc
 		node(std::move(node)), out(out), details(details), progress_bar(params.t_grid) {
 	dx = params.width / params.x_grid;
 	dt = params.duration / params.t_grid;
-	border_left = (params.alpha == 0 ? 1 : 2);
-	border_right = (params.alpha == 0 ? params.x_grid - 2 : params.x_grid - 3);
 }
 
 void Model::run() {
@@ -105,6 +103,8 @@ void Model::iterationDerivatives() {
 		phi_x_x[i] = 1.0 / r_coef[i] * (r_coef_mid[i] * phi_r_mid[i] -
 			r_coef_mid[i - 1] * phi_r_mid[i - 1]) / dr[i];
 	}
+	phi_x_x[0] = 2.0 * phi_r_mid[0] / dr_mid[0];
+	phi_x_x[params.x_grid] = 2.0 * (-phi_r_mid[params.x_grid - 1]) / dr_mid[params.x_grid - 1];
 	if (params.beta != 0) {
 		for (size_t i = 0; i < params.x_grid; ++i) {
 			phi_r_cubed_mid[i] = phi_r_mid[i] * phi_r_mid[i] * phi_r_mid[i];
@@ -115,15 +115,15 @@ void Model::iterationDerivatives() {
 		}
 	}
 	if (params.alpha != 0) {
-		for (size_t i = 1; i + 1 < params.x_grid; ++i) {
+		for (size_t i = 0; i < params.x_grid; ++i) {
 			phi_x_x_r_mid[i] = (phi_x_x[i + 1] - phi_x_x[i]) / dr_mid[i];
 		}
-		for (size_t i = 2; i + 2 <= params.x_grid; ++i) {
+		for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
 			phi_x_x_x_x[i] = 1.0 / r_coef[i] * (r_coef_mid[i] * phi_x_x_r_mid[i] -
 				r_coef_mid[i - 1] * phi_x_x_r_mid[i - 1]) / dr[i];
 		}
 	}
-	for (size_t i = border_left; i <= border_right; ++i) {
+	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
 		phi_t[i] = params.m * (
 			0.5 * eps_phi(phi[i]) * params.Phi_gradient * params.Phi_gradient +
 			params.Gamma / (params.l * params.l) * f_phi(phi[i]) +
@@ -135,7 +135,7 @@ void Model::iterationDerivatives() {
 }
 
 void Model::iterationUpdate() { 
-	for (size_t i = border_left; i <= border_right; ++i) {
+	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
 		phi[i] += dt * phi_t[i];
 	}
 }
