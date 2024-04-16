@@ -25,7 +25,7 @@ bool ModelToStationarySimple::shallPrint_phi() const {
 void ModelToStationarySimple::additionalOutput() const {
 	if (shall_print_phi)
 		out << ";";
-	out << gradient_norm << ";" << phi_r_mid[0] / r_coef_mid[0];
+	out << gradient_norm << ";" << phi_r_mid[0];
 }
 
 bool ModelToStationarySimple::stopCondition() const {
