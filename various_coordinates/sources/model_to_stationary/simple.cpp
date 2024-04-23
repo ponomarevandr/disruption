@@ -4,8 +4,8 @@
 
 
 ModelToStationarySimple::ModelToStationarySimple(const ModelParameters& params,
-	NumericFunction&& phi_0, NumericFunction&& node, std::ostream& out):
-	Model(params, std::move(phi_0), std::move(node), out) {}
+	BorderConditions&& border, NumericFunction&& node, std::ostream& out):
+	Model(params, std::move(border), std::move(node), out) {}
 
 void ModelToStationarySimple::setup(bool shall_print_phi, double gradient_threshold,
 		double accending_threshold) {
@@ -25,7 +25,7 @@ bool ModelToStationarySimple::shallPrint_phi() const {
 void ModelToStationarySimple::additionalOutput() const {
 	if (shall_print_phi)
 		out << ";";
-	out << gradient_norm << ";" << phi_r_mid[0];
+	out << gradient_norm << ";" << phi_r_mid[1];
 }
 
 bool ModelToStationarySimple::stopCondition() const {
@@ -37,7 +37,7 @@ bool ModelToStationarySimple::stopCondition() const {
 void ModelToStationarySimple::iterationAdditional() {
 	gradient_norm_previous = gradient_norm;
 	gradient_norm = 0;
-	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
+	for (size_t i = 1; i <= params.x_grid; ++i) {
 		gradient_norm = std::max(gradient_norm, std::abs(phi_t[i]));
 	}
 	gradient_norm /= params.m;

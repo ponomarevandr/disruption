@@ -9,7 +9,7 @@
 
 class ModelToStationarySimple: public Model {
 public:
-	ModelToStationarySimple(const ModelParameters& params, NumericFunction&& phi_0,
+	ModelToStationarySimple(const ModelParameters& params, BorderConditions&& border,
 		NumericFunction&& node, std::ostream& out);
 	void setup(bool shall_print_phi, double gradient_threshold, double accending_threshold);
 

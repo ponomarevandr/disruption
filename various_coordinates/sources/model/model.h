@@ -13,14 +13,25 @@ class Model {
 public:
 	using NumericFunction = std::function<double(const ModelParameters&, double)>;
 
+	struct BorderConditions {
+		NumericFunction phi_0;
+		double phi_left;
+		double phi_right;
+		double phi_x_left;
+		double phi_x_right;
+
+		BorderConditions(NumericFunction&& phi_0, double phi_left, double phi_right,
+			double phi_x_left, double phi_x_right);
+	};
+
 public:
-	Model(const ModelParameters& params, NumericFunction&& phi_0, NumericFunction&& node,
+	Model(const ModelParameters& params, BorderConditions&& border, NumericFunction&& node,
 		std::ostream& out, const std::string& details = "---");
 	void run();
 
 protected:
 	ModelParameters params;
-	NumericFunction phi_0;
+	BorderConditions border;
 	NumericFunction node;
 	std::ostream& out;
 	std::string details;
