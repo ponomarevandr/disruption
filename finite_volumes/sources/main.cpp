@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
 	std::ofstream fout(argv[2]);
 	ModelToStationarySimple model(params, phi_0_stationary, node_regular,
 		fout << std::scientific << std::setprecision(8));
-	model.setup(true, 0, 1e-2);
+	//model.setup(true, 0, 1e-2);
 	model.run();
 	fout.close();
 	
