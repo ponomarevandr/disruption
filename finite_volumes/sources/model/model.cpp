@@ -86,28 +86,29 @@ void Model::initialize() {
 			rPowerDiff(i, order + 1) * rPowerDiff(i - 1, order);
 		inter_coef_a_first_border[i] =
 			(order + 1.0) / (params.r_power + 1.0) *
-			rPowerDiff(params.x_grid + 1, i - 1) * rPowerDiff(order, i) / determinant;
+			rPowerDiff(i - 1, params.r_power + 1) * rPowerDiff(i, order) / determinant;
 		inter_coef_a_second_border[i] =
 			(order + 1.0) / (params.r_power + 1.0) *
-			-rPowerDiff(params.x_grid + 1, i) * rPowerDiff(order, i - 1) / determinant;
+			-rPowerDiff(i, params.r_power + 1) * rPowerDiff(i - 1, order) / determinant;
 	}
 	{
-		size_t order = params.r_power + 3;
+		//size_t order = params.r_power + 3;
+		size_t order = params.r_power + 2;
 		double determinant =
 			rPowerDiff(0, order + 1) * rPowerDiff(1, order) -
 			rPowerDiff(1, order + 1) * rPowerDiff(0, order);
 		inter_coef_a_first_higher =
 			(order + 1.0) / (params.r_power + 1.0) *
-			rPowerDiff(params.x_grid + 1, 0) * rPowerDiff(order, 1) / determinant;
+			rPowerDiff(0, params.r_power + 1) * rPowerDiff(1, order) / determinant;
 		inter_coef_a_second_higher =
 			(order + 1.0) / (params.r_power + 1.0) *
-			-rPowerDiff(params.x_grid + 1, 1) * rPowerDiff(order, 0) / determinant;
+			-rPowerDiff(1, params.r_power + 1) * rPowerDiff(0, order) / determinant;
 		inter_coef_b_first_higher =
 			order / (params.r_power + 1.0) *
-			-rPowerDiff(params.x_grid + 1, 0) * rPowerDiff(order + 1, 1) / determinant;
+			-rPowerDiff(0, params.r_power + 1) * rPowerDiff(1, order + 1) / determinant;
 		inter_coef_b_second_higher =
 			order / (params.r_power + 1.0) *
-			rPowerDiff(params.x_grid + 1, 1) * rPowerDiff(order + 1, 0) / determinant;
+			rPowerDiff(1, params.r_power + 1) * rPowerDiff(0, order + 1) / determinant;
 	}
 }
 
@@ -134,8 +135,12 @@ void Model::iterationDerivatives() {
 			phi[0] * inter_coef_b_first_higher +
 			phi[1] * inter_coef_b_second_higher;
 		phi_grad_border[1] =
-			inter_a * 3.0 * r_border[1] * r_border[1] +
-			inter_b * 2.0 * r_border[1];
+			//inter_a * 3.0 * r_border[1] * r_border[1] +
+			//inter_b * 2.0 * r_border[1];
+			inter_a * 2.0 * r_border[1] +
+			inter_b;
+			inter_a_higher = inter_a;
+			inter_b_higher = inter_b;
 	}
 	for (size_t i = 2; i < params.x_grid; ++i) {
 		double inter_a =
@@ -156,6 +161,8 @@ void Model::iterationDerivatives() {
 			)
 		);
 	}
+	phi_t[0] += inter_a_higher;
+	phi_t[1] += inter_a_higher;
 	phi_t[params.x_grid - 1] = 0;
 }
 
@@ -172,6 +179,7 @@ void Model::printValues(std::ostream& out, bool are_nodes) const {
 			if (i + params.x_skip <= params.x_grid)
 				out << ";";
 		}
+		out << ";" << inter_a_higher << ";" << inter_b_higher;
 	}
 	additionalOutput();
 	out << "\n";

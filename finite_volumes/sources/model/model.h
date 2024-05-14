@@ -44,6 +44,9 @@ protected:
 	double inter_coef_b_second_higher;
 	ProgressBar progress_bar;
 
+	double inter_a_higher;
+	double inter_b_higher;
+
 protected:
 	static std::string toSingleLine(const std::string&);
 	static double toPower(double value, size_t power);
