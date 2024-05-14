@@ -134,13 +134,15 @@ void Model::iterationDerivatives() {
 		double inter_b =
 			phi[0] * inter_coef_b_first_higher +
 			phi[1] * inter_coef_b_second_higher;
-		phi_grad_border[1] =
-			//inter_a * 3.0 * r_border[1] * r_border[1] +
-			//inter_b * 2.0 * r_border[1];
-			inter_a * 2.0 * r_border[1] +
-			inter_b;
-			inter_a_higher = inter_a;
-			inter_b_higher = inter_b;
+		for (size_t i = 0; i <= 1; ++i) {
+			phi_grad_border[i] =
+				//inter_a * 3.0 * r_border[1] * r_border[1] +
+				//inter_b * 2.0 * r_border[1];
+				inter_a * 2.0 * r_border[i] +
+				inter_b;
+		}
+		inter_a_higher = inter_a;
+		inter_b_higher = inter_b;
 	}
 	for (size_t i = 2; i < params.x_grid; ++i) {
 		double inter_a =
@@ -148,8 +150,7 @@ void Model::iterationDerivatives() {
 			phi[i] * inter_coef_a_second_border[i];
 		phi_grad_border[i] = inter_a;
 	}
-	flow_border[0] = 0;
-	for (size_t i = 1; i < params.x_grid; ++i) {
+	for (size_t i = 0; i < params.x_grid; ++i) {
 		flow_border[i] = 0.5 * phi_grad_border[i];
 	}
 	for (size_t i = 0; i + 1 < params.x_grid; ++i) {
@@ -161,8 +162,6 @@ void Model::iterationDerivatives() {
 			)
 		);
 	}
-	phi_t[0] += inter_a_higher;
-	phi_t[1] += inter_a_higher;
 	phi_t[params.x_grid - 1] = 0;
 }
 
