@@ -33,7 +33,7 @@ protected:
 	std::vector<double> r;
 	std::vector<double> phi_grad_border;
 	std::vector<double> phi_lapl;
-	std::vector<double> phi_grad_lapl_border;
+	std::vector<double> phi_lapl_grad_border;
 	std::vector<double> flow_border;
 	std::vector<double> phi_t;
 	std::vector<double> inter_coef_a_first_border;
@@ -42,6 +42,7 @@ protected:
 	double inter_coef_a_second_higher;
 	double inter_coef_b_first_higher;
 	double inter_coef_b_second_higher;
+	size_t inter_higher_power;
 	ProgressBar progress_bar;
 
 	double inter_a_higher;

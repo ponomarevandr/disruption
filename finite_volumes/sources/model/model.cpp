@@ -6,6 +6,7 @@ Model::Model(const ModelParameters& params, NumericFunction&& phi_0, NumericFunc
 		node(std::move(node)), out(out), details(details), progress_bar(params.t_grid) {
 	dx = params.width / params.x_grid;
 	dt = params.duration / params.t_grid;
+	inter_higher_power = params.alpha == 0 ? 2 : 3;
 }
 
 void Model::run() {
@@ -62,6 +63,7 @@ void Model::initialize() {
 		r_border[i] = node(params, dx * i);
 		s_border[i] = (params.r_power + 1) * toPower(r_border[i], params.r_power);
 	}
+	//s_border[0] = s_border[1];  // !!!
 	phi.resize(params.x_grid);
 	dv.resize(params.x_grid);
 	r.resize(params.x_grid);
@@ -74,7 +76,7 @@ void Model::initialize() {
 	}
 	phi_grad_border.resize(params.x_grid + 1);
 	phi_lapl.resize(params.x_grid);
-	phi_grad_lapl_border.resize(params.x_grid + 1);
+	phi_lapl_grad_border.resize(params.x_grid + 1);
 	flow_border.resize(params.x_grid + 1);
 	phi_t.resize(params.x_grid);
 	inter_coef_a_first_border.resize(params.x_grid + 1);
@@ -92,8 +94,7 @@ void Model::initialize() {
 			-rPowerDiff(i, params.r_power + 1) * rPowerDiff(i - 1, order) / determinant;
 	}
 	{
-		//size_t order = params.r_power + 3;
-		size_t order = params.r_power + 2;
+		size_t order = params.r_power + inter_higher_power;
 		double determinant =
 			rPowerDiff(0, order + 1) * rPowerDiff(1, order) -
 			rPowerDiff(1, order + 1) * rPowerDiff(0, order);
@@ -135,11 +136,14 @@ void Model::iterationDerivatives() {
 			phi[0] * inter_coef_b_first_higher +
 			phi[1] * inter_coef_b_second_higher;
 		for (size_t i = 0; i <= 1; ++i) {
-			phi_grad_border[i] =
-				//inter_a * 3.0 * r_border[1] * r_border[1] +
-				//inter_b * 2.0 * r_border[1];
-				inter_a * 2.0 * r_border[i] +
-				inter_b;
+			if (inter_higher_power == 2) {
+				phi_grad_border[i] = inter_a * 2.0 * r_border[i] + inter_b;
+			} else {
+				phi_grad_border[i] =
+					inter_a * 3.0 * r_border[i] * r_border[i] +
+					inter_b * 2.0 * r_border[i];
+			}
+				
 		}
 		inter_a_higher = inter_a;
 		inter_b_higher = inter_b;
@@ -153,6 +157,35 @@ void Model::iterationDerivatives() {
 	for (size_t i = 0; i < params.x_grid; ++i) {
 		flow_border[i] = 0.5 * phi_grad_border[i];
 	}
+
+	if (params.beta != 0) {
+		for (size_t i = 0; i < params.x_grid; ++i) {
+			flow_border[i] +=
+				params.beta * params.l * params.l *
+				phi_grad_border[i] * phi_grad_border[i] * phi_grad_border[i];
+		}
+	}
+
+	if (params.alpha != 0) {
+		for (size_t i = 0; i + 1 < params.x_grid; ++i) {
+			phi_lapl[i] = (
+				s_border[i + 1] * phi_grad_border[i + 1] - s_border[i] * phi_grad_border[i]
+			) / dv[i];
+		}
+		phi_lapl[params.x_grid - 1] = 0;
+		for (size_t i = 1; i < params.x_grid; ++i) {
+			double inter_c =
+				phi_lapl[i - 1] * inter_coef_a_first_border[i] +
+				phi_lapl[i] * inter_coef_a_second_border[i];
+			phi_lapl_grad_border[i] = inter_c;
+		}
+		phi_lapl_grad_border[0] = 0;
+		for (size_t i = 0; i < params.x_grid; ++i) {
+			flow_border[i] -=
+				params.alpha * 0.25 * params.l * params.l * phi_lapl_grad_border[i];
+		}
+	}
+
 	for (size_t i = 0; i + 1 < params.x_grid; ++i) {
 		phi_t[i] = params.m * (
 			0.5 * params.Phi_gradient * params.Phi_gradient * eps_phi(phi[i]) +
