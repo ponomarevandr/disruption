@@ -63,7 +63,6 @@ void Model::initialize() {
 		r_border[i] = node(params, dx * i);
 		s_border[i] = (params.r_power + 1) * toPower(r_border[i], params.r_power);
 	}
-	//s_border[0] = s_border[1];  // !!!
 	phi.resize(params.x_grid);
 	dv.resize(params.x_grid);
 	r.resize(params.x_grid);
@@ -173,13 +172,18 @@ void Model::iterationDerivatives() {
 			) / dv[i];
 		}
 		phi_lapl[params.x_grid - 1] = 0;
+		{
+			double inter_c =
+				phi_lapl[0] * inter_coef_a_first_border[1] +
+				phi_lapl[1] * inter_coef_a_second_border[1];
+			phi_lapl_grad_border[0] = 6 * inter_a_higher;
+		}
 		for (size_t i = 1; i < params.x_grid; ++i) {
 			double inter_c =
 				phi_lapl[i - 1] * inter_coef_a_first_border[i] +
 				phi_lapl[i] * inter_coef_a_second_border[i];
 			phi_lapl_grad_border[i] = inter_c;
 		}
-		phi_lapl_grad_border[0] = 0;
 		for (size_t i = 0; i < params.x_grid; ++i) {
 			flow_border[i] -=
 				params.alpha * 0.25 * params.l * params.l * phi_lapl_grad_border[i];
