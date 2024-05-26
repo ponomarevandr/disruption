@@ -134,7 +134,7 @@ void Model::iterationDerivatives() {
 		double inter_b =
 			phi[0] * inter_coef_b_first_higher +
 			phi[1] * inter_coef_b_second_higher;
-		for (size_t i = 0; i <= 1; ++i) {
+		for (size_t i = 0; i <= 0; ++i) {
 			if (inter_higher_power == 2) {
 				phi_grad_border[i] = inter_a * 2.0 * r_border[i] + inter_b;
 			} else {
@@ -147,7 +147,7 @@ void Model::iterationDerivatives() {
 		inter_a_higher = inter_a;
 		inter_b_higher = inter_b;
 	}
-	for (size_t i = 2; i < params.x_grid; ++i) {
+	for (size_t i = 1; i < params.x_grid; ++i) {
 		double inter_a =
 			phi[i - 1] * inter_coef_a_first_border[i] +
 			phi[i] * inter_coef_a_second_border[i];
