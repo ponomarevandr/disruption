@@ -1,5 +1,7 @@
 #include "model.h"
 
+#include <tuple>
+
 
 Model::Model(const ModelParameters& params, NumericFunction&& phi_0, NumericFunction&& node,
 		std::ostream& out, const std::string& details): params(params), phi_0(std::move(phi_0)),
@@ -52,8 +54,26 @@ double Model::toPower(double value, size_t power) {
 	return result;
 }
 
-double Model::rPowerDiff(size_t index, size_t order) const {
+double Model::getRPowerDiff(size_t index, size_t order) const {
 	return toPower(r_border[index + 1], order) - toPower(r_border[index], order);
+}
+
+Model::InterCoefficients::InterCoefficients(double a_first, double a_second, double b_first,
+	double b_second): a_first(a_first), a_second(a_second), b_first(b_first), b_second(b_second) {}
+
+Model::InterCoefficients Model::getInterCoefficients(size_t index, double integral_a_first,
+		double integral_a_second, double integral_b_first, double integral_b_second) const {
+	double determinant =
+		integral_a_first * integral_b_second - integral_b_first * integral_a_second;
+	double a_first = getRPowerDiff(index - 1, params.r_power + 1) * integral_b_second /
+		determinant;
+	double a_second = -getRPowerDiff(index, params.r_power + 1) * integral_b_first /
+		determinant;
+	double b_first = -getRPowerDiff(index - 1, params.r_power + 1) * integral_a_second /
+		determinant;
+	double b_second = getRPowerDiff(index, params.r_power + 1) * integral_a_first /
+		determinant;
+	return InterCoefficients(a_first, a_second, b_first, b_second);
 }
 
 void Model::initialize() {
@@ -69,7 +89,7 @@ void Model::initialize() {
 	phi.push_back(1.0);  // Временный костыль для совпадения размеров вывода
 	r.push_back(node(params, params.width));  // Временный костыль для совпадения размеров вывода
 	for (size_t i = 0; i < params.x_grid; ++i) {
-		dv[i] = rPowerDiff(i, params.r_power + 1);
+		dv[i] = getRPowerDiff(i, params.r_power + 1);
 		r[i] = 0.5 * (r_border[i] + r_border[i + 1]);
 		phi[i] = phi_0(params, r[i]);
 	}
@@ -81,34 +101,30 @@ void Model::initialize() {
 	inter_coef_a_first_border.resize(params.x_grid + 1);
 	inter_coef_a_second_border.resize(params.x_grid + 1);
 	for (size_t i = 1; i < params.x_grid; ++i) {
-		size_t order = params.r_power + 1;
-		double determinant =
-			rPowerDiff(i - 1, order + 1) * rPowerDiff(i, order) -
-			rPowerDiff(i, order + 1) * rPowerDiff(i - 1, order);
-		inter_coef_a_first_border[i] =
-			(order + 1.0) / (params.r_power + 1.0) *
-			rPowerDiff(i - 1, params.r_power + 1) * rPowerDiff(i, order) / determinant;
-		inter_coef_a_second_border[i] =
-			(order + 1.0) / (params.r_power + 1.0) *
-			-rPowerDiff(i, params.r_power + 1) * rPowerDiff(i - 1, order) / determinant;
+		size_t power = params.r_power + 1;
+		InterCoefficients inter_coefficients = getInterCoefficients(
+			i,
+			getRPowerDiff(i - 1, power + 1) * power / (power + 1),
+			getRPowerDiff(i, power + 1) * power / (power + 1),
+			getRPowerDiff(i - 1, power),
+			getRPowerDiff(i, power)
+		);
+		inter_coef_a_first_border[i] = inter_coefficients.a_first;
+		inter_coef_a_second_border[i] = inter_coefficients.a_second;
 	}
 	{
-		size_t order = params.r_power + inter_higher_power;
-		double determinant =
-			rPowerDiff(0, order + 1) * rPowerDiff(1, order) -
-			rPowerDiff(1, order + 1) * rPowerDiff(0, order);
-		inter_coef_a_first_higher =
-			(order + 1.0) / (params.r_power + 1.0) *
-			rPowerDiff(0, params.r_power + 1) * rPowerDiff(1, order) / determinant;
-		inter_coef_a_second_higher =
-			(order + 1.0) / (params.r_power + 1.0) *
-			-rPowerDiff(1, params.r_power + 1) * rPowerDiff(0, order) / determinant;
-		inter_coef_b_first_higher =
-			order / (params.r_power + 1.0) *
-			-rPowerDiff(0, params.r_power + 1) * rPowerDiff(1, order + 1) / determinant;
-		inter_coef_b_second_higher =
-			order / (params.r_power + 1.0) *
-			rPowerDiff(1, params.r_power + 1) * rPowerDiff(0, order + 1) / determinant;
+		size_t power = params.r_power + inter_higher_power;
+		InterCoefficients inter_coefficients = getInterCoefficients(
+			1,
+			getRPowerDiff(0, power + 1) * (params.r_power + 1) / (power + 1),
+			getRPowerDiff(1, power + 1) * (params.r_power + 1) / (power + 1),
+			getRPowerDiff(0, power) * (params.r_power + 1) / power,
+			getRPowerDiff(1, power) * (params.r_power + 1) / power
+		);
+		inter_coef_a_first_higher = inter_coefficients.a_first;
+		inter_coef_a_second_higher = inter_coefficients.a_second;
+		inter_coef_b_first_higher = inter_coefficients.b_first;
+		inter_coef_b_second_higher = inter_coefficients.b_second;
 	}
 }
 
@@ -128,26 +144,19 @@ double Model::eps_phi(double phi) const {
 
 void Model::iterationDerivatives() {
 	{
-		double inter_a =
-			phi[0] * inter_coef_a_first_higher +
-			phi[1] * inter_coef_a_second_higher;
-		double inter_b =
-			phi[0] * inter_coef_b_first_higher +
-			phi[1] * inter_coef_b_second_higher;
-		for (size_t i = 0; i <= 0; ++i) {
+		inter_a_higher = phi[0] * inter_coef_a_first_higher + phi[1] * inter_coef_a_second_higher;
+		inter_b_higher = phi[0] * inter_coef_b_first_higher + phi[1] * inter_coef_b_second_higher;
+		for (size_t i = 0; i <= 1; ++i) {
 			if (inter_higher_power == 2) {
-				phi_grad_border[i] = inter_a * 2.0 * r_border[i] + inter_b;
+				phi_grad_border[i] = inter_a_higher * 2.0 * r_border[i] + inter_b_higher;
 			} else {
 				phi_grad_border[i] =
-					inter_a * 3.0 * r_border[i] * r_border[i] +
-					inter_b * 2.0 * r_border[i];
+					inter_a_higher * 3.0 * r_border[i] * r_border[i] +
+					inter_b_higher * 2.0 * r_border[i];
 			}
-				
 		}
-		inter_a_higher = inter_a;
-		inter_b_higher = inter_b;
 	}
-	for (size_t i = 1; i < params.x_grid; ++i) {
+	for (size_t i = 2; i < params.x_grid; ++i) {
 		double inter_a =
 			phi[i - 1] * inter_coef_a_first_border[i] +
 			phi[i] * inter_coef_a_second_border[i];
@@ -172,12 +181,7 @@ void Model::iterationDerivatives() {
 			) / dv[i];
 		}
 		phi_lapl[params.x_grid - 1] = 0;
-		{
-			double inter_c =
-				phi_lapl[0] * inter_coef_a_first_border[1] +
-				phi_lapl[1] * inter_coef_a_second_border[1];
-			phi_lapl_grad_border[0] = 6 * inter_a_higher;
-		}
+		phi_lapl_grad_border[0] = 6 * inter_a_higher;
 		for (size_t i = 1; i < params.x_grid; ++i) {
 			double inter_c =
 				phi_lapl[i - 1] * inter_coef_a_first_border[i] +

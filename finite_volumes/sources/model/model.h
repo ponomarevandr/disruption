@@ -42,16 +42,27 @@ protected:
 	double inter_coef_a_second_higher;
 	double inter_coef_b_first_higher;
 	double inter_coef_b_second_higher;
+	double inter_a_higher;
+	double inter_b_higher;
 	size_t inter_higher_power;
 	ProgressBar progress_bar;
 
-	double inter_a_higher;
-	double inter_b_higher;
+protected:
+	struct InterCoefficients {
+		double a_first;
+		double a_second;
+		double b_first;
+		double b_second;
+
+		InterCoefficients(double a_first, double a_second, double b_first, double b_second);
+	};
 
 protected:
 	static std::string toSingleLine(const std::string&);
 	static double toPower(double value, size_t power);
-	double rPowerDiff(size_t index, size_t order) const;
+	double getRPowerDiff(size_t index, size_t power) const;
+	InterCoefficients getInterCoefficients(size_t index, double integral_a_first,
+		double integral_a_second, double integral_b_first, double integral_b_second) const;
 	void initialize();
 	double f(double phi) const;
 	double f_phi(double phi) const;
