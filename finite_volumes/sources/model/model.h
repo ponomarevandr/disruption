@@ -19,6 +19,25 @@ public:
 	void run();
 
 protected:
+	struct InterCoefficients {
+		double a_first;
+		double a_second;
+		double b_first;
+		double b_second;
+
+		InterCoefficients() = default;
+		InterCoefficients(double a_first, double a_second, double b_first, double b_second);
+	};
+
+	enum class InterCase {
+		QUADRATIC,
+		CUBIC,
+		POWER_TWO_THIRDS,
+		LOGARITHMIC,
+		POWER_ONE_THIRD
+	};
+
+protected:
 	ModelParameters params;
 	NumericFunction phi_0;
 	NumericFunction node;
@@ -34,28 +53,16 @@ protected:
 	std::vector<double> phi_grad_border;
 	std::vector<double> phi_lapl;
 	std::vector<double> phi_lapl_grad_border;
+	std::vector<double> flow_density_border;
 	std::vector<double> flow_border;
 	std::vector<double> phi_t;
 	std::vector<double> inter_coef_a_first_border;
 	std::vector<double> inter_coef_a_second_border;
-	double inter_coef_a_first_higher;
-	double inter_coef_a_second_higher;
-	double inter_coef_b_first_higher;
-	double inter_coef_b_second_higher;
+	InterCoefficients inter_coefs_higher;
+	InterCase inter_case;
 	double inter_a_higher;
 	double inter_b_higher;
-	size_t inter_higher_power;
 	ProgressBar progress_bar;
-
-protected:
-	struct InterCoefficients {
-		double a_first;
-		double a_second;
-		double b_first;
-		double b_second;
-
-		InterCoefficients(double a_first, double a_second, double b_first, double b_second);
-	};
 
 protected:
 	static std::string toSingleLine(const std::string&);

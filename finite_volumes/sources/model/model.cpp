@@ -1,6 +1,6 @@
 #include "model.h"
 
-#include <tuple>
+#include <cmath>
 
 
 Model::Model(const ModelParameters& params, NumericFunction&& phi_0, NumericFunction&& node,
@@ -8,7 +8,35 @@ Model::Model(const ModelParameters& params, NumericFunction&& phi_0, NumericFunc
 		node(std::move(node)), out(out), details(details), progress_bar(params.t_grid) {
 	dx = params.width / params.x_grid;
 	dt = params.duration / params.t_grid;
-	inter_higher_power = params.alpha == 0 ? 2 : 3;
+	switch (params.r_power) {
+	case 0:
+		inter_case = params.alpha == 0 ? InterCase::QUADRATIC : InterCase::CUBIC;
+		break;
+	case 1:
+		if (params.alpha != 0) {
+			inter_case = InterCase::LOGARITHMIC;
+		} else if (params.beta != 0) {
+			inter_case = InterCase::POWER_TWO_THIRDS;
+		} else {
+			std::cout << "Case forbidden!\nr_power == 1,\nalpha == 0,\nbeta == 0\n";
+			exit(0);
+		}
+		break;
+	case 2:
+		if (params.alpha != 0) {
+			std::cout << "Case forbidden!\nr_power == 2,\nalpha != 0\n";
+			exit(0);
+		} else if (params.beta != 0) {
+			inter_case = InterCase::POWER_ONE_THIRD;
+		} else {
+			std::cout << "Case forbidden!\nr_power == 2,\nalpha == 0,\nbeta == 0\n";
+			exit(0);
+		}
+		break;
+	default:
+		std::cout << "Unknown r_power!\nr_power == " << params.r_power << "\n";
+		exit(0);
+	}
 }
 
 void Model::run() {
@@ -96,6 +124,7 @@ void Model::initialize() {
 	phi_grad_border.resize(params.x_grid + 1);
 	phi_lapl.resize(params.x_grid);
 	phi_lapl_grad_border.resize(params.x_grid + 1);
+	flow_density_border.resize(params.x_grid + 1);
 	flow_border.resize(params.x_grid + 1);
 	phi_t.resize(params.x_grid);
 	inter_coef_a_first_border.resize(params.x_grid + 1);
@@ -112,19 +141,64 @@ void Model::initialize() {
 		inter_coef_a_first_border[i] = inter_coefficients.a_first;
 		inter_coef_a_second_border[i] = inter_coefficients.a_second;
 	}
-	{
-		size_t power = params.r_power + inter_higher_power;
-		InterCoefficients inter_coefficients = getInterCoefficients(
+	if (inter_case == InterCase::QUADRATIC || inter_case == InterCase::CUBIC) {
+		size_t power = params.r_power + (inter_case == InterCase::QUADRATIC ? 2 : 3);
+		inter_coefs_higher = getInterCoefficients(
 			1,
 			getRPowerDiff(0, power + 1) * (params.r_power + 1) / (power + 1),
 			getRPowerDiff(1, power + 1) * (params.r_power + 1) / (power + 1),
 			getRPowerDiff(0, power) * (params.r_power + 1) / power,
 			getRPowerDiff(1, power) * (params.r_power + 1) / power
 		);
-		inter_coef_a_first_higher = inter_coefficients.a_first;
-		inter_coef_a_second_higher = inter_coefficients.a_second;
-		inter_coef_b_first_higher = inter_coefficients.b_first;
-		inter_coef_b_second_higher = inter_coefficients.b_second;
+	}
+	if (inter_case == InterCase::POWER_TWO_THIRDS) {
+		double integral_a_first = 2.0 / (8.0 / 3.0) * (
+			std::pow(r_border[1], 8.0 / 3.0) - 
+				std::pow(r_border[0], 8.0 / 3.0)
+		);
+		double integral_a_second = 2.0 / (8.0 / 3.0) * (
+			std::pow(r_border[2], 8.0 / 3.0) - 
+				std::pow(r_border[1], 8.0 / 3.0)
+		);
+		inter_coefs_higher = getInterCoefficients(
+			1,
+			integral_a_first,
+			integral_a_second,
+			getRPowerDiff(0, 3) * 2.0 / 3.0,
+			getRPowerDiff(1, 3) * 2.0 / 3.0
+		);
+	}
+	if (inter_case == InterCase::POWER_ONE_THIRD) {
+		double integral_a_first = 3.0 / (10.0 / 3.0) * (
+			std::pow(r_border[1], 10.0 / 3.0) - 
+				std::pow(r_border[0], 10.0 / 3.0)
+		);
+		double integral_a_second = 3.0 / (10.0 / 3.0) * (
+			std::pow(r_border[2], 10.0 / 3.0) - 
+				std::pow(r_border[1], 10.0 / 3.0)
+		);
+		inter_coefs_higher = getInterCoefficients(
+			1,
+			integral_a_first,
+			integral_a_second,
+			getRPowerDiff(0, 4) * 3.0 / 4.0,
+			getRPowerDiff(1, 4) * 3.0 / 4.0
+		);
+	}
+	if (inter_case == InterCase::LOGARITHMIC) {
+		double integral_a_first = 1.0 / 8.0 *
+			std::pow(r_border[1], 4) * (4.0 * std::log(r_border[1]) - 5.0);
+		double integral_a_second = 1.0 / 8.0 * (
+			std::pow(r_border[2], 4) * (4.0 * std::log(r_border[2]) - 5.0) -
+				std::pow(r_border[1], 4) * (4.0 * std::log(r_border[1]) - 5.0)
+		);
+		inter_coefs_higher = getInterCoefficients(
+			1,
+			integral_a_first,
+			integral_a_second,
+			getRPowerDiff(0, 4) * 2.0 / 4.0,
+			getRPowerDiff(1, 4) * 2.0 / 4.0
+		);
 	}
 }
 
@@ -143,19 +217,39 @@ double Model::eps_phi(double phi) const {
 }
 
 void Model::iterationDerivatives() {
-	{
-		inter_a_higher = phi[0] * inter_coef_a_first_higher + phi[1] * inter_coef_a_second_higher;
-		inter_b_higher = phi[0] * inter_coef_b_first_higher + phi[1] * inter_coef_b_second_higher;
-		for (size_t i = 0; i <= 1; ++i) {
-			if (inter_higher_power == 2) {
-				phi_grad_border[i] = inter_a_higher * 2.0 * r_border[i] + inter_b_higher;
-			} else {
-				phi_grad_border[i] =
-					inter_a_higher * 3.0 * r_border[i] * r_border[i] +
-					inter_b_higher * 2.0 * r_border[i];
-			}
-		}
+	inter_a_higher =
+		phi[0] * inter_coefs_higher.a_first +
+		phi[1] * inter_coefs_higher.a_second;
+	inter_b_higher =
+		phi[0] * inter_coefs_higher.b_first +
+		phi[1] * inter_coefs_higher.b_second;
+	if (inter_case == InterCase::QUADRATIC) {
+		phi_grad_border[0] = inter_b_higher;
+		phi_grad_border[1] = inter_a_higher * 2.0 * r_border[1] + inter_b_higher;
 	}
+	if (inter_case == InterCase::CUBIC) {
+		phi_grad_border[0] = 0;
+		phi_grad_border[1] =
+			inter_a_higher * 3.0 * r_border[1] * r_border[1] +
+			inter_b_higher * 2.0 * r_border[1];
+	}
+	if (inter_case == InterCase::POWER_TWO_THIRDS) {
+		phi_grad_border[0] = 0;
+		phi_grad_border[1] =
+			2.0 / 3.0 * inter_a_higher / std::pow(r_border[1], 1.0 / 3.0) + inter_b_higher;
+	}
+	if (inter_case == InterCase::POWER_ONE_THIRD) {
+		phi_grad_border[0] = 0;
+		phi_grad_border[1] =
+			1.0 / 3.0 * inter_a_higher / std::pow(r_border[1], 2.0 / 3.0) + inter_b_higher;
+	}
+	if (inter_case == InterCase::LOGARITHMIC) {
+		phi_grad_border[0] = 0;
+		phi_grad_border[1] =
+			2.0 * inter_a_higher * r_border[1] * std::log(r_border[1]) +
+			r_border[1] * (inter_a_higher + 2.0 * inter_b_higher);
+	}
+	
 	for (size_t i = 2; i < params.x_grid; ++i) {
 		double inter_a =
 			phi[i - 1] * inter_coef_a_first_border[i] +
@@ -163,12 +257,12 @@ void Model::iterationDerivatives() {
 		phi_grad_border[i] = inter_a;
 	}
 	for (size_t i = 0; i < params.x_grid; ++i) {
-		flow_border[i] = 0.5 * phi_grad_border[i];
+		flow_density_border[i] = 0.5 * phi_grad_border[i];
 	}
 
 	if (params.beta != 0) {
 		for (size_t i = 0; i < params.x_grid; ++i) {
-			flow_border[i] +=
+			flow_density_border[i] +=
 				params.beta * params.l * params.l *
 				phi_grad_border[i] * phi_grad_border[i] * phi_grad_border[i];
 		}
@@ -181,7 +275,10 @@ void Model::iterationDerivatives() {
 			) / dv[i];
 		}
 		phi_lapl[params.x_grid - 1] = 0;
-		phi_lapl_grad_border[0] = 6 * inter_a_higher;
+		phi_lapl_grad_border[0] = 0;
+		if (inter_case == InterCase::CUBIC) {
+			phi_lapl_grad_border[0] = 6 * inter_a_higher;
+		}
 		for (size_t i = 1; i < params.x_grid; ++i) {
 			double inter_c =
 				phi_lapl[i - 1] * inter_coef_a_first_border[i] +
@@ -189,9 +286,24 @@ void Model::iterationDerivatives() {
 			phi_lapl_grad_border[i] = inter_c;
 		}
 		for (size_t i = 0; i < params.x_grid; ++i) {
-			flow_border[i] -=
+			flow_density_border[i] -=
 				params.alpha * 0.25 * params.l * params.l * phi_lapl_grad_border[i];
 		}
+	}
+
+	for (size_t i = 0; i < params.x_grid; ++i) {
+		flow_border[i] = s_border[i] * flow_density_border[i];
+	}
+	if (inter_case == InterCase::POWER_TWO_THIRDS) {
+		flow_border[0] += params.beta * params.l * params.l *
+			16.0 / 27.0 * inter_a_higher * inter_a_higher * inter_a_higher;
+	}
+	if (inter_case == InterCase::POWER_ONE_THIRD) {
+		flow_border[0] += params.beta * params.l * params.l *
+			1.0 / 9.0 * inter_a_higher * inter_a_higher * inter_a_higher;
+	}
+	if (inter_case == InterCase::LOGARITHMIC) {
+		flow_border[0] -= params.alpha * 0.25 * params.l * params.l * 8.0 * inter_a_higher;
 	}
 
 	for (size_t i = 0; i + 1 < params.x_grid; ++i) {
@@ -199,7 +311,7 @@ void Model::iterationDerivatives() {
 			0.5 * params.Phi_gradient * params.Phi_gradient * eps_phi(phi[i]) +
 			params.Gamma / (params.l * params.l) * f_phi(phi[i]) +
 			params.Gamma / dv[i] * (
-				s_border[i + 1] * flow_border[i + 1] - s_border[i] * flow_border[i]
+				flow_border[i + 1] - flow_border[i]
 			)
 		);
 	}
