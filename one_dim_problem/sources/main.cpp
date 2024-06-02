@@ -1,5 +1,6 @@
 #include "model/model_parameters.h"
 #include "model/model.h"
+#include "model/model_free_energy.h"
 
 #include <iostream>
 #include <fstream>
@@ -18,7 +19,9 @@ int main(int argc, char* argv[]) {
 	fin.close();
 
 	std::ofstream fout(argv[2]);
-	Model model(params, fout << std::scientific << std::setprecision(8));
+	//Model model(params, fout << std::scientific << std::setprecision(8));
+	ModelFreeEnergy model(params, fout << std::scientific << std::setprecision(8),
+		ModelFreeEnergy::Type::TOTAL);
 	model.run();
 	fout.close();
 	
