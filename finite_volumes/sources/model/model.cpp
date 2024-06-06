@@ -246,8 +246,8 @@ void Model::iterationDerivatives() {
 	if (inter_case == InterCase::LOGARITHMIC) {
 		phi_grad_border[0] = 0;
 		phi_grad_border[1] =
-			2.0 * inter_a_higher * r_border[1] * std::log(r_border[1]) +
-			r_border[1] * (inter_a_higher + 2.0 * inter_b_higher);
+			inter_a_higher * r_border[1] * (2.0 * std::log(r_border[1]) - 1.0) +
+			2.0 * inter_b_higher * r_border[1];
 	}
 	
 	for (size_t i = 2; i < params.x_grid; ++i) {
