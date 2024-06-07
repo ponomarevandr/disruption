@@ -38,7 +38,7 @@ void ModelToStationarySimple::iterationAdditional() {
 	gradient_norm_previous = gradient_norm;
 	gradient_norm = 0;
 	for (size_t i = 0; i <= params.x_grid; ++i) {
-		gradient_norm = std::max(gradient_norm, std::abs(phi_t[i]));
+		gradient_norm = std::max(gradient_norm, std::abs(phi_t[i]) / params.m);
 	}
 	gradient_norm /= params.m;
 }

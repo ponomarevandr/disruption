@@ -93,13 +93,17 @@ Model::InterCoefficients Model::getInterCoefficients(size_t index, double integr
 		double integral_a_second, double integral_b_first, double integral_b_second) const {
 	double determinant =
 		integral_a_first * integral_b_second - integral_b_first * integral_a_second;
-	double a_first = getRPowerDiff(index - 1, params.r_power + 1) * integral_b_second /
+	double a_first =
+		getRPowerDiff(index - 1, params.r_power + 1) * integral_b_second /
 		determinant;
-	double a_second = -getRPowerDiff(index, params.r_power + 1) * integral_b_first /
+	double a_second =
+		-getRPowerDiff(index, params.r_power + 1) * integral_b_first /
 		determinant;
-	double b_first = -getRPowerDiff(index - 1, params.r_power + 1) * integral_a_second /
+	double b_first =
+		-getRPowerDiff(index - 1, params.r_power + 1) * integral_a_second /
 		determinant;
-	double b_second = getRPowerDiff(index, params.r_power + 1) * integral_a_first /
+	double b_second =
+		getRPowerDiff(index, params.r_power + 1) * integral_a_first /
 		determinant;
 	return InterCoefficients(a_first, a_second, b_first, b_second);
 }
@@ -114,8 +118,8 @@ void Model::initialize() {
 	phi.resize(params.x_grid);
 	dv.resize(params.x_grid);
 	r.resize(params.x_grid);
-	phi.push_back(1.0);  // Временный костыль для совпадения размеров вывода
-	r.push_back(node(params, params.width));  // Временный костыль для совпадения размеров вывода
+	phi.push_back(1.0);  // Костыль для совпадения размеров вывода
+	r.push_back(node(params, params.width));  // Костыль для совпадения размеров вывода
 	for (size_t i = 0; i < params.x_grid; ++i) {
 		dv[i] = getRPowerDiff(i, params.r_power + 1);
 		r[i] = 0.5 * (r_border[i] + r_border[i + 1]);
@@ -330,6 +334,33 @@ void Model::printValues(std::ostream& out, bool are_nodes) const {
 			out << (are_nodes ? r[i] : phi[i]);
 			if (i + params.x_skip <= params.x_grid)
 				out << ";";
+		}
+		for (size_t i = 0; i <= INTERPOLATION_OUTPUT_GRID; ++i) {
+			double current_r = r[0] / INTERPOLATION_OUTPUT_GRID * i;
+			double current_phi;
+			if (inter_case == InterCase::QUADRATIC) {
+				current_phi = inter_a_higher * current_r * current_r + inter_b_higher * current_r;
+			}
+			if (inter_case == InterCase::CUBIC) {
+				current_phi =
+					inter_a_higher * current_r * current_r * current_r +
+					inter_b_higher * current_r * current_r;
+			}
+			if (inter_case == InterCase::POWER_TWO_THIRDS) {
+				current_phi =
+					inter_a_higher * std::pow(current_r, 2.0 / 3.0) + inter_b_higher * current_r;
+			}
+			if (inter_case == InterCase::POWER_ONE_THIRD) {
+				current_phi =
+					inter_a_higher * std::pow(current_r, 1.0 / 3.0) + inter_b_higher * current_r;
+			}
+			if (inter_case == InterCase::LOGARITHMIC) {
+				current_phi = i == 0 ? 0 : (
+					inter_a_higher * current_r * current_r * (std::log(current_r) - 1) +
+					inter_b_higher * current_r * current_r
+				);
+			}
+			out << ";" << current_phi;
 		}
 		out << ";" << inter_a_higher << ";" << inter_b_higher;
 	}

@@ -38,6 +38,7 @@ protected:
 	};
 
 protected:
+	static constexpr size_t INTERPOLATION_OUTPUT_GRID = 5;
 	ModelParameters params;
 	NumericFunction phi_0;
 	NumericFunction node;

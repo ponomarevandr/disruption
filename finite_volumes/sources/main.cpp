@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iomanip>
 #include <cmath>
+#include <limits>
 
 
 double phi_0(const ModelParameters& params, double x) {
@@ -54,6 +55,7 @@ int main(int argc, char* argv[]) {
 	ModelToStationarySimple model(params, phi_0_stationary, node_regular,
 		fout << std::scientific << std::setprecision(8));
 	//model.setup(true, 0, 1e-2);
+	model.setup(true, 1e-9, std::numeric_limits<double>::infinity());
 	model.run();
 	fout.close();
 	
