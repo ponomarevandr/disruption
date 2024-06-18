@@ -21,6 +21,7 @@
 
 %%% Таблицы
 \usepackage{array}
+\usepackage{../slashbox}
 
 %%% Картинки
 \usepackage{graphicx}
@@ -101,7 +102,7 @@
 \begin{itemize}
 	\item Рассматриваем твердый диэлектрик
 	\item Деградация диэлектрических свойств материала
-	\item Процесс развивается в ограниченной зоне -- канале
+	\item Процесс развивается в ограниченной зоне -- канале пробоя
 	\item Сложная физическая природа
 \end{itemize}
 \end{frame}
@@ -125,7 +126,7 @@
 
 
 \begin{frame}{Математическая модель}
-Модель, предложенная в работе \cite{zipunova_higher_codimension}:
+Модель, предложенная в работе \cite{pitike_dielectric_breakdown}:
 \begin{itemize}
 	\item $\pi = \textcolor{red}{-\cfrac{1}{2} \epsilon[\phi] (\nabla \Phi, \nabla \Phi)} +
 	\Gamma \left( \cfrac{1 - f(\phi)}{l^2} + \cfrac{1}{4} (\nabla \phi, \nabla \phi) \right)$
@@ -221,22 +222,22 @@
 \section{Постановка задачи}
 
 \begin{frame}{Одномерная задача}
-\vspace{-0.2cm}
+\vspace{-0.3cm}
 \begin{itemize}
 	\item Область $\Omega = [0, w]_x \times [0, h]_y \times I_z$ в форме параллелепипеда;
 	\item $\phi(\textbf{x}, 0) = \phi_0(\textbf{x}) = \phi_0(x), \; \epsilon_0(\textbf{x}) =
 	\epsilon_0(x)$ не зависят от $y$ и $z$;
 	\item $\Phi|_{y = 0} = \Phi^- \in \mathbb{R}, \; \Phi|_{y = h} = \Phi^+ \in \mathbb{R}$.
 \end{itemize}
-\vspace{-0.5cm}
+\vspace{0.3cm}
+Решением является функция электрического потенциала
 \begin{columns}
 \column{0.65\textwidth}
-Решением является функция электрического потенциала
-\vspace{-0.2cm}
+\vspace{-1cm}
 $$\Phi(\textbf{x}, t) = \Phi^- \hm + \cfrac{y}{h}(\Phi^+ - \Phi^-)$$
 \column{0.35\textwidth}
 \begin{figure}
-	\vspace*{-0.8cm}
+	\vspace*{-2cm}
 	\hspace*{0.5cm}
 	\includegraphics[width=0.85\textwidth]{../figures/one_dim_problem.jpg}
 \end{figure}
@@ -281,9 +282,9 @@ $$\chi(\phi) = \cfrac{1}{2} K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\p
 \end{center}
 \vspace{-0.2cm}
 $$0 \leqslant \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma} < \delta^2$$
-\vspace{-0.5cm}
+\vspace{-0.7cm}
 \begin{figure}
-	\includegraphics[width=0.9\textwidth]{../figures/equilibriums_case_1.png}
+	\includegraphics[width=\textwidth]{../figures/equilibriums_case_1.png}
 \end{figure}
 \column{0.3\textwidth}
 \begin{center}
@@ -291,9 +292,9 @@ $$0 \leqslant \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma} < \delta^2$$
 \end{center}
 \vspace{-0.2cm}
 $$\delta^2 < \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma} < (1 + \delta)^2$$
-\vspace{-0.5cm}
+\vspace{-0.7cm}
 \begin{figure}
-	\includegraphics[width=0.9\textwidth]{../figures/equilibriums_case_2.png}
+	\includegraphics[width=\textwidth]{../figures/equilibriums_case_2.png}
 \end{figure}
 \column{0.3\textwidth}
 \begin{center}
@@ -301,12 +302,11 @@ $$\delta^2 < \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma} < (1 + \delta)^2$$
 \end{center}
 \vspace{-0.2cm}
 $$(1 + \delta)^2 < \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma}$$
-\vspace{-0.5cm}
+\vspace{-0.7cm}
 \begin{figure}
-	\includegraphics[width=0.9\textwidth]{../figures/equilibriums_case_3.png}
+	\includegraphics[width=\textwidth]{../figures/equilibriums_case_3.png}
 \end{figure}
 \end{columns}
-\vspace{0.1cm}
 \begin{columns}
 \column{0.3\textwidth}
 \hspace{0.5cm}
@@ -364,8 +364,8 @@ $$1 > \lambda(\theta) = 1 + m \tau \left( \cfrac{1}{2} K_\Phi^2 \epsilon''(P) +
 
 \begin{frame}{Оценка устойчивости}
 \begin{block}{Условие устойчивости}
-	$$\tau \leqslant \cfrac{1}{2m \left( \cfrac{K_\Phi^2 \epsilon_0}{\delta^{5/3}} +
-	\cfrac{\Gamma}{h^2} \right)}$$
+	$$\tau \leqslant \cfrac{1}{2m} \left( \cfrac{K_\Phi^2 \epsilon_0}{\delta^{5/3}} +
+	\cfrac{\Gamma}{h^2} \right)^{-1}$$
 \end{block}
 \begin{block}{Упрощенное условие устойчивости}
 	$$\tau \leqslant \cfrac{1}{4m} \min \left(\cfrac{\delta^{5/3}}{K_\Phi^2 \epsilon_0}, \;
@@ -383,7 +383,7 @@ $$1 > \lambda(\theta) = 1 + m \tau \left( \cfrac{1}{2} K_\Phi^2 \epsilon''(P) +
 \end{figure}
 \column{0.12\textwidth}
 \hfill \\
-\vspace{4cm}
+\vspace{3.5cm}
 \hspace{-2.5cm}
 Узлов по измерениям: \\
 \hspace{-2.5cm}
@@ -448,16 +448,17 @@ $$\tau \leqslant \cfrac{1}{2m} \left( \cfrac{K_\Phi^2 \epsilon_0}{\delta^{5/3}} 
 
 
 \begin{frame}{Свободная энергия}
-\vspace{-0.5cm}
+\vspace{-0.7cm}
 $$\Pi(t) = \int\limits_\Omega \pi(x, t) dx$$
 $$\pi(x, t) = \pi_1(x, t) + \pi_2(x, t) + \pi_3(x, t)$$
 \vspace{-0.3cm}
 \begin{itemize}
 	\item $\pi_1(x, t) = -\cfrac{K_\Phi^2}{2} \, \epsilon(\phi(x, t))$ -- плотность энергии
 	электрического поля;
-	\item $\pi_2(x, t) = \Gamma \cfrac{1 - f(\phi(x, t))}{l^2}$ -- плотность энергии роста пробоя;
+	\item $\pi_2(x, t) = \Gamma \cfrac{1 - f(\phi(x, t))}{l^2}$ -- плотность энергии, отнесенной
+	к веществу внутри канала;
 	\item $\pi_3(x, t) = \cfrac{\Gamma}{4} \left( \cfrac{\partial \phi}{\partial x}(x, t)
-	\right)^2$ -- плотность энергии образования граничной зоны пробоя
+	\right)^2$ -- плотность энергии, отнесенной к граничной зоне канала
 \end{itemize}
 \end{frame}
 
@@ -467,36 +468,175 @@ $$\pi(x, t) = \pi_1(x, t) + \pi_2(x, t) + \pi_3(x, t)$$
 \begin{columns}
 \column{0.5\textwidth}
 \begin{figure}
-	\includegraphics[width=0.95\textwidth]{../figures/density_electrical.png}
+	\includegraphics[width=\textwidth]{../figures/density_electrical.png}
 \end{figure}
 \column{0.5\textwidth}
 \begin{figure}
-	\includegraphics[width=0.95\textwidth]{../figures/density_depth.png}
+	\includegraphics[width=\textwidth]{../figures/density_depth.png}
 \end{figure}
 \end{columns}
 \end{frame}
 
 
 \begin{frame}{Вычисления: свободная энергия}
-\vspace{-0.8cm}
+\vspace{-0.6cm}
 \begin{figure}
-	\includegraphics[width=0.8\textwidth]{../figures/density_surface.png}
+	\includegraphics[width=0.86\textwidth]{../figures/density_surface.png}
 \end{figure}
 \end{frame}
 
 
 \begin{frame}{Вычисления: свободная энергия}
-\vspace{-0.8cm}
+\vspace{-0.6cm}
 \begin{figure}
-	\includegraphics[width=0.83\textwidth]{../figures/energy_total.png}
+	\includegraphics[width=0.88\textwidth]{../figures/energy_total.png}
 \end{figure}
 \end{frame}
 
 
-\section{Обобщение модели}
+\section{Исследование обобщения модели}
+
+\begin{frame}{Постановка задачи}
+Исследуем распределение фазового поля вокруг проводников ($\phi = 0$) различного вида. Рассмотрим
+следующие краевые задачи:
+\begin{enumerate}
+	\item $\Omega = [0, +\infty)_x \times I_y \times I_z, \; \phi|_{x = 0} = 0, \; \phi \to 1$ при
+	$r = x \to +\infty$ -- плоский случай;
+	\item $\Omega = \mathbb{R}_x \times \mathbb{R}_y \times I_z, \; \phi|_{x, y = 0} = 0, \;
+	\phi \to 1$ при $r = \sqrt{x^2 + y^2} \to +\infty$ -- \\ цилиндрический случай;
+	\item $\Omega = \mathbb{R}_x \times \mathbb{R}_y \times \mathbb{R}_z, \;
+	\phi|_{x, y, z = 0} = 0, \; \phi \to 1$ при $r = \sqrt{x^2 + y^2 + z^2} \to +\infty$ -- \\
+	сферический случай.
+\end{enumerate}
+Ищем стационарное решение $\phi = \phi(r)$.
+\end{frame}
+
+
+\begin{frame}{Суть проблемы}
+\begin{columns}
+\column{0.5\textwidth}
+\centering
+Плоский случай
+\column{0.5\textwidth}
+\centering
+Цилиндрический случай
+\end{columns}
+\vspace{0.5cm}
+\begin{columns}
+\column{0.49\textwidth}
+Задача Коши:
+\vspace{-0.3cm}
+$$\phi(0) = 0; \qquad \cfrac{\partial \phi}{\partial x} = \cfrac{2}{l} \sqrt{1 - f(\phi)}$$
+\begin{figure}
+	\includegraphics[width=\textwidth]{../figures/result_volumes.png}
+\end{figure}
+\column{0.01\textwidth}
+\rule{0.4pt}{0.7\textheight}
+\column{0.49\textwidth}
+\centering
+Задача поставлена некорректно \\ и решения не имеет \cite{zipunova_higher_codimension}
+\end{columns}
+\end{frame}
+
 
 \begin{frame}{Обобщение модели}
+\begin{block}{Обобщение модели, предложенное в работе \cite{zipunova_higher_codimension}}
+\begin{itemize}
+	\item Уравнение электрического потенциала $\Phi$:
+	$$\Div(\epsilon[\phi] \nabla \Phi) = 0$$
+	\item Уравнение фазового поля $\phi$:
+	$$\cfrac{1}{m} \cfrac{\partial \phi}{\partial t} =
+    \cfrac{1}{2} \epsilon'(\phi) (\nabla \Phi, \nabla \Phi) +
+    \cfrac{\Gamma}{l^2} f'(\phi) +
+    \cfrac{1}{2} \Gamma \triangle \phi -
+    \alpha \cfrac{\Gamma l^2}{4} \triangle^2 \phi +
+    \beta \Gamma l^{p - 2} \Div (\| \, \nabla \phi \, \|_2^{p - 2} \nabla \phi)$$
+\end{itemize}
+\end{block}
+\begin{itemize}
+	\item $\triangle^2 \phi = \triangle(\triangle \phi)$ -- билапласиан;
+	\item $\Div (\| \, \nabla \phi \, \|_2^{p - 2} \nabla \phi)$ -- $p$-лапласиан
+\end{itemize}
+\end{frame}
 
+
+\begin{frame}{Разностная схема}
+На границе $r = 0$ области моделирования у решения $\phi$ ожидается особенность. \\
+Основная идея: пусть одна из базисных функций, используемых для приближения $\phi$ вблизи $0$,
+имеет тот же вид особенности.
+$$\cfrac{1}{m} (\widetilde{\phi}_i^{j + 1} - \widetilde{\phi}_i^j) = \tau \cfrac{\Gamma}{l^2}
+f'(\widetilde{\phi}_i^j) + \cfrac{\tau}{dV_i} \Gamma (\rho_{i + 1/2}^j S_{i + 1/2} -
+\rho_{i - 1/2}^j S_{i - 1/2}) \text{;}$$
+$$dV_i = r_{i + 1/2}^{k + 1} - r_{i - 1/2}^{k + 1}; \qquad
+S_{i \pm 1/2} = (k + 1) r_{i \pm 1/2}^k \text{;}$$
+$$\rho_{i \pm 1/2}^j = \cfrac{1}{2}
+\left[ \cfrac{\partial \phi}{\partial r} \right]_{i \pm 1/2}^j -
+\alpha \cfrac{l^2}{4} \left[ \cfrac{\partial (\triangle \phi)}{\partial r} \right]_{i \pm 1/2}^j +
+\beta l^2 \left( \left[ \cfrac{\partial \phi}{\partial r} \right]_{i \pm 1/2}^j \right)^3
+\text{;}$$
+$$\widetilde{\triangle \phi}_i^j = \cfrac{1}{dV_i}
+\left( \left[ \cfrac{\partial \phi}{\partial r} \right]_{i + 1/2}^j S_{i + 1/2} -
+\left[ \cfrac{\partial \phi}{\partial r} \right]_{i - 1/2}^j S_{i - 1/2} \right)$$
+\end{frame}
+
+
+\begin{frame}{Полученные результаты}
+\vspace{-1cm}
+\begin{center}
+	Предполагаемые виды особенности решения $\phi$ в точке $r = 0$
+\end{center}
+\begin{tabular}{|m{3cm}||m{3.5cm}|m{3.5cm}|m{3.5cm}|}
+	\hline
+	\vspace*{2mm} \hfill \vspace*{2mm} &\centering $\alpha = 0, \; \beta = 0$ &
+	\centering $\alpha = 0, \; \beta \neq 0$ & \centering \arraybackslash $\alpha \neq 0$ \\
+	\hline
+	\hline
+	\vspace{2mm} Плоский \linebreak случай \vspace{2mm} &
+	Без особенности & Без особенности & Без особенности \\
+	\hline
+	\vspace{2mm} Цилиндрический \linebreak случай \vspace{2mm} &
+	Не имеет решения & $r^{2/3}$ & $r^2 (\ln r - 1)$ \\
+	\hline
+	\vspace{2mm} Сферический \linebreak случай \vspace{2mm} &
+	Предположительно не имеет решения & $r^{1/3}$ & Предположительно
+	не имеет решения \\
+	\hline
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}{Полученные результаты}
+\vspace{-0.6cm}
+\begin{figure}
+	\includegraphics[width=0.81\textwidth]{../figures/result_volumes_cyl_bi.png}
+\end{figure}
+\vspace{-0.7cm}
+\begin{center}
+	Цилиндрический случай, $\alpha = 1$: особенность вида $r^2 (\ln r - 1)$
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Полученные результаты}
+\vspace{-0.6cm}
+\begin{figure}
+	\includegraphics[width=0.81\textwidth]{../figures/result_volumes_sph_p.png}
+\end{figure}
+\vspace{-0.7cm}
+\begin{center}
+	Сферический случай, $\alpha = 0, \; \beta = 1$: особенность вида $r^{1/3}$
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Заключение}
+Основные результаты работы.
+\begin{itemize}
+    \item Проведен теоретический анализ модели.
+    \item Построена разностная схема, дана содержательная оценка ее устойчивости.
+    \item Исследовано обобщение исходной модели; на основе метода конечных объемов построена
+    специальная разностная схема, учитывающая особенности решений на границе области моделирования.
+\end{itemize}
 \end{frame}
 
 
