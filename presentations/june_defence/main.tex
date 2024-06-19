@@ -131,8 +131,8 @@
 	\item $\pi = \textcolor{red}{-\cfrac{1}{2} \epsilon[\phi] (\nabla \Phi, \nabla \Phi)} +
 	\Gamma \left( \cfrac{1 - f(\phi)}{l^2} + \cfrac{1}{4} (\nabla \phi, \nabla \phi) \right)$
 	-- плотность свободной энергии
-	\item $\Gamma$ -- энегрия роста пробоя на единицу длины
-	\item $l$ -- величина <<размытия>> пробоя
+	\item $\Gamma$ -- энегрия роста канала пробоя на единицу длины
+	\item $l$ -- величина <<размытия>> канала
 	\item $\epsilon(\textbf{x}, t)$ -- диэлектрическая проницаемость среды
 	\item $f(\phi)$ -- интерполирующая функция
 \end{itemize}
@@ -211,11 +211,10 @@
 \begin{frame}{Цель работы}
 \begin{block}{Цель работы}
 	Исследовать качественные характеристики системы уравнений \eqref{equation_potential},
-	\eqref{equation_phase}: условия развития канала пробоя, границы применения разностной
-	схемы.
+	\eqref{equation_phase} и выполнить ее численный анализ.
 \end{block}
-Для этого будем рассматривать задачу в определенных краевых условиях, упрощающих ее, но
-позволяющих установить интересующие нас свойства.
+Для этого рассмотрим задачу в определенных краевых условиях, упрощающих ее, но позволяющих
+установить интересующие свойства.
 \end{frame}
 
 
@@ -224,10 +223,10 @@
 \begin{frame}{Одномерная задача}
 \vspace{-0.3cm}
 \begin{itemize}
-	\item Область $\Omega = [0, w]_x \times [0, h]_y \times I_z$ в форме параллелепипеда;
+	\item Область $\Omega = [0, w]_x \times [0, h]_y \times I_z$ в форме параллелепипеда
 	\item $\phi(\textbf{x}, 0) = \phi_0(\textbf{x}) = \phi_0(x), \; \epsilon_0(\textbf{x}) =
-	\epsilon_0(x)$ не зависят от $y$ и $z$;
-	\item $\Phi|_{y = 0} = \Phi^- \in \mathbb{R}, \; \Phi|_{y = h} = \Phi^+ \in \mathbb{R}$.
+	\epsilon_0(x)$ не зависят от $y$ и $z$
+	\item $\Phi|_{y = 0} = \Phi^- \in \mathbb{R}, \; \Phi|_{y = h} = \Phi^+ \in \mathbb{R}$
 \end{itemize}
 \vspace{0.3cm}
 Решением является функция электрического потенциала
@@ -336,7 +335,7 @@ $\phi \equiv 1$ неустойчивое
 	$$\cfrac{1}{m} \cfrac{\phi_a^{b + 1} - \phi_a^b}{\tau} = \cfrac{1}{2} K_\phi^2
 	\epsilon'(\phi_a^b) + \cfrac{\Gamma}{l^2} f'(\phi_a^b) + \cfrac{\Gamma}{2}
 	\cfrac{\phi_{a + 1}^b - 2 \phi_a^b + \phi_{a - 1}^b}{h^2}$$
-	$$\phi_a^0 = \phi_0(ah); \quad \phi_0^b = \phi_l(b \tau); \quad \phi_{w/h}^b = \phi_r(b \tau)$$
+	$$\phi_a^0 = \phi_0(ah); \quad \phi_0^b = \phi_l(b \tau); \quad \phi_n^b = \phi_r(b \tau)$$
 	Сетка регулярная; $\tau$ -- шаг по времени, $h$ -- шаг по пространству.
 \end{block}
 Явная разностная схема первого порядка по времени, второго -- по пространству.
@@ -453,12 +452,12 @@ $$\Pi(t) = \int\limits_\Omega \pi(x, t) dx$$
 $$\pi(x, t) = \pi_1(x, t) + \pi_2(x, t) + \pi_3(x, t)$$
 \vspace{-0.3cm}
 \begin{itemize}
-	\item $\pi_1(x, t) = -\cfrac{K_\Phi^2}{2} \, \epsilon(\phi(x, t))$ -- плотность энергии
+	\item $\pi_1(x, t) = -\cfrac{K_\Phi^2}{2} \, \epsilon(\phi)$ -- плотность энергии
 	электрического поля;
-	\item $\pi_2(x, t) = \Gamma \cfrac{1 - f(\phi(x, t))}{l^2}$ -- плотность энергии, отнесенной
+	\item $\pi_2(x, t) = \Gamma \cfrac{1 - f(\phi)}{l^2}$ -- плотность энергии, отнесенной
 	к веществу внутри канала;
-	\item $\pi_3(x, t) = \cfrac{\Gamma}{4} \left( \cfrac{\partial \phi}{\partial x}(x, t)
-	\right)^2$ -- плотность энергии, отнесенной к граничной зоне канала
+	\item $\pi_3(x, t) = \cfrac{\Gamma}{4} \left( \cfrac{\partial \phi}{\partial x} \right)^2$ --
+	плотность энергии, отнесенной к граничной зоне канала
 \end{itemize}
 \end{frame}
 
@@ -554,7 +553,7 @@ $$\phi(0) = 0; \qquad \cfrac{\partial \phi}{\partial x} = \cfrac{2}{l} \sqrt{1 -
 \end{itemize}
 \end{block}
 \begin{itemize}
-	\item $\triangle^2 \phi = \triangle(\triangle \phi)$ -- билапласиан;
+	\item $\triangle^2 \phi = \triangle(\triangle \phi)$ -- билапласиан
 	\item $\Div (\| \, \nabla \phi \, \|_2^{p - 2} \nabla \phi)$ -- $p$-лапласиан
 \end{itemize}
 \end{frame}
@@ -562,8 +561,24 @@ $$\phi(0) = 0; \qquad \cfrac{\partial \phi}{\partial x} = \cfrac{2}{l} \sqrt{1 -
 
 \begin{frame}{Разностная схема}
 На границе $r = 0$ области моделирования у решения $\phi$ ожидается особенность. \\
-Основная идея: пусть одна из базисных функций, используемых для приближения $\phi$ вблизи $0$,
-имеет тот же вид особенности.
+Идея подхода:
+\begin{itemize}
+	\item используем метод конечных объемов: к ячейке $\Omega_i$ отнесено среднее
+	$\widetilde{\phi}_i$ функции $\phi$;
+	\item в первой и второй ячейках приближаем $\phi$ ЛК базисных функций, одна из которых имеет
+	тот же вид особенности, что решение $\phi$;
+	\item как и в классическом МКО, уравнения на $\widetilde{\phi}_i$ являются следствием
+	балансовых соотношений.
+\end{itemize}
+Преимущества подхода:
+\begin{itemize}
+	\item точно учитываются граничные условия;
+	\item точно учитывается асимптотика решения $\phi$ при $r \to 0$.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Разностная схема}
 $$\cfrac{1}{m} (\widetilde{\phi}_i^{j + 1} - \widetilde{\phi}_i^j) = \tau \cfrac{\Gamma}{l^2}
 f'(\widetilde{\phi}_i^j) + \cfrac{\tau}{dV_i} \Gamma (\rho_{i + 1/2}^j S_{i + 1/2} -
 \rho_{i - 1/2}^j S_{i - 1/2}) \text{;}$$
@@ -630,11 +645,11 @@ $$\widetilde{\triangle \phi}_i^j = \cfrac{1}{dV_i}
 
 
 \begin{frame}{Заключение}
-Основные результаты работы.
+Основные результаты работы:
 \begin{itemize}
-    \item Проведен теоретический анализ модели.
-    \item Построена разностная схема, дана содержательная оценка ее устойчивости.
-    \item Исследовано обобщение исходной модели; на основе метода конечных объемов построена
+    \item проведен теоретический анализ модели;
+    \item построена разностная схема, дана содержательная оценка ее устойчивости;
+    \item исследовано обобщение исходной модели; на основе метода конечных объемов построена
     специальная разностная схема, учитывающая особенности решений на границе области моделирования.
 \end{itemize}
 \end{frame}
@@ -648,7 +663,7 @@ $$\widetilde{\triangle \phi}_i^j = \cfrac{1}{dV_i}
 \begin{frame}{}
 \begin{center}
 	\Large
-	Спасибо за внимание
+	Спасибо за внимание!
 \end{center}
 \end{frame}
 
