@@ -6,6 +6,7 @@ set(SOURCES
 	sources/main.cpp
 	sources/model/model.cpp
 	sources/model/model_parameters.cpp
+	sources/model/model_free_energy.cpp
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")

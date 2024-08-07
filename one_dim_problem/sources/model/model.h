@@ -13,7 +13,7 @@ public:
 		"A one-dimensional setting of the electrical breakdown problem");
 	void run();
 
-private:
+protected:
 	ModelParameters params;
 	std::ostream& out;
 	std::string description;
@@ -24,7 +24,7 @@ private:
 	static constexpr double START_DENT_WIDTH = 0.5;
 	static constexpr double START_DENT_DEPTH = 0.05;
 
-private:
+protected:
 	double phi_0(double x) const;
 	void initialize();
 	double f(double phi) const;
