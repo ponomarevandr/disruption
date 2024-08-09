@@ -1,0 +1,86 @@
+%!TEX root = main.tex
+
+\section{Постановка задачи и модель}
+
+\subsection{Математическая модель}
+
+Приведем описание математической модели, предложенной в работе \cite{pitike_dielectric_breakdown}.
+
+Итак, рассматривается ограниченная область пространства $\Omega \subset \mathbb{R}^3$. Распределение фаз вещества в ней задается гладкой функцией $\phi: \Omega \times [0, +\infty)_t \to [0, 1], \; \phi(\mathbf{x}, t)$ -- фазовым полем; вещество может находиться в одной из двух фаз: $\phi \approx 1$ -- <<неповрежденное>>, $\phi \approx 0$ -- <<полностью разрушенное>> (то есть относящееся к каналу пробоя), -- а также в промежуточных состояниях в зоне диффузной границы.
+
+Диэлектрическую проницаемость среды $\epsilon$ предлагается описать следующей формулой:
+\begin{equation}
+    \epsilon(\mathbf{x}, t) = \epsilon[\phi] = \cfrac{\epsilon_0(\mathbf{x})}{f(\phi(\mathbf{x}, t)) + \delta} \text{.}
+    \label{equation_epsilon}
+\end{equation}
+Здесь $\epsilon_0(\mathbf{x})$ -- диэлектрическая проницаемость неповрежденной среды; $f(\phi) = 4\phi^3 - 3\phi^4$ -- интерполирующая функция, гладко соединяющая уровни $0$ и $1$ ($f(0) = 0, \; f(1) \hm = 1, \; f'(0) = f'(1) = 0$); $0 < \delta \ll 1$ -- регуляризующий параметр. Обратим внимание, что при $\phi = 1 \;\; \epsilon(\mathbf{x}, t) \approx \epsilon_0(\mathbf{x})$, что соответствует диэлектрику; при $\phi = 0 \;\; \epsilon(\mathbf{x}, t) = \epsilon_0(\mathbf{x})/\delta$ \linebreak (в $\delta^{-1} \gg 1$ раз больше), что соответствует проводнику.
+
+Помимо фазового поля $\phi$, состояние системы описывает также функция $\Phi: \Omega \hm \times [0, +\infty)_t \to \mathbb{R}, \; \Phi(\mathbf{x}, t)$ -- потенциал электрического поля.
+
+Постулируется следующее выражение для свободной энергии:
+\begin{equation}
+    \Pi = \int \limits_\Omega \pi d \mathbf{x} \text{,}
+    \label{equation_free_energy}
+\end{equation}
+\begin{equation}
+    \pi = -\cfrac{1}{2} \epsilon[\phi] (\nabla \Phi, \nabla \Phi) + \Gamma \cfrac{1 - f(\phi)}{l^2} + \cfrac{\Gamma}{4} (\nabla \phi, \nabla \phi) \text{.}
+    \label{equation_free_energy_density}
+\end{equation}
+Здесь $\Gamma > 0, \; l > 0$ -- числовые параметры модели, константы.
+
+Постулируются два уравнения, определяющие динамику системы:
+\begin{equation*}
+\begin{cases}
+    \cfrac{\delta \pi}{\delta \Phi} = 0 \text{;} \\
+    \cfrac{1}{m} \cfrac{\partial \phi}{\partial t} = -\cfrac{\delta \pi}{\delta \phi} \text{.}
+\end{cases}
+\end{equation*}
+Здесь константа $m > 0$ -- числовой параметр модели, называемый подвижностью: она имеет смысл скорости изменения $\phi$ под действием единичной <<приложенной силы>>. Говоря нестрого, согласно первому уравнению электрический потенциал $\Phi$ распределяется так, чтобы свободная энергия системы была минимальной; согласно второму -- фазовое поле $\phi$ с определенной скоростью стремится к тому, чтобы свободная энергия была минимальной.
+
+Отыскав явно вариационные производные в двух уравнениях выше, получим следующую систему уравнений:
+\begin{numcases}{}
+    \Div(\epsilon[\phi] \nabla \Phi) = 0 \text{;} \label{equation_Phi} \\
+    \cfrac{1}{m} \cfrac{\partial \phi}{\partial t} = \cfrac{1}{2} \epsilon'(\phi) (\nabla \Phi, \nabla \Phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{1}{2} \Gamma \triangle \phi \text{.}
+    \label{equation_phi}
+\end{numcases}
+Здесь $(\cdot)' \equiv (\cdot)_\phi'$. Система состоит из двух уравнений: на $\phi$ и $\Phi$ соответственно; система связная, второе уравнение нелинейное, является уравнением типа Аллена--Кана.
+
+В таблице \ref{table_quantities}, перечислены названия и размерности величин, встречающихся в описанной модели.
+
+\begin{table}[!tp]
+\captionsetup{justification=raggedright,singlelinecheck=false}
+\caption[]{Величины, относящиеся к модели.}
+\centering
+\begin{tabular}{|c|c|m{10cm}|}
+    \hline
+    Величина & Размерность & Название либо физический смысл \\
+    \hline \hline
+    $\phi(\mathbf{x}, t)$ & $1$ & фазовое поле \\
+    \hline
+    \rule{0mm}{7mm}
+    $\Phi(\mathbf{x}, t)$ & $\cfrac{\text{Дж}}{\text{Кл}}$ & потенциал электрического поля \\[2mm]
+    \hline
+    $\Pi(t)$ & $\text{Дж}$ & свободная энергия \\
+    \hline
+    \rule{0mm}{7mm}
+    $\pi(\mathbf{x}, t)$ & $\cfrac{\text{Дж}}{\text{м}^3}$ & плотность свободной энергии \\[2mm]
+    \hline
+    \rule{0mm}{7mm}
+    $\epsilon(\mathbf{x}, t)$ & $\cfrac{\text{Ф}}{\text{м}} = \cfrac{\text{Кл}^2}{\text{Дж} \cdot \text{м}}$ & диэлектрическая проницаемость среды \\[2mm]
+    \hline
+    \rule{0mm}{7mm}
+    $\epsilon_0(\mathbf{x})$ & $\cfrac{\text{Ф}}{\text{м}} = \cfrac{\text{Кл}^2}{\text{Дж} \cdot \text{м}}$ & диэлектрическая проницаемость неповрежденной среды \\[2mm]
+    \hline
+    $\delta$ & $1$ & определяет диэлектрическую проницаемость полностью разрушенной среды: она равна $\epsilon_0(\mathbf{x})/\delta$ \\
+    \hline
+    $l$ & $\text{м}$ & характерная толщина диффузной границы \\
+    \hline
+    \rule{0mm}{7mm}
+    $\Gamma$ & $\cfrac{\text{Дж}}{\text{м}}$ & характерная энергия образования единицы длины канала пробоя \\[2mm]
+    \hline
+    \rule{0mm}{7mm}
+    $m$ & $\cfrac{\text{с} \cdot \text{Дж}}{\text{м}^3}$ & подвижность фазового поля $\phi$ \\[2mm]
+    \hline
+\end{tabular}
+\label{table_quantities}
+\end{table}

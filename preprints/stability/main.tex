@@ -76,6 +76,7 @@
 
 
 %%% Свои операторы
+\DeclareMathOperator{\Div}{div}
 
 
 %%% Оформление теорем
@@ -89,12 +90,10 @@
 
 %%% Описание препринта
 \newcommand{\PreprintTitle}{
-	Неизотермическая консервативная модель динамики развития
-	канала электрического пробоя типа <<диффузной границы>>
+	Неизотермическая консервативная модель динамики развития канала электрического пробоя типа <<диффузной границы>>
 }
 \newcommand{\PreprintTitleEnglish}{
-	Neizotermicheskaya konservativnaya modelie dinamiki razvitiya
-	kanala oelektricheskogo proboya tipa <<diffouznoy granicea>>
+	Neizotermicheskaya konservativnaya modelie dinamiki razvitiya kanala oelektricheskogo proboya tipa <<diffouznoy granicea>>
 }
 \newcommand{\PreprintAuthors}{
 	А.С.~Пономарев, Е.Б.~Савенков, Е.В.~Зипунова
@@ -105,8 +104,6 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\sloppy
 
 \begin{document}
 
@@ -142,69 +139,28 @@
 \noindent \textbf{Аннотация} \\
 {
 	\small
-	В настоящей работе предложена модель типа <<диффузной границы>>
-	для описания динамики развития канала электрического пробоя,
-	которая обобщает качественную модель процесса,
-	предложенную ранее в работах других авторов.
-	В отличии от них, предложенная в настоящей работе модель включает в
-	себя уравнение закона сохранения энергии и является энергетически
-	консервативной,
-	самосогласованным образом учитывая процессы преобразования
-	энергии в ходе развития канала электрического пробоя.
-	Вывод модели основан на применении методов рациональной
-	механики сплошных сред, в частности,
-	теории микросил и микронапряжений М.~Гуртина. \\[3mm]
-	\textbf{Ключевые слова:}
-	модели типа диффузной границы, фазовое поле,
-	параметр порядка, электрический пробой \\[5mm]
+	Цель настоящей работы -- исследование качественных характеристик и численный анализ модели типа диффузной границы, описывающей развитие канала электрического пробоя в твердом диэлектрике. Проведен анализ устойчивости положений равновесия системы; установлены условия развития канала пробоя из малых возмущений неповрежденной среды. Построена и изучена разностная схема для задачи, дана содержательная оценка ее устойчивости. Полученные теоретические результаты подтверждены моделированием на компьютере. \\[3mm]
+	\textbf{Ключевые слова:} модель типа диффузной границы, фазовое поле, устойчивость,	электрический пробой. \\[5mm]
 }
 \emph{\PreprintAuthorsEnglish},
 \PreprintTitleEnglish \\[3mm]
 \textbf{Abstract} \\
 {
 	\small
-	In this paper we consider phase-field model which describes
-	electric breackdown process in solid dielectrics.
-	The presented model extends the earlier presented
-	one.
-	The derived model includes energy conservation equation,
-	accounts for nonisothermal effects (e.g., Joule heating)
-	and consistently describes energy transformation during
-	breakdown channel propagation.
-	The consistent derivaton of the model is performed
-	in the context of rational thermomechanics framework and
-	M.~Gurtin therory of microstresses and microforces. \\[3mm]
-	\textbf{Key words and phrases:}
-	diffuse interface models, phase field, order parameter, electric breakdown. \\[5mm]
+	[Annotaciya rabotea na angliyskom yazeake.] \\[3mm]
+	\textbf{Key words and phrases:} diffuse interface models, phase field, stability, electrical breakdown. \\[5mm]
 }
 
 \newpage
 
+\input{introduction}
 
-\section{Заключение}
+\input{problem_and_model}
 
-В настоящей работе предложена математическая модель
-типа диффузной границы для описания динамики развития канала
-электрического
-пробоя. Построенная модель обобщает результаты
-работы \cite{zipunova_higher_codimension} (какая-то ссылка). В отличие от рассмотренной в этой работе
-модели,
-предложенная в настоящей работе модель
-позволяет учитывать неизотермические процессы,
-является консервативной и включает в себя
-уравнение закона сохранения энергии.
-
-Вывод модели выполнен в рамках методов рациональной механики сплошной
-среды с применением процедуры Колмана-Нолла и теории микросил и
-микронапряжений М.~Гуртина. Таким образом, построенная модель является
-термодинамически корректной в смысле выполнения закона сохранения
-энергии  и выполнения второго закона термодинамики
-в форме неравенства Клазиуса-Дюгема.
-
+\input{conclusion}
 
 \newpage
 \printbibliography
-
 
 \newpage
 \tableofcontents
