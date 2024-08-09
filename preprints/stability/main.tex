@@ -1,0 +1,214 @@
+\documentclass[a4paper,12pt]{article}
+
+%%% Размер шрифта
+\usepackage[14pt]{extsizes}
+
+%%% Поля
+\usepackage[
+	left=2cm,
+	right=2cm,
+	top=2cm,
+	bottom=3cm,
+	bindingoffset=0cm
+]{geometry}
+
+%%% Работа с русским языком
+\usepackage{cmap}						% поиск в PDF
+\usepackage{mathtext}					% русские буквы в формулах
+\usepackage[T2A]{fontenc}				% кодировка
+\usepackage[utf8]{inputenc}				% кодировка исходного текста
+\usepackage[english,russian]{babel}		% локализация и переносы
+\usepackage{indentfirst}
+\frenchspacing
+
+%%% Дополнительная работа с математикой
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools}  % AMS
+
+%%% Текст в колонки
+\usepackage{multicol}
+
+%%% Списки
+\usepackage{enumitem}
+\setlist{nosep, leftmargin=*}
+\renewcommand{\labelenumi}{\arabic*)}
+
+%%% Системы уравнений
+\usepackage{cases}
+
+%%% Таблицы
+\usepackage{array}
+
+%%% Рисунки
+\usepackage{graphicx}
+\usepackage{float}
+
+%%% Точка в подписях к рисункам
+\usepackage[labelsep=period]{caption}
+
+%%% Список литературы
+\bibliographystyle{bibliography_style/gost-numeric.bbx}
+\usepackage[
+	natbib = true,
+	style = gost-numeric,
+	sorting = none,
+	backend = biber,
+	language = autobib,
+	autolang = other
+]{biblatex}
+\addbibresource{references.bib}
+
+%%% Исправление символа номера при использовании gost-numeric.bbx
+\usepackage{textcomp}
+\DefineBibliographyStrings{russian}{number={\textnumero}}
+
+%%% Гиперссылки
+\usepackage[pdftex,unicode]{hyperref}
+
+%%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}{\hbox{$\mathsurround=0pt #1$}}{}}
+
+
+%%% Свои команды
+
+\newcommand*{\No}{\textnumero}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+
+%%% Свои операторы
+
+
+%%% Оформление теорем
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Утверждение}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Замечание}
+
+
+%%% Описание препринта
+\newcommand{\PreprintTitle}{
+	Неизотермическая консервативная модель динамики развития
+	канала электрического пробоя типа <<диффузной границы>>
+}
+\newcommand{\PreprintTitleEnglish}{
+	Neizotermicheskaya konservativnaya modelie dinamiki razvitiya
+	kanala oelektricheskogo proboya tipa <<diffouznoy granicea>>
+}
+\newcommand{\PreprintAuthors}{
+	А.С.~Пономарев, Е.Б.~Савенков, Е.В.~Зипунова
+}
+\newcommand{\PreprintAuthorsEnglish}{
+	A.S.~Ponomarev, E.B.~Savenkov, E.V.~Zipunova
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\sloppy
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+
+\begin{center}
+	РОССИЙСКАЯ АКАДЕМИЯ НАУК \\
+	ОРДЕНА ЛЕНИНА \\
+	ИНСТИТУТ ПРИКЛАДНОЙ МАТЕМАТИКИ \\
+	имени М. В. КЕЛДЫША \\
+
+	\vspace*{60mm}
+	\Large{\PreprintAuthors} \\
+	\vspace*{20mm}
+	\textbf{\large \PreprintTitle} \\
+	\vspace*{110mm}
+	\Large{Москва, 2024}
+	\vspace*{-50mm}
+\end{center}
+
+\end{titlepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{page}{2}
+
+\thispagestyle{empty}
+
+\noindent \emph{\PreprintAuthors}, 
+\PreprintTitle
+\vspace*{3mm}
+
+\noindent \textbf{Аннотация} \\
+{
+	\small
+	В настоящей работе предложена модель типа <<диффузной границы>>
+	для описания динамики развития канала электрического пробоя,
+	которая обобщает качественную модель процесса,
+	предложенную ранее в работах других авторов.
+	В отличии от них, предложенная в настоящей работе модель включает в
+	себя уравнение закона сохранения энергии и является энергетически
+	консервативной,
+	самосогласованным образом учитывая процессы преобразования
+	энергии в ходе развития канала электрического пробоя.
+	Вывод модели основан на применении методов рациональной
+	механики сплошных сред, в частности,
+	теории микросил и микронапряжений М.~Гуртина. \\[3mm]
+	\textbf{Ключевые слова:}
+	модели типа диффузной границы, фазовое поле,
+	параметр порядка, электрический пробой \\[5mm]
+}
+\emph{\PreprintAuthorsEnglish},
+\PreprintTitleEnglish \\[3mm]
+\textbf{Abstract} \\
+{
+	\small
+	In this paper we consider phase-field model which describes
+	electric breackdown process in solid dielectrics.
+	The presented model extends the earlier presented
+	one.
+	The derived model includes energy conservation equation,
+	accounts for nonisothermal effects (e.g., Joule heating)
+	and consistently describes energy transformation during
+	breakdown channel propagation.
+	The consistent derivaton of the model is performed
+	in the context of rational thermomechanics framework and
+	M.~Gurtin therory of microstresses and microforces. \\[3mm]
+	\textbf{Key words and phrases:}
+	diffuse interface models, phase field, order parameter, electric breakdown. \\[5mm]
+}
+
+\newpage
+
+
+\section{Заключение}
+
+В настоящей работе предложена математическая модель
+типа диффузной границы для описания динамики развития канала
+электрического
+пробоя. Построенная модель обобщает результаты
+работы \cite{zipunova_higher_codimension} (какая-то ссылка). В отличие от рассмотренной в этой работе
+модели,
+предложенная в настоящей работе модель
+позволяет учитывать неизотермические процессы,
+является консервативной и включает в себя
+уравнение закона сохранения энергии.
+
+Вывод модели выполнен в рамках методов рациональной механики сплошной
+среды с применением процедуры Колмана-Нолла и теории микросил и
+микронапряжений М.~Гуртина. Таким образом, построенная модель является
+термодинамически корректной в смысле выполнения закона сохранения
+энергии  и выполнения второго закона термодинамики
+в форме неравенства Клазиуса-Дюгема.
+
+
+\newpage
+\printbibliography
+
+
+\newpage
+\tableofcontents
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
