@@ -10,8 +10,8 @@
 
 Диэлектрическую проницаемость среды $\epsilon$ предлагается описать следующей формулой:
 \begin{equation}
-    \epsilon(\vx, t) = \epsilon[\phi] = \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) + \delta} \tpoint
-    \label{eq:epsilon}
+	\epsilon(\vx, t) = \epsilon[\phi] = \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) + \delta} \tpoint
+	\label{eq:epsilon}
 \end{equation}
 Здесь $\epsilon_0(\vx)$ -- диэлектрическая проницаемость неповрежденной среды; $f(\phi) = 4\phi^3 - 3\phi^4$ -- интерполирующая функция, гладко соединяющая значения $0$ и $1$ ($f(0) = 0, \; f(1) = 1, \; f'(0) = f'(1) = 0$); $0 < \delta \ll 1$ -- регуляризующий параметр. Обратим внимание, что при $\phi = 1 \;\; \epsilon(\vx, t) \approx \epsilon_0(\vx)$, что соответствует диэлектрику; при $\phi = 0 \;\; \epsilon(\vx, t) = \epsilon_0(\vx) / \delta$ (в $\delta^{-1} \gg 1$ раз больше), что соответствует проводнику.
 
@@ -19,30 +19,30 @@
 
 Постулируется следующее выражение для свободной энергии:
 \begin{equation}
-    \Pi = \int \limits_\Omega \pi d \vx \tcomma
-    \label{eq:free_energy}
+	\Pi = \int \limits_\Omega \pi d \vx \tcomma
+	\label{eq:free_energy}
 \end{equation}
 \begin{equation}
-    \pi = -\cfrac{1}{2} \epsilon[\phi] (\nabla \Phi, \nabla \Phi) + \Gamma \cfrac{1 - f(\phi)}{l^2} + \cfrac{\Gamma}{4} (\nabla \phi, \nabla \phi) \tpoint
-    \label{eq:free_energy_density}
+	\pi = -\cfrac{1}{2} \epsilon[\phi] (\nabla \Phi, \nabla \Phi) + \Gamma \cfrac{1 - f(\phi)}{l^2} + \cfrac{\Gamma}{4} (\nabla \phi, \nabla \phi) \tpoint
+	\label{eq:free_energy_density}
 \end{equation}
 Здесь $\Gamma > 0, \; l > 0$ -- числовые параметры модели, константы.
 
 Постулируются два уравнения, определяющие динамику системы:
 \begin{equation*}
 \begin{cases}
-    \cfrac{\delta \pi}{\delta \Phi} = 0 \tsemicolon \\
-    \cfrac{1}{m} \partt{\phi} = -\cfrac{\delta \pi}{\delta \phi} \tpoint
+	\cfrac{\delta \pi}{\delta \Phi} = 0 \tsemicolon \\
+	\cfrac{1}{m} \partt{\phi} = -\cfrac{\delta \pi}{\delta \phi} \tpoint
 \end{cases}
 \end{equation*}
 Здесь константа $m > 0$ -- числовой параметр модели, называемый подвижностью: она имеет смысл скорости изменения $\phi$ под действием единичной <<приложенной силы>>. Говоря нестрого, согласно первому уравнению электрический потенциал $\Phi$ распределяется так, чтобы свободная энергия системы была минимальной; согласно второму -- фазовое поле $\phi$ с определенной скоростью стремится к тому, чтобы свободная энергия была минимальной.
 
 Отыскав явно вариационные производные в двух уравнениях выше, получим следующую систему уравнений:
 \begin{numcases}{}
-    \Div(\epsilon[\phi] \nabla \Phi) = 0 \tsemicolon
-    \label{eq:Phi} \\
-    \cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) (\nabla \Phi, \nabla \Phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{1}{2} \Gamma \triangle \phi \tpoint
-    \label{eq:phi}
+	\Div(\epsilon[\phi] \nabla \Phi) = 0 \tsemicolon
+	\label{eq:Phi} \\
+	\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) (\nabla \Phi, \nabla \Phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{1}{2} \Gamma \triangle \phi \tpoint
+	\label{eq:phi}
 \end{numcases}
 Здесь $(\cdot)' \equiv (\cdot)_\phi'$. Система состоит из двух уравнений: на $\phi$ и $\Phi$ соответственно; система связная, второе уравнение нелинейное, является уравнением типа Аллена--Кана.
 
@@ -53,35 +53,35 @@
 \caption[]{Величины, относящиеся к модели.}
 \centering
 \begin{tabular}{|c|c|m{11cm}|}
-    \hline
-    Величина & Размерность & Название либо физический смысл \\
-    \hline \hline
-    $\phi(\vx, t)$ & $1$ & фазовое поле \\
-    \hline
-    \rule{0mm}{\tabletopspace}
-    $\Phi(\vx, t)$ & $\cfrac{\unitJ}{\unitC}$ & потенциал электрического поля \\[\tablebottomspace]
-    \hline
-    $\Pi(t)$ & $\unitJ$ & свободная энергия \\
-    \hline
-    \rule{0mm}{\tabletopspace}
-    $\pi(\vx, t)$ & $\cfrac{\unitJ}{\unitm^3}$ & плотность свободной энергии \\[\tablebottomspace]
-    \hline
-    \rule{0mm}{\tabletopspace}
-    $\epsilon(\vx, t)$ & $\cfrac{\unitF}{\unitm} = \cfrac{\unitC^2}{\unitJ \cdot \unitm}$ & диэлектрическая проницаемость среды \\[\tablebottomspace]
-    \hline
-    \rule{0mm}{\tabletopspace}
-    $\epsilon_0(\vx)$ & $\cfrac{\unitF}{\unitm} = \cfrac{\unitC^2}{\unitJ \cdot \unitm}$ & диэлектрическая проницаемость неповрежденной среды \\[\tablebottomspace]
-    \hline
-    $\delta$ & $1$ & определяет диэлектрическую проницаемость полностью разрушенной среды: она равна $\epsilon_0(\vx)/\delta$ \\
-    \hline
-    $l$ & $\unitm$ & характерная толщина диффузной границы \\
-    \hline
-    \rule{0mm}{\tabletopspace}
-    $\Gamma$ & $\cfrac{\unitJ}{\unitm}$ & характерная энергия образования единицы длины канала пробоя \\[\tablebottomspace]
-    \hline
-    \rule{0mm}{\tabletopspace}
-    $m$ & $\cfrac{\units \cdot \unitJ}{\unitm^3}$ & подвижность фазового поля $\phi$ \\[\tablebottomspace]
-    \hline
+	\hline
+	Величина & Размерность & Название либо физический смысл \\
+	\hline \hline
+	$\phi(\vx, t)$ & $1$ & фазовое поле \\
+	\hline
+	\rule{0mm}{\tabletopspace}
+	$\Phi(\vx, t)$ & $\cfrac{\unitJ}{\unitC}$ & потенциал электрического поля \\[\tablebottomspace]
+	\hline
+	$\Pi(t)$ & $\unitJ$ & свободная энергия \\
+	\hline
+	\rule{0mm}{\tabletopspace}
+	$\pi(\vx, t)$ & $\cfrac{\unitJ}{\unitm^3}$ & плотность свободной энергии \\[\tablebottomspace]
+	\hline
+	\rule{0mm}{\tabletopspace}
+	$\epsilon(\vx, t)$ & $\cfrac{\unitF}{\unitm} = \cfrac{\unitC^2}{\unitJ \cdot \unitm}$ & диэлектрическая проницаемость среды \\[\tablebottomspace]
+	\hline
+	\rule{0mm}{\tabletopspace}
+	$\epsilon_0(\vx)$ & $\cfrac{\unitF}{\unitm} = \cfrac{\unitC^2}{\unitJ \cdot \unitm}$ & диэлектрическая проницаемость неповрежденной среды \\[\tablebottomspace]
+	\hline
+	$\delta$ & $1$ & определяет диэлектрическую проницаемость полностью разрушенной среды: она равна $\epsilon_0(\vx)/\delta$ \\
+	\hline
+	$l$ & $\unitm$ & характерная толщина диффузной границы \\
+	\hline
+	\rule{0mm}{\tabletopspace}
+	$\Gamma$ & $\cfrac{\unitJ}{\unitm}$ & характерная энергия образования единицы длины канала пробоя \\[\tablebottomspace]
+	\hline
+	\rule{0mm}{\tabletopspace}
+	$m$ & $\cfrac{\units \cdot \unitJ}{\unitm^3}$ & подвижность фазового поля $\phi$ \\[\tablebottomspace]
+	\hline
 \end{tabular}
 \label{tab:quantities}
 \end{table}
@@ -95,15 +95,15 @@
 
 Преобразуем уравнение \eqref{eq:Phi}:
 \begin{equation}
-    0 = \Div(\epsilon[\phi] \nabla \Phi) = (\nabla \epsilon, \nabla \Phi) + \epsilon \triangle \Phi = \partx{\epsilon} \partx{\Phi} + \epsilon \triangle \Phi \tpoint
-    \label{eq:Phi_one_dim}
+	0 = \Div(\epsilon[\phi] \nabla \Phi) = (\nabla \epsilon, \nabla \Phi) + \epsilon \triangle \Phi = \partx{\epsilon} \partx{\Phi} + \epsilon \triangle \Phi \tpoint
+	\label{eq:Phi_one_dim}
 \end{equation}
 Заметим, что независимо от конкретных $\phi$ и $\epsilon_0$ решением является $\Phi(\vx, t) = \Phi^- + (y/h)(\Phi^+ - \Phi^-)$. В этом случае $\partial \Phi / \partial x \equiv 0, \; \triangle \Phi \equiv 0$ и уравнение \eqref{eq:Phi_one_dim} становится тождеством.
 
 Преобразуем уравнение \eqref{eq:phi}:
 \begin{equation}
-    \cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \left( \cfrac{\Phi^+ - \Phi^-}{h} \right)^2 + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \partxx{\phi} \tcomma
-    \label{eq:one_dim}
+	\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \left( \cfrac{\Phi^+ - \Phi^-}{h} \right)^2 + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \partxx{\phi} \tcomma
+	\label{eq:one_dim}
 \end{equation}
 $\phi_0(\vx) = \phi_0(x)$. Решение этого уравнения с начальным условием $\phi_0$ будет зависеть только от $x$ и времени $t$.
 
@@ -111,8 +111,8 @@ $\phi_0(\vx) = \phi_0(x)$. Решение этого уравнения с на�
 
 Для удобства введем $K_\Phi = \|\nabla \Phi\| = (\Phi^+ - \Phi^-)/h$, тогда уравнение \eqref{eq:one_dim} примет вид
 \begin{equation}
-    \cfrac{1}{m} \partt{\phi} = \half K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \partxx{\phi} \tpoint
-    \label{eq:one_dim_simpler}
+	\cfrac{1}{m} \partt{\phi} = \half K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \partxx{\phi} \tpoint
+	\label{eq:one_dim_simpler}
 \end{equation}
 $\Phi^+, \Phi^-$ и $h$ перестали входить в уравнение явно -- так мы убрали последнее упоминание о втором (по $y$) измерении пространства.
 
