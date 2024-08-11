@@ -10,8 +10,8 @@
 
 Диэлектрическую проницаемость среды $\epsilon$ предлагается описать следующей формулой:
 \begin{equation}
-    \epsilon(\vx, t) = \epsilon[\phi] = \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) + \delta} \text{.}
-    \label{equation_epsilon}
+    \epsilon(\vx, t) = \epsilon[\phi] = \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) + \delta} \tpoint
+    \label{eq:epsilon}
 \end{equation}
 Здесь $\epsilon_0(\vx)$ -- диэлектрическая проницаемость неповрежденной среды; $f(\phi) = 4\phi^3 - 3\phi^4$ -- интерполирующая функция, гладко соединяющая значения $0$ и $1$ ($f(0) = 0, \; f(1) = 1, \; f'(0) = f'(1) = 0$); $0 < \delta \ll 1$ -- регуляризующий параметр. Обратим внимание, что при $\phi = 1 \;\; \epsilon(\vx, t) \approx \epsilon_0(\vx)$, что соответствует диэлектрику; при $\phi = 0 \;\; \epsilon(\vx, t) = \epsilon_0(\vx) / \delta$ (в $\delta^{-1} \gg 1$ раз больше), что соответствует проводнику.
 
@@ -19,33 +19,34 @@
 
 Постулируется следующее выражение для свободной энергии:
 \begin{equation}
-    \Pi = \int \limits_\Omega \pi d \vx \text{,}
-    \label{equation_free_energy}
+    \Pi = \int \limits_\Omega \pi d \vx \tcomma
+    \label{eq:free_energy}
 \end{equation}
 \begin{equation}
-    \pi = -\cfrac{1}{2} \epsilon[\phi] (\nabla \Phi, \nabla \Phi) + \Gamma \cfrac{1 - f(\phi)}{l^2} + \cfrac{\Gamma}{4} (\nabla \phi, \nabla \phi) \text{.}
-    \label{equation_free_energy_density}
+    \pi = -\cfrac{1}{2} \epsilon[\phi] (\nabla \Phi, \nabla \Phi) + \Gamma \cfrac{1 - f(\phi)}{l^2} + \cfrac{\Gamma}{4} (\nabla \phi, \nabla \phi) \tpoint
+    \label{eq:free_energy_density}
 \end{equation}
 Здесь $\Gamma > 0, \; l > 0$ -- числовые параметры модели, константы.
 
 Постулируются два уравнения, определяющие динамику системы:
 \begin{equation*}
 \begin{cases}
-    \cfrac{\delta \pi}{\delta \Phi} = 0 \text{;} \\
-    \cfrac{1}{m} \cfrac{\partial \phi}{\partial t} = -\cfrac{\delta \pi}{\delta \phi} \text{.}
+    \cfrac{\delta \pi}{\delta \Phi} = 0 \tsemicolon \\
+    \cfrac{1}{m} \partt{\phi} = -\cfrac{\delta \pi}{\delta \phi} \tpoint
 \end{cases}
 \end{equation*}
 Здесь константа $m > 0$ -- числовой параметр модели, называемый подвижностью: она имеет смысл скорости изменения $\phi$ под действием единичной <<приложенной силы>>. Говоря нестрого, согласно первому уравнению электрический потенциал $\Phi$ распределяется так, чтобы свободная энергия системы была минимальной; согласно второму -- фазовое поле $\phi$ с определенной скоростью стремится к тому, чтобы свободная энергия была минимальной.
 
 Отыскав явно вариационные производные в двух уравнениях выше, получим следующую систему уравнений:
 \begin{numcases}{}
-    \Div(\epsilon[\phi] \nabla \Phi) = 0 \text{;} \label{equation_Phi} \\
-    \cfrac{1}{m} \cfrac{\partial \phi}{\partial t} = \cfrac{1}{2} \epsilon'(\phi) (\nabla \Phi, \nabla \Phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{1}{2} \Gamma \triangle \phi \text{.}
-    \label{equation_phi}
+    \Div(\epsilon[\phi] \nabla \Phi) = 0 \tsemicolon
+    \label{eq:Phi} \\
+    \cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) (\nabla \Phi, \nabla \Phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{1}{2} \Gamma \triangle \phi \tpoint
+    \label{eq:phi}
 \end{numcases}
 Здесь $(\cdot)' \equiv (\cdot)_\phi'$. Система состоит из двух уравнений: на $\phi$ и $\Phi$ соответственно; система связная, второе уравнение нелинейное, является уравнением типа Аллена--Кана.
 
-В таблице \ref{table_quantities}, перечислены названия и размерности величин, встречающихся в описанной модели.
+В таблице \ref{tab:quantities}, перечислены названия и размерности величин, встречающихся в описанной модели.
 
 \begin{table}[!t]
 \captionsetup{justification=raggedright,singlelinecheck=false}
@@ -58,64 +59,63 @@
     $\phi(\vx, t)$ & $1$ & фазовое поле \\
     \hline
     \rule{0mm}{\tabletopspace}
-    $\Phi(\vx, t)$ & $\cfrac{\text{Дж}}{\text{Кл}}$ & потенциал электрического поля \\[\tablebottomspace]
+    $\Phi(\vx, t)$ & $\cfrac{\unitJ}{\unitC}$ & потенциал электрического поля \\[\tablebottomspace]
     \hline
-    $\Pi(t)$ & $\text{Дж}$ & свободная энергия \\
-    \hline
-    \rule{0mm}{\tabletopspace}
-    $\pi(\vx, t)$ & $\cfrac{\text{Дж}}{\text{м}^3}$ & плотность свободной энергии \\[\tablebottomspace]
+    $\Pi(t)$ & $\unitJ$ & свободная энергия \\
     \hline
     \rule{0mm}{\tabletopspace}
-    $\epsilon(\vx, t)$ & $\cfrac{\text{Ф}}{\text{м}} = \cfrac{\text{Кл}^2}{\text{Дж} \cdot \text{м}}$ & диэлектрическая проницаемость среды \\[\tablebottomspace]
+    $\pi(\vx, t)$ & $\cfrac{\unitJ}{\unitm^3}$ & плотность свободной энергии \\[\tablebottomspace]
     \hline
     \rule{0mm}{\tabletopspace}
-    $\epsilon_0(\vx)$ & $\cfrac{\text{Ф}}{\text{м}} = \cfrac{\text{Кл}^2}{\text{Дж} \cdot \text{м}}$ & диэлектрическая проницаемость неповрежденной среды \\[\tablebottomspace]
+    $\epsilon(\vx, t)$ & $\cfrac{\unitF}{\unitm} = \cfrac{\unitC^2}{\unitJ \cdot \unitm}$ & диэлектрическая проницаемость среды \\[\tablebottomspace]
+    \hline
+    \rule{0mm}{\tabletopspace}
+    $\epsilon_0(\vx)$ & $\cfrac{\unitF}{\unitm} = \cfrac{\unitC^2}{\unitJ \cdot \unitm}$ & диэлектрическая проницаемость неповрежденной среды \\[\tablebottomspace]
     \hline
     $\delta$ & $1$ & определяет диэлектрическую проницаемость полностью разрушенной среды: она равна $\epsilon_0(\vx)/\delta$ \\
     \hline
-    $l$ & $\text{м}$ & характерная толщина диффузной границы \\
+    $l$ & $\unitm$ & характерная толщина диффузной границы \\
     \hline
     \rule{0mm}{\tabletopspace}
-    $\Gamma$ & $\cfrac{\text{Дж}}{\text{м}}$ & характерная энергия образования единицы длины канала пробоя \\[\tablebottomspace]
+    $\Gamma$ & $\cfrac{\unitJ}{\unitm}$ & характерная энергия образования единицы длины канала пробоя \\[\tablebottomspace]
     \hline
     \rule{0mm}{\tabletopspace}
-    $m$ & $\cfrac{\text{с} \cdot \text{Дж}}{\text{м}^3}$ & подвижность фазового поля $\phi$ \\[\tablebottomspace]
+    $m$ & $\cfrac{\units \cdot \unitJ}{\unitm^3}$ & подвижность фазового поля $\phi$ \\[\tablebottomspace]
     \hline
 \end{tabular}
-\label{table_quantities}
+\label{tab:quantities}
 \end{table}
 
 
 \subsection{Одномерная задача}
-\label{subsection_one_dimensional_problem}
 
 Рассмотрим систему со следующими ограничениями. Пусть $\Omega = [0, w]_x \times [0, h]_y \times I_z$, где $w, h > 0, \; I$ -- некоторый отрезок; $\phi(\vx, 0) = \phi_0(\vx) = \phi_0(x),$ $\epsilon_0(\vx) = \epsilon_0(x)$, то есть начальное распределение фаз и диэлектрическая проницаемость неповрежденной среды зависят только от $x$. На границе $\Omega$ будем считать заданным граничное условие $\Phi|_{y = 0} = \Phi^- \in \Real, \; \Phi|_{y = h} = \Phi^+ \in \Real, \; \Phi^- \leqslant \Phi^+$. Такую систему можно представить себе как двумерный (тривиально растянутый по третьему измерению) прямоугольный конденсатор, у которого сверху и снизу обкладки с постоянным электрическим потенциалом, между ними -- диэлектрик, меняющий свойства только по горизонтали.
 
-Попробуем искать решение системы уравнений \eqref{equation_Phi}, \eqref{equation_phi}, имеющее $\phi(\vx, t) = \phi(x, t)$, то есть полагая, что $\phi$ не будет зависеть от $y$ и $z$.
+Попробуем искать решение системы уравнений \eqref{eq:Phi}, \eqref{eq:phi}, имеющее $\phi(\vx, t) = \phi(x, t)$, то есть полагая, что $\phi$ не будет зависеть от $y$ и $z$.
 
-Преобразуем уравнение \eqref{equation_Phi}:
+Преобразуем уравнение \eqref{eq:Phi}:
 \begin{equation}
-    0 = \Div(\epsilon[\phi] \nabla \Phi) = (\nabla \epsilon, \nabla \Phi) + \epsilon \triangle \Phi = \cfrac{\partial \epsilon}{\partial x} \cfrac{\partial \Phi}{\partial x} + \epsilon \triangle \Phi \text{.}
-    \label{equation_Phi_one_dim}
+    0 = \Div(\epsilon[\phi] \nabla \Phi) = (\nabla \epsilon, \nabla \Phi) + \epsilon \triangle \Phi = \partx{\epsilon} \partx{\Phi} + \epsilon \triangle \Phi \tpoint
+    \label{eq:Phi_one_dim}
 \end{equation}
-Заметим, что независимо от конкретных $\phi$ и $\epsilon_0$ решением является $\Phi(\vx, t) = \Phi^- + (y/h)(\Phi^+ - \Phi^-)$. В этом случае $\partial \Phi/\partial x \equiv 0, \; \triangle \Phi \equiv 0$ и уравнение \eqref{equation_Phi_one_dim} становится тождеством.
+Заметим, что независимо от конкретных $\phi$ и $\epsilon_0$ решением является $\Phi(\vx, t) = \Phi^- + (y/h)(\Phi^+ - \Phi^-)$. В этом случае $\partial \Phi / \partial x \equiv 0, \; \triangle \Phi \equiv 0$ и уравнение \eqref{eq:Phi_one_dim} становится тождеством.
 
-Преобразуем уравнение \eqref{equation_phi}:
+Преобразуем уравнение \eqref{eq:phi}:
 \begin{equation}
-    \cfrac{1}{m} \cfrac{\partial \phi}{\partial t} = \cfrac{1}{2} \epsilon'(\phi) \left( \cfrac{\Phi^+ - \Phi^-}{h} \right)^2 + \cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{1}{2} \Gamma \cfrac{\partial^2 \phi}{\partial x^2} \text{,}
-    \label{equation_one_dim}
+    \cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \left( \cfrac{\Phi^+ - \Phi^-}{h} \right)^2 + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \partxx{\phi} \tcomma
+    \label{eq:one_dim}
 \end{equation}
 $\phi_0(\vx) = \phi_0(x)$. Решение этого уравнения с начальным условием $\phi_0$ будет зависеть только от $x$ и времени $t$.
 
-Уравнение $\eqref{equation_one_dim}$ можно рассматривать как дифференциальное уравнение в частных производных на функцию $\phi(x, t)$ одной пространственной переменной и решать его на отрезке $[0, w]_x$ числовой прямой.
+Уравнение $\eqref{eq:one_dim}$ можно рассматривать как дифференциальное уравнение в частных производных на функцию $\phi(x, t)$ одной пространственной переменной и решать его на отрезке $[0, w]_x$ числовой прямой.
 
-Для удобства введем $K_\Phi = \|\nabla \Phi\| = (\Phi^+ - \Phi^-)/h$, тогда уравнение \eqref{equation_one_dim} примет вид
+Для удобства введем $K_\Phi = \|\nabla \Phi\| = (\Phi^+ - \Phi^-)/h$, тогда уравнение \eqref{eq:one_dim} примет вид
 \begin{equation}
-    \cfrac{1}{m} \cfrac{\partial \phi}{\partial t} = \cfrac{1}{2} K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{1}{2} \Gamma \cfrac{\partial^2 \phi}{\partial x^2} \text{.}
-    \label{equation_one_dim_simpler}
+    \cfrac{1}{m} \partt{\phi} = \half K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \partxx{\phi} \tpoint
+    \label{eq:one_dim_simpler}
 \end{equation}
 $\Phi^+, \Phi^-$ и $h$ перестали входить в уравнение явно -- так мы убрали последнее упоминание о втором (по $y$) измерении пространства.
 
-Для простоты анализа везде далее будем считать $e_0$ константой.
+Для простоты анализа везде далее будем считать $\epsilon_0$ константой.
 
-Итак, пара из решения уравнения \eqref{equation_one_dim_simpler} и $\Phi = \Phi^- + (y/h)(\Phi^+ - \Phi^-)$ является решением исходной системы уравнений \eqref{equation_Phi}, \eqref{equation_phi}, в том случае если краевые условия имеют описанный вид.
+Итак, пара из решения уравнения \eqref{eq:one_dim_simpler} и $\Phi = \Phi^- + (y/h)(\Phi^+ - \Phi^-)$ является решением исходной системы уравнений \eqref{eq:Phi}, \eqref{eq:phi}, в том случае если краевые условия имеют описанный вид.
