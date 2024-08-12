@@ -1,0 +1,67 @@
+%!TEX root = ../main.tex
+
+\section{Разностная схема для одномерной задачи}
+
+Будем численно решать задачу Коши в области $[0, w]_x \times [0, +\infty)_t$ для уравнения~\eqref{eq:one_dim_simpler} и граничных условий
+\begin{equation}
+    \phi(x, 0) = \phi_0(x); \quad \phi(0, t) = \phi_l(t); \quad \phi(w, t) = \phi_r(t) \tpoint
+    \label{eq:cauchy_borders}
+\end{equation}
+
+Используем регулярную сетку с временным шагом $\tau$ и пространственным $h$. Пусть $n = w/h$ -- целое число. Пусть $(ah, b \tau)$ -- узлы сетки, $a = \overline{0, n}, \; b \in \Natural_0$. Обозначим $\phi_a^b$ значение сеточной функции $\phi$ в узле $(ah, b \tau)$. Перейдем к следующей разностной задаче:
+\begin{equation}
+    \cfrac{1}{m} \cfrac{\phi_a^{b + 1} - \phi_a^b}{\tau} = \half K_\phi^2 \epsilon'(\phi_a^b) + \cfrac{\Gamma}{l^2} f'(\phi_a^b) + \cfrac{\Gamma}{2} \cfrac{\phi_{a + 1}^b - 2 \phi_a^b + \phi_{a - 1}^b}{h^2} \tpoint
+    \label{eq:subtractive}
+\end{equation}
+Имеем четырехточечную явную разностную схему:
+\begin{numcases}{}
+    \mbox{$\begin{aligned}
+        \phi_a^{b + 1} = \phi_a^b + m \tau \left( \half K_\Phi^2 \epsilon'(\phi_a^b) + \cfrac{\Gamma}{l^2} f'(\phi_a^b) + \cfrac{\Gamma}{2} \cfrac{\phi_{a + 1}^b - 2 \phi_a^b + \phi_{a - 1}^b}{h^2} \right), \\ a = \overline{1, n - 1}, \quad b \in \Natural \tsemicolon
+    \end{aligned}$}
+    \label{sch:transition} \\
+    \phi_a^0 = \phi_0(ah); \quad \phi_0^b = \phi_l(b \tau); \quad \phi_n^b = \phi_r(b \tau) \tpoint
+    \label{sch:borders}
+\end{numcases}
+
+Легко видеть, что схема имеет первый порядок аппроксимации по времени и второй порядок аппроксимации по пространственной переменной $x$.
+
+Получим необходимое условие устойчивости по принципу <<замороженных коэффициентов>> (см., например, \cite{bahvalov_computational_methods}). Пусть $\phi_a^b$ и $\phi_a^b + \delta_a^b$ -- решения разностного уравнения~\eqref{eq:subtractive}. Подставим в него $\phi_a^b + \delta_a^b$, получим:
+\begin{multline*}
+    \cfrac{1}{m} \cfrac{(\phi_a^{b + 1} + \delta_a^{b + 1}) - (\phi_a^b + \delta_a^b)}{\tau} = \half K_\Phi^2 [\epsilon'(\phi_a^b) + \epsilon''(\phi_a^b) \delta_a^b + o(\delta_a^b)] + \\ + \cfrac{\Gamma}{l^2} [f'(\phi_a^b) + f''(\phi_a^b) \delta_a^b + o(\delta_a^b)] + \cfrac{\Gamma}{2} \cfrac{(\phi_{a + 1}^b + \delta_{a + 1}^b) - 2 (\phi_a^b + \delta_a^b) + (\phi_{a - 1}^b + \delta_{a - 1}^b)}{h^2} \tpoint
+\end{multline*}
+Линеаризуем по возмущению $\delta_a^b$ в точке $\phi_a^b = P$ и сократим слагаемые, учитывая, что $\phi_a^b$ есть решение разностной задачи:
+\begin{equation}
+    \delta_a^{b + 1} = \delta_a^b + m \tau \left( \half K_\Phi^2 \epsilon''(P) \delta_a^b + \cfrac{\Gamma}{l^2} f''(P) \delta_a^b + \cfrac{\Gamma}{2} \cfrac{\delta_{a + 1}^b - 2 \delta_a^b + \delta_{a - 1}^b}{h^2} \right) \tpoint
+    \label{eq:scheme_variation}
+\end{equation} 
+
+Применим спектральный признак устойчивости. Пусть $\delta_a^b = \lambda(\theta)^b \exp(\imath a \theta)$; подставим в уравнение \eqref{eq:scheme_variation} выражение для $\delta_a^b$ и, сократив на $\lambda(\theta)^b \exp(\imath a \theta)$, получим:
+$$\lambda(\theta) = 1 + m \tau \left( \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) + \cfrac{\Gamma}{2} \cfrac{e^{i \theta} - 2 + e^{-i \theta}}{h^2} \right) \tcomma$$
+или
+\begin{equation}
+    \lambda(\theta) = 1 + m \tau \left( \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) - \cfrac{2 \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \right) \tpoint
+    \label{eq:spectral}
+\end{equation}
+
+Согласно спектральному признаку, связь $\tau = \tau(h)$ дает устойчивые вычисления в области $[0, w]_x \times [0, T]_t$ при $\tau, h \to 0$, если существует $C > 0$, такое что для любого~$\theta$ выполнено $|\lambda(\theta)| \leqslant e^{C\tau}$. Заметим, что можно использовать условие $|\lambda(\theta)| \leqslant 1 + C\tau$, как более сильное. Если же для любого $\theta$ выполнено $|\lambda(\theta)| \leqslant 1$, то устойчивыми будут вычисления в области $[0, w]_x \times [0, +\infty)_t$ с бесконечным временным интервалом. Строго говоря, условие спектрального метода необходимое, но не достаточное для устойчивости разностной схемы. Однако на практике устойчивость следует ожидать.
+
+Для начала рассмотрим выражение \eqref{eq:spectral} в точке $P = 0$. Имеем $f''(0) = 0, \; \epsilon''(0) = 0$. Уравнение \eqref{eq:spectral} принимает вид
+$$\lambda(\theta) = 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \tpoint$$
+Значит, для любого $\theta$ выполнено $|\lambda(\theta)| \leqslant 1$, если и только если
+\begin{equation}
+     \tau \leqslant \cfrac{h^2}{m \Gamma} \tpoint
+     \label{cond:spectral_0}
+\end{equation}
+При выполнении условия \eqref{cond:spectral_0} следует ожидать устойчивый расчет при полностью разрушенной или близкой к таковой среде ($\phi \approx 0$) в области $[0, w]_x \times [0, +\infty)_t$ с бесконечным временным интервалом.
+
+Заметим, что при условии \eqref{cond:spectral_0} к тому же ожидается устойчивый расчет на множестве $[0, w]_x \times [0, T]_t$ при любом $\phi$. В этом случае справедливо неравенство
+$$|\lambda(\theta)| \leqslant 1 + m \tau \left| \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) \right| \tpoint$$
+Значит, для некоторого $C$ верно $|\lambda(\theta)| \leqslant 1 + C \tau$, так как $\epsilon''(\phi)$ и $f''(\phi)$ -- непрерывные на отрезке $[0, 1]$ функции. Следует отметить, что, несмотря на подобную универсальность, оценка \eqref{cond:spectral_0} плохо применима на практике и нуждается в уточнении, которое будет сделано позже.
+
+Теперь рассмотрим выражение \eqref{eq:spectral} в точке $P = 1$. Имеем $f''(1) < 0, \; \epsilon''(1) > 0$. Заметим, что при $(K_\Phi^2/2) \epsilon''(1) + (\Gamma/l^2) f''(1) \leqslant 0$ можно добиться $|\lambda(\theta)| \leqslant 1$, потребовав, подобно условию \eqref{cond:spectral_0}, $\tau \leqslant h^2/(2m \Gamma)$ и притом достаточно малое $\tau$. Если подставить в упомянутое неравенство значения $f''(1) = -12, \; \epsilon''(1) = 12 \epsilon_0/(1 + \delta)^2$ (см. выражение~\eqref{eq:epsilon_phi_phi}), то оно преобразуется в
+\begin{equation}
+    \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma (1 + \delta)^2} \leqslant 1 \tpoint
+    \label{cond:spectral_possible_1}
+\end{equation}
+
+Итак, при условии \eqref{cond:spectral_possible_1} ожидается существование таких $\tau$ и $h$, что расчет устойчив при $\phi \approx 1$ на множестве с бесконечным временным интервалом. Закономерно, что условие \eqref{cond:spectral_possible_1} эквивалентно условию \eqref{cond:equilibrium_1_stable} устойчивости положения равновесия $\phi \equiv 1$ уравнения \eqref{eq:one_dim_simpler}.
