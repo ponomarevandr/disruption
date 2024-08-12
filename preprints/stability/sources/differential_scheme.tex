@@ -9,7 +9,7 @@
     \label{eq:cauchy_borders}
 \end{equation}
 
-Используем регулярную сетку с временным шагом $\tau$ и пространственным $h$. Пусть $n = w/h$ -- целое число. Пусть $(ah, b \tau)$ -- узлы сетки, $a = \overline{0, n}, \; b \in \Natural_0$. Обозначим $\phi_a^b$ значение сеточной функции $\phi$ в узле $(ah, b \tau)$. Перейдем к следующей разностной задаче:
+Используем регулярную сетку с временным шагом $\tau$ и пространственным $h$. Пусть $n = w / h$ -- целое число. Пусть $(ah, b \tau)$ -- узлы сетки, $a = \overline{0, n}, \; b \in \Natural_0$. Обозначим $\phi_a^b$ значение сеточной функции $\phi$ в узле $(ah, b \tau)$. Перейдем к следующей разностной задаче:
 \begin{equation}
     \cfrac{1}{m} \cfrac{\phi_a^{b + 1} - \phi_a^b}{\tau} = \half K_\phi^2 \epsilon'(\phi_a^b) + \cfrac{\Gamma}{l^2} f'(\phi_a^b) + \cfrac{\Gamma}{2} \cfrac{\phi_{a + 1}^b - 2 \phi_a^b + \phi_{a - 1}^b}{h^2} \tpoint
     \label{eq:subtractive}
@@ -59,7 +59,7 @@ $$\lambda(\theta) = 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \t
 $$|\lambda(\theta)| \leqslant 1 + m \tau \left| \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) \right| \tpoint$$
 Значит, для некоторого $C$ верно $|\lambda(\theta)| \leqslant 1 + C \tau$, так как $\epsilon''(\phi)$ и $f''(\phi)$ -- непрерывные на отрезке $[0, 1]$ функции. Следует отметить, что, несмотря на подобную универсальность, оценка \eqref{cond:spectral_0} плохо применима на практике и нуждается в уточнении, которое будет сделано позже.
 
-Теперь рассмотрим выражение \eqref{eq:spectral} в точке $P = 1$. Имеем $f''(1) < 0, \; \epsilon''(1) > 0$. Заметим, что при $(K_\Phi^2/2) \epsilon''(1) + (\Gamma/l^2) f''(1) \leqslant 0$ можно добиться $|\lambda(\theta)| \leqslant 1$, потребовав, подобно условию \eqref{cond:spectral_0}, $\tau \leqslant h^2/(2m \Gamma)$ и притом достаточно малое $\tau$. Если подставить в упомянутое неравенство значения $f''(1) = -12, \; \epsilon''(1) = 12 \epsilon_0/(1 + \delta)^2$ (см. выражение~\eqref{eq:epsilon_phi_phi}), то оно преобразуется в
+Теперь рассмотрим выражение \eqref{eq:spectral} в точке $P = 1$. Имеем $f''(1) < 0, \; \epsilon''(1) > 0$. Заметим, что при $(K_\Phi^2 / 2) \epsilon''(1) + (\Gamma / l^2) f''(1) \leqslant 0$ можно добиться $|\lambda(\theta)| \leqslant 1$, потребовав, подобно условию \eqref{cond:spectral_0}, $\tau \leqslant h^2 / (2m \Gamma)$ и притом достаточно малое $\tau$. Если подставить в упомянутое неравенство значения $f''(1) = -12, \; \epsilon''(1) = 12 \epsilon_0 / (1 + \delta)^2$ (см. выражение~\eqref{eq:epsilon_phi_phi}), то оно преобразуется в
 \begin{equation}
     \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma (1 + \delta)^2} \leqslant 1 \tpoint
     \label{cond:spectral_possible_1}
