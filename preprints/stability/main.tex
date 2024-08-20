@@ -74,6 +74,7 @@
 
 \newcommand{\vect}[1]{\boldsymbol{#1}}
 \newcommand{\vx}{{\vect{x}}}
+\newcommand{\vn}{{\vect{n}}}
 
 \newcommand{\half}{\cfrac{1}{2}}
 \newcommand{\partt}[1]{\cfrac{\partial #1}{\partial t}}
@@ -128,10 +129,10 @@
 
 %%% Описание препринта
 \newcommand{\PreprintTitle}{
-	Численное исследование модели развития канала электрического пробоя типа диффузной границы
+	Устойчивость стационарных решений модели развития канала электрического пробоя типа <<диффузной границы>>
 }
 \newcommand{\PreprintTitleEnglish}{
-	Computational research of a phase-field model for electrical breakdown process
+	Stability of stationary solutions of a diffuse interface model for electrical breakdown process
 }
 \newcommand{\PreprintAuthors}{
 	А.С.~Пономарев, Е.Б.~Савенков, Е.В.~Зипунова
@@ -170,26 +171,24 @@
 
 \thispagestyle{empty}
 
-\noindent \emph{\PreprintAuthors}, 
-\PreprintTitle
-\vspace*{3mm}
-
-\noindent \textbf{Аннотация} \\
+\noindent \emph{\PreprintAuthors}, \PreprintTitle \\[3mm]
+\textbf{Аннотация} \\
 {
 	\small
 	Цель настоящей работы -- исследование качественных характеристик и численный анализ модели типа диффузной границы, описывающей развитие канала электрического пробоя в твердом диэлектрике. Проведен анализ устойчивости положений равновесия системы; установлены условия развития канала пробоя из малых возмущений неповрежденной среды. Построена и изучена разностная схема для задачи, дана содержательная оценка ее устойчивости. Полученные теоретические результаты подтверждены моделированием на компьютере. \\[3mm]
 	\textbf{Ключевые слова:} модель типа диффузной границы, фазовое поле, устойчивость, электрический пробой. \\[5mm]
 }
-\emph{\PreprintAuthorsEnglish},
-\PreprintTitleEnglish \\[3mm]
+\begin{otherlanguage}{english}
+\emph{\PreprintAuthorsEnglish}, \PreprintTitleEnglish \\[3mm]
 \textbf{Abstract} \\
 {
 	\small
-	[Annotaciya rabotea na angliyskom yazeake.] \\[3mm]
-	\textbf{Key words and phrases:} diffuse interface models, phase field, stability, electrical breakdown. \\[5mm]
+	The aim of the present work is to study qualitative characteristics and to perform a computational analysis of a diffuse interface model describing electrical breakdown process in a solid dielectric. Equilibrium solutions of the system are analysed. Conditions of small perturbations to cause development of a breakdown chanel are found. A differential scheme for the problem is constructed and investigated, an informative estimate of its stability is given. The obtained theoretical results are validated by a computer simulation. \\[3mm]
+	\textbf{Key words and phrases:} diffuse interface model, phase field, stability, electrical breakdown. \\[5mm]
 }
+\end{otherlanguage}
 
-\newpage
+\clearpage
 
 \input{sources/introduction}
 
@@ -203,10 +202,10 @@
 
 \input{sources/conclusion}
 
-\newpage
+\clearpage
 \printbibliography
 
-\newpage
+\clearpage
 \tableofcontents
 
 \end{document}

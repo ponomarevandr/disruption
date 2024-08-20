@@ -128,10 +128,10 @@
 
 %%% Описание препринта
 \newcommand{\PreprintTitle}{
-	Применение метода конечных объемов в модели развития канала электрического пробоя типа диффузной границы
+	Применение метода конечных объемов в модели развития канала электрического пробоя типа <<диффузной границы>>
 }
 \newcommand{\PreprintTitleEnglish}{
-	Application of finite volume method in a phase-field model of electrical breakdown process
+	Application of finite volume method in a diffuse interface model of electrical breakdown process
 }
 \newcommand{\PreprintAuthors}{
 	А.С.~Пономарев, Е.Б.~Савенков, Е.В.~Зипунова
@@ -170,26 +170,24 @@
 
 \thispagestyle{empty}
 
-\noindent \emph{\PreprintAuthors}, 
-\PreprintTitle
-\vspace*{3mm}
-
-\noindent \textbf{Аннотация} \\
+\noindent \emph{\PreprintAuthors}, \PreprintTitle \\[3mm]
+\textbf{Аннотация} \\
 {
 	\small
 	В настоящей работе исследуется применение метода конечных объемов при отыскании стационарных решений в модели типа диффузной границы, описывающей развитие канала пробоя в твердом диэлектрике. Задача решается в трех различных случаях: плоском, цилиндрическом и сферическом. При построении разностной схемы особое внимание уделено заданию граничных условий на внутренней границе области моделирования, где решение системы уравнений может иметь особенность. \\[3mm]
 	\textbf{Ключевые слова:} модель типа диффузной границы, фазовое поле, метод конечных объемов, электрический пробой. \\[5mm]
 }
-\emph{\PreprintAuthorsEnglish},
-\PreprintTitleEnglish \\[3mm]
+\begin{otherlanguage}{english}
+\emph{\PreprintAuthorsEnglish}, \PreprintTitleEnglish \\[3mm]
 \textbf{Abstract} \\
 {
 	\small
-	[Annotaciya rabotea na angliyskom yazeake.] \\[3mm]
-	\textbf{Key words and phrases:} diffuse interface models, phase field, finite volume method, electrical breakdown. \\[5mm]
+	The aim of the present work is to study qualitative characteristics and to perform a computational analysis of a diffuse interface model describing electrical breakdown process in a solid dielectric. Equilibrium solutions of the system are analysed. Conditions of small perturbations to cause development of a breakdown chanel are found. A differential scheme for the problem is constructed and investigated, an informative estimate of its stability is given. The obtained theoretical results are validated by a computer simulation. \\[3mm]
+	\textbf{Key words and phrases:} diffuse interface model, phase field, stability, electrical breakdown. \\[5mm]
 }
+\end{otherlanguage}
 
-\newpage
+\clearpage
 
 \input{sources/introduction}
 
@@ -197,10 +195,10 @@
 
 \input{sources/conclusion}
 
-\newpage
+\clearpage
 \printbibliography
 
-\newpage
+\clearpage
 \tableofcontents
 
 \end{document}
