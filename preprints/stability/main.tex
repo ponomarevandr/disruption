@@ -77,12 +77,20 @@
 \newcommand{\vn}{{\vect{n}}}
 
 \newcommand{\half}{\cfrac{1}{2}}
+
 \newcommand{\partt}[1]{\cfrac{\partial #1}{\partial t}}
 \newcommand{\partx}[1]{\cfrac{\partial #1}{\partial x}}
 \newcommand{\partxx}[1]{\cfrac{\partial^2 #1}{\partial x^2}}
+\newcommand{\partvn}[1]{\cfrac{\partial #1}{\partial \vn}}
+
+\newcommand{\partflt}[1]{\partial #1 / \partial t}
+\newcommand{\partflx}[1]{\partial #1 / \partial x}
+\newcommand{\partflxx}[1]{\partial^2 #1 / \partial x^2}
+\newcommand{\partflvn}[1]{\partial #1 / \partial \vn}
 
 \newcommand{\Natural}{{\mathbb{N}}}
 \newcommand{\Real}{{\mathbb{R}}}
+\newcommand{\bigO}{{\mathcal{O}}}
 
 \newcommand{\norm}[1]{\| \, #1 \, \|}
 \newcommand{\enorm}{{\| \cdot \|}}
@@ -109,6 +117,7 @@
 %%% Оформление теорем
 
 \theoremstyle{plain}
+\newtheorem{theorem}{Теорема}
 \newtheorem{proposition}{Утверждение}
 
 \theoremstyle{remark}
