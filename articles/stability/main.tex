@@ -1,0 +1,230 @@
+\documentclass[a4paper,12pt]{article}
+
+%%% Размер шрифта
+\usepackage[14pt]{extsizes}
+
+%%% Поля
+\usepackage[
+	left=2cm,
+	right=2cm,
+	top=2cm,
+	bottom=3cm,
+	bindingoffset=0cm
+]{geometry}
+
+%%% Работа с русским языком
+\usepackage{cmap}						% поиск в PDF
+\usepackage{mathtext}					% русские буквы в формулах
+\usepackage[T2A]{fontenc}				% кодировка
+\usepackage[utf8]{inputenc}				% кодировка исходного текста
+\usepackage[english,russian]{babel}		% локализация и переносы
+\usepackage{indentfirst}
+\frenchspacing
+
+%%% Дополнительная работа с математикой
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools}  % AMS
+
+%%% Текст в колонки
+\usepackage{multicol}
+
+%%% Списки
+\usepackage{enumitem}
+\setlist{nosep, leftmargin=*}
+\renewcommand{\labelenumi}{\arabic*)}
+
+%%% Системы уравнений
+\usepackage{cases}
+
+%%% Таблицы
+\usepackage{array}
+
+%%% Рисунки
+\usepackage{graphicx}
+\usepackage{float}
+
+%%% Точка в подписях к рисункам
+\usepackage[labelsep=period]{caption}
+
+%%% Список литературы
+\bibliographystyle{bibliography_style/gost-numeric.bbx}
+\usepackage[
+	natbib = true,
+	style = gost-numeric,
+	sorting = none,
+	backend = biber,
+	language = autobib,
+	autolang = other
+]{biblatex}
+\addbibresource{references.bib}
+
+%%% Исправление символа номера при использовании gost-numeric.bbx
+\usepackage{textcomp}
+\DefineBibliographyStrings{russian}{number={\textnumero}}
+
+%%% Гиперссылки
+\usepackage[pdftex,unicode]{hyperref}
+
+%%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}{\hbox{$\mathsurround=0pt #1$}}{}}
+
+
+%%% Свои команды
+
+\newcommand*{\No}{\textnumero}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\vx}{{\vect{x}}}
+\newcommand{\vn}{{\vect{n}}}
+
+\newcommand{\half}{\cfrac{1}{2}}
+
+\newcommand{\partt}[1]{\cfrac{\partial #1}{\partial t}}
+\newcommand{\partx}[1]{\cfrac{\partial #1}{\partial x}}
+\newcommand{\partxx}[1]{\cfrac{\partial^2 #1}{\partial x^2}}
+\newcommand{\partvn}[1]{\cfrac{\partial #1}{\partial \vn}}
+
+\newcommand{\partflt}[1]{\partial #1 / \partial t}
+\newcommand{\partflx}[1]{\partial #1 / \partial x}
+\newcommand{\partflxx}[1]{\partial^2 #1 / \partial x^2}
+\newcommand{\partflvn}[1]{\partial #1 / \partial \vn}
+
+\newcommand{\difftau}[1]{\cfrac{{#1}_j^{k + 1} - {#1}_j^k}{\tau}}
+\newcommand{\diffhh}[1]{\cfrac{{#1}_{j + 1}^k - 2 {#1}_j^k + {#1}_{j - 1}^k}{h^2}}
+
+\newcommand{\scalsq}[1]{\left( \nabla #1, \nabla #1 \right)}
+
+\newcommand{\Natural}{{\mathbb{N}}}
+\newcommand{\Real}{{\mathbb{R}}}
+\newcommand{\bigO}{{\mathcal{O}}}
+\newcommand{\clOmega}{{\overline{\Omega}}}
+
+\newcommand{\norm}[1]{\| \, #1 \, \|}
+\newcommand{\enorm}{{\| \cdot \|}}
+
+\newcommand{\tabletopspace}{9mm}
+\newcommand{\tablebottomspace}{3mm}
+
+\newcommand{\tpoint}{{\text{.}}}
+\newcommand{\tcomma}{{\text{,}}}
+\newcommand{\tsemicolon}{{\text{;}}}
+
+\newcommand{\unitm}{{\text{м}}}
+\newcommand{\units}{{\text{с}}}
+\newcommand{\unitJ}{{\text{Дж}}}
+\newcommand{\unitC}{{\text{Кл}}}
+\newcommand{\unitF}{{\text{Ф}}}
+
+\newcommand{\forcehyphenation}{-\linebreak}
+
+
+%%% Свои операторы
+\DeclareMathOperator{\Div}{{div}}
+\DeclareMathOperator{\Int}{{Int}}
+
+
+%%% Оформление теорем
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}
+\newtheorem{proposition}{Утверждение}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Замечание}
+
+
+%%% Пояснение к меткам
+% eq	-- equation
+% cond	-- condition
+% char	-- characteristic
+% sch	-- scheme
+% est	-- estimation
+% exp	-- experiment
+% fig	-- figure
+% tab	-- table
+% sec	-- section
+
+
+%%% Описание препринта
+\newcommand{\PreprintTitle}{
+	Устойчивость стационарных решений в модели развития канала электрического пробоя типа <<диффузной границы>>
+}
+\newcommand{\PreprintTitleEnglish}{
+	Stability of stationary solutions of a diffuse interface model for the electrical breakdown process
+}
+\newcommand{\PreprintAuthors}{
+	А.~С.~Пономарев, Е.~В.~Зипунова, Е.~Б.~Савенков
+}
+\newcommand{\PreprintAuthorsEnglish}{
+	A.~S.~Ponomarev, E.~V.~Zipunova, E.~B.~Savenkov
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+
+\begin{center}
+	РОССИЙСКАЯ АКАДЕМИЯ НАУК \\
+	ОРДЕНА ЛЕНИНА \\
+	ИНСТИТУТ ПРИКЛАДНОЙ МАТЕМАТИКИ \\
+	имени М. В. КЕЛДЫША \\
+
+	\vspace*{60mm}
+	\Large{\PreprintAuthors} \\
+	\vspace*{20mm}
+	\textbf{\large \PreprintTitle} \\
+	\vspace*{110mm}
+	\Large{Москва, 2024}
+	\vspace*{-50mm}
+\end{center}
+
+\end{titlepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{page}{2}
+
+\thispagestyle{empty}
+
+\noindent \emph{\PreprintAuthors}, \PreprintTitle \\[3mm]
+\textbf{Аннотация} \\
+{
+	\small
+	Цель настоящей работы -- исследование качественных характеристик и численный анализ модели типа диффузной границы, описывающей развитие канала электрического пробоя в твердом диэлектрике. Проведен анализ устойчивости положений равновесия системы; установлены условия развития канала пробоя из малых возмущений неповрежденной среды. Построена и изучена разностная схема для задачи, дана содержательная оценка ее устойчивости. Полученные теоретические результаты подтверждены моделированием на компьютере. \\[3mm]
+	\textbf{Ключевые слова:} модель типа диффузной границы, фазовое поле, устойчивость, электрический пробой. \\[5mm]
+}
+\begin{otherlanguage}{english}
+\emph{\PreprintAuthorsEnglish}, \PreprintTitleEnglish \\[3mm]
+\textbf{Abstract} \\
+{
+	\small
+	The aim of the present work is to study qualitative characteristics and to perform a numerical analysis of a diffuse interface model describing the development of an electrical breakdown channel in a solid dielectric. Stability of the system equilibrium positions is analysed. Conditions for the breakdown channel development from small perturbations of the intact medium are found. A differential scheme for the problem is constructed and investigated, an informative estimate of its stability is given. The obtained theoretical results are validated by a computer simulation. \\[3mm]
+	\textbf{Key words and phrases:} diffuse interface model, phase field, stability, electrical breakdown. \\[5mm]
+}
+\end{otherlanguage}
+
+\clearpage
+
+\input{sources/introduction}
+
+\input{sources/problem_and_model}
+
+\input{sources/theoretical_analysis}
+
+\input{sources/differential_scheme}
+
+\input{sources/computational_analysis}
+
+\input{sources/conclusion}
+
+\clearpage
+\printbibliography
+
+\clearpage
+\tableofcontents
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

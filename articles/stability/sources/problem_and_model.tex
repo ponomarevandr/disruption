@@ -1,0 +1,127 @@
+%!TEX root = ../main.tex
+
+\section{Постановка задачи и модель}
+
+\subsection{Математическая модель}
+
+Приведем описание математической модели, предложенной в работе \cite{pitike_dielectric_breakdown}.
+
+Итак, рассматривается ограниченная область пространства $\Omega \subset \Real^3$. Распределение фаз вещества в ней задается гладкой функцией $\phi: \Omega \times [0, +\infty)_t \hm \to [0, 1], \; \phi(\vx, t)$ -- фазовым полем; вещество может находиться в одной из двух фаз: $\phi \approx 1$ -- <<неповрежденное>>, $\phi \approx 0$ -- <<полностью разрушенное>> (то есть относящееся к каналу пробоя), -- а также в промежуточных состояниях в зоне диффузной границы.
+
+Диэлектрическую проницаемость среды $\epsilon$ предлагается описать следующей формулой:
+\begin{equation}
+	\epsilon(\vx, t) = \epsilon[\phi] = \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) + \delta} \tpoint
+	\label{eq:epsilon}
+\end{equation}
+Здесь $\epsilon_0(\vx)$ -- диэлектрическая проницаемость неповрежденной среды; $f(\phi) \hm = 4\phi^3 - 3\phi^4$ -- интерполирующая функция, гладко соединяющая значения $0$ и $1$ ($f(0) = 0, \; f(1) = 1, \; f'(0) = f'(1) = 0$); $0 < \delta \ll 1$ -- регуляризующий параметр. Обратим внимание, что при $\phi = 1 \;\; \epsilon(\vx, t) \approx \epsilon_0(\vx)$, что соответствует диэлектрику; при $\phi = 0 \;\; \epsilon(\vx, t) = \epsilon_0(\vx) / \delta$ (в $\delta^{-1} \gg 1$ раз больше), что соответствует проводнику.
+
+Помимо фазового поля $\phi$, состояние системы описывает также функция $\Phi: \Omega \times [0, +\infty)_t \to \Real, \; \Phi(\vx, t)$ -- потенциал электрического поля.
+
+Постулируется следующее выражение для свободной энергии системы $\Pi$:
+\begin{equation}
+	\Pi = \int \limits_\Omega \pi d \vx \tcomma
+	\label{eq:energy}
+\end{equation}
+\begin{equation}
+	\pi = -\half \epsilon[\phi] \scalsq{\Phi} + \Gamma \cfrac{1 - f(\phi)}{l^2} + \cfrac{\Gamma}{4} \scalsq{\phi} \tpoint
+	\label{eq:energy_density}
+\end{equation}
+Здесь $\Gamma > 0, \; l > 0$ -- числовые параметры модели, константы.
+
+Постулируются два уравнения, определяющие динамику системы:
+\begin{equation*}
+\begin{cases}
+	\cfrac{\delta \Pi}{\delta \Phi} = 0 \tsemicolon \\[3mm]
+	\cfrac{1}{m} \partt{\phi} = -\cfrac{\delta \Pi}{\delta \phi} \tpoint
+\end{cases}
+\end{equation*}
+Здесь константа $m > 0$ -- числовой параметр модели, называемый подвижностью: она имеет смысл скорости изменения $\phi$ под действием единичной <<приложенной силы>>. Говоря нестрого, согласно первому уравнению электрический потенциал $\Phi$ распределяется так, чтобы свободная энергия была минимальной; согласно второму -- фазовое поле $\phi$ с определенной скоростью стремится к тому, чтобы свободная энергия была минимальной.
+
+Отыскав явно вариационные производные в двух уравнениях выше, получим следующую систему уравнений:
+\begin{numcases}{}
+	\Div(\epsilon[\phi] \nabla \Phi) = 0 \tsemicolon
+	\label{eq:Phi} \\
+	\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \scalsq{\Phi} + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \triangle \phi \tpoint
+	\label{eq:phi}
+\end{numcases}
+Здесь $(\cdot)' \equiv (\cdot)_\phi'$. Система состоит из двух уравнений: на $\phi$ и $\Phi$ соответственно; система связная, второе уравнение нелинейное, является уравнением типа Аллена--Кана.
+
+В таблице \ref{tab:quantities}, перечислены названия и размерности величин, встречающихся в описанной модели.
+
+\begin{table}[!t]
+\captionsetup{justification=raggedright,singlelinecheck=false}
+\caption[]{Величины, относящиеся к модели.}
+\centering
+\begin{tabular}{|c|c|m{10.7cm}|}
+	\hline
+	Величина & Размерность & Название либо физический смысл \\
+	\hline \hline
+	$\phi(\vx, t)$ & $1$ & фазовое поле \\
+	\hline
+	\rule{0mm}{\tabletopspace}
+	$\Phi(\vx, t)$ & $\cfrac{\unitJ}{\unitC}$ & потенциал электрического поля \\[\tablebottomspace]
+	\hline
+	$\Pi(t)$ & $\unitJ$ & свободная энергия \\
+	\hline
+	\rule{0mm}{\tabletopspace}
+	$\pi(\vx, t)$ & $\cfrac{\unitJ}{\unitm^3}$ & плотность свободной энергии \\[\tablebottomspace]
+	\hline
+	\rule{0mm}{\tabletopspace}
+	$\epsilon(\vx, t)$ & $\cfrac{\unitF}{\unitm} = \cfrac{\unitC^2}{\unitJ \cdot \unitm}$ & диэлектрическая проницаемость среды \\[\tablebottomspace]
+	\hline
+	\rule{0mm}{\tabletopspace}
+	$\epsilon_0(\vx)$ & $\cfrac{\unitF}{\unitm} = \cfrac{\unitC^2}{\unitJ \cdot \unitm}$ & диэлектрическая проницаемость неповрежденной среды \\[\tablebottomspace]
+	\hline
+	$\delta$ & $1$ & определяет диэлектрическую проницаемость полностью разрушенной среды, равную $\epsilon_0(\vx) / \delta$ \\
+	\hline
+	$l$ & $\unitm$ & характерная толщина диффузной границы \\
+	\hline
+	\rule{0mm}{\tabletopspace}
+	$\Gamma$ & $\cfrac{\unitJ}{\unitm}$ & характерная энергия образования единицы длины канала пробоя \\[\tablebottomspace]
+	\hline
+	\rule{0mm}{\tabletopspace}
+	$m$ & $\cfrac{\unitm^3}{\units \cdot \unitJ}$ & подвижность фазового поля $\phi$ \\[\tablebottomspace]
+	\hline
+\end{tabular}
+\label{tab:quantities}
+\end{table}
+
+
+\subsection{Одномерная задача}
+
+Рассмотрим систему \eqref{eq:Phi}, \eqref{eq:phi} с учетом следующих допущений. Пусть замкнутая область $\clOmega = [0, W]_x \times [0, H]_y \times I_z$, где $W, H > 0, \; I$ -- некоторый отрезок. Пусть $\epsilon_0(\vx) = \epsilon_0(x)$, а также задано начальное условие $\phi(\vx, 0) = \phi_0(x)$, то есть диэлектрическая проницаемость неповрежденной среды и начальное распределение фаз зависят только от $x$. На границе $\clOmega$ считаем заданным следующее граничное условие на $\phi$: $\phi|_{x = 0} = \phi_l(t), \; \phi|_{x = W} = \phi_r(t)$, а также $\partflvn{\phi}= 0$ на <<гранях>> области $\clOmega$, перпендикулярных осям $y$ и $z$; следующее граничное условие на $\Phi$: $\Phi|_{y = 0} = \Phi^-, \; \Phi|_{y = H} = \Phi^+$, где $\Phi^-, \Phi^+ \in \Real$, а также $\partflvn{\Phi} = 0$ на <<гранях>> $\clOmega$, перпендикулярных осям $x$ и $z$. $\partflvn{}$ означает производную по вектору нормали $\vn$ к границе $\clOmega$. Описанную систему можно представить себе как двумерный (тривиально растянутый по третьему измерению) прямоугольный конденсатор, у которого сверху и снизу обкладки с постоянным электрическим потенциалом, между ними -- диэлектрик, меняющий свойства только по горизонтали.
+
+Учитывая описанные краевые условия, будем искать решение системы уравнений \eqref{eq:Phi}, \eqref{eq:phi}, имеющее $\phi(\vx, t) = \phi(x, t), \; \Phi(\vx, t) = \Phi(y, t)$ то есть полагая, что $\phi$ не зависит от $y$ и $z$, $\Phi$ -- от $x$ и $z$.
+
+Преобразуем уравнение \eqref{eq:Phi}:
+\begin{equation}
+	0 = \Div(\epsilon[\phi] \nabla \Phi) = (\nabla \epsilon, \nabla \Phi) + \epsilon \triangle \Phi \tpoint
+	\label{eq:Phi_one_dim}
+\end{equation}
+$(\nabla \epsilon, \nabla \Phi) = 0$, так как $\epsilon$ на зависит от $y$ (и $z$). Заметим, что решением является $\Phi(\vx, t) = \Phi^- + (y / H)(\Phi^+ - \Phi^-)$, очевидно, удовлетворяющее граничному условию. В этом случае $\triangle \Phi \equiv 0$ и уравнение \eqref{eq:Phi_one_dim} становится тождеством.
+
+Преобразуем уравнение \eqref{eq:phi} с учетом найденного решения $\Phi$:
+\begin{equation}
+	\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \left( \cfrac{\Phi^+ - \Phi^-}{H} \right)^2 + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \partxx{\phi} \tpoint
+	\label{eq:one_dim_preparation}
+\end{equation}
+
+Уравнение $\eqref{eq:one_dim_preparation}$ можно рассматривать как дифференциальное уравнение в частных производных на функцию $\phi(x, t)$ одной пространственной переменной и решать его в области $[0, W]_x \times [0, +\infty)_t$. Для удобства введем $K_\Phi \hm = \norm{\nabla \Phi} = (\Phi^+ - \Phi^-) / H$, тогда уравнение \eqref{eq:one_dim_preparation} примет вид
+\begin{equation}
+	\cfrac{1}{m} \partt{\phi} = \half K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \partxx{\phi} \tpoint
+	\label{eq:one_dim}
+\end{equation}
+Параметры $\Phi^+, \Phi^-$ и $H$ перестали входить в уравнение явно -- так мы убрали последнее упоминание о втором (по $y$) измерении пространства. Для уравнения \eqref{eq:one_dim} следующий вид принимает начальное условие:
+\begin{equation}
+	\phi(x, 0) = \phi_0(x) \tsemicolon
+	\label{eq:one_dim_initial}
+\end{equation}
+граничное условие:
+\begin{equation}
+	\phi(0, t) = \phi_l(t), \quad \phi(W, t) = \phi_r(t) \tpoint
+	\label{eq:one_dim_marginal}
+\end{equation}
+
+Для простоты анализа везде далее будем считать $\epsilon_0$ константой.
+
+Итак, пара из решения уравнения \eqref{eq:one_dim} с краевыми условиями \eqref{eq:one_dim_initial}, \eqref{eq:one_dim_marginal} и функции $\Phi = \Phi^- + (y / H)(\Phi^+ - \Phi^-)$ является решением исходной системы уравнений \eqref{eq:Phi}, \eqref{eq:phi} при описанных допущениях.
