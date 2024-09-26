@@ -4,7 +4,7 @@
 
 Будем численно решать уравнение \eqref{eq:one_dim} в области $[0, W]_x \times [0, +\infty)_t$ с краевыми условиями \eqref{eq:one_dim_initial}, \eqref{eq:one_dim_marginal}.
 
-Используем регулярную сетку с временным шагом~$\tau$ и пространственным~$h$. Пусть $N = W / h$ -- целое число. Пусть $(jh, k \tau)$ -- узлы сетки, $j \hm = \overline{0, N}, \; k \in \Natural_0$. Обозначим $\phi_j^k$ значение сеточной функции $\phi$ в узле $(jh, k \tau)$. Перейдем к следующей разностной задаче:
+Используем регулярную сетку с временным шагом~$\tau$ и пространственным~$h$. Пусть $N = W / h$ -- целое число. Пусть $(jh, k \tau)$ -- узлы сетки, $j = \overline{0, N}, \; k \in \Natural_0$. Обозначим $\phi_j^k$ значение сеточной функции $\phi$ в узле $(jh, k \tau)$. Перейдем к следующей разностной задаче:
 \begin{equation}
 	\cfrac{1}{m} \difftau{\phi} = \half K_\phi^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \diffhh{\phi} \tpoint
 	\label{eq:subtractive}
@@ -37,7 +37,7 @@
 \end{equation}
 где $y(\vx) \in Y$ -- искомая функция, $f \in I, \; g \in G$. Первое уравнение имеет смысл условия на $y$ во внутренности $\clOmega$, второе -- краевого условия.
 
-В пространстве $\clOmega$ введем сетку, то есть определим некоторое конечное подмножество $\Omega_h \subset \clOmega$. Здесь $h$ -- параметр, имеющий смысл мелкости шага сетки, -- то есть, строго говоря, определено семейство сеток. Функцию $y \hm \in Y$ можно ограничить на $\Omega_h$ -- введем обозначение $[y]_h = y|_{\Omega_h}$. Пусть $Y_h \hm = \{[y]_h: y \in Y\}, \; I_h = \{[f]_h: f \in I\}, \; G_h = \{[g]_h: g \in G\}$. Некоторые $L_h: Y_h \to I_h$ и $l_h: Y_h \to G_h$ будем называть разностными операторами; пусть $L$ и $l$ линейные. Теперь можно сформулировать разностную задачу (строго говоря, семейство задач):
+В пространстве $\clOmega$ введем сетку, то есть определим некоторое конечное подмножество $\Omega_h \subset \clOmega$. Здесь $h$ -- параметр, имеющий смысл мелкости шага сетки, -- то есть, строго говоря, определено семейство сеток. Функцию $y \in Y$ можно ограничить на $\Omega_h$ -- введем обозначение $[y]_h = y|_{\Omega_h}$. Пусть $Y_h = \{[y]_h: y \in Y\}, \; I_h = \{[f]_h: f \in I\}, \; G_h = \{[g]_h: g \in G\}$. Некоторые $L_h: Y_h \to I_h$ и $l_h: Y_h \to G_h$ будем называть разностными операторами; пусть $L$ и $l$ линейные. Теперь можно сформулировать разностную задачу (строго говоря, семейство задач):
 \begin{equation}
 	\{ \quad L_h y_h = f_h; \quad l_h y_h = g_h \quad \} \tpoint
 	\label{eq:formal_subtractive}
@@ -87,7 +87,7 @@ $$R \phi = \cfrac{1}{m} \partt{\phi} - \half \Gamma \partxx{\phi} - \left( \half
 	\label{eq:scheme_variation}
 \end{equation} 
 
-Применим спектральный признак устойчивости. Пусть $\delta_j^k = \lambda(\theta)^k \cdot$ \linebreak $\cdot \exp(\imath j \theta)$, $\imath^2 = -1$; подставим в уравнение \eqref{eq:scheme_variation} выражение для $\delta_j^k$ и, сократив на $\lambda(\theta)^k \exp(\imath j \theta)$, получим:
+Применим спектральный признак устойчивости. Пусть $\delta_j^k = \lambda(\theta)^k \cdot \exp(\imath j \theta)$, $\imath^2 = -1$; подставим в уравнение \eqref{eq:scheme_variation} выражение для $\delta_j^k$ и, сократив на $\lambda(\theta)^k \exp(\imath j \theta)$, получим:
 $$\lambda(\theta) = 1 + m \tau \left( \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) + \cfrac{\Gamma}{2} \cfrac{\exp(\imath \theta) - 2 + \exp(-\imath \theta)}{h^2} \right) \tcomma$$
 или
 \begin{equation}
@@ -97,14 +97,14 @@ $$\lambda(\theta) = 1 + m \tau \left( \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gam
 
 Согласно спектральному признаку связь $\tau = \tau(h)$ дает устойчивые вычисления в области $[0, W]_x \times [0, T]_t$ при $\tau, h \to 0$, если существует $C > 0$, такое что для любого~$\theta$ выполнено $|\lambda(\theta)| \leqslant e^{C\tau}$. Заметим, что можно использовать условие $|\lambda(\theta)| \leqslant 1 + C\tau$, как более сильное. Если же для любого $\theta$ выполнено $|\lambda(\theta)| \leqslant 1$, то устойчивыми будут вычисления в области $[0, W]_x \times [0, +\infty)_t$ с бесконечным временным интервалом. Строго говоря, условие спектрального признака не является достаточным для устойчивости разностной схемы, однако на практике устойчивость следует ожидать.
 
-Для начала рассмотрим выражение \eqref{eq:spectral} в точке $P = 0$. Имеем $f''(0) \hm = 0, \; \epsilon''(0) = 0$. Уравнение \eqref{eq:spectral} принимает вид
+Для начала рассмотрим выражение \eqref{eq:spectral} в точке $P = 0$. Имеем $f''(0) = 0, \; \epsilon''(0) = 0$. Уравнение \eqref{eq:spectral} принимает вид
 $$\lambda(\theta) = 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \tpoint$$
 Значит, для любого $\theta$ выполнено $|\lambda(\theta)| \leqslant 1$, если и только если
 \begin{equation}
 	 \tau \leqslant \cfrac{h^2}{m \Gamma} \tpoint
 	 \label{cond:spectral_0}
 \end{equation}
-При выполнении условия \eqref{cond:spectral_0} следует ожидать устойчивый расчет при полностью разрушенной или близкой к таковой среде ($\phi \approx 0$) в области $[0, W]_x \hm \times [0, +\infty)_t$ с бесконечным временным интервалом.
+При выполнении условия \eqref{cond:spectral_0} следует ожидать устойчивый расчет при полностью разрушенной или близкой к таковой среде ($\phi \approx 0$) в области $[0, W]_x \times [0, +\infty)_t$ с бесконечным временным интервалом.
 
 Заметим, что при условии \eqref{cond:spectral_0} к тому же ожидается устойчивый расчет на множестве $[0, W]_x \times [0, T]_t$ в любой точке $P \in [0, 1]$. В этом случае справедливо неравенство
 \begin{multline*}
@@ -112,7 +112,7 @@ $$\lambda(\theta) = 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \t
 \end{multline*}
 Значит, для некоторого $C$ верно $|\lambda(\theta)| \leqslant 1 + C \tau$, так как $\epsilon''(\phi)$ и $f''(\phi)$ -- непрерывные на отрезке $[0, 1]$ функции. Следует отметить, что, несмотря на подобную универсальность, оценка \eqref{cond:spectral_0} плохо применима на практике и нуждается в уточнении, которое будет сделано позже.
 
-Теперь рассмотрим выражение \eqref{eq:spectral} в точке $P = 1$. Имеем $f''(1) < 0,$ $\epsilon''(1) > 0$. Заметим, что при $(K_\Phi^2 / 2) \epsilon''(1) + (\Gamma / l^2) f''(1) \leqslant 0$ можно добиться $|\lambda(\theta)| \leqslant 1$, потребовав, подобно условию \eqref{cond:spectral_0}, $\tau \leqslant h^2 / (2m \Gamma)$ и притом достаточно малое $\tau$. Если подставить в упомянутое неравенство значения $f''(1) = -12, \; \epsilon''(1) = 12 \epsilon_0 / (1 + \delta)^2$ (см. выражение~\eqref{eq:epsilon_phi_phi}), то оно преобразуется в
+Теперь рассмотрим выражение \eqref{eq:spectral} в точке $P = 1$. Имеем $f''(1) < 0, \; \epsilon''(1) > 0$. Заметим, что при $(K_\Phi^2 / 2) \epsilon''(1) + (\Gamma / l^2) f''(1) \leqslant 0$ можно добиться $|\lambda(\theta)| \leqslant 1$, потребовав, подобно условию \eqref{cond:spectral_0}, $\tau \leqslant h^2 / (2m \Gamma)$ и притом достаточно малое $\tau$. Если подставить в упомянутое неравенство значения $f''(1) = -12, \; \epsilon''(1) = 12 \epsilon_0 / (1 + \delta)^2$ (см. выражение~\eqref{eq:epsilon_phi_phi}), то оно преобразуется в
 \begin{equation}
 	\cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma (1 + \delta)^2} \leqslant 1 \tpoint
 	\label{cond:spectral_possible_1}

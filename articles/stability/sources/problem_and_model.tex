@@ -6,14 +6,14 @@
 
 Приведем описание математической модели, предложенной в работе \cite{pitike_dielectric_breakdown}.
 
-Итак, рассматривается ограниченная область пространства $\Omega \subset \Real^3$. Распределение фаз вещества в ней задается гладкой функцией $\phi: \Omega \times [0, +\infty)_t \hm \to [0, 1], \; \phi(\vx, t)$ -- фазовым полем; вещество может находиться в одной из двух фаз: $\phi \approx 1$ -- <<неповрежденное>>, $\phi \approx 0$ -- <<полностью разрушенное>> (то есть относящееся к каналу пробоя), -- а также в промежуточных состояниях в зоне диффузной границы.
+Итак, рассматривается ограниченная область пространства $\Omega \subset \Real^3$. Распределение фаз вещества в ней задается гладкой функцией $\phi: \Omega \times [0, +\infty)_t \to [0, 1], \; \phi(\vx, t)$ -- фазовым полем; вещество может находиться в одной из двух фаз: $\phi \approx 1$ -- <<неповрежденное>>, $\phi \approx 0$ -- <<полностью разрушенное>> (то есть относящееся к каналу пробоя), -- а также в промежуточных состояниях в зоне диффузной границы.
 
 Диэлектрическую проницаемость среды $\epsilon$ предлагается описать следующей формулой:
 \begin{equation}
 	\epsilon(\vx, t) = \epsilon[\phi] = \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) + \delta} \tpoint
 	\label{eq:epsilon}
 \end{equation}
-Здесь $\epsilon_0(\vx)$ -- диэлектрическая проницаемость неповрежденной среды; $f(\phi) \hm = 4\phi^3 - 3\phi^4$ -- интерполирующая функция, гладко соединяющая значения $0$ и $1$ ($f(0) = 0, \; f(1) = 1, \; f'(0) = f'(1) = 0$); $0 < \delta \ll 1$ -- регуляризующий параметр. Обратим внимание, что при $\phi = 1 \;\; \epsilon(\vx, t) \approx \epsilon_0(\vx)$, что соответствует диэлектрику; при $\phi = 0 \;\; \epsilon(\vx, t) = \epsilon_0(\vx) / \delta$ (в $\delta^{-1} \gg 1$ раз больше), что соответствует проводнику.
+Здесь $\epsilon_0(\vx)$ -- диэлектрическая проницаемость неповрежденной среды; $f(\phi) = 4\phi^3 - 3\phi^4$ -- интерполирующая функция, гладко соединяющая значения $0$ и $1$ ($f(0) = 0, \; f(1) = 1, \; f'(0) = f'(1) = 0$); $0 < \delta \ll 1$ -- регуляризующий параметр. Обратим внимание, что при $\phi = 1 \;\; \epsilon(\vx, t) \approx \epsilon_0(\vx)$, что соответствует диэлектрику; при $\phi = 0 \;\; \epsilon(\vx, t) = \epsilon_0(\vx) / \delta$ (в $\delta^{-1} \gg 1$ раз больше), что соответствует проводнику.
 
 Помимо фазового поля $\phi$, состояние системы описывает также функция $\Phi: \Omega \times [0, +\infty)_t \to \Real, \; \Phi(\vx, t)$ -- потенциал электрического поля.
 
@@ -46,45 +46,7 @@
 \end{numcases}
 Здесь $(\cdot)' \equiv (\cdot)_\phi'$. Система состоит из двух уравнений: на $\phi$ и $\Phi$ соответственно; система связная, второе уравнение нелинейное, является уравнением типа Аллена--Кана.
 
-В таблице \ref{tab:quantities}, перечислены названия и размерности величин, встречающихся в описанной модели.
-
-\begin{table}[!t]
-\captionsetup{justification=raggedright,singlelinecheck=false}
-\caption[]{Величины, относящиеся к модели.}
-\centering
-\begin{tabular}{|c|c|m{10.7cm}|}
-	\hline
-	Величина & Размерность & Название либо физический смысл \\
-	\hline \hline
-	$\phi(\vx, t)$ & $1$ & фазовое поле \\
-	\hline
-	\rule{0mm}{\tabletopspace}
-	$\Phi(\vx, t)$ & $\cfrac{\unitJ}{\unitC}$ & потенциал электрического поля \\[\tablebottomspace]
-	\hline
-	$\Pi(t)$ & $\unitJ$ & свободная энергия \\
-	\hline
-	\rule{0mm}{\tabletopspace}
-	$\pi(\vx, t)$ & $\cfrac{\unitJ}{\unitm^3}$ & плотность свободной энергии \\[\tablebottomspace]
-	\hline
-	\rule{0mm}{\tabletopspace}
-	$\epsilon(\vx, t)$ & $\cfrac{\unitF}{\unitm} = \cfrac{\unitC^2}{\unitJ \cdot \unitm}$ & диэлектрическая проницаемость среды \\[\tablebottomspace]
-	\hline
-	\rule{0mm}{\tabletopspace}
-	$\epsilon_0(\vx)$ & $\cfrac{\unitF}{\unitm} = \cfrac{\unitC^2}{\unitJ \cdot \unitm}$ & диэлектрическая проницаемость неповрежденной среды \\[\tablebottomspace]
-	\hline
-	$\delta$ & $1$ & определяет диэлектрическую проницаемость полностью разрушенной среды, равную $\epsilon_0(\vx) / \delta$ \\
-	\hline
-	$l$ & $\unitm$ & характерная толщина диффузной границы \\
-	\hline
-	\rule{0mm}{\tabletopspace}
-	$\Gamma$ & $\cfrac{\unitJ}{\unitm}$ & характерная энергия образования единицы длины канала пробоя \\[\tablebottomspace]
-	\hline
-	\rule{0mm}{\tabletopspace}
-	$m$ & $\cfrac{\unitm^3}{\units \cdot \unitJ}$ & подвижность фазового поля $\phi$ \\[\tablebottomspace]
-	\hline
-\end{tabular}
-\label{tab:quantities}
-\end{table}
+[Здесь была таблица]
 
 
 \subsection{Одномерная задача}
@@ -106,7 +68,7 @@ $(\nabla \epsilon, \nabla \Phi) = 0$, так как $\epsilon$ на зависи
 	\label{eq:one_dim_preparation}
 \end{equation}
 
-Уравнение $\eqref{eq:one_dim_preparation}$ можно рассматривать как дифференциальное уравнение в частных производных на функцию $\phi(x, t)$ одной пространственной переменной и решать его в области $[0, W]_x \times [0, +\infty)_t$. Для удобства введем $K_\Phi \hm = \norm{\nabla \Phi} = (\Phi^+ - \Phi^-) / H$, тогда уравнение \eqref{eq:one_dim_preparation} примет вид
+Уравнение $\eqref{eq:one_dim_preparation}$ можно рассматривать как дифференциальное уравнение в частных производных на функцию $\phi(x, t)$ одной пространственной переменной и решать его в области $[0, W]_x \times [0, +\infty)_t$. Для удобства введем $K_\Phi = \norm{\nabla \Phi} = (\Phi^+ - \Phi^-) / H$, тогда уравнение \eqref{eq:one_dim_preparation} примет вид
 \begin{equation}
 	\cfrac{1}{m} \partt{\phi} = \half K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \partxx{\phi} \tpoint
 	\label{eq:one_dim}
