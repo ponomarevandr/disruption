@@ -26,27 +26,22 @@
 	\pi = -\half \epsilon[\phi] \scalsq{\Phi} + \Gamma \cfrac{1 - f(\phi)}{l^2} + \cfrac{\Gamma}{4} \scalsq{\phi} \tpoint
 	\label{eq:energy_density}
 \end{equation}
-Здесь $\Gamma > 0, \; l > 0$ -- числовые параметры модели, константы.
+Здесь $\Gamma > 0, \; l > 0$ -- числовые параметры модели, константы; $\Gamma$ имеет смысл характерной энергии образования единицы длины канала пробоя, $l$ -- характерной толщины диффузной границы.
 
 Постулируются два уравнения, определяющие динамику системы:
-\begin{equation*}
-\begin{cases}
-	\cfrac{\delta \Pi}{\delta \Phi} = 0 \tsemicolon \\[3mm]
-	\cfrac{1}{m} \partt{\phi} = -\cfrac{\delta \Pi}{\delta \phi} \tpoint
-\end{cases}
-\end{equation*}
+$$\cfrac{\delta \Pi}{\delta \Phi} = 0 \tsemicolon \qquad \cfrac{1}{m} \partt{\phi} = -\cfrac{\delta \Pi}{\delta \phi} \tpoint$$
 Здесь константа $m > 0$ -- числовой параметр модели, называемый подвижностью: она имеет смысл скорости изменения $\phi$ под действием единичной <<приложенной силы>>. Говоря нестрого, согласно первому уравнению электрический потенциал $\Phi$ распределяется так, чтобы свободная энергия была минимальной; согласно второму -- фазовое поле $\phi$ с определенной скоростью стремится к тому, чтобы свободная энергия была минимальной.
 
 Отыскав явно вариационные производные в двух уравнениях выше, получим следующую систему уравнений:
-\begin{numcases}{}
+\begin{equation}
 	\Div(\epsilon[\phi] \nabla \Phi) = 0 \tsemicolon
-	\label{eq:Phi} \\
+	\label{eq:Phi}
+\end{equation}
+\begin{equation}
 	\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \scalsq{\Phi} + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \triangle \phi \tpoint
 	\label{eq:phi}
-\end{numcases}
+\end{equation}
 Здесь $(\cdot)' \equiv (\cdot)_\phi'$. Система состоит из двух уравнений: на $\phi$ и $\Phi$ соответственно; система связная, второе уравнение нелинейное, является уравнением типа Аллена--Кана.
-
-[Здесь была таблица]
 
 
 \subsection{Одномерная задача}
