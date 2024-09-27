@@ -5,7 +5,7 @@
 Была написана программа, реализующая разностную схему \eqref{sch:transition}, \eqref{sch:borders}. С помощью моделирования проверим полученные ранее теоретические результаты, а именно: устойчивость и сходимость схемы при выполнении условия устойчивости \eqref{cond:spectral_better}, а также свойства положений равновесия системы, описанные в разделе \ref{sec:theoretical_analysis}. Помимо этого проверим поведение полной свободной энергии системы при моделировании.
 
 
-\subsection{Вычислительный эксперимент: устойчивость}
+\subsection{Типичное решение}
 
 Зафиксируем параметры уравнения \eqref{eq:one_dim}:
 \begin{equation}
@@ -34,21 +34,43 @@
 
 Обозначим $N_x$ число отрезков разбиения $[0, W]_x$ (узлов, соответственно, $N_x + 1$); $N_t$ -- число отрезков разбиения $[0, T]_t$. $h = W / N_x, \; \tau = T / N_t$.
 
-\begin{figure}[!tp]
+Посмотрим на типичное решение исследуемой задачи (рис.~\ref{fig:typical_solution}). Видно постепенное развитие канала электрического пробоя (разрушение среды) из небольшого начального возмущения фазового поля $\phi$ неповрежденной среды. Примерно в момент времени $t = 0.55$ канал пробоя <<прорастает насквозь>>, а именно, $\phi$ вблизи точки $x = 2.5$ приближается к нулевому значению. Обратим внимание, что в период времени $t \in (0.3, \; 0.55)$ канал пробоя (область, где $\phi$ существенно отличается от $1$) практически не растет в ширину, а при $t > 0.55$, напротив, растет в ширину почти с постоянной скоростью.
+
+
+\subsection{Эволюция свободной энергии}
+
+В рассматриваемой модели введена функция свободной энергии \eqref{eq:energy}, заданная интегралом плотности свободной энергии \eqref{eq:energy_density} по пространству.
+
+Единственное существенное дополнение, требующееся для расчета свободной энергии в использованной ранее схеме \eqref{sch:transition}, \eqref{sch:borders}, -- вычисление разностной производной $\partial_h \phi_i^j / \partial_h x$. Ограничимся простейшей разностной производной первого порядка, так как искомая величина не влияет на пересчет состояния системы.
+
+Проведем расчет в той же конфигурации системы, что и в предыдущем подразделе. Результат вычисления полной свободной энергии $\Pi$ в зависимости от времени изображен на рис. \ref{fig:energy}. Для сравнения с рис. \ref{fig:typical_solution} пунктирными линиями соответствующих цветов отмечены моменты времени. Интересно, что до момента $t = 0.5$ энергия $\Pi$ убывает очень медленно; после, при $t \approx 0.55$, резко падает; затем падение замедляется, и после $t = 0.6$ убывание выравнивается, становясь близким к линейному; так продолжается практически до полного разрушения среды.
+
+\begin{figure}[!t]
 	\centering
 	\includegraphics[width=\textwidth]{figures/typical_solution.png}
 	\vspace{-0.8cm}
 	\caption{Типичное решение задачи, $N_x = 10^3, \; N_t = 10^5$.}
 	\label{fig:typical_solution}
+	\vspace{0.5cm}
+
+	\includegraphics[width=\textwidth]{figures/energy_total.png}
+	\vspace{-0.8cm}
+	\caption{Поведение полной свободной энергии системы.}
+	\label{fig:energy}
 \end{figure}
 
-Для начала посмотрим на типичное решение исследуемой задачи (рис.~\ref{fig:typical_solution}). Видно постепенное развитие канала электрического пробоя (разрушение среды) из небольшого начального возмущения фазового поля $\phi$ неповрежденной среды. Примерно в момент времени $t = 0.55$ канал пробоя <<прорастает насквозь>>, а именно, $\phi$ вблизи точки $x = 2.5$ приближается к нулевому значению. Обратим внимание, что в период времени $t \in (0.3, \; 0.55)$ канал пробоя (область, где $\phi$ существенно отличается от $1$) практически не растет в ширину, а при $t > 0.55$, напротив, растет в ширину почти с постоянной скоростью.
+Отметим, что вывод системы уравнений \eqref{eq:Phi}, \eqref{eq:phi} динамики системы из выражений \eqref{eq:energy}, \eqref{eq:energy_density} для свободной энергии означает, что система в ходе эволюции стремится в положение с как можно меньшей свободной энергией. Поэтому для адекватного моделирования системы крайне важно, чтобы полная свободная энергия $\Pi$ не возрастала. Мы не дали этому теоретического обоснования для используемой разностной схемы, однако проверили на опыте. Другими словами, это означает, что при используемом виде краевых условий и параметрах расчета предложенная схема является градиентно-устойчивой.
 
-Проверим полученную в предыдущем разделе оценку \eqref{cond:spectral_better} устойчивости разностной схемы. Будем считать, что в вычислительном эксперименте схема неустойчива, если программа завершилась с ошибкой: произошло деление на~$0$ (в формуле \eqref{eq:epsilon} функции $\epsilon(\phi)$ при $f(\phi) = -\delta$) или значения $\phi$ ушли на бесконечность (переполнился тип double). Будем перебирать $N_x$ и $N_t$, запоминая пары соседних точек, в одной из которых устойчивость есть, а в другой нет. Так получим опытную оценку устойчивости схемы. Отобразим ее на графике вместе с оценкой \eqref{cond:spectral_better} (рис. \ref{fig:stability_bounds}).
+
+\subsection{Устойчивость}
+
+Проверим полученную в предыдущем разделе оценку \eqref{cond:spectral_better} устойчивости разностной схемы.
+
+Зададим модели параметры \eqref{exp:parameters}, \eqref{exp:set} и краевые условия \eqref{exp:borders}. Будем считать, что в вычислительном эксперименте схема неустойчива, если программа завершилась с ошибкой: произошло деление на~$0$ (в формуле \eqref{eq:epsilon} функции $\epsilon(\phi)$ при $f(\phi) = -\delta$) или значения $\phi$ ушли на бесконечность (переполнился тип double). Будем перебирать $N_x$ и $N_t$, запоминая пары соседних точек, в одной из которых устойчивость есть, а в другой нет. Так получим опытную оценку устойчивости схемы. Отобразим ее на графике вместе с оценкой \eqref{cond:spectral_better} (рис. \ref{fig:stability_bounds}).
 
 Эксперимент показывает, что оценка \eqref{cond:spectral_better} удачна: она примерно повторяет контур опытной оценки, к тому же ее график лежит выше, то есть она имеет некоторый <<запас>> до момента, когда в программе возникает ошибка. Именно ради этого <<запаса>> знаменатель исходной оценки  \eqref{cond:spectral_better_theoretical} был удвоен.
 
-\begin{figure}[!tp]
+\begin{figure}[!t]
 	\centering
 	\includegraphics[width=\textwidth]{figures/stability_bounds.png}
 	\vspace{-0.7cm}
@@ -57,7 +79,7 @@
 \end{figure}
 
 
-\subsection{Вычислительный эксперимент: сходимость}
+\subsection{Сходимость}
 
 Аппроксимация разностной схемой \eqref{sch:transition}, \eqref{sch:borders} дифференциальной задачи \eqref{eq:one_dim}, \eqref{eq:one_dim_initial}, \eqref{eq:one_dim_marginal} очевидна; для устойчивости схемы в ходе нестрогого анализа получено условие \eqref{cond:spectral_better}, применимое на практике. Теперь экспериментально проверим сходимость.
 
@@ -81,19 +103,19 @@ $$\norm{f_j^k}_C = \max \limits_{(j, k) \in \Omega_h} |f_j^k|; \qquad \norm{f_j^
 
 \begin{figure}[!tp]
 	\centering
-	\includegraphics[width=0.72\textwidth]{figures/convergence_fixed_nx.png}
+	\includegraphics[width=0.79\textwidth]{figures/convergence_fixed_nx.png}
 	\vspace{-0.2cm}
 	\caption{Ошибка решения по норме при фиксированном $N_x = 200$.}
 	\label{fig:convergence_fixed_nx}
 	\vspace{0.6cm}
 	
-	\includegraphics[width=0.72\textwidth]{figures/convergence_fixed_nt.png}
+	\includegraphics[width=0.79\textwidth]{figures/convergence_fixed_nt.png}
 	\vspace{-0.2cm}
 	\caption{Ошибка решения по норме при фиксированном $N_t = 204800$.}
 	\label{fig:convergence_fixed_nt}
 	\vspace{0.6cm}
 	
-	\includegraphics[width=0.72\textwidth]{figures/convergence_connected.png}
+	\includegraphics[width=0.79\textwidth]{figures/convergence_connected.png}
 	\vspace{-0.2cm}
 	\caption{Ошибка решения по норме при $N_t = 0.08 \cdot N_x^2$.}
 	\label{fig:convergence_connected}
@@ -104,7 +126,7 @@ $$\norm{f_j^k}_C = \max \limits_{(j, k) \in \Omega_h} |f_j^k|; \qquad \norm{f_j^
 В первых двух опытах, без стремления обоих шагов сетки к $0$, последовательности сеточных функций имели неясный предел. В третьем же, если принять предположение об устойчивости разностной схемы, сеточные функции сходятся к решению дифференциальной задачи \eqref{eq:one_dim}, \eqref{eq:one_dim_initial}, \eqref{eq:one_dim_marginal}.
 
 
-\subsection{Вычислительный эксперимент: \\ положения равновесия}
+\subsection{Положения равновесия}
 
 Ранее были исследованы положения равновесия уравнения \eqref{eq:one_dim} вида $\phi \equiv C$. Их количество и устойчивость определяется значением выражения \eqref{char:equilibriums} (обозначено $\xi$). Проверим этот результат экспериментально.
 
@@ -118,13 +140,13 @@ $$\norm{f_j^k}_C = \max \limits_{(j, k) \in \Omega_h} |f_j^k|; \qquad \norm{f_j^
 
 \begin{figure}[!t]
 	\centering
-	\includegraphics[width=0.9\textwidth]{figures/equilibrium_1_0.png}
+	\includegraphics[width=0.99\textwidth]{figures/equilibrium_1_0.png}
 	\vspace{-0.3cm}
 	\caption{Случай <<слабого напряжения>>: возмущенное положение равновесия $\phi \equiv 0$, неустойчивое.}
 	\label{fig:equilibrium_1_0}
 	\vspace{0.5cm}
 	
-	\includegraphics[width=0.9\textwidth]{figures/equilibrium_1_1.png}
+	\includegraphics[width=0.99\textwidth]{figures/equilibrium_1_1.png}
 	\vspace{-0.3cm}
 	\caption{Случай <<слабого напряжения>>: возмущенное положение равновесия $\phi \equiv 1$, устойчивое.}
 	\label{fig:equilibrium_1_1}
@@ -134,19 +156,19 @@ $$\norm{f_j^k}_C = \max \limits_{(j, k) \in \Omega_h} |f_j^k|; \qquad \norm{f_j^
 
 \begin{figure}[!tp]
 	\centering
-	\includegraphics[width=0.9\textwidth]{figures/equilibrium_2_0.png}
+	\includegraphics[width=0.99\textwidth]{figures/equilibrium_2_0.png}
 	\vspace{-0.3cm}
 	\caption{Случай <<среднего напряжения>>: возмущенное положение равновесия $\phi \equiv 0$, устойчивое.}
 	\label{fig:equilibrium_2_0}
 	\vspace{0.5cm}
 
-	\includegraphics[width=0.9\textwidth]{figures/equilibrium_2_05.png}
+	\includegraphics[width=0.99\textwidth]{figures/equilibrium_2_05.png}
 	\vspace{-0.3cm}
 	\caption{Случай <<среднего напряжения>>: возмущенное положение равновесия $\phi \equiv C_3 \approx 0.5$, неустойчивое.}
 	\label{fig:equilibrium_2_05}
 	\vspace{0.5cm}
 	
-	\includegraphics[width=0.9\textwidth]{figures/equilibrium_2_1.png}
+	\includegraphics[width=0.99\textwidth]{figures/equilibrium_2_1.png}
 	\vspace{-0.3cm}
 	\caption{Случай <<среднего напряжения>>: возмущенное положение равновесия $\phi \equiv 1$, устойчивое.}
 	\label{fig:equilibrium_2_1}
@@ -156,35 +178,14 @@ $$\norm{f_j^k}_C = \max \limits_{(j, k) \in \Omega_h} |f_j^k|; \qquad \norm{f_j^
 
 \begin{figure}[!t]
 	\centering
-	\includegraphics[width=0.9\textwidth]{figures/equilibrium_3_0.png}
+	\includegraphics[width=0.99\textwidth]{figures/equilibrium_3_0.png}
 	\vspace{-0.3cm}
 	\caption{Случай <<сильного напряжения>>: возмущенное положение равновесия $\phi \equiv 0$, устойчивое.}
 	\label{fig:equilibrium_3_0}
 	\vspace{0.5cm}
 	
-	\includegraphics[width=0.9\textwidth]{figures/equilibrium_3_1.png}
+	\includegraphics[width=0.99\textwidth]{figures/equilibrium_3_1.png}
 	\vspace{-0.3cm}
 	\caption{Случай <<сильного напряжения>>: возмущенное положение равновесия $\phi \equiv 1$, неустойчивое.}
 	\label{fig:equilibrium_3_1}
 \end{figure}
-
-
-\subsection{Вычислительный эксперимент: свободная энергия}
-
-В рассматриваемой модели введена функция свободной энергии \eqref{eq:energy}, заданная интегралом плотности свободной энергии \eqref{eq:energy_density} по пространству.
-
-Построим график полной свободной энергии системы от времени. Зададим модели параметры \eqref{exp:parameters}, \eqref{exp:set} и краевые условия \eqref{exp:borders}. Ранее мы уже проводили расчеты в этой конфигурации -- графики $\phi$ изображены на рис. \ref{fig:typical_solution}.
-
-Единственное существенное дополнение, требующееся использованной ранее схеме \eqref{sch:transition}, \eqref{sch:borders}, -- вычисление разностной производной $\partial_h \phi_i^j / \partial_h x$. Ограничимся простейшей разностной производной первого порядка, так как искомая величина не влияет на пересчет состояния системы.
-
-Результат вычисления полной свободной энергии $\Pi$ в зависимости от времени изображен на рис. \ref{fig:energy}. Для сравнения с рис. \ref{fig:typical_solution} пунктирными линиями соответствующих цветов отмечены моменты времени. Интересно, что до момента $t = 0.5$ энергия $\Pi$ убывает очень медленно; после, при $t \approx 0.55$, резко падает; затем падение замедляется, и после $t = 0.6$ убывание выравнивается, становясь близким к линейному; так продолжается практически до полного разрушения среды.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{figures/energy_total.png}
-	\vspace{-0.6cm}
-	\caption{Поведение полной свободной энергии системы.}
-	\label{fig:energy}
-\end{figure}
-
-Отметим, что вывод системы уравнений \eqref{eq:Phi}, \eqref{eq:phi} динамики системы из выражений \eqref{eq:energy}, \eqref{eq:energy_density} для свободной энергии означает, что система в ходе эволюции стремится в положение с как можно меньшей свободной энергией. Поэтому для адекватного моделирования системы крайне важно, чтобы полная свободная энергия $\Pi$ не возрастала. Мы не дали этому теоретического обоснования для используемой разностной схемы, однако проверили на опыте. Другими словами, это означает, что при используемом виде краевых условий и параметрах расчета предложенная схема является градиентно-устойчивой.
