@@ -5,17 +5,19 @@
 \subsection{Предложенное обобщение}
 
 В ответ на описанную в предыдущем подразделе проблему в работе \cite{zipunova_higher_codimension}, на основании теоретических результатов работ \cite{sobolev_functional_analysis}, \cite{oleynik_biharmonic_equations}, \cite{sternin_elliptic_equations}, \cite{lewis_quasi_linear}, предлагается следующая обобщенная модель, для которой постановка условий на границах размерности 1 (соответственно, коразмерности 2) является математически корректной:
-\begin{equation}
-    \Pi = \int \limits_\Omega \pi d \mathbf{x} \tcomma
-    \label{eq:free_energy_corrected}
-\end{equation}
-\begin{equation}
-    \pi = -\half \epsilon[\phi] (\nabla \Phi, \nabla \Phi) + \Gamma \cfrac{1 - f(\phi)}{l^2} + \cfrac{\Gamma}{4} (\nabla \phi, \nabla \phi) + \alpha \cfrac{\Gamma l^2}{8} (\triangle \phi)^2 + \beta \cfrac{1}{p} \Gamma l^{p - 2} \| \, \nabla \phi \, \|_2^p \tsemicolon
+\begin{gather}
+    \Pi = \int \limits_\Omega \pi d \vx \tcomma
+    \label{eq:free_energy_corrected} \\
+    \begin{aligned}
+        \pi = -\half \epsilon[\phi] (\nabla \Phi, \nabla \Phi) + \Gamma \cfrac{1 - f(\phi)}{l^2} & + \cfrac{\Gamma}{4} (\nabla \phi, \nabla \phi) + \\ & + \alpha \cfrac{\Gamma l^2}{8} (\triangle \phi)^2 + \beta \cfrac{1}{p} \Gamma l^{p - 2} \| \, \nabla \phi \, \|_2^p \tsemicolon
+    \end{aligned}
     \label{eq:free_energy_density_corrected}
-\end{equation}
+\end{gather}
 \begin{numcases}{}
     \Div(\epsilon[\phi] \nabla \Phi) = 0 \tsemicolon \label{equation_Phi_corrected} \\
-    \cfrac{1}{m} \cfrac{\partial \phi}{\partial t} = \half \epsilon'(\phi) (\nabla \Phi, \nabla \Phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \triangle \phi - \alpha \cfrac{\Gamma l^2}{4} \triangle^2 \phi + \beta \Gamma l^{p - 2} \Div (\| \, \nabla \phi \, \|_2^{p - 2} \nabla \phi) \tpoint
+    \begin{aligned}
+        \cfrac{1}{m} \cfrac{\partial \phi}{\partial t} = \half \epsilon'(\phi) (\nabla \Phi, \nabla \Phi) & + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \triangle \phi - \\ & - \alpha \cfrac{\Gamma l^2}{4} \triangle^2 \phi + \beta \Gamma l^{p - 2} \Div (\| \, \nabla \phi \, \|_2^{p - 2} \nabla \phi) \tpoint
+    \end{aligned}
     \label{eq:phi_corrected}
 \end{numcases}
 Здесь $\alpha, \beta \geqslant 0$ -- некоторые константы, $p$ -- четное натуральное число, не меньшее~4. Дифференциальный оператор $\Div (\| \, \nabla \phi \, \|_2^{p - 2} \nabla \phi)$ принято называть \emph{$p$-лапласианом}, $\triangle^2 \phi = \triangle(\triangle \phi)$ -- \emph{билапласианом}. В дальнейшем для простоты будем считать $p = 4$.
@@ -35,7 +37,7 @@
 
 Стационарное решение соответствует минимуму свободной энергии $\Pi$. Уравнения динамики системы выведены таковыми, что система стремится к минимуму энергии $\Pi$ в ходе эволюции. Поэтому будем проводить расчет на достаточно долгое время, тогда установившееся положение равновесия и будет искомым стационарным решением $\phi$.
 
-В случаях 2 и 3 естественно перейти в цилиндрические и сферические координаты соответственно и считать решение $\phi$ зависящим только от радиуса $r$. В случае 1 для единообразия пространственную переменную также назовем $r$. Итак, $\phi(\mathbf{x}) = \phi(r)$.
+В случаях 2 и 3 естественно перейти в цилиндрические и сферические координаты соответственно и считать решение $\phi$ зависящим только от радиуса $r$. В случае 1 для единообразия пространственную переменную также назовем $r$. Итак, $\phi(\vx) = \phi(r)$.
 
 Для численного решения задачи воспользуемся методом конечных объемов. Классический метод конечных разностей, встречая ряд проблем, подходит плохо. К примеру, в уравнениях разностной схемы могут возникать ситуации деления на 0 в узле $r = 0$ в цилиндрическом и сферическом случае (см. формулу \eqref{eq:stationary_cylindrical}).
 
@@ -61,21 +63,21 @@
 где
 $$\overline{\rho} = \half \nabla \phi - \alpha \cfrac{l^2}{4} \nabla (\triangle \phi) + \beta l^2 \| \, \nabla \phi \, \|_2^2 \nabla \phi \tpoint$$
 Проинтегрируем уравнение \eqref{eq:phi_for_integration} вначале по некоторому промежутку времени [$t_j, t_{j + 1}]$, затем по ячейке $\Omega_i$. Преобразуем левую часть:
-$$\int\limits_{\Omega_i} \int\limits_{t_j}^{t_{j + 1}} \cfrac{1}{m} \cfrac{\partial \phi}{\partial t} dt d \mathbf{x} = \cfrac{1}{m} \int\limits_{\Omega_i} [\phi(\mathbf{x}, t_{j + 1}) - \phi(\mathbf{x}, t_j)] d \mathbf{x} = \cfrac{dV_i}{m} [\widetilde{\phi}_i(t_{j + 1}) - \widetilde{\phi}_i(t_j)] \tcomma$$
+$$\int\limits_{\Omega_i} \int\limits_{t_j}^{t_{j + 1}} \cfrac{1}{m} \cfrac{\partial \phi}{\partial t} dt d \vx = \cfrac{1}{m} \int\limits_{\Omega_i} [\phi(\vx, t_{j + 1}) - \phi(\vx, t_j)] d \vx = \cfrac{dV_i}{m} [\widetilde{\phi}_i(t_{j + 1}) - \widetilde{\phi}_i(t_j)] \tcomma$$
 где $\widetilde{\phi}_i$ -- это интегральное среднее функции $\phi$ по ячейке $\Omega_i$. Преобразуем правую часть, предварительно поменяв порядок интегрирования:
-$$\int\limits_{t_j}^{t_{j + 1}} \int\limits_{\Omega_i} \left( \cfrac{\Gamma}{l^2} f'(\phi) + \Gamma \Div \overline{\rho} \right) d \mathbf{x} dt = \int\limits_{t_j}^{t_{j + 1}} \left( \cfrac{\Gamma}{l^2} \int\limits_{\Omega_i} f'(\phi) d \mathbf{x} + \Gamma \int\limits_{\partial \Omega_i} (\overline{\rho}, \overline{n}) dS \right) dt \tpoint$$
+$$\int\limits_{t_j}^{t_{j + 1}} \int\limits_{\Omega_i} \left( \cfrac{\Gamma}{l^2} f'(\phi) + \Gamma \Div \overline{\rho} \right) d \vx dt = \int\limits_{t_j}^{t_{j + 1}} \left( \cfrac{\Gamma}{l^2} \int\limits_{\Omega_i} f'(\phi) d \vx + \Gamma \int\limits_{\partial \Omega_i} (\overline{\rho}, \overline{n}) dS \right) dt \tpoint$$
 К интегралу слагаемого $\Gamma \Div \overline{\rho}$ была применена формула Гаусса--Остроградского. Функция $\phi$ зависит только от $r$, следовательно, вектор $\overline{\rho}$ всегда параллелен оси $r$. Граница ячейки $\partial \Omega_i$ складывается из внешней (где вектор нормали $\overline{n}$ и ось $r$ сонаправлены) и внутренней (где $\overline{n}$ и ось $r$ противоположно направлены). Обозначим $F_{i \pm 1/2}(t)$ поток в положительном направлении оси $r$ через соответствующую границу с радиусом $r_{i \pm 1/2}$:
 $$F_{i \pm 1/2}(t) = \int\limits_{r = r_{i \pm 1/2}} (\overline{\rho}, \overline{n}) dS = \int\limits_{r = r_{i \pm 1/2}} \overline{\rho}_r dS = \overline{\rho}_r S(r_{i \pm 1/2}) = \rho_{i \pm 1/2}(t) \cdot S(r_{i \pm 1/2}) \tcomma$$
 $$\int\limits_{\partial \Omega_i} (\overline{\rho}, \overline{n}) dS = F_{i + 1/2} - F_{i - 1/2} = \rho_{i + 1/2} S(r_{i + 1/2}) - \rho_{i - 1/2} S(r_{i - 1/2}) \tpoint$$
 Здесь $\overline{\rho}_r$ обозначена $r$-координата вектора $\overline{\rho}$ (она же единственная ненулевая). Величину $\rho_{i \pm 1/2}(t) = \overline{\rho}_r(r_{i \pm 1/2}, t)$ будем называть плотностью потока через соответствующую границу. Таким образом, выведено следующее интегральное соотношение:
 \begin{equation}
-    \cfrac{dV_i}{m} [\widetilde{\phi}_i(t_{j + 1}) - \widetilde{\phi}_i(t_j)] = \int\limits_{t_j}^{t_{j + 1}} \left( \cfrac{\Gamma}{l^2} \int\limits_{\Omega_i} f'(\phi) d \mathbf{x} + \Gamma \left[ \rho_{i + 1/2} S(r_{i + 1/2}) - \rho_{i - 1/2} S(r_{i - 1/2}) \right] \right) dt \tpoint
+    \cfrac{dV_i}{m} [\widetilde{\phi}_i(t_{j + 1}) - \widetilde{\phi}_i(t_j)] = \int\limits_{t_j}^{t_{j + 1}} \left( \cfrac{\Gamma}{l^2} \int\limits_{\Omega_i} f'(\phi) d \vx + \Gamma \left[ \rho_{i + 1/2} S(r_{i + 1/2}) - \rho_{i - 1/2} S(r_{i - 1/2}) \right] \right) dt \tpoint
     \label{eq:finite_volume_integral}
 \end{equation}
 
 Первое слагаемое в подынтегральном выражении в правой части равенства \eqref{eq:finite_volume_integral} приблизим выражением $(\Gamma/l^2) \cdot dV_i \cdot f'[\widetilde{\phi}_i(t_j)]$. При построении разностной схемы от интеграла по $[t_j, t_{j + 1}]$ перейдем к умножению на $(t_{j + 1} - t_j)$ значения подынтегрального выражения в точке $t_j$.
 
-Выясним, как вычислить плотность потока $\rho_{i \pm 1/2}$ во втором слагаемом. Если некоторая функция $\psi(\mathbf{x}) = \psi(r)$, то
+Выясним, как вычислить плотность потока $\rho_{i \pm 1/2}$ во втором слагаемом. Если некоторая функция $\psi(\vx) = \psi(r)$, то
 $$(\nabla \psi)_r = \cfrac{\partial \psi}{\partial r} \tcomma$$
 где $\nabla \psi$ также зависит только от $r$. Таким образом:
 \begin{equation}
