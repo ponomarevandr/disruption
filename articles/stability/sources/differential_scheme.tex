@@ -10,14 +10,14 @@
 	\label{eq:subtractive}
 \end{equation}
 Имеем четырехточечную явную разностную схему:
-\begin{numcases}{}
-	\mbox{$\begin{aligned}
+\begin{gather}
+	\begin{aligned}
 		\phi_j^{k + 1} = \phi_j^k + m \tau \left( \half K_\Phi^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \diffhh{\phi} \right), \\ j = \overline{1, N - 1}, \quad k \in \Natural_0 \tsemicolon
-	\end{aligned}$}
+	\end{aligned}
 	\label{sch:transition} \\
 	\phi_j^0 = \phi_0(jh); \quad \phi_0^k = \phi_l(k \tau); \quad \phi_N^k = \phi_r(k \tau) \tpoint
 	\label{sch:borders}
-\end{numcases}
+\end{gather}
 
 Легко видеть, что схема имеет первый порядок аппроксимации по времени и второй порядок аппроксимации по пространственной переменной $x$.
 
@@ -58,12 +58,12 @@ $$\lambda(\theta) = 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \t
 При выполнении условия \eqref{cond:spectral_0} следует ожидать устойчивый расчет при полностью разрушенной или близкой к таковой среде ($\phi \approx 0$) в области $[0, W]_x \times [0, +\infty)_t$ с бесконечным временным интервалом.
 
 Заметим, что при условии \eqref{cond:spectral_0} к тому же ожидается устойчивый расчет на множестве $[0, W]_x \times [0, T]_t$ в любой точке $P \in [0, 1]$. В этом случае справедливо неравенство
-\begin{multline*}
-	|\lambda(\theta)| \leqslant \left| 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \right| + m \tau \left| \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) \right| \leqslant \\ \leqslant 1 + m \tau \left| \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) \right| \tpoint
-\end{multline*}
+$$
+	|\lambda(\theta)| \leqslant \left| 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \right| + m \tau \left| \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) \right| \leqslant 1 + m \tau \left| \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) \right| \tpoint
+$$
 Значит, для некоторого $C$ верно $|\lambda(\theta)| \leqslant 1 + C \tau$, так как $\epsilon''(\phi)$ и $f''(\phi)$ -- непрерывные на отрезке $[0, 1]$ функции. Следует отметить, что, несмотря на подобную универсальность, оценка \eqref{cond:spectral_0} плохо применима на практике и нуждается в уточнении, которое будет сделано позже.
 
-Теперь рассмотрим выражение \eqref{eq:spectral} в точке $P = 1$. Имеем $f''(1) < 0, \; \epsilon''(1) > 0$. Заметим, что при $(K_\Phi^2 / 2) \epsilon''(1) + (\Gamma / l^2) f''(1) \leqslant 0$ можно добиться $|\lambda(\theta)| \leqslant 1$, потребовав, подобно условию \eqref{cond:spectral_0}, $\tau \leqslant h^2 / (2m \Gamma)$ и притом достаточно малое $\tau$. Если подставить в упомянутое неравенство значения $f''(1) = -12, \; \epsilon''(1) = 12 \epsilon_0 / (1 + \delta)^2$ (см. выражение~\eqref{eq:epsilon_phi_phi}), то оно преобразуется в
+Теперь рассмотрим выражение \eqref{eq:spectral} в точке $P = 1$. Имеем $f''(1) < 0, \; \epsilon''(1) > 0$. Заметим, что при $(K_\Phi^2 / 2) \epsilon''(1) + (\Gamma / l^2) f''(1) \leqslant 0$ можно добиться $|\lambda(\theta)| \leqslant 1$, потребовав, подобно условию \eqref{cond:spectral_0}, $\tau \leqslant h^2 / (2m \Gamma)$ и притом достаточно малое $\tau$. Если подставить в упомянутое неравенство значения $f''(1) = -12, \; \epsilon''(1) = 12 \epsilon_0 / (1 + \delta)^2$ (см. выражение~\eqref{eq:epsilon_derivatives}), то оно преобразуется в
 \begin{equation}
 	\cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma (1 + \delta)^2} \leqslant 1 \tpoint
 	\label{cond:spectral_possible_1}
@@ -76,7 +76,7 @@ $$\lambda(\theta) = 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \t
 
 В предыдущем разделе из анализа уравнения \eqref{eq:spectral} было получено условие~\eqref{cond:spectral_0} устойчивости разностной схемы \eqref{sch:transition}, \eqref{sch:borders} при $\phi \approx 0$. Предположение о его полезности основано на том, что типичным поведением модели будет некоторый процесс перехода $\phi$ от $1$ к $0$ (<<разрушение>>) за конечное время, а затем бесконечно долгое пребывание в состоянии $\phi \approx 0$.
 
-Однако проделанного анализа уравнения \eqref{eq:spectral} в точке $\phi = 0$ недостаточно. В самом деле, было использовано, что $\epsilon''(0) = 0$ (см. выражение \eqref{eq:epsilon_phi_phi}), но не учтено, что $\epsilon''(\phi)$ при малых $\delta$ вблизи $0$ растет очень быстро и достигает больших значений (рис.~\ref{fig:eps_phi_phi}). Получается, что модель, устойчивая в точке $0$, может работать неадекватно в малой ее окрестности. Это нас, конечно, не устраивает -- улучшим оценку устойчивости.
+Однако проделанного анализа уравнения \eqref{eq:spectral} в точке $\phi = 0$ недостаточно. В самом деле, было использовано, что $\epsilon''(0) = 0$ (см. выражение \eqref{eq:epsilon_derivatives}), но не учтено, что $\epsilon''(\phi)$ при малых $\delta$ вблизи $0$ растет очень быстро и достигает больших значений (рис.~\ref{fig:eps_phi_phi}). Получается, что модель, устойчивая в точке $0$, может работать неадекватно в малой ее окрестности. Это нас, конечно, не устраивает -- улучшим оценку устойчивости.
 
 \begin{figure}[!t]
 	\centering
@@ -86,23 +86,20 @@ $$\lambda(\theta) = 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \t
 	\label{fig:eps_phi_phi}
 \end{figure}
 
-Нужно оценить экстремумы функции $\epsilon''(\phi)$ вблизи $0$. Для начала найдем нули $\epsilon'''(\phi)$. Имеем:
-$$f'''(\phi) = 24 - 72 \phi; \quad \epsilon'''_{fff} = \cfrac{-6 \epsilon_0}{(f(\phi) + \delta)^4} \tsemicolon$$
+Нужно оценить экстремумы функции $\epsilon''(\phi)$ вблизи $0$. Для начала найдем нули $\epsilon'''(\phi)$.
 \begin{equation}
-	\epsilon''' = \epsilon'''_{fff} \cdot (f')^3 + 3 \epsilon''_{ff} \cdot f' \cdot f'' + \epsilon'_f \cdot f''' = \epsilon_0 \cfrac{-6 (f')^3 + 6 (f + \delta) f' f'' - (f + \delta)^2 f'''}{(f + \delta)^4} \tpoint
+	\epsilon''' = \epsilon_0 \cfrac{-6 (f')^3 + 6 (f + \delta) f' f'' - (f + \delta)^2 f'''}{(f + \delta)^4} \tpoint
 	\label{eq:epsilon_phi_phi_phi}
 \end{equation}
-Приравняв $\epsilon'''$ к $0$, получим:
-$$-6 (f')^3 + 6 (f + \delta) f' f'' - (f + \delta)^2 f''' = 0 \tcomma$$
-или
-\begin{multline*}
-	-6(12 \phi^2 (1 - \phi))^3 + 6(4 \phi^3 - 3\phi^4 + \delta) \cdot 12 \phi^2 (1 - \phi) \cdot 12 \phi (2 - 3\phi) - \\ - (4 \phi^3 - 3 \phi^4 + \delta)^2 \cdot 24 (1 - 3 \phi) = 0 \tpoint
-\end{multline*}
-Разделим последнее уравнение на $24\phi^6$, получим:
+Имеем:
+$$\epsilon'''(\phi) = -6 (f')^3 + 6 (f + \delta) f' f'' - (f + \delta)^2 f''' = 0 \tcomma$$
+или, с учетом выражения \eqref{eq:epsilon} для $f(\phi)$:
 $$-3 \cdot 12^2 (1 - \phi)^3 + 36 \left(4 - 3\phi + \cfrac{\delta}{\phi^3} \right)(1 - \phi)(2 - 3\phi) - \left(4 - 3 \phi + \cfrac{\delta}{\phi^3} \right)^2 (1 - 3 \phi) = 0 \tpoint$$
 Пусть $\delta_n \to +0$ и корень $\phi_n \to +0$, причем $\delta_n / \phi_n^3$ ограничено. Тогда:
-$$-3 \cdot 12^2 \cdot 1^3 + 36 \left(4 + \cfrac{\delta_n}{\phi_n^3} \right) \cdot 1 \cdot 2 - \left(4 + \cfrac{\delta_n}{\phi_n^3} \right)^2 \cdot 1 \to 0 \tcomma$$
-$$\left(4 + \cfrac{\delta_n}{\phi_n^3} \right)^2 - 72 \left(4 + \cfrac{\delta_n}{\phi_n^3} \right) + 3 \cdot 12^2 \to 0 \tpoint$$
+\begin{gather*}
+	-3 \cdot 12^2 \cdot 1^3 + 36 \left(4 + \cfrac{\delta_n}{\phi_n^3} \right) \cdot 1 \cdot 2 - \left(4 + \cfrac{\delta_n}{\phi_n^3} \right)^2 \cdot 1 \to 0 \tcomma \\
+	\left(4 + \cfrac{\delta_n}{\phi_n^3} \right)^2 - 72 \left(4 + \cfrac{\delta_n}{\phi_n^3} \right) + 3 \cdot 12^2 \to 0 \tpoint
+\end{gather*}
 Значит, последовательность $4 + \delta_n / \phi_n^3$ имеет не более двух частичных пределов $\xi_+$ и $\xi_-$ -- корней уравнения $\xi^2 - 72 \xi + 432 = 0$. Первому корню $\xi_+ = 36 + 12 \sqrt{6}$ соответствует
 $$\phi_+ = \cfrac{1}{\sqrt[3]{32 + 12 \sqrt{6}}} \sqrt[3]{\delta_n} \approx \cfrac{1}{3.945} \sqrt[3]{\delta_n} \tsemicolon$$
 второму корню $\xi_- = 36 - 12 \sqrt{6}$ соответствует
@@ -115,10 +112,7 @@ $$\phi_- = \cfrac{1}{\sqrt[3]{32 - 12 \sqrt{6}}} \sqrt[3]{\delta_n} \approx \cfr
 \end{equation}
 
 Оценим $\epsilon''(\phi)$ в точках $\phi_{\pm}$ при $\delta \to +0$. Пусть $\phi = (1 / c) \sqrt[3]{\delta}, \; c \in \Real$. Тогда:
-\begin{multline*}
-	\hspace{-2mm}
-	\cfrac{\epsilon''}{\epsilon_0} = \cfrac{2(f')^2 - (f + \delta)f''}{(f + \delta)^3} = \cfrac{2 \cdot 12^2 \phi^4 (1 - \phi)^2 - (4 \phi^3 - 3 \phi^4 + \delta) \cdot 12 \phi (2 - 3 \phi)}{(4 \phi^3 - 3 \phi^4 + \delta)^3} = \\ = \cfrac{2 \cdot 12^2 - 8 \cdot 12 - 24 (\delta / \phi^3)}{(4 + \delta / \phi^3)^3} \cdot \cfrac{1}{\phi^5}[1 + o(1)] = \cfrac{24 c^5 (8 - c^3)}{(4 + c^3)^3} \delta^{-5 / 3} [1 + o(1)] \tpoint
-\end{multline*}
+$$\epsilon'' = \epsilon_0 \cfrac{24 c^5 (8 - c^3)}{(4 + c^3)^3} \delta^{-5 / 3} [1 + o(1)] \tpoint$$
 Отсюда:
 \begin{equation}
 	\epsilon''(\phi_+) \approx -4.378 \epsilon_0 \delta^{-5 / 3}; \quad \epsilon''(\phi_-) \approx 2.216 \epsilon_0 \delta^{-5 / 3} \tpoint
