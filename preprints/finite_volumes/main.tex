@@ -77,50 +77,63 @@
 \newcommand{\vn}{{\vect{n}}}
 \newcommand{\vrho}{{\vect{\rho}}}
 
+\newcommand{\aver}[1]{\widetilde{#1}}
+\newcommand{\avphi}{{\aver{\phi}}}
+\newcommand{\avpsi}{{\aver{\psi}}}
+\newcommand{\avlaplphi}{{\aver{\triangle \phi}}}
+
+\newcommand{\ga}{{g^{(a)}}}
+\newcommand{\gb}{{g^{(b)}}}
+
 \newcommand{\half}{\cfrac{1}{2}}
 
-\newcommand{\partt}[1]{\cfrac{\partial #1}{\partial t}}
-\newcommand{\partx}[1]{\cfrac{\partial #1}{\partial x}}
-\newcommand{\partxx}[1]{\cfrac{\partial^2 #1}{\partial x^2}}
-\newcommand{\partvn}[1]{\cfrac{\partial #1}{\partial \vn}}
+\newcommand{\partderiv}[2]{\cfrac{\partial #1}{\partial #2}}
+\newcommand{\partsecondderiv}[2]{\cfrac{\partial^2 #1}{\partial {#2}^2}}
+\newcommand{\partt}[1]{\partderiv{#1}{t}}
+\newcommand{\partx}[1]{\partderiv{#1}{x}}
+\newcommand{\partxx}[1]{\partsecondderiv{#1}{x}}
+\newcommand{\partvn}[1]{\partderiv{#1}{\vn}}
+\newcommand{\partr}[1]{\partderiv{#1}{r}}
+\newcommand{\partrr}[1]{\partsecondderiv{#1}{r}}
 
-\newcommand{\partflt}[1]{\partial #1 / \partial t}
-\newcommand{\partflx}[1]{\partial #1 / \partial x}
-\newcommand{\partflxx}[1]{\partial^2 #1 / \partial x^2}
-\newcommand{\partflvn}[1]{\partial #1 / \partial \vn}
-
-\newcommand{\difftau}[1]{\cfrac{{#1}_j^{k + 1} - {#1}_j^k}{\tau}}
-\newcommand{\diffhh}[1]{\cfrac{{#1}_{j + 1}^k - 2 {#1}_j^k + {#1}_{j - 1}^k}{h^2}}
+\newcommand{\partflderiv}[2]{\partial #1 / \partial #2}
+\newcommand{\partflsecondderiv}[2]{\partial^2 #1 / \partial {#2}^2}
+\newcommand{\partflt}[1]{\partflderiv{#1}{t}}
+\newcommand{\partflx}[1]{\partflderiv{#1}{x}}
+\newcommand{\partflxx}[1]{\partflsecondderiv{#1}{x}}
+\newcommand{\partflvn}[1]{\partflderiv{#1}{\vn}}
+\newcommand{\partflr}[1]{\partflderiv{#1}{r}}
+\newcommand{\partflrr}[1]{\partflsecondderiv{#1}{r}}
 
 \newcommand{\scalsq}[1]{\left( \nabla #1, \nabla #1 \right)}
+
+\newcommand{\norm}[1]{\| \, #1 \, \|}
+\newcommand{\enorm}{{\| \cdot \|}}
+
+\newcommand{\plapl}[2]{\Div(\norm{\nabla #1}_2^{#2} \nabla #1)}
+\newcommand{\bilapl}[1]{\triangle^2 #1}
+
+\newcommand{\intt}{{\int\limits_{t_j}^{t_{j + 1}}}}
+\newcommand{\intOmega}{{\int\limits_{\Omega_i}}}
+
+\newcommand{\gridfunc}[1]{\left[ \cfrac{\partial #1}{\partial r} \right]}
+\newcommand{\gridpartphi}{{\gridfunc{\phi}}}
+\newcommand{\gridpartlaplphi}{{\gridfunc{(\triangle \phi)}}}
 
 \newcommand{\Natural}{{\mathbb{N}}}
 \newcommand{\Real}{{\mathbb{R}}}
 \newcommand{\bigO}{{\mathcal{O}}}
 \newcommand{\clOmega}{{\overline{\Omega}}}
 
-\newcommand{\norm}[1]{\| \, #1 \, \|}
-\newcommand{\enorm}{{\| \cdot \|}}
-
-\newcommand{\tabletopspace}{9mm}
-\newcommand{\tablebottomspace}{3mm}
-
 \newcommand{\tpoint}{{\text{.}}}
 \newcommand{\tcomma}{{\text{,}}}
 \newcommand{\tsemicolon}{{\text{;}}}
-
-\newcommand{\unitm}{{\text{м}}}
-\newcommand{\units}{{\text{с}}}
-\newcommand{\unitJ}{{\text{Дж}}}
-\newcommand{\unitC}{{\text{Кл}}}
-\newcommand{\unitF}{{\text{Ф}}}
 
 \newcommand{\forcehyphenation}{-\linebreak}
 
 
 %%% Свои операторы
 \DeclareMathOperator{\Div}{{div}}
-\DeclareMathOperator{\Int}{{Int}}
 
 
 %%% Оформление теорем

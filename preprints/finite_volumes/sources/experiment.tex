@@ -22,43 +22,43 @@ $$\max\limits_{i = 0}^n \cfrac{\widetilde{\phi}_i^{j + 1} - \widetilde{\phi}_i^j
 Результаты вычислений изображены на рис. \ref{fig:result_volumes} и \ref{fig:result_volumes_p} (случай 1 из описания разностной схемы), рис. \ref{fig:result_volumes_bi} (случай 2), рис. \ref{fig:result_volumes_cyl_p} (случай 3), рис. \ref{fig:result_volumes_cyl_bi} (случай 4), рис.~\ref{fig:result_volumes_sph_p} (случай~5). Графики функций показаны до зримого момента выхода на примерно постоянное значение $1$, после чего они в действительности продолжаются до $R = 5$. Графики состоят из соединенных значений средних $\widetilde{\phi}_i^j$, размещенных в серединах ячеек; вблизи~$0$ к ним добавлено несколько значений приближающей функции $g^{(a)}$, имеющей особенность в $0$, если того требует случай задачи.
 
 \begin{figure}[!tp]
-    \centering
-    \includegraphics[width=0.89\textwidth]{figures/result_volumes.png}
-    \vspace{-0.3cm}
-    \caption{Решение $\phi$ в плоском случае при $\alpha = 0, \; \beta = 0$.}
-    \label{fig:result_volumes}
-    \vspace{0.5cm}
+	\centering
+	\includegraphics[width=0.89\textwidth]{figures/result_volumes.png}
+	\vspace{-0.3cm}
+	\caption{Решение $\phi$ в плоском случае при $\alpha = 0, \; \beta = 0$.}
+	\label{fig:result_volumes}
+	\vspace{0.5cm}
 
-    \includegraphics[width=0.89\textwidth]{figures/result_volumes_p.png}
-    \vspace{-0.3cm}
-    \caption{Решение $\phi$ в плоском случае при $\alpha = 0, \; \beta = 1$.}
-    \label{fig:result_volumes_p}
-    \vspace{0.5cm}
-    
-    \includegraphics[width=0.89\textwidth]{figures/result_volumes_bi.png}
-    \vspace{-0.3cm}
-    \caption{Решение $\phi$ в плоском случае при $\alpha = 1, \; \beta = 0$.}
-    \label{fig:result_volumes_bi}
+	\includegraphics[width=0.89\textwidth]{figures/result_volumes_p.png}
+	\vspace{-0.3cm}
+	\caption{Решение $\phi$ в плоском случае при $\alpha = 0, \; \beta = 1$.}
+	\label{fig:result_volumes_p}
+	\vspace{0.5cm}
+	
+	\includegraphics[width=0.89\textwidth]{figures/result_volumes_bi.png}
+	\vspace{-0.3cm}
+	\caption{Решение $\phi$ в плоском случае при $\alpha = 1, \; \beta = 0$.}
+	\label{fig:result_volumes_bi}
 \end{figure}
 
 \begin{figure}[!tp]
-    \centering
-    \includegraphics[width=0.89\textwidth]{figures/result_volumes_cyl_p.png}
-    \vspace{-0.3cm}
-    \caption{Решение $\phi$ в цилиндрическом случае при $\alpha = 0, \; \beta = 1$.}
-    \label{fig:result_volumes_cyl_p}
-    \vspace{0.5cm}
+	\centering
+	\includegraphics[width=0.89\textwidth]{figures/result_volumes_cyl_p.png}
+	\vspace{-0.3cm}
+	\caption{Решение $\phi$ в цилиндрическом случае при $\alpha = 0, \; \beta = 1$.}
+	\label{fig:result_volumes_cyl_p}
+	\vspace{0.5cm}
 
-    \includegraphics[width=0.89\textwidth]{figures/result_volumes_cyl_bi.png}
-    \vspace{-0.3cm}
-    \caption{Решение $\phi$ в цилиндрическом случае при $\alpha = 1, \; \beta = 0$.}
-    \label{fig:result_volumes_cyl_bi}
-    \vspace{0.5cm}
-    
-    \includegraphics[width=0.89\textwidth]{figures/result_volumes_sph_p.png}
-    \vspace{-0.3cm}
-    \caption{Решение $\phi$ в сферическом случае при $\alpha = 0, \; \beta = 1$.}
-    \label{fig:result_volumes_sph_p}
+	\includegraphics[width=0.89\textwidth]{figures/result_volumes_cyl_bi.png}
+	\vspace{-0.3cm}
+	\caption{Решение $\phi$ в цилиндрическом случае при $\alpha = 1, \; \beta = 0$.}
+	\label{fig:result_volumes_cyl_bi}
+	\vspace{0.5cm}
+	
+	\includegraphics[width=0.89\textwidth]{figures/result_volumes_sph_p.png}
+	\vspace{-0.3cm}
+	\caption{Решение $\phi$ в сферическом случае при $\alpha = 0, \; \beta = 1$.}
+	\label{fig:result_volumes_sph_p}
 \end{figure}
 
 Отметим, что если в уравнения входит билапласиан ($\alpha \neq 0$), то функция $\phi$ может быть не монотонной и в некоторых точках превышать значение $1$ (см. рис. \ref{fig:result_volumes_bi}, \ref{fig:result_volumes_cyl_bi}). В работе \cite{zipunova_higher_codimension} это было отмечено и указано, что монотонность $\phi$ следует ожидать при достаточно малых $\alpha$.

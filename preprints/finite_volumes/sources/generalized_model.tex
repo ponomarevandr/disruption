@@ -9,18 +9,18 @@
 
 Пусть $\Phi \equiv 0$, что соответствует нулевому электрическому напряжению в системе; тогда уравнение \eqref{eq:Phi} выполнено тождественно. В уравнении \eqref{eq:phi} первое слагаемое тождественно равно нулю, так как $\nabla \Phi \equiv 0$. В дальнейшем будем искать стационарное во времени распределение фазового поля, так что $\phi'_t \equiv 0$. В таком случае задача сводится к следующему уравнению на фазовое поле $\phi$:
 \begin{equation}
-    \cfrac{2}{l^2} f'(\phi) + \triangle \phi = 0 \tpoint
-    \label{eq:stationary}
+	\cfrac{2}{l^2} f'(\phi) + \triangle \phi = 0 \tpoint
+	\label{eq:stationary}
 \end{equation}
 
 Пусть задача решается в замкнутой области $\clOmega = [0, +\infty)_x \times I_y \times J_z$, где $I$ и $J$ -- некоторые отрезки. Пусть $\epsilon_0(\vx) = \epsilon_0(x)$, то есть диэлектрическая проницаемость неповрежденной среды зависит только от $x$. Будем искать стационарное решение следующей краевой задачи: $\phi|_{x = 0} = 0, \; \phi \to 1$ при $x \to +\infty$, а также $\partflvn{\phi} = 0$ на <<гранях>> области $\clOmega$, перпендикулярных осям $y$ и $z$. Второе условие интуитивно означает <<однородность>> системы по $y$ и $z$; символом $\partflvn{}$ обозначена производная по вектору нормали $\vn$ к границе $\clOmega$. Учитывая описанные краевые условия, будем искать решение уравнения \eqref{eq:stationary}, имеющее $\phi(\vx) = \phi(x)$, то есть полагая, что $\phi$ зависит только от пространственной переменной $x$.
 
 С учетом описанных допущений уравнение \eqref{eq:stationary} принимает вид
-$$\cfrac{\partial^2 \phi}{\partial x^2} = -\cfrac{2}{l^2} f'(\phi) \tpoint$$
+$$\partxx{\phi} = -\cfrac{2}{l^2} f'(\phi) \tpoint$$
 Домножим обе части уравнения на $\phi'_x$. Учитывая, что $f'_\phi \phi'_x = f'_x$ и $2 \phi'_x \phi''_{xx} = [(\phi'_x)^2]'_x$, проинтегрируем уравнение. При $x \to +\infty$ согласно граничному условию $\phi \to 1$; естественно также считать, что при этом $\phi'_x \to 0$. С учетом этого получим:
 \begin{equation}
-    \cfrac{\partial \phi}{\partial x} = \cfrac{2}{l} \sqrt{1 - f(\phi)} \tpoint
-    \label{eq:stationary_rectangular}
+	\partx{\phi} = \cfrac{2}{l} \sqrt{1 - f(\phi)} \tpoint
+	\label{eq:stationary_rectangular}
 \end{equation}
 Итак, мы перешли к обыкновенной задаче Коши с уравнением \eqref{eq:stationary_rectangular} и условием $\phi(0) = 0$, решение которой существует и единственно.
 
@@ -31,11 +31,11 @@ $$\cfrac{\partial^2 \phi}{\partial x^2} = -\cfrac{2}{l^2} f'(\phi) \tpoint$$
 Как и ранее, электрическое напряжение нулевое -- $\Phi \equiv 0$. Рассмотрим уравнение \eqref{eq:stationary} в области $\clOmega = \Real_x \times \Real_y \times J_z$, где $J$ -- некоторый отрезок. Аналогично будем искать решение следующей краевой задачи: $\phi|_{x, y = 0} = 0, \; \phi \to 1$ при $r = \sqrt{x^2 + y^2} \to +\infty$, а также $\partflvn{\phi} = 0$ на <<гранях>> области $\clOmega$, перпендикулярных оси $z$.
 
 Удобно перейти в цилиндрическую систему координат: $x, y, z \mapsto r, \theta, z$. Граничные условия однородны по $\theta$ и $z$, поэтому естественно искать решение, зависящее только от $r$. Так как $\phi(\vx) = \phi(r)$, выражение для лапласиана $\phi$ в цилиндрических координатах принимает вид
-$$\triangle \phi = \cfrac{1}{r} \cfrac{\partial}{\partial r} \left( r \cfrac{\partial \phi}{\partial r} \right) = \cfrac{1}{r} \cfrac{\partial \phi}{\partial r} + \cfrac{\partial ^2 \phi}{\partial r^2} \tpoint$$
+$$\triangle \phi = \cfrac{1}{r} \partr{} \left( r \partr{\phi} \right) = \cfrac{1}{r} \partr{\phi} + \partrr{\phi} \tpoint$$
 С учетом этого уравнение \eqref{eq:stationary} преобразуется в
 \begin{equation}
-    \cfrac{2}{l^2} f'(\phi) + \cfrac{1}{r} \cfrac{\partial \phi}{\partial r} + \cfrac{\partial ^2 \phi}{\partial r^2} = 0 \tpoint
-    \label{eq:stationary_cylindrical}
+	\cfrac{2}{l^2} f'(\phi) + \cfrac{1}{r} \partr{\phi} + \partrr{\phi} = 0 \tpoint
+	\label{eq:stationary_cylindrical}
 \end{equation}
 
 Подобное рассуждение проделано в работе \cite{zipunova_higher_codimension}; за ним следует анализ уравнения~\eqref{eq:stationary_cylindrical}. На основании теоретических результатов из работы \cite{cirstea_elliptic_equations} заключается, что поставленная краевая задача некорректна и решения не имеет. Даже на уровне интуиции постановка задачи выглядит необычно: условие $\phi|_{x, y = 0} = 0$ задано не на двумерной, а на одномерной <<внутренней>> границе области $\Omega$.
@@ -47,19 +47,19 @@ $$\triangle \phi = \cfrac{1}{r} \cfrac{\partial}{\partial r} \left( r \cfrac{\pa
 
 В ответ на описанную в предыдущем подразделе проблему в работе \cite{zipunova_higher_codimension}, на основании теоретических результатов работ \cite{sobolev_functional_analysis}, \cite{oleynik_biharmonic_equations}, \cite{sternin_elliptic_equations}, \cite{lewis_quasi_linear}, предлагается следующая обобщенная модель, для которой постановка условий на границах размерности 1 (соответственно, коразмерности 2) является математически корректной:
 \begin{gather}
-    \Pi = \int \limits_\Omega \pi d \vx \tcomma
-    \label{eq:energy_corrected} \\
-    \begin{aligned}
-        \pi = -\half \epsilon[\phi] (\nabla \Phi, \nabla \Phi) + \Gamma \cfrac{1 - f(\phi)}{l^2} & + \cfrac{\Gamma}{4} (\nabla \phi, \nabla \phi) + \\ & + \alpha \cfrac{\Gamma l^2}{8} (\triangle \phi)^2 + \beta \cfrac{1}{p} \Gamma l^{p - 2} \norm{\nabla \phi}_2^p \tsemicolon
-    \end{aligned}
-    \label{eq:energy_density_corrected}
+	\Pi = \int \limits_\Omega \pi d \vx \tcomma
+	\label{eq:energy_corrected} \\
+	\begin{aligned}
+		\pi = -\half \epsilon[\phi] \scalsq{\Phi} + \Gamma \cfrac{1 - f(\phi)}{l^2} & + \cfrac{\Gamma}{4} \scalsq{\phi} + \\ & + \alpha \cfrac{\Gamma l^2}{8} (\triangle \phi)^2 + \beta \cfrac{1}{p} \Gamma l^{p - 2} \norm{\nabla \phi}_2^p \tsemicolon
+	\end{aligned}
+	\label{eq:energy_density_corrected}
 \end{gather}
 \begin{numcases}{}
-    \Div(\epsilon[\phi] \nabla \Phi) = 0 \tsemicolon
-    \label{eq:Phi_corrected} \\
-    \begin{aligned}
-        \cfrac{1}{m} \cfrac{\partial \phi}{\partial t} = \half \epsilon'(\phi) (\nabla \Phi, \nabla \Phi) & + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \triangle \phi - \\ & - \alpha \cfrac{\Gamma l^2}{4} \triangle^2 \phi + \beta \Gamma l^{p - 2} \Div (\norm{\nabla \phi}_2^{p - 2} \nabla \phi) \tpoint
-    \end{aligned}
-    \label{eq:phi_corrected}
+	\Div(\epsilon[\phi] \nabla \Phi) = 0 \tsemicolon
+	\label{eq:Phi_corrected} \\
+	\begin{aligned}
+		\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \scalsq{\Phi} & + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \triangle \phi \: - \\ & - \alpha \cfrac{\Gamma l^2}{4} \bilapl{\phi} + \beta \Gamma l^{p - 2} \plapl{\phi}{p - 2} \tpoint
+	\end{aligned}
+	\label{eq:phi_corrected}
 \end{numcases}
-Здесь $\alpha, \beta \geqslant 0$ -- некоторые константы, $p$ -- четное натуральное число, не меньшее~4. Дифференциальный оператор $\Div (\norm{\nabla \phi}_2^{p - 2} \nabla \phi)$ принято называть \emph{$p$-лапласианом}, $\triangle^2 \phi = \triangle(\triangle \phi)$ -- \emph{билапласианом}. В дальнейшем для простоты будем считать $p = 4$.
+Здесь $\alpha, \beta \geqslant 0$ -- некоторые константы, $p$ -- четное натуральное число, не меньшее~4. Дифференциальный оператор $\plapl{\phi}{p - 2}$ принято называть \emph{$p$-лапласианом}, $\bilapl{\phi} = \triangle(\triangle \phi)$ -- \emph{билапласианом}. В дальнейшем для простоты будем считать $p = 4$.
