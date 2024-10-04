@@ -172,31 +172,31 @@ $$\gridpartlaplphi_{-1/2} = \partr{} \left[ r^k \partr{} \left(\cfrac{1}{r^k} \p
 	\avphi_n^j = 1 \tsemicolon
 	\label{sch:phi} \\
 	%
-	dV_i = r_{i + 1/2}^{k + 1} - r_{i - 1/2}^{k + 1}; \qquad S_{i \pm 1/2} = (k + 1) r_{i \pm 1/2}^k \tsemicolon
+	dV_i = (r_{i + 1/2})^{k + 1} - (r_{i - 1/2})^{k + 1}; \qquad S_{i \pm 1/2} = (k + 1) (r_{i \pm 1/2})^k \tsemicolon
 	\nonumber \\
 	%
-	\rho_{i \pm 1/2}^j = \half \left[ \cfrac{\partial \phi}{\partial r} \right]_{i \pm 1/2}^j - \alpha \cfrac{l^2}{4} \left[ \cfrac{\partial (\triangle \phi)}{\partial r} \right]_{i \pm 1/2}^j + \beta l^2 \left( \left[ \cfrac{\partial \phi}{\partial r} \right]_{i \pm 1/2}^j \right)^3 \tsemicolon
+	\rho_{i \pm 1/2}^j = \half \gridpartphi_{i \pm 1/2}^j - \alpha \cfrac{l^2}{4} \gridpartlaplphi_{i \pm 1/2}^j + \beta l^2 \left( \gridpartphi_{i \pm 1/2}^j \right)^3 \tsemicolon
 	\label{sch:density} \\
 	%
-	\left[ \cfrac{\partial \phi}{\partial r} \right]_{i + 1/2}^j = a_{i + 1/2}^j \; \text{при} \; i = \overline{1, n - 1} \tsemicolon
+	\gridpartphi_{i + 1/2}^j = a_{i + 1/2}^j \; \text{при} \; i = \overline{1, n - 1} \tsemicolon
 	\label{sch:derivative} \\
 	\{\avphi_i^j\}_{i = 1}^n \leadsto \{a_{i + 1/2}^j\}_{i = 1}^{n - 1}, \; \text{где} \; \ga = r, \; \gb = 1 \tsemicolon
 	\nonumber \\
 	%
 	\begin{gathered}
-		\avlaplphi_i^j = \cfrac{1}{dV_i} \left( \left[ \cfrac{\partial \phi}{\partial r} \right]_{i + 1/2}^j S_{i + 1/2} - \left[ \cfrac{\partial \phi}{\partial r} \right]_{i - 1/2}^j S_{i - 1/2} \right) \; \text{при} \; i = \overline{0, n - 1} \tsemicolon \\
+		\avlaplphi_i^j = \cfrac{1}{dV_i} \left( \gridpartphi_{i + 1/2}^j S_{i + 1/2} - \gridpartphi_{i - 1/2}^j S_{i - 1/2} \right) \; \text{при} \; i = \overline{0, n - 1} \tsemicolon \\
 		\avlaplphi_n^j = 0 \tsemicolon
 	\end{gathered}
 	\label{sch:laplasian} \\
 	%
-	\left[ \cfrac{\partial (\triangle \phi)}{\partial r} \right]_{i + 1/2}^j = c_{i + 1/2}^j \; \text{при} \; i = \overline{0, n - 1} \tsemicolon
+	\gridpartlaplphi_{i + 1/2}^j = c_{i + 1/2}^j \; \text{при} \; i = \overline{0, n - 1} \tsemicolon
 	\label{sch:laplasian_derivative} \\
 	\{\avlaplphi_i^j\}_{i = 0}^n \leadsto \{c_{i + 1/2}^j\}_{i = 0}^{n - 1}, \; \text{где} \; g^{(c)} = r, \; g^{(d)} = 1 \tsemicolon
 	\nonumber \\
 	%
-	\left[ \cfrac{\partial \phi}{\partial r} \right]_{i - 1/2}^j = a_{1/2}^j (g_{1/2}^{(a)})'(r_{i - 1/2}) + b_{1/2}^j (g_{1/2}^{(b)})'(r_{i - 1/2}) \; \text{при} \; i = \overline{0, 1} \tsemicolon
+	\gridpartphi_{i - 1/2}^j = a_{1/2}^j (g_{1/2}^{(a)})'(r_{i - 1/2}) + b_{1/2}^j (g_{1/2}^{(b)})'(r_{i - 1/2}) \; \text{при} \; i = \overline{0, 1} \tsemicolon
 	\label{sch:derivative_border} \\
-	\left[ \cfrac{\partial (\triangle \phi)}{\partial r} \right]_{-1/2}^j = a_{1/2}^j \cfrac{\partial (\triangle \ga)}{\partial r} \bigg|_{r = 0} + b_{1/2}^j \cfrac{\partial (\triangle \gb)}{\partial r} \bigg|_{r = 0} \tsemicolon
+	\gridpartlaplphi_{-1/2}^j = a_{1/2}^j \partr{(\triangle \ga)} \bigg|_{r = 0} + b_{1/2}^j \partr{(\triangle \gb} \bigg|_{r = 0} \tsemicolon
 	\label{sch:laplasian_derivative_border} \\
 	\{ \avphi_0^j, \avphi_1^j \} \leadsto \{ a_{1/2}^j, b_{1/2}^j \}, \; \text{где} \; g_{1/2}^{(a)}, \; g_{1/2}^{(b)} \; \text{определены ниже} \tpoint
 	\nonumber
@@ -205,33 +205,36 @@ $$\gridpartlaplphi_{-1/2} = \partr{} \left[ r^k \partr{} \left(\cfrac{1}{r^k} \p
 \end{subequations}
 1. Плоский случай при $\alpha = 0$:
 \begingroup
-\setlength{\abovedisplayskip}{5pt}
-\setlength{\belowdisplayskip}{5pt}
+\setlength{\abovedisplayshortskip}{\the\abovedisplayskip}
+\setlength{\belowdisplayshortskip}{\the\belowdisplayskip}
 \begin{align*}
-	g_{1/2}^{(a)} &= r^2, & (g_{1/2}^{(a)})' &= 2r, & I^{(a)} &= \cfrac{1}{3} r^3 \bigg|_{...}^{...} \tsemicolon \\
-	g_{1/2}^{(b)} &= r, & (g_{1/2}^{(b)})' &= 1, & I^{(b)} &= \half r^2 \bigg|_{...}^{...} \tpoint
+	g_{1/2}^{(a)} &= r^2, & (g_{1/2}^{(a)})' &= 2r, & I^{(a)} &= \cfrac{1}{3} r^3  \tsemicolon \\
+	g_{1/2}^{(b)} &= r, & (g_{1/2}^{(b)})' &= 1, & I^{(b)} &= \half r^2 \anylimits \tpoint
 \end{align*}
 2. Плоский случай при $\alpha \neq 0$:
 \begin{align*}
-	g_{1/2}^{(a)} &= r^3, & (g_{1/2}^{(a)})' &= 3r^2, & \cfrac{\partial (\triangle g_{1/2}^{(a)})}{\partial r} &= 6, & I^{(a)} &= \cfrac{1}{4} r^4 \bigg|_{...}^{...} \tsemicolon \\
-	g_{1/2}^{(b)} &= r^2, & (g_{1/2}^{(b)})' &= 2r, & \cfrac{\partial (\triangle g_{1/2}^{(b)})}{\partial r} &= 0, & I^{(b)} &= \cfrac{1}{3} r^3 \bigg|_{...}^{...} \tpoint
+	g_{1/2}^{(a)} &= r^3, & (g_{1/2}^{(a)})' &= 3r^2, & \cfrac{\partial (\triangle g_{1/2}^{(a)})}{\partial r} &= 6, & I^{(a)} &= \cfrac{1}{4} r^4 \anylimits \tsemicolon \\
+	g_{1/2}^{(b)} &= r^2, & (g_{1/2}^{(b)})' &= 2r, & \cfrac{\partial (\triangle g_{1/2}^{(b)})}{\partial r} &= 0, & I^{(b)} &= \cfrac{1}{3} r^3 \anylimits \tpoint
 \end{align*}
 3. Цилиндрический случай при $\alpha = 0, \; \beta \neq 0$:
 \begin{align*}
-g_{1/2}^{(a)} &= r^{2/3}, & (g_{1/2}^{(a)})' &= \cfrac{2}{3} r^{-1/3}, & I^{(a)} &= \cfrac{3}{4} r^{8/3} \bigg|_{...}^{...} \tsemicolon \\
-g_{1/2}^{(b)} &= r, & (g_{1/2}^{(b)})' &= 1, & I^{(b)} &= \cfrac{2}{3} r^3 \bigg|_{...}^{...} \tsemicolon
+g_{1/2}^{(a)} &= r^{2/3}, & (g_{1/2}^{(a)})' &= \cfrac{2}{3} r^{-1/3}, & I^{(a)} &= \cfrac{3}{4} r^{8/3} \anylimits \tsemicolon \\
+g_{1/2}^{(b)} &= r, & (g_{1/2}^{(b)})' &= 1, & I^{(b)} &= \cfrac{2}{3} r^3 \anylimits \tsemicolon
 \end{align*}
+\vspace{-7mm}
 $$\rho_{-1/2}^j S_{-1/2} = \cfrac{16}{27} (a_{1/2}^j)^3 \tpoint$$
 4. Цилиндрический случай при $\alpha \neq 0$:
 \begin{align*}
-	g_{1/2}^{(a)} &= r^2 \ln r, & (g_{1/2}^{(a)})' &= r (2 \ln r + 1), & \cfrac{\partial (\triangle g_{1/2}^{(a)})}{\partial r} &= \cfrac{4}{r}, & I^{(a)} &= \cfrac{1}{8} r^4 (4 \ln r - 1) \bigg|_{...}^{...} \tsemicolon \\
-	g_{1/2}^{(b)} &= r^2, & (g_{1/2}^{(b)})' &= 2r, & \cfrac{\partial (\triangle g_{1/2}^{(a)})}{\partial r} &= 0, & I^{(b)} &= \half r^4 \bigg|_{...}^{...} \tsemicolon
+	g_{1/2}^{(a)} &= r^2 \ln r, & (g_{1/2}^{(a)})' &= r (2 \ln r + 1), & \cfrac{\partial (\triangle g_{1/2}^{(a)})}{\partial r} &= \cfrac{4}{r}, & I^{(a)} &= \cfrac{1}{8} r^4 (4 \ln r - 1) \anylimits \tsemicolon \\
+	g_{1/2}^{(b)} &= r^2, & (g_{1/2}^{(b)})' &= 2r, & \cfrac{\partial (\triangle g_{1/2}^{(a)})}{\partial r} &= 0, & I^{(b)} &= \half r^4 \anylimits \tsemicolon
 \end{align*}
-$$\left[ \cfrac{\partial (\triangle \phi)}{\partial r} \right]_{-1/2}^j S_{-1/2} = 8 a_{1/2}^j \tpoint$$
+\vspace{-7mm}
+$$\rho_{-1/2}^j S_{-1/2} = 8 a_{1/2}^j \tpoint$$
 5. Сферический случай при $\alpha = 0, \; \beta \neq 0$:
 \begin{align*}
-	g_{1/2}^{(a)} &= r^{1/3}, & (g_{1/2}^{(a)})' &= \cfrac{1}{3} r^{-2/3}, & I^{(a)} &= \cfrac{9}{10} r^{10/3} \bigg|_{...}^{...}  \tsemicolon \\
-	g_{1/2}^{(b)} &= r, & (g_{1/2}^{(b)})' &= 1, & I^{(b)} &= \cfrac{3}{4} r^4 \bigg|_{...}^{...} \tsemicolon
+	g_{1/2}^{(a)} &= r^{1/3}, & (g_{1/2}^{(a)})' &= \cfrac{1}{3} r^{-2/3}, & I^{(a)} &= \cfrac{9}{10} r^{10/3} \anylimits  \tsemicolon \\
+	g_{1/2}^{(b)} &= r, & (g_{1/2}^{(b)})' &= 1, & I^{(b)} &= \cfrac{3}{4} r^4 \anylimits \tsemicolon
 \end{align*}
+\vspace{-7mm}
 $$\rho_{-1/2}^j S_{-1/2} = \cfrac{1}{9} (a_{1/2}^j)^3 \tpoint$$
 \endgroup
