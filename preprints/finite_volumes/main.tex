@@ -133,6 +133,18 @@
 
 \newcommand{\forcehyphenation}{-\linebreak}
 
+\newcommand{\multeqstart}{
+	\begingroup
+	\setlength{\abovedisplayshortskip}{\the\abovedisplayskip}
+	\setlength{\belowdisplayshortskip}{\the\belowdisplayskip}
+}
+\newcommand{\multeqnext}{
+	\vspace{-7mm}
+}
+\newcommand{\multeqfinish}{
+	\endgroup
+}
+
 
 %%% Свои операторы
 \DeclareMathOperator{\Div}{{div}}
@@ -163,10 +175,12 @@
 
 %%% Описание препринта
 \newcommand{\PreprintTitle}{
-	Применение метода конечных объемов в модели развития канала электрического пробоя типа <<диффузной границы>>
+	Численное исследование обобщения модели развития канала электрического пробоя типа <<диффузной границы>> при описании объектов высшей коразмерности.
+	%Применение метода конечных объемов в модели развития канала электрического пробоя типа <<диффузной границы>>
 }
 \newcommand{\PreprintTitleEnglish}{
-	Application of the finite volume method in a diffuse interface model for the electrical breakdown process
+	%Application of the finite volume method in a diffuse interface model for the electrical breakdown process
+	Numerical analysis of a generalized diffuse interface model for the electrical breakdown process in description of higher codimension objects.
 }
 \newcommand{\PreprintAuthors}{
 	А.~С.~Пономарев, Е.~В.~Зипунова, Е.~Б.~Савенков
@@ -209,7 +223,7 @@
 \textbf{Аннотация} \\
 {
 	\small
-	В настоящей работе исследуется применение метода конечных объемов при отыскании стационарных решений в модели типа диффузной границы, описывающей развитие канала пробоя в твердом диэлектрике. Задача решается в трех различных случаях: плоском, цилиндрическом и сферическом. При построении разностной схемы особое внимание уделено заданию граничных условий на внутренней границе области моделирования, где решение системы уравнений может иметь особенность. \\[3mm]
+	В настоящей работе проводится численное исследование ранее предложенного обобщения модели типа диффузной границы, описывающей развитие канала электрического пробоя в твердом диэлектрике. Для этого ищется стационарное распределение фазового поля в нескольких характеристических случаях задачи. При построении разностной схемы применена модификация метода конечных объемов, так что схема позволяет задать граничные условия на множествах высшей коразмерности в трехмерном пространстве, притом что у решения задачи в точках этих множеств допускается особенность. \\[3mm]
 	\textbf{Ключевые слова:} модель типа диффузной границы, фазовое поле, метод конечных объемов, электрический пробой. \\[5mm]
 }
 \begin{otherlanguage}{english}
@@ -236,10 +250,14 @@
 
 \input{sources/conclusion}
 
-\clearpage
+\begin{center}
+--------------------[Будет разрыв страницы]--------------------
+\end{center} %\clearpage
 \printbibliography
 
-\clearpage
+\begin{center}
+--------------------[Будет разрыв страницы]--------------------
+\end{center} %\clearpage
 \tableofcontents
 
 \end{document}

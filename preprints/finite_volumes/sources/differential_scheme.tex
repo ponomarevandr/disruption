@@ -14,7 +14,7 @@
 \end{enumerate}
 Подробно случаи 1 и 2 были описаны в подразделе \ref{ssec:matter_of_problem}. Случай 3 закономерно продолжает ряд: в нем граничное условие задано в точке -- объекте коразмерности 3.
 
-Стационарное решение соответствует минимуму свободной энергии $\Pi$. \linebreak Уравнения динамики системы выведены таковыми, что система стремится к минимуму энергии $\Pi$ в ходе эволюции. Поэтому будем проводить расчет на достаточно долгое время, тогда установившееся положение равновесия и будет искомым стационарным решением $\phi$.
+Стационарное решение соответствует минимуму свободной энергии $\Pi$; \linebreak уравнения динамики системы выведены таковыми, что система стремится к минимуму энергии $\Pi$ в ходе эволюции (подробнее см. в разделе \ref{sec:problem_and_model}). Поэтому будем проводить расчет на достаточно долгое время, тогда установившееся положение равновесия и будет искомым стационарным решением $\phi$.
 
 В случаях 2 и 3 естественно перейти в цилиндрические и сферические координаты соответственно и считать решение $\phi$ зависящим только от радиуса $r$. В случае 1 для единообразия пространственную переменную также назовем $r$. Итак, $\phi(\vx) = \phi(r)$.
 
@@ -204,9 +204,7 @@ $$\gridpartlaplphi_{-1/2} = \partr{} \left[ r^k \partr{} \left(\cfrac{1}{r^k} \p
 \label{sch:all}
 \end{subequations}
 1. Плоский случай при $\alpha = 0$:
-\begingroup
-\setlength{\abovedisplayshortskip}{\the\abovedisplayskip}
-\setlength{\belowdisplayshortskip}{\the\belowdisplayskip}
+\multeqstart
 \begin{align*}
 	g_{1/2}^{(a)} &= r^2, & (g_{1/2}^{(a)})' &= 2r, & I^{(a)} &= \cfrac{1}{3} r^3  \tsemicolon \\
 	g_{1/2}^{(b)} &= r, & (g_{1/2}^{(b)})' &= 1, & I^{(b)} &= \half r^2 \anylimits \tpoint
@@ -221,20 +219,20 @@ $$\gridpartlaplphi_{-1/2} = \partr{} \left[ r^k \partr{} \left(\cfrac{1}{r^k} \p
 g_{1/2}^{(a)} &= r^{2/3}, & (g_{1/2}^{(a)})' &= \cfrac{2}{3} r^{-1/3}, & I^{(a)} &= \cfrac{3}{4} r^{8/3} \anylimits \tsemicolon \\
 g_{1/2}^{(b)} &= r, & (g_{1/2}^{(b)})' &= 1, & I^{(b)} &= \cfrac{2}{3} r^3 \anylimits \tsemicolon
 \end{align*}
-\vspace{-7mm}
+\multeqnext
 $$\rho_{-1/2}^j S_{-1/2} = \cfrac{16}{27} (a_{1/2}^j)^3 \tpoint$$
 4. Цилиндрический случай при $\alpha \neq 0$:
 \begin{align*}
 	g_{1/2}^{(a)} &= r^2 \ln r, & (g_{1/2}^{(a)})' &= r (2 \ln r + 1), & \cfrac{\partial (\triangle g_{1/2}^{(a)})}{\partial r} &= \cfrac{4}{r}, & I^{(a)} &= \cfrac{1}{8} r^4 (4 \ln r - 1) \anylimits \tsemicolon \\
 	g_{1/2}^{(b)} &= r^2, & (g_{1/2}^{(b)})' &= 2r, & \cfrac{\partial (\triangle g_{1/2}^{(a)})}{\partial r} &= 0, & I^{(b)} &= \half r^4 \anylimits \tsemicolon
 \end{align*}
-\vspace{-7mm}
+\multeqnext
 $$\rho_{-1/2}^j S_{-1/2} = 8 a_{1/2}^j \tpoint$$
 5. Сферический случай при $\alpha = 0, \; \beta \neq 0$:
 \begin{align*}
 	g_{1/2}^{(a)} &= r^{1/3}, & (g_{1/2}^{(a)})' &= \cfrac{1}{3} r^{-2/3}, & I^{(a)} &= \cfrac{9}{10} r^{10/3} \anylimits  \tsemicolon \\
 	g_{1/2}^{(b)} &= r, & (g_{1/2}^{(b)})' &= 1, & I^{(b)} &= \cfrac{3}{4} r^4 \anylimits \tsemicolon
 \end{align*}
-\vspace{-7mm}
+\multeqnext
 $$\rho_{-1/2}^j S_{-1/2} = \cfrac{1}{9} (a_{1/2}^j)^3 \tpoint$$
-\endgroup
+\multeqfinish

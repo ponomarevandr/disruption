@@ -46,6 +46,7 @@ $$\triangle \phi = \cfrac{1}{r} \partr{} \left( r \partr{\phi} \right) = \cfrac{
 \subsection{Предложенное обобщение}
 
 В ответ на описанную в предыдущем подразделе проблему в работе \cite{zipunova_higher_codimension}, на основании теоретических результатов работ \cite{sobolev_functional_analysis}, \cite{oleynik_biharmonic_equations}, \cite{sternin_elliptic_equations}, \cite{lewis_quasi_linear}, предлагается следующая обобщенная модель, для которой постановка условий на границах размерности 1 (соответственно, коразмерности 2) является математически корректной:
+\multeqstart
 \begin{gather}
 	\Pi = \int \limits_\Omega \pi d \vx \tcomma
 	\label{eq:energy_corrected} \\
@@ -54,6 +55,7 @@ $$\triangle \phi = \cfrac{1}{r} \partr{} \left( r \partr{\phi} \right) = \cfrac{
 	\end{aligned}
 	\label{eq:energy_density_corrected}
 \end{gather}
+\multeqnext
 \begin{numcases}{}
 	\Div(\epsilon[\phi] \nabla \Phi) = 0 \tsemicolon
 	\label{eq:Phi_corrected} \\
@@ -62,4 +64,5 @@ $$\triangle \phi = \cfrac{1}{r} \partr{} \left( r \partr{\phi} \right) = \cfrac{
 	\end{aligned}
 	\label{eq:phi_corrected}
 \end{numcases}
+\multeqfinish
 Здесь $\alpha, \beta \geqslant 0$ -- некоторые константы, $p$ -- четное натуральное число, не меньшее~4. Дифференциальный оператор $\plapl{\phi}{p - 2}$ принято называть \emph{$p$-лапласианом}, $\bilapl{\phi} = \triangle(\triangle \phi)$ -- \emph{билапласианом}. В дальнейшем для простоты будем считать $p = 4$.
