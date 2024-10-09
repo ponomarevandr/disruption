@@ -1,0 +1,2 @@
+* electric breakdown -> electrical breakdown
+* doesn't -> does not

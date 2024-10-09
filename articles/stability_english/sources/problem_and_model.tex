@@ -1,12 +1,13 @@
 %!TEX root = ../main.tex
 
 \section{Mathematical model and problem statement}
+\label{sec:problem_and_model}
 
 \subsection{Mathematical model}
 Let us describe briefly a phase-field mathematical model for
-description of electric breakdown channel propagation
+description of electrical breakdown channel propagation
 according to~\cite{pitike_dielectric_breakdown}.
-The model assumes that the electric breakdown evolution
+The model assumes that the electrical breakdown evolution
 is described as a phase transition from the initial, undamaged state of
 the medium, to its damaged state. Spatial domain occupied by the
 damaged phase is considered as a breakdown channel.
@@ -101,14 +102,14 @@ Here~$\partflvn{}$ defines derivative in the direction of the outward unit norma
 Taking into account the formulated assumptions,
 the solution of~\eqref{eq:phi:a},\eqref{eq:phi:b} will be of the form
 $\phi(\vx, t) = \phi(x, t)$, $\Phi(\vx, t) = \Phi(y, t)$,~---
-i.e.,  $\phi$ doesn't depend~$y$ and~$z$, $\Phi$~--- doesn't depend on~$x$ and~$z$.
+i.e.,  $\phi$ does not depend~$y$ and~$z$, $\Phi$~--- does not depend on~$x$ and~$z$.
 
 In this case~\eqref{eq:phi:a} can be reduced to:
 \begin{equation}
   0 = \Div(\epsilon[\phi] \nabla \Phi) = (\nabla \epsilon, \nabla \Phi) + \epsilon \Delta \Phi \equiv  \epsilon \triangle \Phi,
   \label{eq:Phi_one_dim}
 \end{equation}
-since~$(\nabla \epsilon, \nabla \Phi) = 0$ as~$\epsilon$ doesn't depend on~$y$ and~$z$.
+since~$(\nabla \epsilon, \nabla \Phi) = 0$ as~$\epsilon$ does not depend on~$y$ and~$z$.
 Solution of~\eqref{eq:Phi_one_dim} which satisfies boundary conditions is~$\Phi(\vx, t) = \Phi^- + (y / H)(\Phi^+ - \Phi^-)$.
 
 Substituting the obtained solution for~$\Phi$ into~\eqref{eq:phi:b} one arrives to:
@@ -125,7 +126,7 @@ For further convenience we write~\eqref{eq:one_dim_preparation} as
   K_\Phi = \norm{\nabla \Phi} = (\Phi^+ - \Phi^-) / H. 
   \label{eq:one_dim}
 \end{equation}
-Note that now parameters~$\Phi^+$, $\Phi^-$ and~$H$ doesn't enter the latter equation explicitly.
+Note that now parameters~$\Phi^+$, $\Phi^-$ and~$H$ does not enter the latter equation explicitly.
 
 Equation~\eqref{eq:one_dim} has to be supplemented by the initial conditions
 \begin{equation}
