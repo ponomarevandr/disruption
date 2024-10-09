@@ -165,6 +165,7 @@ $$\gridpartlaplphi_{-1/2} = \partr{} \left[ r^k \partr{} \left(\cfrac{1}{r^k} \p
 
 Подводя итог рассуждениям, проделанным в двух предыдущих подразделах, выпишем построенную методом конечных объемов разностную схему.
 
+\multeqstart
 \begin{subequations}
 \begin{gather}
 	\cfrac{1}{m} (\avphi_i^{j + 1} - \avphi_i^j) = \tau \cfrac{\Gamma}{l^2} f'(\avphi_i^j) + \cfrac{\tau}{dV_i} \Gamma (\rho_{i + 1/2}^j S_{i + 1/2} - \rho_{i - 1/2}^j S_{i - 1/2}) \; \text{при} \; i = \overline{0, n - 1} \tsemicolon
@@ -192,8 +193,10 @@ $$\gridpartlaplphi_{-1/2} = \partr{} \left[ r^k \partr{} \left(\cfrac{1}{r^k} \p
 	\gridpartlaplphi_{i + 1/2}^j = c_{i + 1/2}^j \; \text{при} \; i = \overline{0, n - 1} \tsemicolon
 	\label{sch:laplasian_derivative} \\
 	\{\avlaplphi_i^j\}_{i = 0}^n \leadsto \{c_{i + 1/2}^j\}_{i = 0}^{n - 1}, \; \text{где} \; g^{(c)} = r, \; g^{(d)} = 1 \tsemicolon
-	\nonumber \\
-	%
+	\nonumber
+\end{gather}
+\multeqnext
+\begin{gather}
 	\gridpartphi_{i - 1/2}^j = a_{1/2}^j (g_{1/2}^{(a)})'(r_{i - 1/2}) + b_{1/2}^j (g_{1/2}^{(b)})'(r_{i - 1/2}) \; \text{при} \; i = \overline{0, 1} \tsemicolon
 	\label{sch:derivative_border} \\
 	\gridpartlaplphi_{-1/2}^j = a_{1/2}^j \partr{(\triangle \ga)} \bigg|_{r = 0} + b_{1/2}^j \partr{(\triangle \gb} \bigg|_{r = 0} \tsemicolon
@@ -203,6 +206,7 @@ $$\gridpartlaplphi_{-1/2} = \partr{} \left[ r^k \partr{} \left(\cfrac{1}{r^k} \p
 \end{gather}
 \label{sch:all}
 \end{subequations}
+\multeqfinish
 1. Плоский случай при $\alpha = 0$:
 \multeqstart
 \begin{align*}
