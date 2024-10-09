@@ -1,0 +1,93 @@
+%!TEX root = ../main.tex
+
+\section{Introduction}
+
+Electric breakdown of solid dielectric is a rapid process which
+involves a variety of mutually interrelated physical
+mechanisms~\cite{vorobiev_dielectric_physics, dissado_1992}. Their
+complete identification and characterization at the level acceptable
+for the predictive first-principal modelling and simulation is
+practically impossible at present. Due to this reason, the promising
+approach to the electric breakdown modelling is utilization of the
+phenomenological models of the reasonable complexity, suitable to
+analyse practical settings.
+
+Among a variety of the approaches suggested to describe electric breakdown the particular place is occupied by
+the phase field (or diffuse interface) model originally introduced in~\cite{pitike_dielectric_breakdown}.
+According to the phase field modelling framework, the essentially one dimensional
+breakdown channel is described using scalar phase field, i.e., a
+smooth
+function~$\phi = \phi(\vect{x},t)$ with values within the~$[0, 1]$
+interval.
+It is assumed that the channel occupies
+a spatial domain where $\phi = 0$, while in completely undamaged medium~$\phi = 1$. The
+spatial domain with~$0 < \phi < 1$ is considered to be a ``diffuse'' boundary of the finite
+width which separate damaged and undamaged medium. The process of the breakdown
+channel development (``growth'') is described as evolution of~$\phi$ in time~$t$, governed by
+the physically motivated evolutionary~PDE. Damaged and undamaged states of the
+medium are treated as two different phases. The process itself is described as a phase
+transition between undamaged and damaged phases which occurs under specified
+conditions.
+Diffuse interface models are mainly phenomenological ones. In other
+words they are mostly based, by assumption, on certain macroscopic laws and
+fundamental assumptions and doesn't rely on any first-principal
+physics or elementary mechanisms related to the
+particular macroscopic problem under consideration.
+
+Up to now diffuse interface models provides a solid and widely used
+framework to describe multi-phase phenomena in
+hydrodynamics~\cite{lamorgese_flow_modeling, kim_fluid_flows, xu_hydrodynamics},
+solid mechanics and mechanics of fracture~\cite{ambati_fracture},
+material science~\cite{provatas_materials}, solidification and phase
+transition problems,~\cite{boettinger_solidification,
+  cartalade_phase_separation, gransaly_solidification},
+phase field crystals~\cite{emmerich_crystal, asadi_crystal,
+  provatas_crystal}.
+
+The model suggested
+in~\cite{pitike_dielectric_breakdown}
+can be considered as further generalization of widely known diffuse
+fracture models in solid mechanics.
+Investigation and further generalizations of the model suggested
+in~\cite{pitike_dielectric_breakdown},
+are considered in~\cite{zipunova_higher_codimension, zipunova_conservative,
+zipunova_thermomechanical}.
+
+The main topic of this paper is an analysis of the stability of the
+stationary equilibrium solutions of the phase field model for
+electric breakdown development.
+In fact, it is shown that in the considered model,
+developing of the electric breakdown channel is a process
+closely related to the loss of the stability of the equilibrium
+solutions.
+
+The model is considered in its simplest form, as its presented
+in~\cite{pitike_dielectric_breakdown}.
+Moreover, spatially one-dimensional setting is used to perform
+theoretical analysis. As a final result stability conditions are
+formulated in terms of the model parameters, under which small perturbations of the constant
+equilibrium solution loss stability and solution evolves into
+breakdown-channel-like structure.
+
+To confirm obtained theoretical results we present a simple explicit
+finite-difference scheme which allows to analyse breakdown process
+numerically. Since the goal of our computations is to analyse
+a~process
+of development of instabilities in the initial phase field
+distribution,
+a careful and comprehensive analysis if the stability of the scheme is
+performed in order to clearly distinguish between numerical artifacts and
+development of the ``physical'' instabilities of the solution.
+The performed simulations completely confirms the obtained theoretical
+results.
+
+The structure of the paper is as follows.
+In section~2 we present mathematical models which are considered in
+the rest of the paper. Section~3 devoted to the stability analysis of
+the equilibrium solutions. Finally, in section~4 we present numerical
+results which confirms theoretical findings.
+In conclusion we outline and summarize the main results of the paper.
+
+\endinput
+
+% EOF
