@@ -1,18 +1,18 @@
 %!TEX root = ../main.tex
 
-\section{Finite difference scheme}
+\section{The finite-difference scheme}
 \label{sec:differential_scheme}
 
-In this section we present finite-difference scheme for solution of
+In this section, we present a finite-difference scheme for solving
 the equation~\eqref{eq:one_dim} in the domain~$[0, W]_x \times [0,
-+\infty)_t$
++\infty)_t$. The equation is
 subjected to initial conditions~\eqref{eq:one_dim_initial} and boundary conditions~\eqref{eq:one_dim_marginal}.
 
-Consider regular mesh with time step~$\tau$ and
-spatial mesh step size~$h$. Let~$W = Nh$ with $N$ being number of
-nodes. Nodes of spatiotemporal grid are given by~$(jh, k \tau)$,
+Consider a regular mesh with a time step~$\tau$ and
+spatial step~$h$. Let~$W = Nh$ with $N$ being the number of
+nodes. The nodes of the spatiotemporal grid are given by~$(jh, k \tau)$,
 $j = \overline{0, N}$, $k \in \Natural_0$. Define by~$\phi_j^k$
-a value of mesh function~$\phi$ at the node~$(jh, k \tau)$.
+the value of a mesh function~$\phi$ at the node~$(jh, k \tau)$.
 Then the finite-difference approximations read
 \begin{equation}
   \cfrac{1}{m} \difftau{\phi} = \half K_\phi^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \diffhh{\phi} \tpoint
@@ -28,28 +28,29 @@ or, in the explicit form,
   \label{sch:borders}
 \end{gather}
 
-It is easy to see the scheme is of the first order of approximation in
-time and second order approximation in spatial terms.
+It is easy to see that the scheme has the first order of approximation in
+time and the second order of approximation in spatial terms.
 
-To study properties of the scheme~\eqref{sch:transition}, \eqref{sch:borders}
+To study properties of the scheme~\eqref{sch:transition}, \eqref{sch:borders},
 the linear theory can be used (see, e.g.,
 \cite[Chapter~10]{bahvalov_computational_methods}
 or~\cite[Chapter~IX]{kalitkin_computational_methods}).
 The central result of the theory states, in a somewhat simplified
-form, that if a finite-difference scheme is stable and approximate
-continuous problem, then solution of the finite-dimensional problem
-converges to the solution of the continuous one with the order
-not lower then order of approximation.
+form, that if a finite-difference scheme is stable and approximates a
+continuous problem then the solution of the finite-dimensional problem
+converges to the solution of the continuous one with order
+not lower then the order of approximation.
 
-To apply this result for the nonlinear setting~\eqref{sch:transition}, \eqref{sch:borders} at
-hand we proceed in the following way:
-(i) linearize equation~\eqref{eq:subtractive}
-for fixed~$\phi$, and then (ii) apply spectral stability argument~\cite{bahvalov_computational_methods} to the
-derived linearized equation. As stability criteria will be
-satisfied for the linearized equation, it should be expected for the
-complete, nonlinear, problem. In this case convergence of the
+To apply this result for the nonlinear setting~\eqref{sch:transition}, \eqref{sch:borders},
+we proceed as follows:
+(i) linearize the equation~\eqref{eq:subtractive}
+for a fixed~$\phi$ and then (ii) apply the spectral stability
+argument~\cite{bahvalov_computational_methods} to the
+derived linearized equation. As the stability criteria are
+satisfied for the linearized equation, stability should be expected for the
+complete, nonlinear, problem. In this case, convergence of the
 approximate solution should be expected as well~--- since
-the finite-difference problem is stable and approximate the continuous
+the finite-difference problem is stable and approximates the continuous
 one.
 The results of such non-rigorous analysis will be further confirmed by
 numerical computations in the fully nonlinear setting.
@@ -57,9 +58,9 @@ numerical computations in the fully nonlinear setting.
 
 \subsection{Stability estimate}
 
-In this section we derive  stability condition for
+In this section we derive a stability condition for the
 finite-difference scheme~\eqref{sch:transition}, \eqref{sch:borders}
-using the so called principal of the ``frozen coefficients''
+using the so-called principal of ``frozen coefficients''
 (see, e.g.,~\cite{bahvalov_computational_methods}).
 Let~$\phi_j^k$ and~$\phi_j^k + \delta_j^k$ be solutions of the
 finite-difference equation~\eqref{eq:subtractive}.
@@ -68,15 +69,14 @@ Substitute~$\phi_j^k + \delta_j^k$ into~\eqref{eq:subtractive} to obtain:
   \cfrac{1}{m} \cfrac{(\phi_j^{k + 1} + \delta_j^{k + 1}) - (\phi_j^k + \delta_j^k)}{\tau} = \half K_\Phi^2 [\epsilon'(\phi_j^k) + \epsilon''(\phi_j^k) \delta_j^k + o(\delta_j^k)] + \\ + \cfrac{\Gamma}{l^2} [f'(\phi_j^k) + f''(\phi_j^k) \delta_j^k + o(\delta_j^k)] + \cfrac{\Gamma}{2} \cfrac{(\phi_{j + 1}^k + \delta_{j + 1}^k) - 2 (\phi_j^k + \delta_j^k) + (\phi_{j - 1}^k + \delta_{j - 1}^k)}{h^2} \tpoint
 \end{multline*}
 Linearizing this equation around~ $\phi_j^k = P$, assuming that
-perturbations~$\delta_j^k$ are small, and taking into account
-that~$\phi_j^k$ is a solution of the finite-difference problem, one
-arrives to:
+perturbations~$\delta_j^k$ are small and taking into account
+that~$\phi_j^k$ is a solution of the finite-difference problem, we obtain:
 \begin{equation}
   \delta_j^{k + 1} = \delta_j^k + m \tau \left( \half K_\Phi^2 \epsilon''(P) \delta_j^k + \cfrac{\Gamma}{l^2} f''(P) \delta_j^k + \cfrac{\Gamma}{2} \diffhh{\delta} \right) \tpoint
   \label{eq:scheme_variation}
 \end{equation} 
 
-We now apply spectral stability analysis for the derived equation for
+We now apply spectral stability analysis to the derived equation for
 perturbations.
 Let~$\delta_j^k = \lambda(\theta)^k \cdot \exp(\imath j \theta)$, $\imath^2 = -1$.
 Substituting this representation into~\eqref{eq:scheme_variation} one obtains:
@@ -89,62 +89,63 @@ or
 
 According to the spectral stability argument, a time
 step~$\tau = \tau(h)$ provides stability of the scheme in the
-domain~$[0, W]_x \times [0, T]_t$ with~$T<+\infty$ as~$\tau, h \to 0$, if there
-exists~$C > 0$, such that for an arbitrary~$\theta$ it
-holds~$|\lambda(\theta)| \leqslant \exp(C\tau)$.  Note that here it is
+domain~$[0, W]_x \times [0, T]_t$ with~$T<+\infty$ as~$\tau, h \to 0$ if there
+exists~$C > 0$ such that for an arbitrary~$\theta$ it
+holds~$|\lambda(\theta)| \leqslant \exp(C\tau)$. Note that here it is
 also possible to use more strict condition~$|\lambda(\theta)| \leqslant 1 + C\tau$.
 If for an arbitrary~$\theta$ it holds~$|\lambda(\theta)| \leqslant 1$,
-then stability will be provided also for unbounded time interval, i.e.,
+then stability will be provided also for an unbounded time interval, i.e.,
 for~$[0, W]_x \times [0, +\infty)_t$.
-Strictly speaking, spectral argument does not provide sufficient
-stability condition however it should be expected in practice.
+Strictly speaking, the spectral argument does not provide a sufficient
+stability condition; however, stability should be expected in practice.
 
-First, consider expression~\eqref{eq:spectral} for~$P=0$.
-We have~$f''(0) = 0$, $\epsilon''(0) = 0$ and equation~\eqref{eq:spectral}
-takes a form of
+First, consider the expression~\eqref{eq:spectral} for~$P=0$.
+We have~$f''(0) = 0$, $\epsilon''(0) = 0$, and the equation~\eqref{eq:spectral}
+takes the form of
 $$\lambda(\theta) = 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \tpoint$$
-Hence, for an arbitrary~$\theta$ it holds~$|\lambda(\theta)| \leqslant 1$,
+Hence, for an arbitrary~$\theta$ it holds~$|\lambda(\theta)| \leqslant 1$
 if and only if
 \begin{equation}
   \tau \leqslant \cfrac{h^2}{m \Gamma} \tpoint
   \label{cond:spectral_0}
 \end{equation}
-As condition~\eqref{cond:spectral_0} is satisfied one can expect stability of the scheme
-when solution describes completely damaged, or closed to it, state~$\phi\approx0$
+As the condition~\eqref{cond:spectral_0} is satisfied, one can expect stability of the scheme
+when the solution describes an almost completely damaged state~$\phi\approx0$
 in the domain~$[0, W]_x \times [0, +\infty)_t$.
 
-Note that under condition~\eqref{cond:spectral_0} one also can expect stable computations
+Note that under the condition~\eqref{cond:spectral_0} one also can expect stable computations
 for~$[0, W]_x \times [0, T]_t$ for an arbitrary value~$P \in [0, 1]$.
-In this case it holds
+In this case the following is true:
 $$
 |\lambda(\theta)| \leqslant \left| 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \right| + m \tau \left| \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) \right| \leqslant 1 + m \tau \left| \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) \right| \tpoint
 $$
 Hence, there exists~$C$ such that
 $|\lambda(\theta)| \leqslant 1 + C \tau$ holds,~--- since~$\epsilon''(\phi)$ and~$f''(\phi)$
 are continuous on~$[0, 1]$.
-It should be noted that despite such versatility, estimate~\eqref{cond:spectral_0}
+It should be noted that, despite such versatility, the estimate~\eqref{cond:spectral_0}
 is poorly applicable in practice and requires clarification, which will be done later.
 
-We now consider expression~\eqref{eq:spectral} at the value~$P=1$.
-It holds~$f''(1) < 0$, $\epsilon''(1) > 0$.
-Note that for~$(K_\Phi^2 / 2) \epsilon''(1) + (\Gamma / l^2) f''(1) \leqslant 0$
-it is possible it is possible to achieve~ $|\lambda(\theta)| \leqslant 1$
-having demanded, similar to~\eqref{cond:spectral_0}, $\tau \leqslant h^2 / (2m \Gamma)$
-and sufficiently small values of~$\tau$.
-Substituting~$f''(1) = -12, \; \epsilon''(1) = 12 \epsilon_0 / (1 + \delta)^2$ (see~\eqref{eq:epsilon_derivatives}),
-one arrives to
+We now consider the expression~\eqref{eq:spectral} at the value~$P=1$.
+Note that~$f''(1) < 0$, $\epsilon''(1) > 0$.
+We see that for~$(K_\Phi^2 / 2) \epsilon''(1) + (\Gamma / l^2) f''(1) \leqslant 0$
+it is possible to achieve~$|\lambda(\theta)| \leqslant 1$ with demanded sufficiently small
+values of~$\tau$ and the condition $\tau \leqslant h^2 / (2m \Gamma)$,
+similar to the one for~\eqref{cond:spectral_0}.
+Substituting~$f''(1) = -12, \; \epsilon''(1) = 12 \epsilon_0 / (1 + \delta)^2$
+(see~\eqref{eq:epsilon_derivatives}),
+we obtain
 \begin{equation}
   \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma (1 + \delta)^2} \leqslant 1 \tpoint
   \label{cond:spectral_possible_1}
 \end{equation}
 
-So, under condition~\eqref{cond:spectral_possible_1}, it is expected
-existence of such values of~$\tau$ и $h$,
-that difference scheme is stable for~$\phi \approx 1$
+So, under the condition~\eqref{cond:spectral_possible_1}, it is expected that
+there exist such values of~$\tau$ и $h$
+that the difference scheme is stable for~$\phi \approx 1$
 and~$T=+\infty$.
 Naturally the condition~\eqref{cond:spectral_possible_1}
 is equivalent to the stability condition~\eqref{cond:equilibrium_1_stable}
-for equilibrium state~$\phi \equiv 1$ of the equation~\eqref{eq:one_dim}.
+for the equilibrium state~$\phi \equiv 1$ of the equation~\eqref{eq:one_dim}.
 
 \subsection{Improved stability estimate}
 

@@ -1,2 +1,9 @@
 * electric breakdown -> electrical breakdown
 * doesn't -> does not
+* so called -> so-called
+* in what further??? -> later
+* one arrives to -> we obtain
+* <condition> holds -> is true/satisfied (где-то оставил)
+* right hand side -> right-hand side
+* phase field model -> phase-field model
+* reads? arrives? Я не знаю, говорят ли так... Где-то оставил.

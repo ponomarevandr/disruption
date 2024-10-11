@@ -1,20 +1,20 @@
 %!TEX root = ../main.tex
 
-\section{Mathematical model and problem statement}
+\section{The mathematical model and problem statement}
 \label{sec:problem_and_model}
 
-\subsection{Mathematical model}
-Let us describe briefly a phase-field mathematical model for
-description of electrical breakdown channel propagation
+\subsection{The mathematical model}
+Let us describe briefly the phase-field mathematical model describing
+the electrical breakdown channel propagation
 according to~\cite{pitike_dielectric_breakdown}.
 The model assumes that the electrical breakdown evolution
-is described as a phase transition from the initial, undamaged state of
-the medium, to its damaged state. Spatial domain occupied by the
+is described as phase transition from the initial, undamaged, state of
+the medium to its damaged state. The spatial domain occupied by the
 damaged phase is considered as a breakdown channel.
 The breakdown channel development is described as a process of
 formation of the domains occupied by the damaged phase.
 
-Assume that the medium occupies bounded spatial domain~$\Omega \subset
+We assume that the medium occupies a bounded spatial domain~$\Omega \subset
 \Real^3$. The state of the medium is given by two scalar-valued fields~
 $\phi = \phi(\vx,t)$, $\phi: \Omega \times [0, +\infty)_t \to [0,
 1]$~--- the phase field
@@ -23,8 +23,8 @@ and~$\Phi: \Omega \times [0, +\infty)_t \to \Real$~--- the electric potential.
 It is assumed that~$\phi$ is continuous and suffucuently smooth
 with values~$\phi\in[0,1]$. The value~$\phi=1$
 corresponds to the initial, undamaged state of the medium,
-and the value~$\phi=0$ correspond to the damaged phase, which is
-related to the state of medium in the breakdown channel.
+and the value~$\phi=0$~--- to the damaged phase, which is
+related to the state of the medium in the breakdown channel.
 
 The only property of the medium is its electric permittivity~$\epsilon$.
 Its value depends on the state of the medium and is
@@ -34,17 +34,17 @@ given by:
   \epsilon(\vx, t) = \epsilon[\phi] = \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) + \delta} \tcomma \quad f(\phi) = 4\phi^3 - 3\phi^4 \tpoint
   \label{eq:epsilon}
 \end{equation}
-Here~$\epsilon_0(\vx)$ is permittivity of the undamaged medium;
-$f(\phi)$ is the so called interpolation function which smoothly
-interpolates betwee~$0$ and~$1$ values. It is assumed
+Here~$\epsilon_0(\vx)$ is the permittivity of the undamaged medium;
+$f(\phi)$ is the so-called interpolation function smoothly connects
+the~$0$ and~$1$ values. It is assumed
 that~$f(0) = 0$, $f(1) = 1$, $f'(0) = f'(1) = 0$;
 $0 < \delta \ll 1$ is a small regularizing parameter.
-Note that at~$\phi = 1$ one have~$\epsilon(\vx, t) \approx
-\epsilon_0(\vx)$ (which correspond to the undamaged phase)
-and at~$\phi = 0$ one have $\epsilon(\vx, t) = \epsilon_0(\vx) /\delta \gg 1$
+Note that at~$\phi = 1$ we have~$\epsilon(\vx, t) \approx
+\epsilon_0(\vx)$ (which corresponds to the undamaged phase)
+and at~$\phi = 0$ we have $\epsilon(\vx, t) = \epsilon_0(\vx) /\delta \gg 1$
 (which corresponds to the damaged phase, assumed to be an ideal conductor).
 
-The following expression for Helmholtz free energy~$\Pi$ of the system
+The following expression for the Helmholtz free energy~$\Pi$ of the system
 is postulated:
 \begin{gather}
   \Pi = \int \limits_\Omega \pi d \vx \tcomma
@@ -53,23 +53,23 @@ is postulated:
   \label{eq:energy_density}
 \end{gather}
 Here~$\Gamma > 0$ and~$l > 0$ are parameters;
-$\Gamma$ can be interpreted as energy needed to create breakdown
-channel of the unit length and~$l$ is characteristic width of the
+$\Gamma$ can be interpreted as the energy needed to create a breakdown
+channel of unit length and~$l$ is the characteristic width of the
 diffuse interface.
 
-Evolution of fields~$\phi$ and $\Phi$ are governed by the following
+Evolution of fields~$\phi$ and $\Phi$ is governed by the following
 system of equation:
 %
 \begin{equation}\label{eq:var}
 \cfrac{\delta \Pi}{\delta \Phi} = 0 \tsemicolon \qquad \cfrac{1}{m}
 \partt{\phi} = -\cfrac{\delta \Pi}{\delta \phi} \tpoint.
 \end{equation}
-Here~$m > 0$ is the so called mobility. It has a meaning of the speed
-of change in~$\phi$ under applied unit ``force''.
-According to~\eqref{eq:var}, the fields are evolved in a way to minimize~\eqref{eq:energy}.
+Here~$m > 0$ is the so-called mobility. It has the meaning of the change speed
+of~$\phi$ under a unit ``force'' applied.
+According to~\eqref{eq:var}, the fields evolve in a way to minimize~\eqref{eq:energy}.
 
-An explicit form of~\eqref{eq:var} with~$\Pi$ given
-by~\eqref{eq:energy} reads:
+The explicit form of~\eqref{eq:var} with~$\Pi$ given
+by~\eqref{eq:energy} is:
 \begin{gather}
   \Div(\epsilon[\phi] \nabla \Phi) = 0 \tsemicolon
   \label{eq:phi:a} \\ % \eqref{eq:Phi} \\
@@ -77,74 +77,74 @@ by~\eqref{eq:energy} reads:
   \label{eq:phi:b}
 \end{gather}
 %
-where~$(\cdot)' \equiv (\cdot)_\phi'$ and $(\vect{a},\vect{b})$ is a
+where~$(\cdot)' \equiv (\cdot)_\phi'$ and $(\vect{a},\vect{b})$ is the
 dot product.
 The first equation,~\eqref{eq:phi:a}, in this system is linear in~$\Phi$.
-The second one,~\eqref{eq:phi:b}, is nonlinear Allen-Cahn type equation.
+The second one,~\eqref{eq:phi:b}, is a nonlinear Allen-Cahn type equation.
 
 \subsection{One-dimensional problem}
 Consider a one-dimensional form of~\eqref{eq:phi:a}
 and~\eqref{eq:phi:b}.
-Let the closed domain~$\Bar\Omega$ be~$\clOmega = [0, W]_x \times [0, H]_y
+Let the closed domain~$\clOmega$ be~$\clOmega = [0, W]_x \times [0, H]_y
 \times I_z$,
 with~$W,H > 0$ and~$I$ being a closed interval.
 Let~$\epsilon_0(\vx) = \epsilon_0(x)$
-and also~$\phi(\vx, 0) = \phi_0(x)$,~--- i.e., distribution of
-electric permittivity and initial condition for~$\phi$ depend only on
+and also~$\phi(\vx, 0) = \phi_0(x)$,~--- i.e., the distribution of
+electric permittivity and the initial condition for~$\phi$ depend only on the
 $x$-coordinate.
 We also assume that the following boundary conditions are defined
-at~ $\partial\clOmega$: $\phi|_{x = 0} = \phi_l(t)$, $\phi|_{x = W} = \phi_r(t)$,
-and also~$\partflvn{\phi}= 0$ at the faces of~$\clOmega$ which are perpendicular to~$Oy$ and~$Oz$
+at~$\partial\Omega$: $\phi|_{x = 0} = \phi_l(t)$, $\phi|_{x = W} = \phi_r(t)$
+and also~$\partflvn{\phi}= 0$ at the faces of~$\clOmega$ perpendicular to the~$Oy$ and~$Oz$
 axes. For~$\Phi$ we set: $\Phi|_{y = 0} = \Phi^-$, $\Phi|_{y = H} = \Phi^+$, where~$\Phi^-, \Phi^+ \in \Real$,
-and also~$\partflvn{\Phi} = 0$ at the faces of~$\clOmega$ which are perpendicular to~$Ox$ and~$Oz$ axes.
-Here~$\partflvn{}$ defines derivative in the direction of the outward unit normal~$\vect{n}$ to the~$\partial\Bar\Omega$.
+and also~$\partflvn{\Phi} = 0$ at the faces of~$\clOmega$ perpendicular to the~$Ox$ and~$Oz$ axes.
+Here~$\partflvn{}$ denotes the directional derivative along the outward unit normal~$\vect{n}$ to~$\partial\Omega$.
 
-Taking into account the formulated assumptions,
-the solution of~\eqref{eq:phi:a},\eqref{eq:phi:b} will be of the form
+Taking  the formulated assumptions into account,
+the solution of~\eqref{eq:phi:a},\eqref{eq:phi:b} has the form
 $\phi(\vx, t) = \phi(x, t)$, $\Phi(\vx, t) = \Phi(y, t)$,~---
-i.e.,  $\phi$ does not depend~$y$ and~$z$, $\Phi$~--- does not depend on~$x$ and~$z$.
+i.e.,  $\phi$ does not depend on~$y$ and~$z$, $\Phi$~--- on~$x$ and~$z$.
 
-In this case~\eqref{eq:phi:a} can be reduced to:
+Therefore, \eqref{eq:phi:a} can be reduced to:
 \begin{equation}
   0 = \Div(\epsilon[\phi] \nabla \Phi) = (\nabla \epsilon, \nabla \Phi) + \epsilon \Delta \Phi \equiv  \epsilon \triangle \Phi,
   \label{eq:Phi_one_dim}
 \end{equation}
 since~$(\nabla \epsilon, \nabla \Phi) = 0$ as~$\epsilon$ does not depend on~$y$ and~$z$.
-Solution of~\eqref{eq:Phi_one_dim} which satisfies boundary conditions is~$\Phi(\vx, t) = \Phi^- + (y / H)(\Phi^+ - \Phi^-)$.
+The solution of~\eqref{eq:Phi_one_dim} satisfying the boundary conditions is~$\Phi(\vx, t) = \Phi^- + (y / H)(\Phi^+ - \Phi^-)$.
 
-Substituting the obtained solution for~$\Phi$ into~\eqref{eq:phi:b} one arrives to:
+Substituting the obtained solution for~$\Phi$ into~\eqref{eq:phi:b} we obtain:
 \begin{equation}
   \cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \left( \cfrac{\Phi^+ - \Phi^-}{H} \right)^2 + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \partxx{\phi} \tpoint
   \label{eq:one_dim_preparation}
 \end{equation}
 
-Solution~$\phi(x, t)$ of~\eqref{eq:one_dim_preparation} is defined in
+The solution~$\phi(x, t)$ of~\eqref{eq:one_dim_preparation} is defined in
 the spatially one-dimensional domain~$[0, W]_x \times [0, +\infty)_t$.
-For further convenience we write~\eqref{eq:one_dim_preparation} as
+For further convenience we write~\eqref{eq:one_dim_preparation} as:
 \begin{equation}
   \cfrac{1}{m} \partt{\phi} = \half K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \partxx{\phi},\quad
   K_\Phi = \norm{\nabla \Phi} = (\Phi^+ - \Phi^-) / H. 
   \label{eq:one_dim}
 \end{equation}
-Note that now parameters~$\Phi^+$, $\Phi^-$ and~$H$ does not enter the latter equation explicitly.
+Note that now the parameters~$\Phi^+$, $\Phi^-$ and~$H$ do not enter the considered equation explicitly.
 
-Equation~\eqref{eq:one_dim} has to be supplemented by the initial conditions
+Equation~\eqref{eq:one_dim} is supplemented by the initial condition
 \begin{equation}
-	\phi(x, 0) = \phi_0(x);
+	\phi(x, 0) = \phi_0(x)
 	\label{eq:one_dim_initial}
 \end{equation}
-and also by the boundary conditions of the form:
+and also by the boundary conditions
 \begin{equation}
   \phi(0, t) = \phi_l(t), \quad \phi(W, t) = \phi_r(t) \tpoint
   \label{eq:one_dim_marginal}
 \end{equation}
 
-For simplicity in what further it also assumed that~$\epsilon_0(x) = \text{const}$.
+For simplicity of further analysis we also assumed that~$\epsilon_0(x) = \text{const}$.
 
-So, a pair of functions~$\phi$ and~$\Phi$,
-where~$\phi$ is a solution of the problem~\eqref{eq:one_dim},\eqref{eq:one_dim_initial},\eqref{eq:one_dim_marginal}
-and~$\Phi$ given by~$\Phi = \Phi^- + (y / H)(\Phi^+ - \Phi^-)$,
-satisfies~\eqref{eq:phi:a}, \eqref{eq:phi:b} under provided assumptions.
+So, the pair of functions~$\phi$ and~$\Phi$,
+where~$\phi$ is the solution of the problem~\eqref{eq:one_dim},\eqref{eq:one_dim_initial},\eqref{eq:one_dim_marginal}
+and~$\Phi$ is given by~$\Phi = \Phi^- + (y / H)(\Phi^+ - \Phi^-)$,
+satisfies~\eqref{eq:phi:a}, \eqref{eq:phi:b} under the provided assumptions.
 
 % EOF
 \endinput
