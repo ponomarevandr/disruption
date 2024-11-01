@@ -36,7 +36,7 @@
 \begin{frame}{Математическая модель}
 Модель, предложенная в работе \cite{pitike_dielectric_breakdown}:
 \begin{itemize}
-	\item $\pi = \textcolor{red}{-\cfrac{1}{2} \epsilon[\phi] (\nabla \Phi, \nabla \Phi)} +
+	\item $\pi = \textcolor{red}{-\half \epsilon[\phi] (\nabla \Phi, \nabla \Phi)} +
 	\Gamma \left( \cfrac{1 - f(\phi)}{l^2} + \cfrac{1}{4} (\nabla \phi, \nabla \phi) \right)$
 	-- плотность свободной энергии
 	\item $\Gamma$ -- энегрия роста канала пробоя на единицу длины
@@ -80,7 +80,7 @@
 	\end{equation}
 	\item Уравнение фазового поля $\phi$:
 	\begin{equation}
-		\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \scalsq{\Phi} + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \Delta \phi
+		\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \gradscalsq{\Phi} + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \Delta \phi
 		\label{equation_phase}
 	\end{equation}
 \end{itemize}
