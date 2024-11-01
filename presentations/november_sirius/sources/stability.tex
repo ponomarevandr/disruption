@@ -6,16 +6,15 @@
 \vspace{-0.3cm}
 \begin{itemize}
 	\item Область $\clOmega = [0, W]_x \times [0, H]_y \times I_z$ в форме параллелепипеда
-	\item $\phi(\vx, 0) = \phi_0(\vx) = \phi_0(x), \; \epsilon_0(\vx) =
-	\epsilon_0(x)$ не зависят от $y$ и $z$
-	\item $\Phi|_{y = 0} = \Phi^- \in \mathbb{R}, \; \Phi|_{y = h} = \Phi^+ \in \mathbb{R}$
+	\item $\phi(\vx, 0) = \phi_0(\vx) = \phi_0(x)$, $\epsilon_0(\vx) = \epsilon_0(x)$ не зависят от $y$ и $z$
+	\item $\Phi|_{y = 0} = \Phi^- \in \mathbb{R}$, $\Phi|_{y = h} = \Phi^+ \in \mathbb{R}$
 \end{itemize}
 Подробнее в работе \cite{ponomarev_stability}. \\[0.3cm]
 Решением является функция электрического потенциала
 \begin{columns}
 \column{0.65\textwidth}
 	\vspace{-1cm}
-	$$\Phi(\vx, t) = \Phi^- \hm + \cfrac{y}{h}(\Phi^+ - \Phi^-)$$
+	$$\Phi(\vx, t) = \Phi^- \hm + \cfrac{y}{h}(\Phi^+ - \Phi^-).$$
 \column{0.35\textwidth}
 	\begin{figure}
 		\vspace*{-2.3cm}
@@ -39,7 +38,7 @@ $K_\Phi = \cfrac{\Phi^+ - \Phi^-}{h} = \norm{\nabla \Phi}$. Будем счит�
 	\item Канал пробоя может развиваться из малых возмущений свойств неповрежденной среды. Выясним условия развития.
 	\item Рассмотрим положения равновесия вида $\phi(x, t) \equiv C$. Положению равновесия соответствует ноль $C$ функции
 \end{itemize}
-$$\chi(\phi) = \half K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi)$$
+$$\chi(\phi) = \half K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi).$$
 \vspace{-0.5cm}
 \begin{itemize}
 	\item Исследуем положения равновесия на устойчивость спектральным методом: к $\phi \equiv C$ прибавим возмущение $\delta \phi = e^{\alpha t} \cos(\omega x)$, линеаризуем уравнение на $\delta \phi$.
@@ -120,11 +119,11 @@ $$\chi(\phi) = \half K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi)$$
 \begin{itemize}
 	\item Рассмотрим возмущенное решение $\phi_i^j + \delta_i^j$. Линеаризуем уравнение на возмущение $\delta_i^j$ в точке $\phi_i^j = P$:
 \end{itemize}
-$$\delta_i^{j + 1} = \delta_i^j + m \tau \left( \half K_\Phi^2 \epsilon''(P) \delta_i^j + \cfrac{\Gamma}{l^2} f''(P) \delta_i^j + \cfrac{\Gamma}{2} \cfrac{\delta_{i + 1}^j - 2 \delta_i^j + \delta_{i - 1}^j}{h^2} \right)$$
+$$\delta_i^{j + 1} = \delta_i^j + m \tau \left( \half K_\Phi^2 \epsilon''(P) \delta_i^j + \cfrac{\Gamma}{l^2} f''(P) \delta_i^j + \cfrac{\Gamma}{2} \cfrac{\delta_{i + 1}^j - 2 \delta_i^j + \delta_{i - 1}^j}{h^2} \right).$$
 \begin{itemize}
 	\item Применим спектральный признак устойчивости:
 \end{itemize}
-$$1 > | \lambda(\theta) | = \left| 1 + m \tau \left( \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) - \cfrac{2 \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \right) \right|$$
+$$1 > | \lambda(\theta) | = \left| 1 + m \tau \left( \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) - \cfrac{2 \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \right) \right|.$$
 \begin{itemize}
 	\item Исследуем вблизи $P = 0$.
 \end{itemize}
@@ -133,12 +132,10 @@ $$1 > | \lambda(\theta) | = \left| 1 + m \tau \left( \half K_\Phi^2 \epsilon''(P
 
 \begin{frame}{Оценка устойчивости}
 \begin{block}{Условие устойчивости}
-	$$\tau \leqslant \cfrac{1}{2 m} \left( \cfrac{K_\Phi^2 \epsilon_0}{\delta^{5/3}} +
-	\cfrac{\Gamma}{h^2} \right)^{-1}$$
+	$$\tau \leqslant \cfrac{1}{2 m} \left( \cfrac{K_\Phi^2 \epsilon_0}{\delta^{5/3}} + \cfrac{\Gamma}{h^2} \right)^{-1}$$
 \end{block}
 \begin{block}{Упрощенное условие устойчивости}
-	$$\tau \leqslant \cfrac{1}{4 m} \min \left(\cfrac{\delta^{5/3}}{K_\Phi^2 \epsilon_0}, \;
-	\cfrac{h^2}{\Gamma} \right)$$
+	$$\tau \leqslant \cfrac{1}{4 m} \min \left(\cfrac{\delta^{5/3}}{K_\Phi^2 \epsilon_0}, \; \cfrac{h^2}{\Gamma} \right)$$
 \end{block}
 \end{frame}
 
@@ -156,7 +153,7 @@ $$1 > | \lambda(\theta) | = \left| 1 + m \tau \left( \half K_\Phi^2 \epsilon''(P
 \hspace{-2.5cm}
 Узлов по измерениям: \\
 \hspace{-2.5cm}
-$N_x = 10^3, \; N_t = 10^5$
+$N_x = 10^3$, $N_t = 10^5$
 \end{columns}
 \end{frame}
 

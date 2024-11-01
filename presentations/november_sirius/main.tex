@@ -27,6 +27,10 @@
 
 %%% Список литературы
 \usepackage[sorting=none]{biblatex}
+\renewbibmacro{in:}{\ifentrytype{article}
+    {}
+    {\bibstring{in}\printunit{\intitlepunct}}
+}
 \addbibresource{references.bib}
 
 %%% Гиперссылки
@@ -50,7 +54,7 @@
 \newcommand{\partt}[1]{\cfrac{\partial #1}{\partial t}}
 \newcommand{\partx}[1]{\cfrac{\partial #1}{\partial x}}
 \newcommand{\partxx}[1]{\cfrac{\partial^2 #1}{\partial x^2}}
-\newcommand{\partvn}[1]{\cfrac{\partial #1}{\partial \vn}}
+\newcommand{\partr}[1]{\cfrac{\partial #1}{\partial r}}
 
 \newcommand{\gradscalsq}[1]{\left( \nabla #1, \nabla #1 \right)}
 
@@ -73,7 +77,8 @@
 \DeclareMathOperator{\Const}{{const}}
 
 %%% Цвета
-\definecolor{red}{RGB}{200,0,0}
+\definecolor{green}{RGB}{0,150,0}
+\definecolor{red}{RGB}{150,0,0}
 
 %%% Тема оформления
 \usetheme{Madrid}

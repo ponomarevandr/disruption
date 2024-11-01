@@ -3,15 +3,11 @@
 \section{Исследование обобщения модели}
 
 \begin{frame}{Постановка задачи}
-Исследуем распределение фазового поля вокруг проводников ($\phi = 0$) различного вида. Рассмотрим
-следующие краевые задачи:
+Исследуем распределение фазового поля вокруг проводников ($\phi = 0$) различного вида. Пусть $\Phi \equiv 0$. Рассмотрим следующие краевые задачи:
 \begin{enumerate}
-	\item $\Omega = [0, +\infty)_x \times I_y \times I_z, \; \phi|_{x = 0} = 0, \; \phi \to 1$ при
-	$r = x \to +\infty$ -- плоский случай;
-	\item $\Omega = \mathbb{R}_x \times \mathbb{R}_y \times I_z, \; \phi|_{x, y = 0} = 0, \;
-	\phi \to 1$ при $r = \sqrt{x^2 + y^2} \to +\infty$ -- \\ цилиндрический случай;
-	\item $\Omega = \mathbb{R}_x \times \mathbb{R}_y \times \mathbb{R}_z, \;
-	\phi|_{x, y, z = 0} = 0, \; \phi \to 1$ при $r = \sqrt{x^2 + y^2 + z^2} \to +\infty$ -- \\
+	\item $\Omega = [0, +\infty)_x \times I_y \times J_z$, $\phi|_{x = 0} = 0$, $\phi \to 1$ при $r = x \to +\infty$ -- плоский случай;
+	\item $\Omega = \mathbb{R}_x \times \mathbb{R}_y \times J_z$, $\phi|_{x, y = 0} = 0$, $\phi \to 1$ при $r = \sqrt{x^2 + y^2} \to +\infty$ -- \\ цилиндрический случай;
+	\item $\Omega = \mathbb{R}_x \times \mathbb{R}_y \times \mathbb{R}_z$, $\phi|_{x, y, z = 0} = 0$, $\phi \to 1$ при $r = \sqrt{x^2 + y^2 + z^2} \to +\infty$ -- \\
 	сферический случай.
 \end{enumerate}
 Ищем стационарное решение $\phi = \phi(r)$.
@@ -32,7 +28,7 @@
 \column{0.49\textwidth}
 Задача Коши:
 \vspace{-0.3cm}
-$$\phi(0) = 0; \qquad \cfrac{\partial \phi}{\partial x} = \cfrac{2}{l} \sqrt{1 - f(\phi)}$$
+$$\phi(0) = 0; \qquad \partx{\phi} = \cfrac{2}{l} \sqrt{1 - f(\phi)}$$
 \begin{figure}
 	\includegraphics[width=\textwidth]{figures/result_volumes.png}
 \end{figure}
@@ -46,23 +42,20 @@ $$\phi(0) = 0; \qquad \cfrac{\partial \phi}{\partial x} = \cfrac{2}{l} \sqrt{1 -
 
 
 \begin{frame}{Обобщение модели}
+\vspace{-0.3cm}
 \begin{block}{Обобщение модели, предложенное в работе \cite{zipunova_higher_codimension}}
 \begin{itemize}
 	\item Уравнение электрического потенциала $\Phi$:
 	$$\Div(\epsilon[\phi] \nabla \Phi) = 0$$
 	\item Уравнение фазового поля $\phi$:
-	$$\cfrac{1}{m} \cfrac{\partial \phi}{\partial t} =
-    \half \epsilon'(\phi) (\nabla \Phi, \nabla \Phi) +
-    \cfrac{\Gamma}{l^2} f'(\phi) +
-    \half \Gamma \Delta \phi -
-    \alpha \cfrac{\Gamma l^2}{4} \Delta^2 \phi +
-    \beta \Gamma l^{p - 2} \Div (\| \, \nabla \phi \, \|_2^{p - 2} \nabla \phi)$$
+	$$\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \gradscalsq{\Phi} + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \Delta \phi - \alpha \cfrac{\Gamma l^2}{4} \bilapl{\phi} + \beta \Gamma l^{p - 2} \plapl{\phi}{p - 2}$$
 \end{itemize}
 \end{block}
 \begin{itemize}
-	\item $\Delta^2 \phi = \Delta(\Delta \phi)$ -- билапласиан
-	\item $\Div (\| \, \nabla \phi \, \|_2^{p - 2} \nabla \phi)$ -- $p$-лапласиан
+	\item $\bilapl{\phi} = \Delta(\Delta \phi)$ -- билапласиан
+	\item $\plapl{\phi}{p - 2}$ -- $p$-лапласиан
 \end{itemize}
+Везде далее $p = 4$.
 \end{frame}
 
 
@@ -99,6 +92,7 @@ $$\rho_{i \pm 1/2}^j = \half
 $$\widetilde{\Delta \phi}_i^j = \cfrac{1}{dV_i}
 \left( \left[ \cfrac{\partial \phi}{\partial r} \right]_{i + 1/2}^j S_{i + 1/2} -
 \left[ \cfrac{\partial \phi}{\partial r} \right]_{i - 1/2}^j S_{i - 1/2} \right)$$
+Подробнее в работе \cite{ponomarev_finite_volumes}.
 \end{frame}
 
 
@@ -109,19 +103,18 @@ $$\widetilde{\Delta \phi}_i^j = \cfrac{1}{dV_i}
 \end{center}
 \begin{tabular}{|m{3cm}||m{3.5cm}|m{3.5cm}|m{3.5cm}|}
 	\hline
-	\vspace*{2mm} \hfill \vspace*{2mm} &\centering $\alpha = 0, \; \beta = 0$ &
-	\centering $\alpha = 0, \; \beta \neq 0$ & \centering \arraybackslash $\alpha \neq 0$ \\
+	\vspace*{2mm} \hfill \vspace*{2mm} &\centering $\alpha = 0$, $\beta = 0$ &
+	\centering $\alpha = 0$, $\beta \neq 0$ & \centering \arraybackslash $\alpha \neq 0$ \\
 	\hline
 	\hline
 	\vspace{2mm} Плоский \linebreak случай \vspace{2mm} &
-	Без особенности & Без особенности & Без особенности \\
+	\textcolor{green}{Без особенности} & \textcolor{green}{Без особенности} & \textcolor{green}{Без особенности} \\
 	\hline
 	\vspace{2mm} Цилиндрический \linebreak случай \vspace{2mm} &
-	Не имеет решения & $r^{2/3}$ & $r^2 (\ln r - 1)$ \\
+	\textcolor{red}{Не имеет решения} & $r^{2/3}$ & $r^2 \ln r$ \\
 	\hline
 	\vspace{2mm} Сферический \linebreak случай \vspace{2mm} &
-	Предположительно не имеет решения & $r^{1/3}$ & Предположительно
-	не имеет решения \\
+	\textcolor{red}{Предположительно не имеет решения} & $r^{1/3}$ & \textcolor{red}{Предположительно не имеет решения} \\
 	\hline
 \end{tabular}
 \end{frame}
@@ -134,7 +127,7 @@ $$\widetilde{\Delta \phi}_i^j = \cfrac{1}{dV_i}
 \end{figure}
 \vspace{-0.7cm}
 \begin{center}
-	Цилиндрический случай, $\alpha = 1$: особенность вида $r^2 (\ln r - 1)$
+	Цилиндрический случай, $\alpha = 1$: особенность вида $r^2 \ln r$
 \end{center}
 \end{frame}
 
@@ -146,6 +139,6 @@ $$\widetilde{\Delta \phi}_i^j = \cfrac{1}{dV_i}
 \end{figure}
 \vspace{-0.7cm}
 \begin{center}
-	Сферический случай, $\alpha = 0, \; \beta = 1$: особенность вида $r^{1/3}$
+	Сферический случай, $\alpha = 0$, $\beta = 1$: особенность вида $r^{1/3}$
 \end{center}
 \end{frame}
