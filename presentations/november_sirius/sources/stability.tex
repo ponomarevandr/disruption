@@ -5,8 +5,8 @@
 \begin{frame}{Одномерная задача}
 \vspace{-0.3cm}
 \begin{itemize}
-	\item Область $\Omega = [0, w]_x \times [0, h]_y \times I_z$ в форме параллелепипеда
-	\item $\phi(\textbf{x}, 0) = \phi_0(\textbf{x}) = \phi_0(x), \; \epsilon_0(\textbf{x}) =
+	\item Область $\clOmega = [0, w]_x \times [0, h]_y \times I_z$ в форме параллелепипеда
+	\item $\phi(\vx, 0) = \phi_0(\vx) = \phi_0(x), \; \epsilon_0(\vx) =
 	\epsilon_0(x)$ не зависят от $y$ и $z$
 	\item $\Phi|_{y = 0} = \Phi^- \in \mathbb{R}, \; \Phi|_{y = h} = \Phi^+ \in \mathbb{R}$
 \end{itemize}
@@ -15,12 +15,12 @@
 \begin{columns}
 \column{0.65\textwidth}
 \vspace{-1cm}
-$$\Phi(\textbf{x}, t) = \Phi^- \hm + \cfrac{y}{h}(\Phi^+ - \Phi^-)$$
+$$\Phi(\vx, t) = \Phi^- \hm + \cfrac{y}{h}(\Phi^+ - \Phi^-)$$
 \column{0.35\textwidth}
 \begin{figure}
 	\vspace*{-2cm}
 	\hspace*{0.5cm}
-	\includegraphics[width=0.85\textwidth]{../figures/one_dim_problem.jpg}
+	\includegraphics[width=0.85\textwidth]{figures/one_dim_problem.jpg}
 \end{figure}
 \end{columns}
 \vspace{-0.4cm}
@@ -29,7 +29,7 @@ $$\Phi(\textbf{x}, t) = \Phi^- \hm + \cfrac{y}{h}(\Phi^+ - \Phi^-)$$
 	$$\cfrac{1}{m} \cfrac{\partial \phi}{\partial t} = \cfrac{1}{2} K_\Phi^2 \epsilon'(\phi) +
 	\cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{1}{2} \Gamma \cfrac{\partial^2 \phi}{\partial x^2}$$
 \end{block}
-$K_\Phi = \cfrac{\Phi^+ - \Phi^-}{h}$. Будем считать $\epsilon_0 = \Const$.
+$K_\Phi = \cfrac{\Phi^+ - \Phi^-}{h} = \norm{\nabla \Phi}$. Будем считать $\epsilon_0 = \Const$.
 \end{frame}
 
 
@@ -65,7 +65,7 @@ $$\chi(\phi) = \cfrac{1}{2} K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\p
 $$0 \leqslant \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma} < \delta^2$$
 \vspace{-0.7cm}
 \begin{figure}
-	\includegraphics[width=\textwidth]{../figures/equilibriums_case_1.png}
+	\includegraphics[width=\textwidth]{figures/equilibriums_case_1.png}
 \end{figure}
 \column{0.3\textwidth}
 \begin{center}
@@ -75,7 +75,7 @@ $$0 \leqslant \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma} < \delta^2$$
 $$\delta^2 < \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma} < (1 + \delta)^2$$
 \vspace{-0.7cm}
 \begin{figure}
-	\includegraphics[width=\textwidth]{../figures/equilibriums_case_2.png}
+	\includegraphics[width=\textwidth]{figures/equilibriums_case_2.png}
 \end{figure}
 \column{0.3\textwidth}
 \begin{center}
@@ -85,7 +85,7 @@ $$\delta^2 < \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma} < (1 + \delta)^2$$
 $$(1 + \delta)^2 < \cfrac{K_\Phi^2 l^2 \epsilon_0}{2 \Gamma}$$
 \vspace{-0.7cm}
 \begin{figure}
-	\includegraphics[width=\textwidth]{../figures/equilibriums_case_3.png}
+	\includegraphics[width=\textwidth]{figures/equilibriums_case_3.png}
 \end{figure}
 \end{columns}
 \begin{columns}
@@ -160,7 +160,7 @@ $$1 > \lambda(\theta) = 1 + m \tau \left( \cfrac{1}{2} K_\Phi^2 \epsilon''(P) +
 \begin{columns}
 \column{0.88\textwidth}
 \begin{figure}
-	\includegraphics[width=\textwidth]{../figures/typical_solution.png}
+	\includegraphics[width=\textwidth]{figures/typical_solution.png}
 \end{figure}
 \column{0.12\textwidth}
 \hfill \\
@@ -178,9 +178,10 @@ $n_x = 10^3, \; n_t = 10^5$
 \begin{columns}
 \column{0.7\textwidth}
 \begin{figure}
-	\includegraphics[width=\textwidth]{../figures/stability_bounds.png}
+	\includegraphics[width=\textwidth]{figures/stability_bounds.png}
 \end{figure}
 \column{0.3\textwidth}
+Условие устойчивости:
 $$\tau \leqslant \cfrac{1}{2m} \left( \cfrac{K_\Phi^2 \epsilon_0}{\delta^{5/3}} +
 \cfrac{\Gamma}{h^2} \right)^{-1}$$
 \end{columns}
@@ -190,7 +191,7 @@ $$\tau \leqslant \cfrac{1}{2m} \left( \cfrac{K_\Phi^2 \epsilon_0}{\delta^{5/3}} 
 \begin{frame}{Вычисления: проверка сходимости}
 \vspace{-0.3cm}
 \begin{figure}
-	\includegraphics[width=0.58\textwidth]{../figures/convergence_connected.png}
+	\includegraphics[width=0.58\textwidth]{figures/convergence_connected.png}
 \end{figure}
 \vspace{-0.6cm}
 \begin{center}
@@ -208,7 +209,7 @@ $$\tau \leqslant \cfrac{1}{2m} \left( \cfrac{K_\Phi^2 \epsilon_0}{\delta^{5/3}} 
 \begin{columns}
 \column{0.5\textwidth}
 \begin{figure}
-	\includegraphics[width=\textwidth]{../figures/equilibrium_3_0.png}
+	\includegraphics[width=\textwidth]{figures/equilibrium_3_0.png}
 \end{figure}
 \vspace{-0.6cm}
 \begin{center}
@@ -217,7 +218,7 @@ $$\tau \leqslant \cfrac{1}{2m} \left( \cfrac{K_\Phi^2 \epsilon_0}{\delta^{5/3}} 
 \end{center}
 \column{0.5\textwidth}
 \begin{figure}
-	\includegraphics[width=\textwidth]{../figures/equilibrium_3_1.png}
+	\includegraphics[width=\textwidth]{figures/equilibrium_3_1.png}
 \end{figure}
 \vspace{-0.6cm}
 \begin{center}
@@ -249,11 +250,11 @@ $$\pi(x, t) = \pi_1(x, t) + \pi_2(x, t) + \pi_3(x, t)$$
 \begin{columns}
 \column{0.5\textwidth}
 \begin{figure}
-	\includegraphics[width=\textwidth]{../figures/density_electrical.png}
+	\includegraphics[width=\textwidth]{figures/density_electrical.png}
 \end{figure}
 \column{0.5\textwidth}
 \begin{figure}
-	\includegraphics[width=\textwidth]{../figures/density_depth.png}
+	\includegraphics[width=\textwidth]{figures/density_depth.png}
 \end{figure}
 \end{columns}
 \end{frame}
@@ -262,7 +263,7 @@ $$\pi(x, t) = \pi_1(x, t) + \pi_2(x, t) + \pi_3(x, t)$$
 \begin{frame}{Вычисления: свободная энергия}
 \vspace{-0.6cm}
 \begin{figure}
-	\includegraphics[width=0.86\textwidth]{../figures/density_surface.png}
+	\includegraphics[width=0.86\textwidth]{figures/density_surface.png}
 \end{figure}
 \end{frame}
 
@@ -270,6 +271,6 @@ $$\pi(x, t) = \pi_1(x, t) + \pi_2(x, t) + \pi_3(x, t)$$
 \begin{frame}{Вычисления: свободная энергия}
 \vspace{-0.6cm}
 \begin{figure}
-	\includegraphics[width=0.88\textwidth]{../figures/energy_total.png}
+	\includegraphics[width=0.88\textwidth]{figures/energy_total.png}
 \end{figure}
 \end{frame}
