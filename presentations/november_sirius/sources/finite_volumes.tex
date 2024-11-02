@@ -5,10 +5,9 @@
 \begin{frame}{Постановка задачи}
 Исследуем распределение фазового поля вокруг проводников ($\phi = 0$) различного вида. Пусть $\Phi \equiv 0$. Рассмотрим следующие краевые задачи:
 \begin{enumerate}
-	\item $\Omega = [0, +\infty)_x \times I_y \times J_z$, $\phi|_{x = 0} = 0$, $\phi \to 1$ при $r = x \to +\infty$ -- плоский случай;
-	\item $\Omega = \mathbb{R}_x \times \mathbb{R}_y \times J_z$, $\phi|_{x, y = 0} = 0$, $\phi \to 1$ при $r = \sqrt{x^2 + y^2} \to +\infty$ -- \\ цилиндрический случай;
-	\item $\Omega = \mathbb{R}_x \times \mathbb{R}_y \times \mathbb{R}_z$, $\phi|_{x, y, z = 0} = 0$, $\phi \to 1$ при $r = \sqrt{x^2 + y^2 + z^2} \to +\infty$ -- \\
-	сферический случай.
+	\item $\clOmega = [0, +\infty)_x \times I_y \times J_z$, $\phi|_{x = 0} = 0$, $\phi \to 1$ при $r = x \to +\infty$ -- плоский случай;
+	\item $\clOmega = \mathbb{R}_x \times \mathbb{R}_y \times J_z$, $\phi|_{x, y = 0} = 0$, $\phi \to 1$ при $r = \sqrt{x^2 + y^2} \to +\infty$ -- \\ цилиндрический случай;
+	\item $\clOmega = \mathbb{R}_x \times \mathbb{R}_y \times \mathbb{R}_z$, $\phi|_{x, y, z = 0} = 0$, $\phi \to 1$ при $r = \sqrt{x^2 + y^2 + z^2} \to +\infty$ -- \\ сферический случай.
 \end{enumerate}
 Ищем стационарное решение $\phi = \phi(r)$.
 \end{frame}
@@ -17,26 +16,28 @@
 \begin{frame}{Суть проблемы}
 \begin{columns}
 \column{0.5\textwidth}
-\centering
-Плоский случай
+	\centering
+	Плоский случай
 \column{0.5\textwidth}
-\centering
-Цилиндрический случай
+	\centering
+	Цилиндрический случай
 \end{columns}
 \vspace{0.5cm}
 \begin{columns}
 \column{0.49\textwidth}
-Задача Коши:
-\vspace{-0.3cm}
-$$\phi(0) = 0; \qquad \partx{\phi} = \cfrac{2}{l} \sqrt{1 - f(\phi)}$$
-\begin{figure}
-	\includegraphics[width=\textwidth]{figures/result_volumes.png}
-\end{figure}
+	Задача Коши:
+	\vspace{-0.3cm}
+	$$\phi(0) = 0; \qquad \partx{\phi} = \cfrac{2}{l} \sqrt{1 - f(\phi)}$$
+	\vspace{-0.3cm}
+	\begin{figure}
+		\includegraphics[width=\textwidth]{figures/result_volumes.png}
+	\end{figure}
 \column{0.01\textwidth}
-\rule{0.4pt}{0.7\textheight}
+	\rule{0.4pt}{0.7\textheight}
 \column{0.49\textwidth}
-\centering
-Задача поставлена некорректно \\ и решения не имеет \cite{zipunova_higher_codimension}
+	\centering
+	Задача поставлена некорректно \\ и решения не имеет \cite{zipunova_higher_codimension}. \\[0.2cm]
+	Вместе с тем канал пробоя -- одномерный объект в трехмерном пространстве!
 \end{columns}
 \end{frame}
 
@@ -63,41 +64,29 @@ $$\phi(0) = 0; \qquad \partx{\phi} = \cfrac{2}{l} \sqrt{1 - f(\phi)}$$
 На границе $r = 0$ области моделирования у решения $\phi$ ожидается особенность. \\
 Идея подхода:
 \begin{itemize}
-	\item используем метод конечных объемов: к ячейке $\Omega_i$ отнесено среднее
-	$\widetilde{\phi}_i$ функции $\phi$;
-	\item в первой и второй ячейках приближаем $\phi$ ЛК базисных функций, одна из которых имеет
-	тот же вид особенности, что решение $\phi$;
-	\item как и в классическом МКО, уравнения на $\widetilde{\phi}_i$ являются следствием
-	балансовых соотношений.
+	\item используем метод конечных объемов: к ячейке $\Omega_i$ отнесено среднее $\avphi_i$ функции $\phi$;
+	\item в первой и второй ячейках приближаем $\phi$ ЛК базисных функций, одна из которых имеет тот же вид особенности, что решение $\phi$;
+	\item как и в классическом МКО, уравнения на $\avphi_i$ являются следствием балансовых соотношений.
 \end{itemize}
 Преимущества подхода:
 \begin{itemize}
 	\item точно учитываются граничные условия;
-	\item точно учитывается асимптотика решения $\phi$ при $r \to 0$.
+	\item точно учитывается асимптотика решения $\phi$ при $r \to +0$.
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Разностная схема}
-$$\cfrac{1}{m} (\widetilde{\phi}_i^{j + 1} - \widetilde{\phi}_i^j) = \tau \cfrac{\Gamma}{l^2}
-f'(\widetilde{\phi}_i^j) + \cfrac{\tau}{dV_i} \Gamma (\rho_{i + 1/2}^j S_{i + 1/2} -
-\rho_{i - 1/2}^j S_{i - 1/2}) \text{;}$$
-$$dV_i = r_{i + 1/2}^{k + 1} - r_{i - 1/2}^{k + 1}; \qquad
-S_{i \pm 1/2} = (k + 1) r_{i \pm 1/2}^k \text{;}$$
-$$\rho_{i \pm 1/2}^j = \half
-\left[ \cfrac{\partial \phi}{\partial r} \right]_{i \pm 1/2}^j -
-\alpha \cfrac{l^2}{4} \left[ \cfrac{\partial (\Delta \phi)}{\partial r} \right]_{i \pm 1/2}^j +
-\beta l^2 \left( \left[ \cfrac{\partial \phi}{\partial r} \right]_{i \pm 1/2}^j \right)^3
-\text{;}$$
-$$\widetilde{\Delta \phi}_i^j = \cfrac{1}{dV_i}
-\left( \left[ \cfrac{\partial \phi}{\partial r} \right]_{i + 1/2}^j S_{i + 1/2} -
-\left[ \cfrac{\partial \phi}{\partial r} \right]_{i - 1/2}^j S_{i - 1/2} \right)$$
+$$\cfrac{1}{m} (\avphi_i^{j + 1} - \avphi_i^j) = \tau \cfrac{\Gamma}{l^2} f'(\avphi_i^j) + \cfrac{\tau}{dV_i} \Gamma \textcolor{red}{(\rho_{i + 1/2}^j S_{i + 1/2} - \rho_{i - 1/2}^j S_{i - 1/2})};$$
+$$dV_i = r_{i + 1/2}^{k + 1} - r_{i - 1/2}^{k + 1}; \qquad S_{i \pm 1/2} = (k + 1) r_{i \pm 1/2}^k;$$
+$$\rho_{i \pm 1/2}^j = \half \left[ \cfrac{\partial \phi}{\partial r} \right]_{i \pm 1/2}^j - \alpha \cfrac{l^2}{4} \left[ \cfrac{\partial (\Delta \phi)}{\partial r} \right]_{i \pm 1/2}^j + \beta l^2 \left( \left[ \cfrac{\partial \phi}{\partial r} \right]_{i \pm 1/2}^j \right)^3;$$
+$$\widetilde{\Delta \phi}_i^j = \cfrac{1}{dV_i} \left( \left[ \cfrac{\partial \phi}{\partial r} \right]_{i + 1/2}^j S_{i + 1/2} - \left[ \cfrac{\partial \phi}{\partial r} \right]_{i - 1/2}^j S_{i - 1/2} \right)$$
 Подробнее в работе \cite{ponomarev_finite_volumes}.
 \end{frame}
 
 
 \begin{frame}{Полученные результаты}
-\vspace{-1cm}
+\vspace{-0.3cm}
 \begin{center}
 	Предполагаемые виды особенности решения $\phi$ в точке $r = 0$
 \end{center}
@@ -117,11 +106,16 @@ $$\widetilde{\Delta \phi}_i^j = \cfrac{1}{dV_i}
 	\textcolor{red}{Предположительно не имеет решения} & $r^{1/3}$ & \textcolor{red}{Предположительно не имеет решения} \\
 	\hline
 \end{tabular}
+\begin{itemize}
+	\item Базисная функция $g$ подбирается так, чтобы
+	\vspace{-0.2cm}
+	$$\rho[\phi = g] \cdot S \to C > 0 \text{ при } r \to +0.$$
+\end{itemize}
 \end{frame}
 
 
 \begin{frame}{Полученные результаты}
-\vspace{-0.6cm}
+\vspace{-0.5cm}
 \begin{figure}
 	\includegraphics[width=0.81\textwidth]{figures/result_volumes_cyl_bi.png}
 \end{figure}
@@ -133,7 +127,7 @@ $$\widetilde{\Delta \phi}_i^j = \cfrac{1}{dV_i}
 
 
 \begin{frame}{Полученные результаты}
-\vspace{-0.6cm}
+\vspace{-0.5cm}
 \begin{figure}
 	\includegraphics[width=0.81\textwidth]{figures/result_volumes_sph_p.png}
 \end{figure}

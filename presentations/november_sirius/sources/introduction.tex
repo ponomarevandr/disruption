@@ -4,8 +4,7 @@
 
 \begin{frame}{Физическое явление}
 \begin{block}{Электрический пробой}
-	Явление резкого возрастания тока в диэлектрике при приложении электрического напряжения
-	выше критического.
+	Явление резкого возрастания тока в диэлектрике при приложении электрического напряжения выше критического.
 \end{block}
 \begin{itemize}
 	\item Рассматриваем твердый диэлектрик
@@ -18,8 +17,7 @@
 
 \begin{frame}{Математическая модель}
 \begin{block}{Модель типа диффузной границы}
-	Вещество находится в разных фазах. Состояние вещества описывается гладкой функцией
-	$\phi(\vx, t)$ -- фазовым полем.
+	Вещество находится в разных фазах. Состояние вещества описывается гладкой функцией $\phi(\vx, t)$ -- фазовым полем.
 \end{block}
 \begin{itemize}
 	\item $\phi = 1$ -- неповрежденная среда
@@ -36,9 +34,7 @@
 \begin{frame}{Математическая модель}
 Модель, предложенная в работе \cite{pitike_dielectric_breakdown}:
 \begin{itemize}
-	\item $\pi = \textcolor{red}{-\half \epsilon[\phi] (\nabla \Phi, \nabla \Phi)} +
-	\Gamma \left( \cfrac{1 - f(\phi)}{l^2} + \cfrac{1}{4} (\nabla \phi, \nabla \phi) \right)$
-	-- плотность свободной энергии
+	\item $\pi = \textcolor{red}{-\half \epsilon[\phi] \gradscalsq{\Phi}} + \Gamma \left( \cfrac{1 - f(\phi)}{l^2} + \cfrac{1}{4} \gradscalsq{\phi} \right)$ -- плотность свободной энергии
 	\item $\Gamma$ -- энегрия роста канала пробоя на единицу длины
 	\item $l$ -- величина <<размытия>> канала
 	\item $\epsilon(\vx, t)$ -- диэлектрическая проницаемость среды
@@ -50,21 +46,20 @@
 \begin{frame}{Математическая модель}
 \vspace{-0.2cm}
 \begin{itemize}
-	\item $\epsilon(\vx, t) = \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) +
-	\delta}$ -- диэлектрическая проницаемость среды
+	\item $\epsilon(\vx, t) = \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) + \delta}$ -- диэлектрическая проницаемость среды
 	\item $f(\phi) = 4 \phi^3 - 3 \phi^4$ -- интерполирующая функция
 \end{itemize}
 \begin{columns}
 \column{0.5\textwidth}
-\begin{figure}
-	\hspace*{1.4cm}
-	\includegraphics[width=0.65\textwidth]{figures/f_form.png}
-\end{figure}
+	\begin{figure}
+		\hspace*{1.4cm}
+		\includegraphics[width=0.65\textwidth]{figures/f_form.png}
+	\end{figure}
 \column{0.5\textwidth}
-\begin{figure}
-	\hspace*{-2cm}
-	\includegraphics[width=0.60\textwidth]{figures/eps_form.png}
-\end{figure}
+	\begin{figure}
+		\hspace*{-2cm}
+		\includegraphics[width=0.60\textwidth]{figures/eps_form.png}
+	\end{figure}
 \end{columns}
 \end{frame}
 
@@ -96,17 +91,17 @@
 \begin{frame}{Пример вычислительного эксперимента}
 \begin{columns}
 \column{0.32\textwidth}
-\begin{figure}
-	\includegraphics[width=\textwidth]{figures/model_example_1.png}
-\end{figure}
+	\begin{figure}
+		\includegraphics[width=\textwidth]{figures/model_example_1.png}
+	\end{figure}
 \column{0.32\textwidth}
-\begin{figure}
-	\includegraphics[width=\textwidth]{figures/model_example_2.png}
-\end{figure}
+	\begin{figure}
+		\includegraphics[width=\textwidth]{figures/model_example_2.png}
+	\end{figure}
 \column{0.32\textwidth}
-\begin{figure}
-	\includegraphics[width=\textwidth]{figures/model_example_3.png}
-\end{figure}
+	\begin{figure}
+		\includegraphics[width=\textwidth]{figures/model_example_3.png}
+	\end{figure}
 \end{columns}
 \begin{center}
 	Расчет из работы \cite{zipunova_experiment}
