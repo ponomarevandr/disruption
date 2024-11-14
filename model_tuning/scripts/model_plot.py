@@ -11,7 +11,7 @@ def model_plot(model, times, print_params=True, **kwargs):
 	if 'ylim' in kwargs:
 		plt.ylim(kwargs['ylim'])
 	plt.xlabel('$x$')
-	plt.ylabel('$\phi$')
+	plt.ylabel(r'$\phi$')
 	t_indices = [model.t_index(t) for t in times]
 	for i in t_indices:
 	    plt.plot(model.xs, model.phi[i])
@@ -37,15 +37,19 @@ def model_plot(model, times, print_params=True, **kwargs):
 			va='top'
 		)
 		plt.figtext(0.5, 0, (
-				'dt = {:.6e}\n' +
+				'x_grid = {}\n' +
+				't_grid = {}\n' +
 				'dx = {:.6e}\n' +
-				'duration = {:.6e}\n' +
-				'width = {:.6e}'
+				'dt = {:.6e}\n' +
+				'width = {:.6e}\n' +
+				'duration = {:.6e}'
 			).format(
-				model.params['dt'],
+				model.params['x_grid'],
+				model.params['t_grid'],
 				model.params['dx'],
-				model.params['duration'],
-				model.params['width']
+				model.params['dt'],
+				model.params['width'],
+				model.params['duration']
 			),
 			va='top'
 		)

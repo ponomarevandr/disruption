@@ -26,6 +26,7 @@ void ModelParameters::setSizes(double width, double duration) {
 }
 
 void ModelParameters::print(std::ostream& out) const {
+	out << PARAMETERS_NUMBER << " parameters:\n";
 	out << "eps_0 = " << eps_0 << "\n";
 	out << "delta = " << delta << "\n";
 	out << "l = " << l << "\n";

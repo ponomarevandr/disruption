@@ -3,8 +3,6 @@ import pandas as pd
 
 
 class Model:
-	PARAMETERS_NUMBER = 12
-
 	def __init__(self):
 		self._params = dict()
 		self._df_phi = None
@@ -12,7 +10,8 @@ class Model:
 	def from_file(self, filename):
 		file = open(filename)
 		lines = file.readlines()
-		for line in lines[1:self.PARAMETERS_NUMBER + 1]:
+		params_number = int(lines[1].split()[0])
+		for line in lines[2:2 + params_number]:
 			splitted = line.split()
 			if 'skip' in splitted[0] or 'grid' in splitted[0]:
 				splitted[-1] = int(splitted[-1])
@@ -24,8 +23,12 @@ class Model:
 		self._params['dt'] = self._params['duration'] / self._params['t_grid']
 		self._params['dx_data'] = self._params['dx'] * self._params['x_skip']
 		self._params['dt_data'] = self._params['dt'] * self._params['t_skip']
-		self._df_phi = pd.read_csv(filename, sep=';', header=None,
-			skiprows=self.PARAMETERS_NUMBER + 1)
+		self._params['x_size'] = self._params['x_grid'] // self._params['x_skip'] + 1
+		self._params['t_size'] = self._params['t_grid'] // self._params['t_skip'] + 1
+		data = pd.read_csv(filename, sep=';', header=None, skiprows=2 + params_number)
+		self._xs = np.arange(self._params['x_size']) * self._params['dx_data']
+		self._ts = np.arange(self._params['t_size']) * self._params['dt_data']
+		self._df_phi = data.iloc[:, :self._params['x_size']].reset_index(drop=True)
 
 	@property
 	def params(self):
@@ -40,8 +43,20 @@ class Model:
 		return self._df_phi.iloc
 
 	@property
+	def df_additional(self):
+		return self._df_additional
+
+	@property
+	def additional(self):
+		return self._df_additional.iloc
+
+	@property
 	def xs(self):
-		return np.arange(self._df_phi.shape[1]) * self._params['dx_data']
+		return self._xs
+
+	@property
+	def ts(self):
+		return self._ts
 
 	def t_index(self, t):
 		return int(round(t / self._params['dt_data']))

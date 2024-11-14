@@ -7,6 +7,7 @@
 
 
 struct ModelParameters {
+	static constexpr size_t PARAMETERS_NUMBER = 12;
 	double eps_0;
 	double delta;
 	double l;
