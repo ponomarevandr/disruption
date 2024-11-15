@@ -7,6 +7,8 @@ set(SOURCES
 	sources/model/model.cpp
 	sources/model/model_parameters.cpp
 	../common_sources/display/progress_bar.cpp
+	../common_sources/evaluation/formula.cpp
+	../common_sources/evaluation/environment.cpp
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
@@ -16,3 +18,4 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 include_directories(${PROJECT_SOURCE_DIR}/sources ${PROJECT_SOURCE_DIR}/../common_sources)
 
 add_executable(tuning ${SOURCES})
+target_link_libraries(tuning matheval)
