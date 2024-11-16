@@ -20,6 +20,7 @@ int main(int argc, char* argv[]) {
 	fin.close();
 
 	environment.write(std::cout);
+	environment.debugPrint(std::cout);
 
 	/*if (argc != 3) {
 		std::cerr << "Wrong number of arguments!\n";
