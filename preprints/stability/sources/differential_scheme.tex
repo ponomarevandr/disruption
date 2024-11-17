@@ -4,16 +4,16 @@
 
 Будем численно решать уравнение \eqref{eq:one_dim} в области $[0, W]_x \times [0, +\infty)_t$ с краевыми условиями \eqref{eq:one_dim_initial}, \eqref{eq:one_dim_marginal}.
 
-Используем регулярную сетку с временным шагом~$\tau$ и пространственным~$h$. Пусть $N = W / h$ -- целое число. Пусть $(jh, k \tau)$ -- узлы сетки, $j \hm = \overline{0, N}, \; k \in \Natural_0$. Обозначим $\phi_j^k$ значение сеточной функции $\phi$ в узле $(jh, k \tau)$. Перейдем к следующей разностной задаче:
+Используем регулярную сетку с временным шагом~$\tau$ и пространственным~$h$. Пусть $N = W / h$~-- целое число. Пусть $(jh, k \tau)$~-- узлы сетки, $j \hm = \overline{0, N}, \; k \in \Natural_0$. Обозначим $\phi_j^k$ значение сеточной функции $\phi$ в узле $(jh, k \tau)$. Перейдем к следующей разностной задаче:
 \begin{equation}
 	\cfrac{1}{m} \difftau{\phi} = \half K_\phi^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \diffhh{\phi} \tpoint
 	\label{eq:subtractive}
 \end{equation}
 Имеем четырехточечную явную разностную схему:
 \begin{numcases}{}
-	\mbox{$\begin{aligned}
+	\begin{aligned}
 		\phi_j^{k + 1} = \phi_j^k + m \tau \left( \half K_\Phi^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \diffhh{\phi} \right), \\ j = \overline{1, N - 1}, \quad k \in \Natural_0 \tsemicolon
-	\end{aligned}$}
+	\end{aligned}
 	\label{sch:transition} \\
 	\phi_j^0 = \phi_0(jh); \quad \phi_0^k = \phi_l(k \tau); \quad \phi_N^k = \phi_r(k \tau) \tpoint
 	\label{sch:borders}
@@ -28,23 +28,23 @@
 
 Далее кратко изложены базовые элементы теории сходимости линейных разностных схем, приближающих линейные дифференциальные задачи. За основу взят материал из книги \cite[глава 10]{bahvalov_computational_methods}; более подробно тема освещена в книге \cite[глава IX]{kalitkin_computational_methods}. Соответствующие определения и утверждения можно сформулировать и для нелинейных задач \cite{kalitkin_computational_methods}, однако удобнее будет в ходе нестрогого анализа применить линейную теорию к линеаризации уравнения~\eqref{eq:subtractive}, а затем подтвердить результаты моделированием полного, нелинейного случая.
 
-Пусть замкнутая область $\clOmega \subset \Real^s$ -- пространство независимых переменных, $\Gamma = \partial \Omega$ -- граница $\clOmega$, $\Int \Omega = \clOmega \smallsetminus \partial \Omega$ -- внутренность $\clOmega$; задан класс $Y$ функций $y(\vx)$ на $\clOmega$ (обладающих некоторыми содержательными свойствами, например, гладкостью).
+Пусть замкнутая область $\clOmega \subset \Real^s$~-- пространство независимых переменных, $\Gamma = \partial \Omega$~-- граница $\clOmega$, $\Int \Omega = \clOmega \smallsetminus \partial \Omega$~-- внутренность $\clOmega$; задан класс $Y$ функций $y(\vx)$ на $\clOmega$ (обладающих некоторыми содержательными свойствами, например, гладкостью).
 
-Задан линейный оператор $L: Y \to I$, где $I$ -- некоторое пространство функций на $\Int \Omega$; задан линейный оператор $l: Y \to G$, где $G$ -- некоторое пространство функций на $\partial \Omega$. Подразумевается, что $L$ и $l$ включают в себя операции дифференцирования. Сформулируем дифференциальную задачу:
+Задан линейный оператор $L: Y \to I$, где $I$~-- некоторое пространство функций на $\Int \Omega$; задан линейный оператор $l: Y \to G$, где $G$~-- некоторое пространство функций на $\partial \Omega$. Подразумевается, что $L$ и $l$ включают в себя операции дифференцирования. Сформулируем дифференциальную задачу:
 \begin{equation}
 	\{ \quad Ly = f; \quad ly = g \quad \} \tcomma
 	\label{eq:formal_differential}
 \end{equation}
-где $y(\vx) \in Y$ -- искомая функция, $f \in I, \; g \in G$. Первое уравнение имеет смысл условия на $y$ во внутренности $\clOmega$, второе -- краевого условия.
+где $y(\vx) \in Y$~-- искомая функция, $f \in I, \; g \in G$. Первое уравнение имеет смысл условия на $y$ во внутренности $\clOmega$, второе~-- краевого условия.
 
-В пространстве $\clOmega$ введем сетку, то есть определим некоторое конечное подмножество $\Omega_h \subset \clOmega$. Здесь $h$ -- параметр, имеющий смысл мелкости шага сетки, -- то есть, строго говоря, определено семейство сеток. Функцию $y \hm \in Y$ можно ограничить на $\Omega_h$ -- введем обозначение $[y]_h = y|_{\Omega_h}$. Пусть $Y_h \hm = \{[y]_h: y \in Y\}, \; I_h = \{[f]_h: f \in I\}, \; G_h = \{[g]_h: g \in G\}$. Некоторые $L_h: Y_h \to I_h$ и $l_h: Y_h \to G_h$ будем называть разностными операторами; пусть $L$ и $l$ линейные. Теперь можно сформулировать разностную задачу (строго говоря, семейство задач):
+В пространстве $\clOmega$ введем сетку, то есть определим некоторое конечное подмножество $\Omega_h \subset \clOmega$. Здесь $h$~-- параметр, имеющий смысл мелкости шага сетки,~-- то есть, строго говоря, определено семейство сеток. Функцию $y \hm \in Y$ можно ограничить на $\Omega_h$~-- введем обозначение $[y]_h = y|_{\Omega_h}$. Пусть $Y_h \hm = \{[y]_h: y \in Y\}, \; I_h = \{[f]_h: f \in I\}, \; G_h = \{[g]_h: g \in G\}$. Некоторые $L_h: Y_h \to I_h$ и $l_h: Y_h \to G_h$ будем называть разностными операторами; пусть $L$ и $l$ линейные. Теперь можно сформулировать разностную задачу (строго говоря, семейство задач):
 \begin{equation}
 	\{ \quad L_h y_h = f_h; \quad l_h y_h = g_h \quad \} \tpoint
 	\label{eq:formal_subtractive}
 \end{equation}
-$y_h \in Y_h$ -- искомая сеточная функция, $f_h \in I_h, \; g_h \in G_h$. Подразумевается, что разностная задача является \emph{определенной} системой линейных уравнений (решение существует и единственно).
+$y_h \in Y_h$~-- искомая сеточная функция, $f_h \in I_h, \; g_h \in G_h$. Подразумевается, что разностная задача является \emph{определенной} системой линейных уравнений (решение существует и единственно).
 
-Пусть на пространствах $Y$, $I$, $G$ определены некоторые нормы $\enorm_Y$, $\enorm_I$, $\enorm_G$ соответственно. Пусть на пространстве $Y_h$ определена норма $\enorm_{Y_h}$, такая что $\forall y \in Y \; \norm{[y]_h}_{Y_h} \to \norm{y}_Y$ при $h \to 0$. В этом случае нормы $\enorm_Y$ и $\enorm_{Y_h}$ назовем \emph{согласованными}. Пусть аналогично $\enorm_{I_h}$ и $\enorm_{G_h}$ -- нормы на $I_h$ и $G_h$, согласованные с $\enorm_I$ и $\enorm_G$ соответственно.
+Пусть на пространствах $Y$, $I$, $G$ определены некоторые нормы $\enorm_Y$, $\enorm_I$, $\enorm_G$ соответственно. Пусть на пространстве $Y_h$ определена норма $\enorm_{Y_h}$, такая что $\forall y \in Y \; \norm{[y]_h}_{Y_h} \to \norm{y}_Y$ при $h \to 0$. В этом случае нормы $\enorm_Y$ и $\enorm_{Y_h}$ назовем \emph{согласованными}. Пусть аналогично $\enorm_{I_h}$ и $\enorm_{G_h}$~-- нормы на $I_h$ и $G_h$, согласованные с $\enorm_I$ и $\enorm_G$ соответственно.
 
 Теперь можно формально определить аппроксимацию, устойчивость и сходимость.
 
@@ -72,12 +72,12 @@ $$\exists M \in \Real \; \; \forall h \; \forall z_h \in Y_h \quad \norm{z_h}_{Y
 $$R \phi = \cfrac{1}{m} \partt{\phi} - \half \Gamma \partxx{\phi} - \left( \half K_\Phi^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi) \right) \tpoint$$
 Оператор $R$ нелинеен: нелинейная функция одного аргумента $\phi$ входит в него как слагаемое. Это же верно и для аппроксимирующего его разностного оператора $R_h$ из уравнения \eqref{eq:subtractive}. Подобные уравнения иногда называют квазилинейными.
 
-Разностную схему с оператором $R_h$ будем исследовать следующим образом: линеаризуем оператор при фиксированном аргументе $\phi$, а затем применим к нему так называемый спектральный признак устойчивости \cite{bahvalov_computational_methods}. При выполнении признака у схемы следует ожидать устойчивость (в <<разумных>> нормах, например, непрерывной и $L_2$-норме), а значит, с учетом аппроксимации в силу теоремы \ref{th:convergence} следует ожидать и сходимость. Как будет видно позже, подобный нестрогий анализ на практике принесет результат.
+Разностную схему с оператором $R_h$ будем исследовать следующим образом: линеаризуем оператор при фиксированном аргументе $\phi$, а затем применим к нему так называемый спектральный признак устойчивости \cite{bahvalov_computational_methods}. При выполнении признака у схемы следует ожидать устойчивость (в <<разумных>> нормах, например, равномерной и $L_2$-норме), а значит, с учетом аппроксимации в силу теоремы \ref{th:convergence} следует ожидать и сходимость. Как будет видно позже, подобный нестрогий анализ на практике принесет результат.
 
 
 \subsection{Оценка устойчивости схемы}
 
-Получим условие устойчивости по принципу <<замороженных коэффициентов>> (см., например, \cite{bahvalov_computational_methods}). Пусть $\phi_j^k$ и $\phi_j^k + \delta_j^k$ -- решения разностного уравнения~\eqref{eq:subtractive}. Подставим в него $\phi_j^k + \delta_j^k$, получим:
+Получим условие устойчивости по принципу <<замороженных коэффициентов>> (см., например, \cite{bahvalov_computational_methods}). Пусть $\phi_j^k$ и $\phi_j^k + \delta_j^k$~-- решения разностного уравнения~\eqref{eq:subtractive}. Подставим в него $\phi_j^k + \delta_j^k$, получим:
 \begin{multline*}
 	\cfrac{1}{m} \cfrac{(\phi_j^{k + 1} + \delta_j^{k + 1}) - (\phi_j^k + \delta_j^k)}{\tau} = \half K_\Phi^2 [\epsilon'(\phi_j^k) + \epsilon''(\phi_j^k) \delta_j^k + o(\delta_j^k)] + \\ + \cfrac{\Gamma}{l^2} [f'(\phi_j^k) + f''(\phi_j^k) \delta_j^k + o(\delta_j^k)] + \cfrac{\Gamma}{2} \cfrac{(\phi_{j + 1}^k + \delta_{j + 1}^k) - 2 (\phi_j^k + \delta_j^k) + (\phi_{j - 1}^k + \delta_{j - 1}^k)}{h^2} \tpoint
 \end{multline*}
@@ -106,11 +106,11 @@ $$\lambda(\theta) = 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \t
 \end{equation}
 При выполнении условия \eqref{cond:spectral_0} следует ожидать устойчивый расчет при полностью разрушенной или близкой к таковой среде ($\phi \approx 0$) в области $[0, W]_x \hm \times [0, +\infty)_t$ с бесконечным временным интервалом.
 
-Заметим, что при условии \eqref{cond:spectral_0} к тому же ожидается устойчивый расчет на множестве $[0, W]_x \times [0, T]_t$ в любой точке $P \in [0, 1]$. В этом случае справедливо неравенство
+Заметим, что при условии \eqref{cond:spectral_0} к тому же ожидается устойчивый расчет на множестве $[0, W]_x \times [0, T]_t$ в любой точке $P \in [0, 1]$, так как справедливо неравенство
 \begin{multline*}
 	|\lambda(\theta)| \leqslant \left| 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \right| + m \tau \left| \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) \right| \leqslant \\ \leqslant 1 + m \tau \left| \half K_\Phi^2 \epsilon''(P) + \cfrac{\Gamma}{l^2} f''(P) \right| \tpoint
 \end{multline*}
-Значит, для некоторого $C$ верно $|\lambda(\theta)| \leqslant 1 + C \tau$, так как $\epsilon''(\phi)$ и $f''(\phi)$ -- непрерывные на отрезке $[0, 1]$ функции. Следует отметить, что, несмотря на подобную универсальность, оценка \eqref{cond:spectral_0} плохо применима на практике и нуждается в уточнении, которое будет сделано позже.
+Значит, для некоторого $C$ верно $|\lambda(\theta)| \leqslant 1 + C \tau$, так как $\epsilon''(\phi)$ и $f''(\phi)$~-- непрерывные на отрезке $[0, 1]$ функции. Следует отметить, что, несмотря на подобную универсальность, оценка \eqref{cond:spectral_0} плохо применима на практике и нуждается в уточнении, которое будет сделано позже.
 
 Теперь рассмотрим выражение \eqref{eq:spectral} в точке $P = 1$. Имеем $f''(1) < 0,$ $\epsilon''(1) > 0$. Заметим, что при $(K_\Phi^2 / 2) \epsilon''(1) + (\Gamma / l^2) f''(1) \leqslant 0$ можно добиться $|\lambda(\theta)| \leqslant 1$, потребовав, подобно условию \eqref{cond:spectral_0}, $\tau \leqslant h^2 / (2m \Gamma)$ и притом достаточно малое $\tau$. Если подставить в упомянутое неравенство значения $f''(1) = -12, \; \epsilon''(1) = 12 \epsilon_0 / (1 + \delta)^2$ (см. выражение~\eqref{eq:epsilon_phi_phi}), то оно преобразуется в
 \begin{equation}
@@ -125,9 +125,9 @@ $$\lambda(\theta) = 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \t
 
 В предыдущем разделе из анализа уравнения \eqref{eq:spectral} было получено условие~\eqref{cond:spectral_0} устойчивости разностной схемы \eqref{sch:transition}, \eqref{sch:borders} при $\phi \approx 0$. Предположение о его полезности основано на том, что типичным поведением модели будет некоторый процесс перехода $\phi$ от $1$ к $0$ (<<разрушение>>) за конечное время, а затем бесконечно долгое пребывание в состоянии $\phi \approx 0$.
 
-Однако проделанного анализа уравнения \eqref{eq:spectral} в точке $\phi = 0$ недостаточно. В самом деле, было использовано, что $\epsilon''(0) = 0$ (см. выражение \eqref{eq:epsilon_phi_phi}), но не учтено, что $\epsilon''(\phi)$ при малых $\delta$ вблизи $0$ растет очень быстро и достигает больших значений (рис.~\ref{fig:eps_phi_phi}). Получается, что модель, устойчивая в точке $0$, может работать неадекватно в малой ее окрестности. Это нас, конечно, не устраивает -- улучшим оценку устойчивости.
+Однако проделанного анализа уравнения \eqref{eq:spectral} в точке $\phi = 0$ недостаточно. В самом деле, было использовано, что $\epsilon''(0) = 0$ (см. выражение \eqref{eq:epsilon_phi_phi}), но не учтено, что $\epsilon''(\phi)$ при малых $\delta$ вблизи $0$ растет очень быстро и достигает больших значений (рис.~\ref{fig:eps_phi_phi}). Получается, что модель, устойчивая в точке $0$, может работать неадекватно в малой ее окрестности. Это нас, конечно, не устраивает~-- улучшим оценку устойчивости.
 
-\begin{figure}[!tp]
+\begin{figure}[!t]
 	\centering
 	\includegraphics[width=\textwidth]{figures/eps_phi_phi.png}
 	\vspace{-0.7cm}
@@ -136,11 +136,13 @@ $$\lambda(\theta) = 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \t
 \end{figure}
 
 Нужно оценить экстремумы функции $\epsilon''(\phi)$ вблизи $0$. Для начала найдем нули $\epsilon'''(\phi)$. Имеем:
+\multeqstart
 $$f'''(\phi) = 24 - 72 \phi; \quad \epsilon'''_{fff} = \cfrac{-6 \epsilon_0}{(f(\phi) + \delta)^4} \tsemicolon$$
-\begin{equation}
-	\epsilon''' = \epsilon'''_{fff} \cdot (f')^3 + 3 \epsilon''_{ff} \cdot f' \cdot f'' + \epsilon'_f \cdot f''' = \epsilon_0 \cfrac{-6 (f')^3 + 6 (f + \delta) f' f'' - (f + \delta)^2 f'''}{(f + \delta)^4} \tpoint
-	\label{eq:epsilon_phi_phi_phi}
-\end{equation}
+\multeqnext
+\begin{multline*}
+	\epsilon''' = \epsilon'''_{fff} \cdot (f')^3 + 3 \epsilon''_{ff} \cdot f' \cdot f'' + \epsilon'_f \cdot f''' = \\ = \epsilon_0 \cfrac{-6 (f')^3 + 6 (f + \delta) f' f'' - (f + \delta)^2 f'''}{(f + \delta)^4} \tpoint
+\end{multline*}
+\multeqfinish
 Приравняв $\epsilon'''$ к $0$, получим:
 $$-6 (f')^3 + 6 (f + \delta) f' f'' - (f + \delta)^2 f''' = 0 \tcomma$$
 или
@@ -150,18 +152,17 @@ $$-6 (f')^3 + 6 (f + \delta) f' f'' - (f + \delta)^2 f''' = 0 \tcomma$$
 Разделим последнее уравнение на $24\phi^6$, получим:
 $$-3 \cdot 12^2 (1 - \phi)^3 + 36 \left(4 - 3\phi + \cfrac{\delta}{\phi^3} \right)(1 - \phi)(2 - 3\phi) - \left(4 - 3 \phi + \cfrac{\delta}{\phi^3} \right)^2 (1 - 3 \phi) = 0 \tpoint$$
 Пусть $\delta_n \to +0$ и корень $\phi_n \to +0$, причем $\delta_n / \phi_n^3$ ограничено. Тогда:
-$$-3 \cdot 12^2 \cdot 1^3 + 36 \left(4 + \cfrac{\delta_n}{\phi_n^3} \right) \cdot 1 \cdot 2 - \left(4 + \cfrac{\delta_n}{\phi_n^3} \right)^2 \cdot 1 \to 0 \tcomma$$
-$$\left(4 + \cfrac{\delta_n}{\phi_n^3} \right)^2 - 72 \left(4 + \cfrac{\delta_n}{\phi_n^3} \right) + 3 \cdot 12^2 \to 0 \tpoint$$
-Значит, последовательность $4 + \delta_n / \phi_n^3$ имеет не более двух частичных пределов $\xi_+$ и $\xi_-$ -- корней уравнения $\xi^2 - 72 \xi + 432 = 0$. Первому корню $\xi_+ = 36 + 12 \sqrt{6}$ соответствует
+\begin{gather*}
+	-3 \cdot 12^2 \cdot 1^3 + 36 \left(4 + \cfrac{\delta_n}{\phi_n^3} \right) \cdot 1 \cdot 2 - \left(4 + \cfrac{\delta_n}{\phi_n^3} \right)^2 \cdot 1 \to 0 \tcomma \\
+	\left(4 + \cfrac{\delta_n}{\phi_n^3} \right)^2 - 72 \left(4 + \cfrac{\delta_n}{\phi_n^3} \right) + 3 \cdot 12^2 \to 0 \tpoint
+\end{gather*}
+Значит, последовательность $4 + \delta_n / \phi_n^3$ имеет не более двух частичных пределов $\xi_+$ и $\xi_-$~-- корней уравнения $\xi^2 - 72 \xi + 432 = 0$. Первому корню $\xi_+ = 36 + 12 \sqrt{6}$ соответствует
 $$\phi_+ = \cfrac{1}{\sqrt[3]{32 + 12 \sqrt{6}}} \sqrt[3]{\delta_n} \approx \cfrac{1}{3.945} \sqrt[3]{\delta_n} \tsemicolon$$
 второму корню $\xi_- = 36 - 12 \sqrt{6}$ соответствует
 $$\phi_- = \cfrac{1}{\sqrt[3]{32 - 12 \sqrt{6}}} \sqrt[3]{\delta_n} \approx \cfrac{1}{1.376} \sqrt[3]{\delta_n} \tpoint$$
 
 Из проделанного рассуждения следует, что при $\delta \to +0$ функция $\epsilon'''(\phi)$ имеет в окрестности $0$ два корня
-\begin{equation}
-	\phi_{\pm} = \cfrac{1}{\sqrt[3]{32 \pm 12 \sqrt{6}}} \sqrt[3]{\delta} [1 + o(1)] \tpoint
-	\label{eq:epsilon_phi_phi_phi_roots}
-\end{equation}
+$$\phi_{\pm} = \cfrac{1}{\sqrt[3]{32 \pm 12 \sqrt{6}}} \sqrt[3]{\delta} [1 + o(1)] \tpoint$$
 
 Оценим $\epsilon''(\phi)$ в точках $\phi_{\pm}$ при $\delta \to +0$. Пусть $\phi = (1 / c) \sqrt[3]{\delta}, \; c \in \Real$. Тогда:
 \begin{multline*}
@@ -169,13 +170,10 @@ $$\phi_- = \cfrac{1}{\sqrt[3]{32 - 12 \sqrt{6}}} \sqrt[3]{\delta_n} \approx \cfr
 	\cfrac{\epsilon''}{\epsilon_0} = \cfrac{2(f')^2 - (f + \delta)f''}{(f + \delta)^3} = \cfrac{2 \cdot 12^2 \phi^4 (1 - \phi)^2 - (4 \phi^3 - 3 \phi^4 + \delta) \cdot 12 \phi (2 - 3 \phi)}{(4 \phi^3 - 3 \phi^4 + \delta)^3} = \\ = \cfrac{2 \cdot 12^2 - 8 \cdot 12 - 24 (\delta / \phi^3)}{(4 + \delta / \phi^3)^3} \cdot \cfrac{1}{\phi^5}[1 + o(1)] = \cfrac{24 c^5 (8 - c^3)}{(4 + c^3)^3} \delta^{-5 / 3} [1 + o(1)] \tpoint
 \end{multline*}
 Отсюда:
-\begin{equation}
-	\epsilon''(\phi_+) \approx -4.378 \epsilon_0 \delta^{-5 / 3}; \quad \epsilon''(\phi_-) \approx 2.216 \epsilon_0 \delta^{-5 / 3} \tpoint
-	\label{est:epsilon_phi_phi_bounds}
-\end{equation}
+$$\epsilon''(\phi_+) \approx -4.378 \epsilon_0 \delta^{-5 / 3}; \quad \epsilon''(\phi_-) \approx 2.216 \epsilon_0 \delta^{-5 / 3} \tpoint$$
 Оценки экстремумов $\epsilon''(\phi)$ вблизи $0$ показаны на рис. \ref{fig:eps_phi_phi_multiplied}.
 
-\begin{figure}[!tp]
+\begin{figure}[!t]
 	\centering
 	\includegraphics[width=\textwidth]{figures/eps_phi_phi_multiplied.png}
 	\caption{Сравнение функций $\delta^{5 / 3} \epsilon''(\phi)$ при различных значениях $\delta$.}
@@ -197,9 +195,6 @@ $$\lambda(\theta) = 1 + m \tau \left( -\cfrac{2.2 K_\Phi^2 \epsilon_0}{\delta^{5
 \end{equation}
 
 Более простая оценка не слабее оценки \eqref{cond:spectral_better} выглядит следующим образом:
-\begin{equation}
-	\tau \leqslant \cfrac{1}{4m} \min \left(\cfrac{\delta^{5 / 3}}{K_\Phi^2 \epsilon_0}, \; \cfrac{h^2}{\Gamma} \right) \tpoint
-	\label{cond:spectral_better_simpler}
-\end{equation}
+$$\tau \leqslant \cfrac{1}{4m} \min \left(\cfrac{\delta^{5 / 3}}{K_\Phi^2 \epsilon_0}, \; \cfrac{h^2}{\Gamma} \right) \tpoint$$
 
 Полученная оценка \eqref{cond:spectral_better} устойчивости разностной схемы \eqref{sch:transition}, \eqref{sch:borders} содержит все параметры уравнения \eqref{eq:one_dim}, кроме $l$.
