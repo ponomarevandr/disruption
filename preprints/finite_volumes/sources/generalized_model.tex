@@ -9,7 +9,7 @@
 
 Пусть $\Phi \equiv 0$, что соответствует нулевому электрическому напряжению в системе; тогда уравнение \eqref{eq:Phi} выполнено тождественно. В уравнении \eqref{eq:phi} первое слагаемое тождественно равно нулю, так как $\nabla \Phi \equiv 0$. В дальнейшем будем искать стационарное во времени распределение фазового поля, так что $\phi'_t \equiv 0$. В таком случае задача сводится к следующему уравнению на фазовое поле $\phi$:
 \begin{equation}
-	\cfrac{2}{l^2} f'(\phi) + \triangle \phi = 0 \tpoint
+	\cfrac{2}{l^2} f'(\phi) + \Delta \phi = 0 \tpoint
 	\label{eq:stationary}
 \end{equation}
 
@@ -31,7 +31,7 @@ $$\partxx{\phi} = -\cfrac{2}{l^2} f'(\phi) \tpoint$$
 Как и ранее, электрическое напряжение нулевое: $\Phi \equiv 0$. Рассмотрим уравнение \eqref{eq:stationary} в области $\clOmega = \Real_x \times \Real_y \times J_z$, где $J$~-- некоторый отрезок. Аналогично будем искать решение следующей краевой задачи: $\phi|_{x, y = 0} = 0, \; \phi \to 1$ при $r = \sqrt{x^2 + y^2} \to +\infty$, а также $\partflvn{\phi} = 0$ на <<гранях>> области $\clOmega$, перпендикулярных оси $z$.
 
 Удобно перейти в цилиндрическую систему координат: $x, y, z \mapsto r, \theta, z$. Граничные условия однородны по $\theta$ и $z$, поэтому естественно искать решение, зависящее только от $r$. Так как $\phi(\vx) = \phi(r)$, выражение для лапласиана $\phi$ в цилиндрических координатах принимает вид
-$$\triangle \phi = \cfrac{1}{r} \partr{} \left( r \partr{\phi} \right) = \cfrac{1}{r} \partr{\phi} + \partrr{\phi} \tpoint$$
+$$\Delta \phi = \cfrac{1}{r} \partr{} \left( r \partr{\phi} \right) = \cfrac{1}{r} \partr{\phi} + \partrr{\phi} \tpoint$$
 С учетом этого уравнение \eqref{eq:stationary} преобразуется в
 \begin{equation}
 	\cfrac{2}{l^2} f'(\phi) + \cfrac{1}{r} \partr{\phi} + \partrr{\phi} = 0 \tpoint
@@ -47,22 +47,20 @@ $$\triangle \phi = \cfrac{1}{r} \partr{} \left( r \partr{\phi} \right) = \cfrac{
 
 В ответ на описанную в предыдущем подразделе проблему в работе \cite{zipunova_higher_codimension} на основании теоретических результатов работ \cite{sobolev_functional_analysis, oleynik_biharmonic_equations, sternin_elliptic_equations, lewis_quasi_linear} предлагается следующая обобщенная модель, для которой постановка условий на границах размерности~1 (соответственно, коразмерности~2) является математически корректной:
 \multeqstart
-\begin{gather}
-	\Pi = \int \limits_\Omega \pi d \vx \tcomma
-	\label{eq:energy_corrected} \\
+\begin{gather*}
+	\Pi = \int \limits_\Omega \pi d \vx \tcomma \\
 	\begin{aligned}
-		\pi = -\half \epsilon[\phi] \scalsq{\Phi} + \Gamma \cfrac{1 - f(\phi)}{l^2} &+ \cfrac{\Gamma}{4} \scalsq{\phi} + \\ &+ \alpha \cfrac{\Gamma l^2}{8} (\triangle \phi)^2 + \beta \cfrac{1}{p} \Gamma l^{p - 2} \norm{\nabla \phi}_2^p \tsemicolon
+		\pi = -\half \epsilon[\phi] \scalsq{\Phi} + \Gamma \cfrac{1 - f(\phi)}{l^2} &+ \cfrac{\Gamma}{4} \scalsq{\phi} + \\ &+ \alpha \cfrac{\Gamma l^2}{8} (\Delta \phi)^2 + \beta \cfrac{1}{p} \Gamma l^{p - 2} \norm{\nabla \phi}_2^p \tsemicolon
 	\end{aligned}
-	\label{eq:energy_density_corrected}
-\end{gather}
+\end{gather*}
 \multeqnext
 \begin{numcases}{}
 	\Div(\epsilon[\phi] \nabla \Phi) = 0 \tsemicolon
 	\label{eq:Phi_corrected} \\
 	\begin{aligned}
-		\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \scalsq{\Phi} &+ \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \triangle \phi \: - \\ &- \alpha \cfrac{\Gamma l^2}{4} \bilapl{\phi} + \beta \Gamma l^{p - 2} \plapl{\phi}{p - 2} \tpoint
+		\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \scalsq{\Phi} &+ \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \Delta \phi \: - \\ &- \alpha \cfrac{\Gamma l^2}{4} \bilapl{\phi} + \beta \Gamma l^{p - 2} \plapl{\phi}{p - 2} \tpoint
 	\end{aligned}
 	\label{eq:phi_corrected}
 \end{numcases}
 \multeqfinish
-Здесь $\alpha, \beta \geqslant 0$~-- некоторые константы, $p$~-- четное натуральное число, не меньшее~4. Дифференциальный оператор $\plapl{\phi}{p - 2}$ принято называть \emph{$p$-лапласианом}, $\bilapl{\phi} = \triangle(\triangle \phi)$~-- \emph{билапласианом}. В дальнейшем для простоты будем считать $p = 4$.
+Здесь $\alpha, \beta \geqslant 0$~-- некоторые константы, $p$~-- четное натуральное число, не меньшее~4. Дифференциальный оператор $\plapl{\phi}{p - 2}$ принято называть \emph{$p$-лапласианом}, $\bilapl{\phi} = \Delta(\Delta \phi)$~-- \emph{билапласианом}. В дальнейшем для простоты будем считать $p = 4$.
