@@ -4,15 +4,13 @@
 #include <algorithm>
 
 
-Model::Model(const ModelParameters& params, std::ostream& out, const std::string& description):
-		params(params), out(out), description(description), progress_bar(params.t_grid) {
-	dx = params.width / params.x_grid;
-	dt = params.duration / params.t_grid;
-}
+Model::Model(ModelParameters&& params, std::ostream& out, const std::string& description):
+		params(std::move(params)), out(out), description(description), progress_bar(params.t_grid) {}
 
 void Model::run() {
-	out << description << "\n";
-	params.print(out);
+	out << description << "\n\n";
+	params.write(out);
+	out << "\n";
 	initialize();
 	iterationDerivatives();
 	printValues(out);
@@ -27,19 +25,16 @@ void Model::run() {
 	}
 }
 
-double Model::phi_0(double x) const {
+/*double Model::phi_0(double x) const {
 	const double PI = 3.14159265358979324;
 	x -= 0.5 * params.width;
 	if (x <= -0.5 * START_DENT_WIDTH || 0.5 * START_DENT_WIDTH <= x)
 		return 1.0;
 	return 1.0 - 0.5 * START_DENT_DEPTH * (1.0 + std::cos(x / START_DENT_WIDTH * 2.0 * PI));
-}
+}*/
 
 void Model::initialize() {
-	phi.resize(params.x_grid + 1);
-	for (size_t i = 0; i <= params.x_grid; ++i) {
-		phi[i] = phi_0(i * dx);
-	}
+	phi = params.phi_0;
 	phi_t.resize(params.x_grid + 1);
 	phi_x_x.resize(params.x_grid + 1);
 }
@@ -53,16 +48,16 @@ double Model::f_phi(double phi) const {
 	return 12.0 * phi * phi * (1.0 - phi);
 }
 
-double Model::eps_phi(double phi) const {
-	double f_value = f(phi);
-	return -params.eps_0 / ((f_value + params.delta) * (f_value + params.delta)) * f_phi(phi);
+double Model::eps_phi(size_t i) const {
+	double f_value = f(phi[i]);
+	return -params.eps_0[i] / ((f_value + params.delta) * (f_value + params.delta)) * f_phi(phi[i]);
 }
 
 void Model::iterationDerivatives() { 
 	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
-		phi_x_x[i] = (phi[i - 1] - 2.0 * phi[i] + phi[i + 1]) / (dx * dx);
+		phi_x_x[i] = (phi[i - 1] - 2.0 * phi[i] + phi[i + 1]) / (params.dx * params.dx);
 		phi_t[i] = params.m * (
-			0.5 * eps_phi(phi[i]) * params.Phi_gradient * params.Phi_gradient +
+			0.5 * eps_phi(i) * params.Phi_gradient * params.Phi_gradient +
 			params.Gamma / (params.l * params.l) * f_phi(phi[i]) +
 			0.5 * params.Gamma * phi_x_x[i]
 		);
@@ -71,7 +66,7 @@ void Model::iterationDerivatives() {
 
 void Model::iterationUpdate() {
 	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
-		phi[i] += dt * phi_t[i];
+		phi[i] += params.dt * phi_t[i];
 	}
 }
 

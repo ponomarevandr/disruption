@@ -8,11 +8,18 @@ class Model:
 		self._df_phi = None
 
 	def from_file(self, filename):
+		for name in ['eps_0', 'delta', 'l', 'Gamma', 'm', 'Phi_gradient']:
+			self._params[name] = '---'
 		file = open(filename)
 		lines = file.readlines()
-		params_number = int(lines[1].split()[0])
-		for line in lines[2:2 + params_number]:
-			splitted = line.split()
+		header_lines = 2
+		while True:
+			splitted = lines[header_lines].split()
+			if len(splitted) == 0:
+				break
+			header_lines += 1
+			if splitted[-1] == '=' or splitted[0][0] == '[':
+				continue
 			if 'skip' in splitted[0] or 'grid' in splitted[0]:
 				splitted[-1] = int(splitted[-1])
 			else:
@@ -25,7 +32,7 @@ class Model:
 		self._params['dt_data'] = self._params['dt'] * self._params['t_skip']
 		self._params['x_size'] = self._params['x_grid'] // self._params['x_skip'] + 1
 		self._params['t_size'] = self._params['t_grid'] // self._params['t_skip'] + 1
-		data = pd.read_csv(filename, sep=';', header=None, skiprows=2 + params_number)
+		data = pd.read_csv(filename, sep=';', header=None, skiprows=header_lines + 1)
 		self._xs = np.arange(self._params['x_size']) * self._params['dx_data']
 		self._ts = np.arange(self._params['t_size']) * self._params['dt_data']
 		self._df_phi = data.iloc[:, :self._params['x_size']].reset_index(drop=True)

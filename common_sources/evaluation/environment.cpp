@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <stdexcept>
+#include <limits>
 
 
 namespace Evaluation {
@@ -98,8 +99,8 @@ void Environment::read(std::istream& in) {
 				throw std::invalid_argument("Redefenition of \"" + name + "()\"!");
 			functions.insert(std::make_pair(std::move(name), std::move(function)));
 		} else {
-			if (name == "x")
-				throw std::invalid_argument("The name \"x\" is not allowed!");
+			if (name == "x" || name == "inf")
+				throw std::invalid_argument("The name \"" + name + "\" is not allowed!");
 			Formula formula(readUntil(in, '\n'));
 			formula.prepare();
 			double value = formula.evaluate(variables);
@@ -133,8 +134,10 @@ double Environment::getFunctionValue(const std::string& name, double argument) c
 	if (iterator == functions.end())
 		throw std::invalid_argument("The function \"" + name + "()\" is undefined!");
 	variables.insert(std::make_pair("x", argument));
+	variables.insert(std::make_pair("inf", std::numeric_limits<double>::infinity()));
 	double result = iterator->second.getValue(variables);
 	variables.erase("x");
+	variables.erase("inf");
 	return result;
 }
 

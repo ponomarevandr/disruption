@@ -1,6 +1,11 @@
 import matplotlib.pyplot as plt
 
 
+def formatted(value):
+	if isinstance(value, float):
+		return '{:.6e}'.format(value)
+	return '{}'.format(value)
+
 def model_plot(model, times, print_params=True, **kwargs):
 	if 'figsize' in kwargs:
 		plt.figure(figsize=kwargs['figsize'])
@@ -20,36 +25,36 @@ def model_plot(model, times, print_params=True, **kwargs):
 		bbox_to_anchor=(1.02, 1), loc="upper left")
 	if print_params:
 		plt.figtext(0, 0, (
-				'eps_0 = {:.6e}\n' +
-				'delta = {:.6e}\n' +
-				'l = {:.6e}\n' +
-				'Gamma = {:.6e}\n' +
-				'm = {:.6e}\n' +
-				'Phi_gradient = {:.6e}'
+				'eps_0 = {}\n' +
+				'delta = {}\n' +
+				'l = {}\n' +
+				'Gamma = {}\n' +
+				'm = {}\n' +
+				'Phi_gradient = {}'
 			).format(
-				model.params['eps_0'],
-				model.params['delta'],
-				model.params['l'],
-				model.params['Gamma'],
-				model.params['m'],
-				model.params['Phi_gradient']
+				formatted(model.params['eps_0']),
+				formatted(model.params['delta']),
+				formatted(model.params['l']),
+				formatted(model.params['Gamma']),
+				formatted(model.params['m']),
+				formatted(model.params['Phi_gradient'])
 			),
 			va='top'
 		)
 		plt.figtext(0.5, 0, (
 				'x_grid = {}\n' +
 				't_grid = {}\n' +
-				'dx = {:.6e}\n' +
-				'dt = {:.6e}\n' +
-				'width = {:.6e}\n' +
-				'duration = {:.6e}'
+				'dx = {}\n' +
+				'dt = {}\n' +
+				'width = {}\n' +
+				'duration = {}'
 			).format(
-				model.params['x_grid'],
-				model.params['t_grid'],
-				model.params['dx'],
-				model.params['dt'],
-				model.params['width'],
-				model.params['duration']
+				formatted(model.params['x_grid']),
+				formatted(model.params['t_grid']),
+				formatted(model.params['dx']),
+				formatted(model.params['dt']),
+				formatted(model.params['width']),
+				formatted(model.params['duration'])
 			),
 			va='top'
 		)
