@@ -36,6 +36,9 @@ class Model:
 		self._xs = np.arange(self._params['x_size']) * self._params['dx_data']
 		self._ts = np.arange(self._params['t_size']) * self._params['dt_data']
 		self._df_phi = data.iloc[:, :self._params['x_size']].reset_index(drop=True)
+		self._energy_electrical = data.iloc[:, self._params['x_size']].to_numpy()
+		self._energy_border = data.iloc[:, self._params['x_size'] + 1].to_numpy()
+		self._energy_inner = data.iloc[:, self._params['x_size'] + 2].to_numpy()
 
 	@property
 	def params(self):
@@ -50,12 +53,16 @@ class Model:
 		return self._df_phi.iloc
 
 	@property
-	def df_additional(self):
-		return self._df_additional
+	def energy_electrical(self):
+		return self._energy_electrical
 
 	@property
-	def additional(self):
-		return self._df_additional.iloc
+	def energy_border(self):
+		return self._energy_border
+
+	@property
+	def energy_inner(self):
+		return self._energy_inner
 
 	@property
 	def xs(self):
