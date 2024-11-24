@@ -174,20 +174,20 @@
 
 
 %%% Описание препринта
-\newcommand{\PreprintTitle}{
-	Численное исследование обобщения модели развития канала электрического пробоя типа <<диффузной границы>>
+\newcommand{\PreprintTitle}{%
+	Численное исследование обобщения модели развития канала электрического пробоя типа <<диффузной границы>>%
 }
 \newcommand{\PreprintTitleFormatted}{
 	Численное исследование обобщения \\ модели развития канала электрического пробоя \\ типа <<диффузной границы>>
 }
-\newcommand{\PreprintTitleEnglish}{
-	Numerical analysis of a generalized diffuse interface model for the electrical breakdown process
+\newcommand{\PreprintTitleEnglish}{%
+	Numerical analysis of a generalized diffuse interface model for the electrical breakdown process%
 }
-\newcommand{\PreprintAuthors}{
-	А.~С.~Пономарев, Е.~В.~Зипунова, Е.~Б.~Савенков
+\newcommand{\PreprintAuthors}{%
+	А.~С.~Пономарев, Е.~В.~Зипунова, Е.~Б.~Савенков%
 }
-\newcommand{\PreprintAuthorsEnglish}{
-	A.~S.~Ponomarev, E.~V.~Zipunova, E.~B.~Savenkov
+\newcommand{\PreprintAuthorsEnglish}{%
+	A.~S.~Ponomarev, E.~V.~Zipunova, E.~B.~Savenkov%
 }
 
 
@@ -224,20 +224,20 @@
 
 \thispagestyle{empty}
 
-\noindent \emph{\PreprintAuthors}, \PreprintTitle \\[3mm]
+\noindent \emph{\PreprintAuthors,} \PreprintTitle \\[3mm]
 \textbf{Аннотация} \\
 {
 	\small
 	В настоящей работе проводится численное исследование ранее предложенного обобщения модели типа диффузной границы, описывающей развитие канала электрического пробоя в твердом диэлектрике. Для этого ищется стационарное распределение фазового поля в нескольких характеристических случаях задачи. При построении разностной схемы применена модификация метода конечных объемов, так что схема позволяет задать граничные условия на множествах высшей коразмерности в трехмерном пространстве, притом что у решения задачи в точках этих множеств допускается особенность. \\[3mm]
-	\textbf{Ключевые слова:} модель типа диффузной границы, фазовое поле, метод конечных объемов, электрический пробой. \\[5mm]
+	\textbf{Ключевые слова:} модель типа диффузной границы, фазовое поле, метод конечных объемов, электрический пробой \\[5mm]
 }
 \begin{otherlanguage}{english}
-\emph{\PreprintAuthorsEnglish}, \PreprintTitleEnglish \\[3mm]
+\emph{\PreprintAuthorsEnglish,} \PreprintTitleEnglish \\[3mm]
 \textbf{Abstract} \\
 {
 	\small
 	The subject of the present work is a previously suggested generalization of a diffuse interface model describing the development of an electrical breakdown channel in a solid dielectric. Numerical analysis for the model is performed. In the analysis, the stationary distribution of the phase field is found in several characteristic cases of the problem. A modification of the finite volume method is applied so that the numerical scheme is available for determining the boundary conditions at sets of higher codimension in three-dimensional space. At that the solution function is expected to have a singularity at the points of these sets. \\[3mm]
-	\textbf{Key words and phrases:} diffuse interface model, phase field, finite volume method, electrical breakdown. \\[5mm]
+	\textbf{Key words and phrases:} diffuse interface model, phase field, finite volume method, electrical breakdown \\[5mm]
 }
 \end{otherlanguage}
 
@@ -256,7 +256,9 @@
 \input{sources/conclusion}
 
 \clearpage
-\printbibliography
+\printbibliography[
+	heading=bibintoc
+]
 
 \clearpage
 \tableofcontents
