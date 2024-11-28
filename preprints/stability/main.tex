@@ -116,6 +116,18 @@
 
 \newcommand{\forcehyphenation}{-\linebreak}
 
+\newcommand{\multeqstart}{
+	\begingroup
+	\setlength{\abovedisplayshortskip}{\the\abovedisplayskip}
+	\setlength{\belowdisplayshortskip}{\the\belowdisplayskip}
+}
+\newcommand{\multeqnext}{
+	\vspace{-7mm}
+}
+\newcommand{\multeqfinish}{
+	\endgroup
+}
+
 
 %%% Свои операторы
 \DeclareMathOperator{\Div}{{div}}
@@ -145,17 +157,20 @@
 
 
 %%% Описание препринта
-\newcommand{\PreprintTitle}{
-	Устойчивость стационарных решений в модели развития канала электрического пробоя типа <<диффузной границы>>
+\newcommand{\PreprintTitle}{%
+	Устойчивость стационарных решений в модели развития канала электрического пробоя типа <<диффузной границы>>%
 }
-\newcommand{\PreprintTitleEnglish}{
-	Stability of stationary solutions of a diffuse interface model for the electrical breakdown process
+\newcommand{\PreprintTitleFormatted}{
+	Устойчивость стационарных решений \\ в модели развития канала электрического пробоя \\ типа <<диффузной границы>>
 }
-\newcommand{\PreprintAuthors}{
-	А.~С.~Пономарев, Е.~В.~Зипунова, Е.~Б.~Савенков
+\newcommand{\PreprintTitleEnglish}{%
+	Stability of stationary solutions of a diffuse interface model for the electrical breakdown process%
 }
-\newcommand{\PreprintAuthorsEnglish}{
-	A.~S.~Ponomarev, E.~V.~Zipunova, E.~B.~Savenkov
+\newcommand{\PreprintAuthors}{%
+	А.~С.~Пономарев, Е.~В.~Зипунова, Е.~Б.~Савенков%
+}
+\newcommand{\PreprintAuthorsEnglish}{%
+	A.~S.~Ponomarev, E.~V.~Zipunova, E.~B.~Savenkov%
 }
 
 
@@ -173,9 +188,13 @@
 	имени М. В. КЕЛДЫША \\
 
 	\vspace*{60mm}
-	\Large{\PreprintAuthors} \\
+	{
+		\Large{\PreprintAuthors} \\
+	}
 	\vspace*{20mm}
-	\textbf{\large \PreprintTitle} \\
+	{
+		\large \textbf{\PreprintTitleFormatted} \\
+	}
 	\vspace*{110mm}
 	\Large{Москва, 2024}
 	\vspace*{-50mm}
@@ -188,20 +207,20 @@
 
 \thispagestyle{empty}
 
-\noindent \emph{\PreprintAuthors}, \PreprintTitle \\[3mm]
+\noindent \emph{\PreprintAuthors,} \PreprintTitle \\[3mm]
 \textbf{Аннотация} \\
 {
 	\small
-	Цель настоящей работы -- исследование качественных характеристик и численный анализ модели типа диффузной границы, описывающей развитие канала электрического пробоя в твердом диэлектрике. Проведен анализ устойчивости положений равновесия системы; установлены условия развития канала пробоя из малых возмущений неповрежденной среды. Построена и изучена разностная схема для задачи, дана содержательная оценка ее устойчивости. Полученные теоретические результаты подтверждены моделированием на компьютере. \\[3mm]
-	\textbf{Ключевые слова:} модель типа диффузной границы, фазовое поле, устойчивость, электрический пробой. \\[5mm]
+	Цель настоящей работы~-- исследование качественных характеристик и численный анализ модели типа диффузной границы, описывающей развитие канала электрического пробоя в твердом диэлектрике. Проведен анализ устойчивости положений равновесия системы; установлены условия развития канала пробоя из малых возмущений неповрежденной среды. Построена и изучена разностная схема для задачи, дана содержательная оценка ее устойчивости. Полученные теоретические результаты подтверждены моделированием на компьютере. \\[3mm]
+	\textbf{Ключевые слова:} модель типа диффузной границы, фазовое поле, устойчивость, электрический пробой \\[5mm]
 }
 \begin{otherlanguage}{english}
-\emph{\PreprintAuthorsEnglish}, \PreprintTitleEnglish \\[3mm]
+\emph{\PreprintAuthorsEnglish,} \PreprintTitleEnglish \\[3mm]
 \textbf{Abstract} \\
 {
 	\small
 	The aim of the present work is to study qualitative characteristics and to perform a numerical analysis of a diffuse interface model describing the development of an electrical breakdown channel in a solid dielectric. Stability of the system equilibrium positions is analysed. Conditions for the breakdown channel development from small perturbations of the intact medium are found. A differential scheme for the problem is constructed and investigated, an informative estimate of its stability is given. The obtained theoretical results are validated by a computer simulation. \\[3mm]
-	\textbf{Key words and phrases:} diffuse interface model, phase field, stability, electrical breakdown. \\[5mm]
+	\textbf{Key words and phrases:} diffuse interface model, phase field, stability, electrical breakdown \\[5mm]
 }
 \end{otherlanguage}
 
@@ -220,7 +239,9 @@
 \input{sources/conclusion}
 
 \clearpage
-\printbibliography
+\printbibliography[
+	heading=bibintoc
+]
 
 \clearpage
 \tableofcontents

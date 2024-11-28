@@ -8,10 +8,7 @@
 Рассматривается ограниченная область пространства $\Omega \subset \Real^3$. Распределение фаз вещества в ней задается гладкой функцией $\phi: \Omega \times [0, +\infty)_t \hm \to [0, 1], \; \phi(\vx, t)$~-- фазовым полем; вещество может находиться в одной из двух фаз: $\phi \approx 1$~-- <<неповрежденное>>, $\phi \approx 0$~-- <<полностью разрушенное>> (то есть относящееся к каналу пробоя),~-- а также в промежуточных состояниях в зоне диффузной границы.
 
 Диэлектрическую проницаемость среды $\epsilon$ предлагается описать следующей формулой:
-\begin{equation}
-	\epsilon(\vx, t) = \epsilon[\phi] = \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) + \delta} \tpoint
-	\label{eq:epsilon}
-\end{equation}
+$$\epsilon(\vx, t) = \epsilon[\phi] = \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) + \delta} \tpoint$$
 Здесь $\epsilon_0(\vx)$~-- диэлектрическая проницаемость неповрежденной среды, $f(\phi) \hm = 4\phi^3 - 3\phi^4$~-- интерполирующая функция, $0 < \delta \ll 1$~-- регуляризующий параметр.
 
 Помимо фазового поля $\phi$, состояние системы описывает также функция $\Phi: \Omega \times [0, +\infty)_t \to \Real, \; \Phi(\vx, t)$~-- потенциал электрического поля.
@@ -36,7 +33,7 @@
 \begin{numcases}{}
 	\Div(\epsilon[\phi] \nabla \Phi) = 0 \tsemicolon
 	\label{eq:Phi} \\
-	\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \scalsq{\Phi} + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \triangle \phi \tpoint
+	\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \scalsq{\Phi} + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \Delta \phi \tpoint
 	\label{eq:phi}
 \end{numcases}
 Здесь $(\cdot)' \equiv (\cdot)_\phi'$. Система состоит из двух уравнений: на $\phi$ и $\Phi$ соответственно; система связная, второе уравнение нелинейное, является уравнением типа Аллена--Кана.
