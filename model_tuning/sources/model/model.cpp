@@ -68,8 +68,8 @@ void Model::iterationDerivatives() {
 		phi_x_x[i] = (phi[i - 1] - 2.0 * phi[i] + phi[i + 1]) / (params.dx * params.dx);
 		phi_t[i] = params.m * (
 			0.5 * eps_phi(i) * params.Phi_gradient * params.Phi_gradient +
-			params.Gamma / (params.l * params.l) * f_phi(phi[i]) +
-			0.5 * params.Gamma * phi_x_x[i]
+			params.Gamma[i] / (params.l * params.l) * f_phi(phi[i]) +
+			0.5 * params.Gamma[i] * phi_x_x[i]
 		);
 	}
 	if (calculate_energy)
@@ -90,8 +90,8 @@ void Model::calculateEnergy() {
 	}
 	for (size_t i = 0; i <= params.x_grid; ++i) {
 		energy_density_electrical[i] = -0.5 * eps(i) * params.Phi_gradient * params.Phi_gradient;
-		energy_density_border[i] = 0.25 * params.Gamma * (phi_x[i] * phi_x[i]);
-		energy_density_inner[i] = params.Gamma * (1.0 - f(phi[i])) / (params.l * params.l);
+		energy_density_border[i] = 0.25 * params.Gamma[i] * (phi_x[i] * phi_x[i]);
+		energy_density_inner[i] = params.Gamma[i] * (1.0 - f(phi[i])) / (params.l * params.l);
 	}
 	energy_electrical = energy_border = energy_inner = 0;
 	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
@@ -112,7 +112,14 @@ void Model::calculateEnergy() {
 
 void Model::printValues(std::ostream& out) const {
 	for (size_t i = 0; i <= params.x_grid; i += params.x_skip) {
-		out << phi[i];
+		// Уловка для уменьшения объема файла
+		if (phi[i] == 1.0) {
+			out << "1";
+		} else if (phi[i] == 0) {
+			out << "0";
+		} else {
+			out << phi[i];
+		}
 		if (i + params.x_skip <= params.x_grid)
 			out << ";";
 	}

@@ -10,7 +10,7 @@ struct ModelParameters {
 	std::vector<double> eps_0;
 	double delta;
 	double l;
-	double Gamma;
+	std::vector<double> Gamma;
 	double m;
 	double Phi_gradient;
 	size_t x_grid;

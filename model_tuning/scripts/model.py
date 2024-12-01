@@ -9,7 +9,7 @@ class Model:
 
 	def from_file(self, filename):
 		for name in ['eps_0', 'delta', 'l', 'Gamma', 'm', 'Phi_gradient']:
-			self._params[name] = '---'
+			self._params[name] = '[not a number]'
 		file = open(filename)
 		lines = file.readlines()
 		header_lines = 2
