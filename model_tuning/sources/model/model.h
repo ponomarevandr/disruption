@@ -14,6 +14,7 @@ public:
 		"A one-dimensional setting of the electrical breakdown problem",
 		bool calculate_energy = true);
 	void run();
+	void write_phi(std::ostream&) const;
 
 protected:
 	ModelParameters params;

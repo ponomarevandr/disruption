@@ -1,9 +1,7 @@
 #include "model_parameters.h"
 
-#include <map>
 
-
-void ModelParameters::read(std::istream& in) {
+void ModelParameters::read(std::istream& in, bool read_phi_0) {
 	environment.read(in);
 	delta = environment.getVariableValue("delta");
 	l = environment.getVariableValue("l");
@@ -17,20 +15,23 @@ void ModelParameters::read(std::istream& in) {
 	duration = environment.getVariableValue("duration");
 	dx = width / x_grid;
 	dt = duration / t_grid;
-	initializeArrays();
-}
-
-void ModelParameters::write(std::ostream& out) const {
-	environment.write(out);
-}
-
-void ModelParameters::initializeArrays() {
 	eps_0.resize(x_grid + 1);
 	Gamma.resize(x_grid + 1);
 	phi_0.resize(x_grid + 1);
 	for (size_t i = 0; i <= x_grid; ++i) {
 		eps_0[i] = environment.getFunctionValue("eps_0", i * dx);
 		Gamma[i] = environment.getFunctionValue("Gamma", i * dx);
-		phi_0[i] = environment.getFunctionValue("phi_0", i * dx);
+		if (read_phi_0)
+			phi_0[i] = environment.getFunctionValue("phi_0", i * dx);
 	}
+}
+
+void ModelParameters::write(std::ostream& out) const {
+	environment.write(out);
+	out << "t_0 = " << t_0 << "\n";
+}
+
+void ModelParameters::read_phi_0(std::istream& in) {
+	in.read(reinterpret_cast<char*>(&t_0), sizeof(double));
+	in.read(reinterpret_cast<char*>(phi_0.data()), sizeof(double) * phi_0.size());
 }

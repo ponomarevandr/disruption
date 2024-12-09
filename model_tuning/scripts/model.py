@@ -34,7 +34,7 @@ class Model:
 		self._params['t_size'] = self._params['t_grid'] // self._params['t_skip'] + 1
 		data = pd.read_csv(filename, sep=';', header=None, skiprows=header_lines + 1)
 		self._xs = np.arange(self._params['x_size']) * self._params['dx_data']
-		self._ts = np.arange(self._params['t_size']) * self._params['dt_data']
+		self._ts = self._params['t_0'] + np.arange(self._params['t_size']) * self._params['dt_data']
 		self._df_phi = data.iloc[:, :self._params['x_size']].reset_index(drop=True)
 		self._energy_electrical = data.iloc[:, self._params['x_size']].to_numpy()
 		self._energy_border = data.iloc[:, self._params['x_size'] + 1].to_numpy()
@@ -73,7 +73,7 @@ class Model:
 		return self._ts
 
 	def t_index(self, t):
-		return int(round(t / self._params['dt_data']))
+		return int(round((t - self._params['t_0']) / self._params['dt_data']))
 
 	def phi_at_t(self, t):
 		return self._df_phi.iloc[self.t_index(t)]

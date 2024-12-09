@@ -26,13 +26,11 @@ void Model::run() {
 	}
 }
 
-/*double Model::phi_0(double x) const {
-	const double PI = 3.14159265358979324;
-	x -= 0.5 * params.width;
-	if (x <= -0.5 * START_DENT_WIDTH || 0.5 * START_DENT_WIDTH <= x)
-		return 1.0;
-	return 1.0 - 0.5 * START_DENT_DEPTH * (1.0 + std::cos(x / START_DENT_WIDTH * 2.0 * PI));
-}*/
+void Model::write_phi(std::ostream& out) const {
+	double t_end = params.t_0 + params.duration;
+	out.write(reinterpret_cast<const char*>(&t_end), sizeof(double));
+	out.write(reinterpret_cast<const char*>(phi.data()), sizeof(double) * phi.size());
+}
 
 void Model::initialize() {
 	phi = params.phi_0;

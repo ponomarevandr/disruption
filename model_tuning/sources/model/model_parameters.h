@@ -3,7 +3,7 @@
 #include "evaluation/environment.h"
 
 #include <iostream>
-#include <functional>
+#include <vector>
 
 
 struct ModelParameters {
@@ -22,9 +22,10 @@ struct ModelParameters {
 	std::vector<double> phi_0;
 	double dx;
 	double dt;
+	double t_0 = 0;
 	Evaluation::Environment environment;
 
-	void read(std::istream& in);
+	void read(std::istream& in, bool read_phi_0 = true);
 	void write(std::ostream& out) const;
-	void initializeArrays();
+	void read_phi_0(std::istream& in);
 };

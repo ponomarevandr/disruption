@@ -21,7 +21,7 @@ def model_plot(model, times, print_params=True, **kwargs):
 	for i in t_indices:
 	    plt.plot(model.xs, model.phi[i])
 	#plt.legend(['$t = {:.4f}$'.format(i * model.params['dt_data']) for i in t_indices])
-	plt.legend(['$t = {:.3e}$'.format(i * model.params['dt_data']) for i in t_indices],
+	plt.legend(['$t = {:.3e}$'.format(model.ts[i]) for i in t_indices],
 		bbox_to_anchor=(1.02, 1), loc="upper left")
 	if print_params:
 		plt.figtext(0, 0, (
