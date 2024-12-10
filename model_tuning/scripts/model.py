@@ -26,6 +26,8 @@ class Model:
 				splitted[-1] = float(splitted[-1])
 			self._params[splitted[0]] = splitted[-1]
 		file.close()
+		if 't_0' not in self._params:
+			self._params['t_0'] = 0.0
 		self._params['dx'] = self._params['width'] / self._params['x_grid']
 		self._params['dt'] = self._params['duration'] / self._params['t_grid']
 		self._params['dx_data'] = self._params['dx'] * self._params['x_skip']
