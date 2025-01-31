@@ -20,6 +20,9 @@ struct ModelParameters {
 	double width;
 	double duration;
 	std::vector<double> phi_0;
+	double dt_max;
+	double tol_phi;
+	double tol_energy;
 	double dx;
 	double dt;
 	double t_0 = 0;

@@ -72,6 +72,7 @@ void Model::iterationDerivatives() {
 	}
 	if (calculate_energy)
 		calculateEnergy();
+	calculateTimeStep();
 }
 
 void Model::iterationUpdate() {
@@ -106,7 +107,28 @@ void Model::calculateEnergy() {
 	energy_inner += 0.5 * params.dx * (
 		energy_density_inner[0] + energy_density_inner[params.x_grid]
 	);
+	energy_total = energy_electrical + energy_border + energy_inner;
+	energy_total_t = (energy_total - energy_total_previous) / params.dt;
+	energy_total_previous = energy_total;
 }
+
+void Model::calculateTimeStep() {
+	dt_adaptive_phi = params.tol_phi / normUniform(phi_t);
+	dt_adaptive_phi = std::max(dt_adaptive_phi, params.dt);
+	dt_adaptive_phi = std::min(dt_adaptive_phi, params.dt_max);
+	dt_adaptive_energy = params.tol_energy / std::abs(energy_total_t);
+	dt_adaptive_energy = std::max(dt_adaptive_energy, params.dt);
+	dt_adaptive_energy = std::min(dt_adaptive_energy, params.dt_max);
+}
+
+double Model::normUniform(const std::vector<double>& f) {
+	double result = 0;
+	for (double value : f) {
+		result = std::max(result, std::abs(value));
+	}
+	return result;
+}
+
 
 void Model::printValues(std::ostream& out) const {
 	for (size_t i = 0; i <= params.x_grid; i += params.x_skip) {
@@ -122,5 +144,7 @@ void Model::printValues(std::ostream& out) const {
 			out << ";";
 	}
 	out << ";" << energy_electrical << ";" << energy_border << ";" << energy_inner;
+	out << ";" << normUniform(phi_t) << ";" << std::abs(energy_total_t);
+	out << ";" << dt_adaptive_phi << ";" << dt_adaptive_energy;
 	out << "\n";
 }

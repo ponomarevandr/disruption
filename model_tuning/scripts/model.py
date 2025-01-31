@@ -42,6 +42,12 @@ class Model:
 		self._energy_border = data.iloc[:, self._params['x_size'] + 1].to_numpy()
 		self._energy_inner = data.iloc[:, self._params['x_size'] + 2].to_numpy()
 
+		if (data.shape[1] > self._params['x_size'] + 6):
+			self._phi_t_norm = data.iloc[:, self._params['x_size'] + 3].to_numpy()
+			self._energy_t_abs = data.iloc[:, self._params['x_size'] + 4].to_numpy()
+			self._dt_adaptive_phi = data.iloc[:, self._params['x_size'] + 5].to_numpy()
+			self._dt_adaptive_energy = data.iloc[:, self._params['x_size'] + 6].to_numpy()
+
 	@property
 	def params(self):
 		return self._params

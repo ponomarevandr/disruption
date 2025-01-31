@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <limits>
 
 
 class Model {
@@ -28,10 +29,14 @@ protected:
 	std::vector<double> energy_density_electrical;
 	std::vector<double> energy_density_border;
 	std::vector<double> energy_density_inner;
-	std::vector<double> energy_density_total;
 	double energy_electrical;
 	double energy_border;
 	double energy_inner;
+	double energy_total;
+	double energy_total_previous = std::numeric_limits<double>::infinity();
+	double energy_total_t;
+	double dt_adaptive_phi;
+	double dt_adaptive_energy;
 	ProgressBar progress_bar;
 
 protected:
@@ -43,5 +48,7 @@ protected:
 	void iterationDerivatives();
 	void iterationUpdate();
 	void calculateEnergy();
+	void calculateTimeStep();
+	static double normUniform(const std::vector<double>&);
 	void printValues(std::ostream& out) const;
 };
