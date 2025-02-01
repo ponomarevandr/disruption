@@ -31,22 +31,22 @@ class Model:
 		self._params['dx'] = self._params['width'] / self._params['x_grid']
 		self._params['dt'] = self._params['duration'] / self._params['t_grid']
 		self._params['dx_data'] = self._params['dx'] * self._params['x_skip']
-		self._params['dt_data'] = self._params['dt'] * self._params['t_skip']
 		self._params['x_size'] = self._params['x_grid'] // self._params['x_skip'] + 1
 		self._params['t_size'] = self._params['t_grid'] // self._params['t_skip'] + 1
 		data = pd.read_csv(filename, sep=';', header=None, skiprows=header_lines + 1)
 		self._xs = np.arange(self._params['x_size']) * self._params['dx_data']
-		self._ts = self._params['t_0'] + np.arange(self._params['t_size']) * self._params['dt_data']
-		self._df_phi = data.iloc[:, :self._params['x_size']].reset_index(drop=True)
-		self._energy_electrical = data.iloc[:, self._params['x_size']].to_numpy()
-		self._energy_border = data.iloc[:, self._params['x_size'] + 1].to_numpy()
-		self._energy_inner = data.iloc[:, self._params['x_size'] + 2].to_numpy()
-
-		if (data.shape[1] > self._params['x_size'] + 6):
-			self._phi_t_norm = data.iloc[:, self._params['x_size'] + 3].to_numpy()
-			self._energy_t_abs = data.iloc[:, self._params['x_size'] + 4].to_numpy()
-			self._dt_adaptive_phi = data.iloc[:, self._params['x_size'] + 5].to_numpy()
-			self._dt_adaptive_energy = data.iloc[:, self._params['x_size'] + 6].to_numpy()
+		self._dt_level = data.iloc[:, 0].to_numpy()
+		self._dt_level[0] = 0
+		self._ts = self._params['t_0'] + ((2**self._dt_level).cumsum() - 1) * self._params['dt']
+		self._df_phi = data.iloc[:, 1:self._params['x_size'] + 1].reset_index(drop=True)
+		self._df_phi.columns = np.arange(self._df_phi.shape[1])
+		self._energy_electrical = data.iloc[:, self._params['x_size'] + 1].to_numpy()
+		self._energy_border = data.iloc[:, self._params['x_size'] + 2].to_numpy()
+		self._energy_inner = data.iloc[:, self._params['x_size'] + 3].to_numpy()
+		self._phi_t_norm = data.iloc[:, self._params['x_size'] + 4].to_numpy()
+		self._energy_t_abs = data.iloc[:, self._params['x_size'] + 5].to_numpy()
+		self._dt_adaptive_phi = data.iloc[:, self._params['x_size'] + 6].to_numpy()
+		self._dt_adaptive_energy = data.iloc[:, self._params['x_size'] + 7].to_numpy()
 
 	@property
 	def params(self):
@@ -81,7 +81,7 @@ class Model:
 		return self._ts
 
 	def t_index(self, t):
-		return int(round((t - self._params['t_0']) / self._params['dt_data']))
+		return self._ts.searchsorted(t)
 
 	def phi_at_t(self, t):
 		return self._df_phi.iloc[self.t_index(t)]

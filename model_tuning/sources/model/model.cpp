@@ -5,8 +5,19 @@
 
 
 Model::Model(ModelParameters&& params, std::ostream& out, const std::string& description,
-	bool calculate_energy): params(std::move(params)), out(out), description(description),
-	calculate_energy(calculate_energy), progress_bar(params.t_grid) {}
+		bool calculate_energy): params(std::move(params)), out(out), description(description),
+		calculate_energy(calculate_energy), progress_bar(params.t_grid) {
+	time_step_manager = TimeStepManager(this->params.t_grid, this->params.dt);
+}
+
+size_t Model::log2Floor(size_t value) {
+	size_t result = 0;
+	while (value > 1) {
+		value >>= 1ull;
+		++result;
+	}
+	return result;
+}
 
 void Model::run() {
 	out << description << "\n\n";
@@ -16,13 +27,14 @@ void Model::run() {
 	iterationDerivatives();
 	printValues(out);
 	progress_bar.update(0);
-	for (size_t i = params.t_skip; i <= params.t_grid; i += params.t_skip) {
-		for (size_t j = 0; j < params.t_skip; ++j) {
-			iterationUpdate();
-			iterationDerivatives();
-		}
-		printValues(out);
+	for (size_t i = 1; i <= params.t_grid; i += time_step_manager.getScale()) {
+		iterationUpdate();
+		iterationDerivatives();
+		if (i % params.t_skip == 0)
+			printValues(out);
 		progress_bar.update(i);
+		if (i < params.t_grid)
+			time_step_manager.nextStep(dt_adaptive_phi);
 	}
 }
 
@@ -77,7 +89,7 @@ void Model::iterationDerivatives() {
 
 void Model::iterationUpdate() {
 	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
-		phi[i] += params.dt * phi_t[i];
+		phi[i] += (params.dt * time_step_manager.getScale()) * phi_t[i];
 	}
 }
 
@@ -108,7 +120,8 @@ void Model::calculateEnergy() {
 		energy_density_inner[0] + energy_density_inner[params.x_grid]
 	);
 	energy_total = energy_electrical + energy_border + energy_inner;
-	energy_total_t = (energy_total - energy_total_previous) / params.dt;
+	energy_total_t =
+		(energy_total - energy_total_previous) / (params.dt * time_step_manager.getScale());
 	energy_total_previous = energy_total;
 }
 
@@ -131,6 +144,7 @@ double Model::normUniform(const std::vector<double>& f) {
 
 
 void Model::printValues(std::ostream& out) const {
+	out << std::max(time_step_manager.getLevel(), log2Floor(params.t_skip)) << ";";
 	for (size_t i = 0; i <= params.x_grid; i += params.x_skip) {
 		// Уловка для уменьшения объема файла
 		if (phi[i] == 1.0) {

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "model/model_parameters.h"
+#include "model/time_step_manager.h"
 #include "display/progress_bar.h"
 
 #include <iostream>
@@ -37,9 +38,11 @@ protected:
 	double energy_total_t;
 	double dt_adaptive_phi;
 	double dt_adaptive_energy;
+	TimeStepManager time_step_manager;
 	ProgressBar progress_bar;
 
 protected:
+	static size_t log2Floor(size_t value);
 	void initialize();
 	double f(double phi) const;
 	double f_phi(double phi) const;

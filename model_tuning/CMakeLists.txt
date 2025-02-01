@@ -6,6 +6,7 @@ set(SOURCES
 	sources/main.cpp
 	sources/model/model.cpp
 	sources/model/model_parameters.cpp
+	sources/model/time_step_manager.cpp
 	../common_sources/display/progress_bar.cpp
 	../common_sources/evaluation/formula.cpp
 	../common_sources/evaluation/environment.cpp
