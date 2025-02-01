@@ -7589,7 +7589,7 @@ a.anchor-link {
 <h2 id="%D0%9F%D0%BE%D0%B4%D0%B1%D0%BE%D1%80-%D1%88%D0%B0%D0%B3%D0%B0-%D0%BF%D0%BE-%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B8">Подбор шага по времени<a class="anchor-link" href="#%D0%9F%D0%BE%D0%B4%D0%B1%D0%BE%D1%80-%D1%88%D0%B0%D0%B3%D0%B0-%D0%BF%D0%BE-%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B8">¶</a></h2><p>Для подбора шага по времени попробуем использовать два следующих метода.</p>
 <ol>
 <li>По величине $\left\| \cfrac{\partial \phi}{\partial t} \right\|_C$: $\quad \tau \sim \cfrac{1}{\| \phi'_t \|_C}$.</li>
-<li>По величине $\left| \cfrac{\partial \Pi}{\partial t} \right| = - \cfrac{1}{m} \left( \left\| \cfrac{\partial \phi}{\partial t} \right\|_{L2} \right)^2$: $ \quad \tau \sim \cfrac{1}{| \Pi'_t |}$.</li>
+<li>По величине $\left| \cfrac{d \Pi}{d t} \right| = - \cfrac{1}{m} \left( \left\| \cfrac{\partial \phi}{\partial t} \right\|_{L2} \right)^2$: $ \quad \tau \sim \cfrac{1}{| \Pi'_t |}$.</li>
 </ol>
 <p>В обоих случаях значения $\tau$ ограничены отрезком $[\tau_{min}, \; \tau_{max}]$, где $\tau_{min} = \tau_0$ -- шаг исходной сетки, $\tau_{max} = \tau_h$ -- предельно крупный шаг, задаваемый условием устойчивости по разностному оператору Лапласа.</p>
 </div>
