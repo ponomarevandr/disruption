@@ -8,6 +8,7 @@ Model::Model(ModelParameters&& params, std::ostream& out, const std::string& des
 		bool calculate_energy): params(std::move(params)), out(out), description(description),
 		calculate_energy(calculate_energy), progress_bar(params.t_grid) {
 	time_step_manager = TimeStepManager(this->params.t_grid, this->params.dt);
+	this->params.t_skip = 1ull << log2Floor(this->params.t_skip);
 }
 
 size_t Model::log2Floor(size_t value) {
@@ -34,7 +35,7 @@ void Model::run() {
 			printValues(out);
 		progress_bar.update(i);
 		if (i < params.t_grid)
-			time_step_manager.nextStep(dt_adaptive_phi);
+			time_step_manager.nextStep(dt_adaptive);
 	}
 }
 
@@ -53,6 +54,7 @@ void Model::initialize() {
 	energy_density_border.assign(params.x_grid + 1, 0);
 	energy_density_inner.assign(params.x_grid + 1, 0);
 	energy_electrical = energy_border = energy_inner = 0;
+	instability_value.assign(params.x_grid + 1, 0);
 }
 
 double Model::f(double phi) const {
@@ -70,10 +72,25 @@ double Model::eps(size_t i) const {
 
 double Model::eps_phi(size_t i) const {
 	double f_value = f(phi[i]);
-	return -params.eps_0[i] / ((f_value + params.delta) * (f_value + params.delta)) * f_phi(phi[i]);
+	return
+		-params.eps_0[i] / ((f_value + params.delta) * (f_value + params.delta)) * f_phi(phi[i]);
 }
 
-void Model::iterationDerivatives() { 
+double Model::instabilityFunction(size_t i) const {
+	double f_value = f(phi[i]);
+	double phi_cubed = phi[i] * phi[i] * phi[i];
+	double eps_phi_phi_majorant = params.eps_0[i] * 12.0 * phi[i] * (
+		16.0 * phi_cubed +
+		-30.0 * phi_cubed * phi[i] +
+		15.0 * phi_cubed * phi[i] * phi[i] +
+		2 * params.delta
+	) / (
+		(f_value + params.delta) * (f_value + params.delta) * (f_value + params.delta)
+	);
+	return 0.5 * params.m * params.Phi_gradient * params.Phi_gradient * eps_phi_phi_majorant;
+}
+
+void Model::iterationDerivatives() {
 	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
 		phi_x_x[i] = (phi[i - 1] - 2.0 * phi[i] + phi[i + 1]) / (params.dx * params.dx);
 		phi_t[i] = params.m * (
@@ -81,10 +98,12 @@ void Model::iterationDerivatives() {
 			params.Gamma[i] / (params.l * params.l) * f_phi(phi[i]) +
 			0.5 * params.Gamma[i] * phi_x_x[i]
 		);
+		instability_value[i] = instabilityFunction(i);
 	}
 	if (calculate_energy)
 		calculateEnergy();
 	calculateTimeStep();
+	++t_iterations;
 }
 
 void Model::iterationUpdate() {
@@ -125,13 +144,28 @@ void Model::calculateEnergy() {
 	energy_total_previous = energy_total;
 }
 
+double Model::timeStepBounded(double time_step) const {
+	return std::max(params.dt, std::min(params.dt_max, time_step));
+}
+
 void Model::calculateTimeStep() {
-	dt_adaptive_phi = params.tol_phi / normUniform(phi_t);
-	dt_adaptive_phi = std::max(dt_adaptive_phi, params.dt);
-	dt_adaptive_phi = std::min(dt_adaptive_phi, params.dt_max);
-	dt_adaptive_energy = params.tol_energy / std::abs(energy_total_t);
-	dt_adaptive_energy = std::max(dt_adaptive_energy, params.dt);
-	dt_adaptive_energy = std::min(dt_adaptive_energy, params.dt_max);
+	dt_adaptive_phi = timeStepBounded(params.tol_phi / normUniform(phi_t));
+	dt_adaptive_energy = timeStepBounded(params.tol_energy / std::abs(energy_total_t));
+	dt_adaptive_stability = timeStepBounded(params.tol_stability / normUniform(instability_value));
+	switch (params.adaptation_type) {
+	case 1:
+		dt_adaptive = dt_adaptive_phi;
+		break;
+	case 2:
+		dt_adaptive = dt_adaptive_energy;
+		break;
+	case 3:
+		dt_adaptive = dt_adaptive_stability;
+		break;
+	default:
+		dt_adaptive = params.dt;
+		break;
+	}
 }
 
 double Model::normUniform(const std::vector<double>& f) {
@@ -145,6 +179,8 @@ double Model::normUniform(const std::vector<double>& f) {
 
 void Model::printValues(std::ostream& out) const {
 	out << std::max(time_step_manager.getLevel(), log2Floor(params.t_skip)) << ";";
+	out << t_iterations << ";";
+	t_iterations = 0;
 	for (size_t i = 0; i <= params.x_grid; i += params.x_skip) {
 		// Уловка для уменьшения объема файла
 		if (phi[i] == 1.0) {
@@ -158,7 +194,9 @@ void Model::printValues(std::ostream& out) const {
 			out << ";";
 	}
 	out << ";" << energy_electrical << ";" << energy_border << ";" << energy_inner;
-	out << ";" << normUniform(phi_t) << ";" << std::abs(energy_total_t);
-	out << ";" << dt_adaptive_phi << ";" << dt_adaptive_energy;
+	out << ";" << normUniform(phi_t);
+	out << ";" << std::abs(energy_total_t);
+	out << ";" << normUniform(instability_value);
+	out << ";" << dt_adaptive_phi << ";" << dt_adaptive_energy << ";" << dt_adaptive_stability;
 	out << "\n";
 }

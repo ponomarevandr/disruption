@@ -16,6 +16,8 @@ void ModelParameters::read(std::istream& in, bool read_phi_0) {
 	dt_max = environment.getVariableValue("dt_max");
 	tol_phi = environment.getVariableValue("tol_phi");
 	tol_energy = environment.getVariableValue("tol_energy");
+	tol_stability = environment.getVariableValue("tol_stability");
+	adaptation_type = environment.getVariableValue("adaptation_type");
 	dx = width / x_grid;
 	dt = duration / t_grid;
 	eps_0.resize(x_grid + 1);

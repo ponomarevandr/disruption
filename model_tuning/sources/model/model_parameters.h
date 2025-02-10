@@ -23,6 +23,8 @@ struct ModelParameters {
 	double dt_max;
 	double tol_phi;
 	double tol_energy;
+	double tol_stability;
+	size_t adaptation_type;
 	double dx;
 	double dt;
 	double t_0 = 0;
