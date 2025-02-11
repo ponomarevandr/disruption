@@ -84,7 +84,13 @@ class Model:
 		return self._ts
 
 	def t_index(self, t):
-		return self._ts.searchsorted(t)
+		index_first_greater = self._ts.searchsorted(t, 'right')
+		if index_first_greater == len(self._ts):
+			return index_first_greater - 1
+		if self._ts[index_first_greater] - t < t - self._ts[index_first_greater - 1]:
+			return index_first_greater
+		else:
+			return index_first_greater - 1
 
 	def phi_at_t(self, t):
 		return self._df_phi.iloc[self.t_index(t)]
