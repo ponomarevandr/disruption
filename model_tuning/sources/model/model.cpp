@@ -83,6 +83,7 @@ double Model::instabilityFunction(size_t i) const {
 		16.0 * phi_cubed +
 		-30.0 * phi_cubed * phi[i] +
 		15.0 * phi_cubed * phi[i] * phi[i] +
+		3 * phi[i] * params.delta +
 		2 * params.delta
 	) / (
 		(f_value + params.delta) * (f_value + params.delta) * (f_value + params.delta)
