@@ -1,0 +1,231 @@
+\documentclass[a4paper,12pt]{article}
+
+%%% Размер шрифта
+\usepackage[14pt]{extsizes}
+
+%%% Поля
+\usepackage[
+	left=2cm,
+	right=2cm,
+	top=2cm,
+	bottom=3cm,
+	bindingoffset=0cm
+]{geometry}
+
+%%% Работа с русским языком
+\usepackage{cmap}						% поиск в PDF
+\usepackage{mathtext}					% русские буквы в формулах
+\usepackage[T2A]{fontenc}				% кодировка
+\usepackage[utf8]{inputenc}				% кодировка исходного текста
+\usepackage[english,russian]{babel}		% локализация и переносы
+\usepackage{indentfirst}
+\frenchspacing
+
+%%% Дополнительная работа с математикой
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools}  % AMS
+
+%%% Текст в колонки
+\usepackage{multicol}
+
+%%% Списки
+\usepackage{enumitem}
+\setlist{nosep, leftmargin=*}
+\renewcommand{\labelenumi}{\arabic*)}
+
+%%% Системы уравнений
+\usepackage{cases}
+
+%%% Таблицы
+\usepackage{array}
+
+%%% Рисунки
+\usepackage{graphicx}
+\usepackage{float}
+
+%%% Точка в подписях к рисункам
+\usepackage[labelsep=period]{caption}
+
+%%% Список литературы
+\bibliographystyle{bibliography_style/gost-numeric.bbx}
+\usepackage[
+	natbib = true,
+	style = gost-numeric,
+	sorting = none,
+	backend = biber,
+	language = autobib,
+	autolang = other
+]{biblatex}
+\addbibresource{references.bib}
+
+%%% Исправление символа номера при использовании gost-numeric.bbx
+\usepackage{textcomp}
+\DefineBibliographyStrings{russian}{number={\textnumero}}
+
+%%% Гиперссылки
+\usepackage[pdftex,unicode]{hyperref}
+
+%%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}{\hbox{$\mathsurround=0pt #1$}}{}}
+
+
+%%% Свои команды
+
+\newcommand*{\No}{\textnumero}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\vx}{{\vect{x}}}
+\newcommand{\vn}{{\vect{n}}}
+
+\newcommand{\half}{\cfrac{1}{2}}
+
+\newcommand{\partt}[1]{\cfrac{\partial #1}{\partial t}}
+\newcommand{\partx}[1]{\cfrac{\partial #1}{\partial x}}
+\newcommand{\partxx}[1]{\cfrac{\partial^2 #1}{\partial x^2}}
+\newcommand{\partvn}[1]{\cfrac{\partial #1}{\partial \vn}}
+
+\newcommand{\partflt}[1]{\partial #1 / \partial t}
+\newcommand{\partflx}[1]{\partial #1 / \partial x}
+\newcommand{\partflxx}[1]{\partial^2 #1 / \partial x^2}
+\newcommand{\partflvn}[1]{\partial #1 / \partial \vn}
+
+\newcommand{\difftau}[1]{\cfrac{{#1}_j^{k + 1} - {#1}_j^k}{\tau}}
+\newcommand{\diffhh}[1]{\cfrac{{#1}_{j + 1}^k - 2 {#1}_j^k + {#1}_{j - 1}^k}{h^2}}
+
+\newcommand{\Natural}{{\mathbb{N}}}
+\newcommand{\Real}{{\mathbb{R}}}
+\newcommand{\bigO}{{\mathcal{O}}}
+\newcommand{\clOmega}{{\overline{\Omega}}}
+
+\newcommand{\norm}[1]{\| \, #1 \, \|}
+\newcommand{\enorm}{{\| \cdot \|}}
+
+\newcommand{\forcehyphenation}{-\linebreak}
+
+\newcommand{\multeqstart}{
+	\begingroup
+	\setlength{\abovedisplayshortskip}{\the\abovedisplayskip}
+	\setlength{\belowdisplayshortskip}{\the\belowdisplayskip}
+}
+\newcommand{\multeqnext}{
+	\vspace{-7mm}
+}
+\newcommand{\multeqfinish}{
+	\endgroup
+}
+
+
+%%% Свои операторы
+\DeclareMathOperator{\Div}{{div}}
+\DeclareMathOperator{\Int}{{Int}}
+
+
+%%% Оформление теорем
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}
+\newtheorem{proposition}{Утверждение}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Замечание}
+
+
+%%% Пояснение к меткам
+% eq	-- equation
+% cond	-- condition
+% char	-- characteristic
+% sch	-- scheme
+% est	-- estimation
+% exp	-- experiment
+% fig	-- figure
+% tab	-- table
+% sec	-- section
+
+
+%%% Описание препринта
+\newcommand{\PreprintTitle}{%
+	Адаптация шага по времени в модели типа диффузной границы, содержащей уравнение Аллена--Кана%
+}
+\newcommand{\PreprintTitleFormatted}{
+	Адаптация шага по времени \\ в модели типа диффузной границы, \\ содержащей уравнение Аллена--Кана
+}
+\newcommand{\PreprintTitleEnglish}{%
+	Time step adaptation in a diffuse interface model including a Allen--Cahn equation%
+}
+\newcommand{\PreprintAuthors}{%
+	А.~С.~Пономарев, Е.~В.~Зипунова, Е.~Б.~Савенков%
+}
+\newcommand{\PreprintAuthorsEnglish}{%
+	A.~S.~Ponomarev, E.~V.~Zipunova, E.~B.~Savenkov%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+
+\begin{center}
+	РОССИЙСКАЯ АКАДЕМИЯ НАУК \\
+	ОРДЕНА ЛЕНИНА \\
+	ИНСТИТУТ ПРИКЛАДНОЙ МАТЕМАТИКИ \\
+	имени М. В. КЕЛДЫША \\
+
+	\vspace*{60mm}
+	{
+		\Large{\PreprintAuthors} \\
+	}
+	\vspace*{20mm}
+	{
+		\large \textbf{\PreprintTitleFormatted} \\
+	}
+	\vspace*{110mm}
+	\Large{Москва, 2025}
+	\vspace*{-50mm}
+\end{center}
+
+\end{titlepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{page}{2}
+
+\thispagestyle{empty}
+
+\noindent \emph{\PreprintAuthors,} \PreprintTitle \\[3mm]
+\textbf{Аннотация} \\
+{
+	\small
+	В работе исследованы три различных подхода к адаптации шага по времени в модели развития канала электрического пробоя типа диффузной границы. Один из подходов предложен авторами настоящей работы, дано его теоретическое обоснование. Для всех трех алгоритмов адаптации проведены численные эксперименты; выявлен наиболее эффективный из них. \\
+	Исследованные алгоритмы адаптации универсальны – они могут использоваться и в других моделях типа диффузной границы с уравнением Аллена–Кана. \\[3mm]
+	\textbf{Ключевые слова:} модель типа диффузной границы, уравнение Аллена--Кана, адаптивная сетка \par
+	\vspace{5mm}
+}
+\begin{otherlanguage}{english}
+\noindent \emph{\PreprintAuthorsEnglish,} \PreprintTitleEnglish \\[3mm]
+\textbf{Abstract} \\
+{
+	\small
+	[...Annotaceaya rabotea na angliyskom...] \\[3mm]
+	\textbf{Key words and phrases:} [Klucheveaye slova na angliyskom] \par
+	\vspace{5mm}
+}
+\end{otherlanguage}
+
+\clearpage
+
+[...Текст...]
+
+Ссылка: \cite{zipunova_higher_codimension}.
+
+\clearpage
+\printbibliography[
+	heading=bibintoc
+]
+
+\clearpage
+\tableofcontents
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
