@@ -142,14 +142,15 @@
 
 
 %%% Описание препринта
+% Комментирование конца строки убирает паразитные пробелы
 \newcommand{\PreprintTitle}{%
-	Адаптация шага по времени в модели типа диффузной границы, содержащей уравнение Аллена--Кана%
+	Адаптация шага по времени в модели типа <<диффузной границы>>, содержащей уравнение Аллена--Кана%
 }
-\newcommand{\PreprintTitleFormatted}{
-	Адаптация шага по времени \\ в модели типа диффузной границы, \\ содержащей уравнение Аллена--Кана
+\newcommand{\PreprintTitleFormatted}{%
+	Адаптация шага по времени \\ в модели типа <<диффузной границы>>, \\ содержащей уравнение Аллена--Кана%
 }
-\newcommand{\PreprintTitleEnglish}{%
-	Time step adaptation in a diffuse interface model including a Allen--Cahn equation%
+\newcommand{\PreprintTitleEnglish}{
+	Time step adaptation in a diffuse interface model including an Allen--Cahn equation%
 }
 \newcommand{\PreprintAuthors}{%
 	А.~С.~Пономарев, Е.~В.~Зипунова, Е.~Б.~Савенков%
@@ -170,19 +171,19 @@
 	РОССИЙСКАЯ АКАДЕМИЯ НАУК \\
 	ОРДЕНА ЛЕНИНА \\
 	ИНСТИТУТ ПРИКЛАДНОЙ МАТЕМАТИКИ \\
-	имени М. В. КЕЛДЫША \\
+	имени М. В. КЕЛДЫША \par
 
 	\vspace*{60mm}
 	{
-		\Large{\PreprintAuthors} \\
+		\Large{\PreprintAuthors} \par
 	}
 	\vspace*{20mm}
 	{
-		\large \textbf{\PreprintTitleFormatted} \\
+		\large \textbf{\PreprintTitleFormatted} \par
 	}
-	\vspace*{110mm}
+	\vspace*{\fill}
 	\Large{Москва, 2025}
-	\vspace*{-50mm}
+	\vspace*{-15mm}
 \end{center}
 
 \end{titlepage}
@@ -193,30 +194,28 @@
 \thispagestyle{empty}
 
 \noindent \emph{\PreprintAuthors,} \PreprintTitle \\[3mm]
-\textbf{Аннотация} \\
+\textbf{Аннотация} \par
 {
-	\small
+	\noindent \small
 	В работе исследованы три различных подхода к адаптации шага по времени в модели развития канала электрического пробоя типа диффузной границы. Один из подходов предложен авторами настоящей работы, дано его теоретическое обоснование. Для всех трех алгоритмов адаптации проведены численные эксперименты; выявлен наиболее эффективный из них. \\
 	Исследованные алгоритмы адаптации универсальны – они могут использоваться и в других моделях типа диффузной границы с уравнением Аллена–Кана. \\[3mm]
-	\textbf{Ключевые слова:} модель типа диффузной границы, уравнение Аллена--Кана, адаптивная сетка \par
+	\textbf{Ключевые слова:} модель типа диффузной границы, уравнение Аллена--Кана, адаптация шага по времени \par
 	\vspace{5mm}
 }
 \begin{otherlanguage}{english}
 \noindent \emph{\PreprintAuthorsEnglish,} \PreprintTitleEnglish \\[3mm]
-\textbf{Abstract} \\
+\textbf{Abstract} \par
 {
-	\small
+	\noindent \small
 	[...Annotaceaya rabotea na angliyskom...] \\[3mm]
-	\textbf{Key words and phrases:} [Klucheveaye slova na angliyskom] \par
+	\textbf{Key words and phrases:} diffuse interface model, Allen--Cahn equation, adaptive time-stepping method \par
 	\vspace{5mm}
 }
 \end{otherlanguage}
 
 \clearpage
 
-[...Текст...]
-
-Ссылка: \cite{zipunova_higher_codimension}.
+\input{sources/introduction}
 
 \clearpage
 \printbibliography[
