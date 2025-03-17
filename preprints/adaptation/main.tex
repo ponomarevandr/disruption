@@ -88,6 +88,8 @@
 \newcommand{\partflxx}[1]{\partial^2 #1 / \partial x^2}
 \newcommand{\partflvn}[1]{\partial #1 / \partial \vn}
 
+\newcommand{\gradsq}[1]{(\nabla #1, \nabla #1)}
+
 \newcommand{\difftau}[1]{\cfrac{{#1}_j^{k + 1} - {#1}_j^k}{\tau}}
 \newcommand{\diffhh}[1]{\cfrac{{#1}_{j + 1}^k - 2 {#1}_j^k + {#1}_{j - 1}^k}{h^2}}
 
@@ -112,6 +114,8 @@
 \newcommand{\multeqfinish}{
 	\endgroup
 }
+
+\newcommand{\absent}[1]{[...#1...]}
 
 
 %%% Свои операторы
@@ -207,8 +211,8 @@
 \textbf{Abstract} \par
 {
 	\noindent \small
-	[...Annotaceaya rabotea na angliyskom...] \\[3mm]
-	\textbf{Key words and phrases:} diffuse interface model, Allen--Cahn equation, adaptive time-stepping method \par
+	\absent{Annotaceaya rabotea na angliyskom} \\[3mm]
+	\textbf{Key words and phrases:} diffuse interface model, Allen--Cahn equation, adaptive time-step\-ping method \par
 	\vspace{5mm}
 }
 \end{otherlanguage}
@@ -216,6 +220,8 @@
 \clearpage
 
 \input{sources/introduction}
+
+\input{sources/mathematical_model}
 
 \clearpage
 \printbibliography[
