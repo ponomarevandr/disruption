@@ -1,0 +1,137 @@
+%!TEX root = ../main.tex
+
+\section{Разностная схема}
+
+\subsection{Упрощающие краевые условия}
+
+Для описанной модели будем использовать разностную схему из работы \cite{ponomarev_stability}, где предварительно делается ряд допущений, упрозающих задачу. Кратко перечислим их.
+
+Cистема \eqref{eq:Phi},~\eqref{eq:phi} рассматривается в замкнутой области $\clOmega = [0, W]_x \hm \times [0, H]_y \times I_z$, где $W, H > 0, \; I$~-- некоторый отрезок. Пусть $\epsilon_0(\vx) = \epsilon_0(x)$, а также задано начальное условие $\phi(\vx, 0) = \phi_0(x)$, то есть диэлектрическая проницаемость неповрежденной среды и начальное распределение фаз зависят только от $x$. На $\partial \Omega$ считаем заданным следующее граничное условие на $\phi$: $\phi|_{x = 0} = \phi_l(t)$, $\phi|_{x = W} = \phi_r(t)$, а также $\partflvn{\phi}= 0$ на <<гранях>> области $\clOmega$, перпендикулярных осям $y$ и $z$; следующее граничное условие на $\Phi$: $\Phi|_{y = 0} = \Phi^-$, $\Phi|_{y = H} = \Phi^+$, где $\Phi^-, \Phi^+ \in \Real$, $\Phi^+ \geqslant \Phi^-$, а также $\partflvn{\Phi} = 0$ на <<гранях>> $\clOmega$, перпендикулярных осям $x$ и $z$.
+
+Учитывая описанные краевые условия, решение системы уравне\forcehyphenation ний \eqref{eq:Phi},~\eqref{eq:phi} ищется в виде $\phi(\vx, t) = \phi(x, t)$, $\Phi(\vx, t) = \Phi(y, t)$. Решение \linebreak $\Phi(\vx, t) = \Phi^- + (y / H)(\Phi^+ - \Phi^-)$ известно аналитически, и система, таким образом, сводится к единственному уравнению
+\begin{equation}
+	\cfrac{1}{m} \partt{\phi} = -F'(\phi, |\nabla \Phi|) + \half \Gamma \partxx{\phi},
+	\label{eq:one_dim}
+\end{equation}
+на функцию $\phi(x, t)$ в области $[0, W]_x \times [0, +\infty)_t$, с начальным условием
+\begin{equation}
+	\phi(x, 0) = \phi_0(x)
+	\label{eq:one_dim_initial}{}
+\end{equation}
+и граничным условием
+\begin{equation}
+	\phi(0, t) = \phi_l(t), \quad \phi(W, t) = \phi_r(t).
+	\label{eq:one_dim_marginal}
+\end{equation}
+Здесь $|\nabla \Phi| = (\Phi^+ - \Phi^-) / H$ -- константа. В дальнейшем именно $|\nabla \Phi|$ будет считаться параметром модели, конкретные значения $\Phi^+$ и $\Phi^-$ при этом неважны.
+
+Так как в рассматриваемой постановке задачи $|\nabla \Phi|$ -- константа, то вместо $F(\phi; |\nabla \Phi|)$ будем писать $F(\phi)$.
+
+Для простоты анализа везде далее $\epsilon_0$ считается константой.
+
+
+\subsection{Разностная схема}
+
+Для дифференциальной задачи \eqref{eq:one_dim}, \eqref{eq:one_dim_initial}, \eqref{eq:one_dim_marginal} в работе \cite{ponomarev_stability} составлено разностное уравнение
+\begin{equation}
+	\cfrac{1}{m} \difftau{\phi} = \half K_\phi^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \diffhh{\phi}
+	\label{eq:subtractive}
+\end{equation}
+и используется разностная схема
+\begin{numcases}{}
+	\begin{aligned}
+		\phi_j^{k + 1} = \phi_j^k + m \tau \left( -F'(\phi_j^k) + \cfrac{\Gamma}{2} \diffhh{\phi} \right), \\ j = \overline{1, N - 1}, \quad k \in \Natural_0;
+	\end{aligned}
+	\label{sch:transition_old} \\
+	\phi_j^0 = \phi_0(jh); \quad \phi_0^k = \phi_l(k \tau); \quad \phi_N^k = \phi_r(k \tau).
+	\label{sch:borders}
+\end{numcases}
+Схема четырехточечная явная, на регулярной сетке с временным шагом~$\tau$ и пространственным шагом $h$. $N = W / h$~-- целое число. $(jh, k \tau)$~-- узлы сетки, $j \hm = \overline{0, N}$, $k \in \Natural_0$. $\phi_j^k$ -- значение сеточной функции $\phi$ в узле $(jh, k \tau)$.
+
+
+\subsection{Схема с адаптивным шагом по времени}
+
+При работе с моделью возникает следующая проблема. Характерным поведением системы является резкое, стремительное образование канала пробоя, которому предшествует длительный период очень слабых и медленных изменений в системе. Шаг расчетной сетки по времени должен быть достаточно мал для адекватного моделирования быстрых процессов в системе (косвенно это выражается, например, условием устойчивости схемы, представленном в работе \cite{ponomarev_stability}); однако настолько сильное разрешение по времени оказывается избыточным в период медленных процессов. Таким образом, использование регулярной по времени сетки видится нерациональным.
+
+Будем использовать переменный шаг по времени $\tau^k$. Уравнение \ref{sch:transition_old} приобретает вид
+\begin{equation}
+	\phi_j^{k + 1} = \phi_j^k + m \tau^k \left( -F'(\phi_j^k) + \cfrac{\Gamma}{2} \diffhh{\phi} \right).
+	\label{sch:transition}
+\end{equation}
+
+Далее будет рассмотрено несколько подходов к вычислению $\tau^k$. Общий вид его расчета
+\[
+	\tau^k = \max \left[ \tau_{min}, \min( \tau_{max}, \widetilde{\tau}^k) \right],
+\]
+то есть величина $\widetilde{\tau}^k$ (рассчитываемая по своей формуле для каждого подхода) ограничивается снизу и сверху заранее выбранными значениями $\tau_{min}$ и $\tau_{max}$ соответственно.
+
+
+\subsection{Адаптации по фазовому полю и по энергии}
+
+Рассмотрим первые два подхода к адаптации шага по времени, предложенные в статьях \cite{li_time_step} и \cite{zhang_time_step} соответственно. Введем их вместе из-за определенной их общности:
+\begin{align}
+	\widetilde{\tau}_1^k & = \cfrac{tol_1}{\left\| \left[ \partt{\phi} \right]_h \right\|_C},
+	\label{eq:time_step_phi} \\
+	\widetilde{\tau}_2^k & = \cfrac{tol_2}{\left| \left[ \cfrac{d \Pi}{dt} \right]_h \right|}.
+	\label{eq:time_step_energy}
+\end{align}
+Здесь $tol_1$ и $tol_2$ -- некоторые числовые константы, подбираемые на практике; символом $[\; \cdot \;]_h$ обозначены разностные производные.
+
+В формуле \eqref{eq:time_step_phi} в качестве $[\partflt{\phi}]_h$ удобно использовать $[\partflt{\phi}]^{k + 1/2}$ из левой части разностного уравнения \eqref{eq:subtractive}. В этом случае
+\[
+	\left\| \left[ \partt{\phi} \right]_h^{k + 1/2} \right\|_C = \max\limits_{j = 0}^N \left| \left[ \partt{\phi} \right]_j^{k + 1/2} \right|.
+\]
+Если сделать этого не удается (например, из-за проблем с синхронизацией параллельных вычислений), то можно использовать $[\partflt{\phi}]^{k - 1/2}$, сохраненную с предыдущего шага.
+
+В формуле \eqref{eq:time_step_energy} в знаменателе модуль производной полной энергии $\Pi(t)$. В силу вывода уравнений \eqref{eq:Phi},~\eqref{eq:phi} динамики системы, в адекватном расчете $[\partflt{\Pi}]_h$ либо отрицательна, либо крайне мала по модулю (сеточный эффект колебания системы вблизи минимума $\Pi$), поэтому, вообще говоря, вместо взятия модуля можно написать знак $-$.
+
+Плотность энергии $\pi$ вычисляется из уравнения \eqref{eq:energy_density}, для чего необходима разностная производная $[\partflx{\phi}]_h$. Предлагается использовать следуюшие формулы:
+\begin{gather*}
+	\pi_j^k = F(\phi_j^k) + \cfrac{\Gamma}{4} \left( \left[ \partt{\phi} \right]_j^k \right)^2, \qquad \left[ \partt{\phi} \right]_j^k = \begin{cases}
+		\cfrac{\phi_1^k - \phi_0^k}{\tau} & \text{при } j = 0; \\
+		\cfrac{\phi_{j + 1}^k - \phi_{j - 1}^k}{2 \tau} & \text{при } j = \overline{1, N - 1}; \\
+		\cfrac{\phi_N^k - \phi_{N - 1}^k}{\tau} & \text{при } j = N;
+	\end{cases} \\
+	\Pi^k = \cfrac{h \pi_0^k + h \pi_N^k}{2} + \sum\limits_{j = 1}^{N - 1} h \pi_j^k.
+\end{gather*}
+В формуле \eqref{eq:time_step_energy} будем использовать разностную производную энергии \linebreak с предыдущего шага
+\[
+	\left[ \cfrac{d \Pi}{dt} \right]_h^{k - 1/2} = \cfrac{\Pi^k - \Pi^{k - 1}}{\tau^{k - 1}}.
+\]
+
+Использование формулы \eqref{eq:time_step_phi} для расчета $\widetilde{\tau}^k$ будем условно называть адаптацией по фазовому полю, формулы \eqref{eq:time_step_energy} -- адаптацией по энергии.
+
+Общность описанных двух подходов и, возможно, ключ к их интуитивному пониманию заключается в следующем. Для адаптации по фазовому полю рассмотрим норму приращения $[d \phi]_h$:
+\[
+	\left\| [d \phi]_h^{k + 1/2} \right\|_C = \widetilde{\tau}_1^k \cdot \left\| \left[ \partt{\phi} \right]_h^{k + 1/2} \right\|_C = \cfrac{tol_1}{\left\| \left[ \partt{\phi} \right]_h^{k + 1/2} \right\|_C} \cdot \left\| \left[ \partt{\phi} \right]_h^{k + 1/2} \right\|_C = tol_1.
+\]
+Выходит нормирование приращения! (С оговоркой на ограничения $\tau_{min}$ и $\tau_{max}$.)
+
+В случае адаптации по энергии можно провести похожее рассуждение. Из~вывода уравнения \eqref{eq:phi} верно следующее равенство:
+\[
+	\cfrac{d \Pi}{dt} = -\cfrac{1}{m} \int\limits_{\Omega} \left( \partt{\phi} \right)^2 d \vx,
+\]
+что для сеточных функций дает
+\[
+	\left| \left[ \cfrac{d \Pi}{dt} \right]_h \right| \approx \cfrac{1}{m} \left\| \left[ \partt{\phi} \right]_h \right\|_2^2.
+\]
+Таким образом, при адаптации по энергии
+\[
+	\left\| [d \phi]_h \right\|_2 = \widetilde{\tau}_2^k \cdot \left\| \left[ \partt{\phi} \right]_h^{k + 1/2} \right\|_2 \approx \cfrac{tol_2}{\cfrac{1}{m} \left\| \left[ \partt{\phi} \right]_h^{k - 1/2} \right\|_2^2} \cdot \left\| \left[ \partt{\phi} \right]_h^{k + 1/2} \right\|_2 \approx \cfrac{tol_2 \cdot m}{\left\| \left[ \partt{\phi} \right]_h \right\|_2}.
+\]
+
+Авторы не стали отклоняться от предложенного в работе \cite{zhang_time_step} метода адаптации, однако из проделанных рассуждений получается, что из модуля производной энергии в формуле \eqref{eq:time_step_energy} логичнее было бы извлечь квадратный корень, чтобы выполнялось $\left\| [d \phi]_h \right\|_2 \approx tol_2 \cdot \sqrt{m}$.
+
+
+\subsection{Адаптация по устойчивости}
+
+В работе \cite{ponomarev_stability} получено следующее условие устойчивости разностной схемы~\eqref{sch:transition_old},~\eqref{sch:borders}:
+\[
+	\tau \leqslant \cfrac{1}{4m} \min \left( \cfrac{\delta^{5/3}}{|\nabla \Phi|^2 \epsilon_0}, \cfrac{h^2}{\Gamma} \right).
+\]
+Неравенство с первым аргументом минимума получено из соотношения
+\[
+	m \tau \max\limits_{\phi \in [0, 1]} |F''(\phi)| \leqslant 1, 
+\]
+которое, в свою очередь, следует из применения для схемы спектрального признака устойчивости.
+
