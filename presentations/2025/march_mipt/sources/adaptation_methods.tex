@@ -1,0 +1,60 @@
+%!TEX root = ../main.tex
+
+\section{Методы адаптации}
+
+\begin{frame}{Общий вид схемы с адаптивным шагом}
+\begin{itemize}
+	\item Вводится переменный шаг $\tau^k$:
+	\[
+		\phi_j^{k + 1} = \phi_j^k + m \tau^k \left( -F'(\phi_j^k) + \cfrac{\Gamma}{2} \diffhh{\phi} \right)
+	\]
+	\item Значение $\tau^k$ ограничено заранее выбранными $\tau_{min}$ и $\tau_{max}$:
+	\[
+		\tau^k = \max \left[ \tau_{min}, \min( \tau_{max}, \widetilde{\tau}^k) \right]
+	\]
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Методы адаптации}
+\vspace{-0.7cm}
+\begin{block}{Методы адаптации}
+	\begin{itemize}
+		\item По фазовому полю:
+		\[
+			\widetilde{\tau}_1^k = \cfrac{tol_1}{\left\| \left[ \partt{\phi} \right]_h \right\|_C}
+		\]
+		\item По полной энергии:
+		\[
+			\widetilde{\tau}_2^k = \cfrac{tol_2}{\left| \left[ \cfrac{d \Pi}{dt} \right]_h \right|}
+		\]
+	\end{itemize}
+\end{block}
+Предложены в работах [?] и [?].
+\end{frame}
+
+{\nologo
+\begin{frame}{Методы адаптации}
+\vspace{-0.6cm}
+\begin{itemize}
+	\item Условие устойчивости схемы:
+	\vspace{-0.3cm}
+
+	\[
+		\tau \leqslant \cfrac{1}{4m} \min \left( \cfrac{\delta^{5/3}}{|\nabla \Phi|^2 \epsilon_0}, \cfrac{h^2}{\Gamma} \right)
+	\]
+	\vspace{-0.3cm}
+	\item Неравенство с первым аргументом $\min$ можно переписать в виде
+	\[
+		m \tau \max\limits_{\phi \in [0, 1]} |F''(\phi)| \leqslant 1
+	\]
+\end{itemize}
+\vspace{-0.3cm}
+\begin{block}{Адаптация по устойчивости}
+	\[
+		\widetilde{\tau}_3^k = \cfrac{tol_3}{m \cdot \max\limits_{j = 0}^N G(\phi_j^k)},
+	\]
+	где $G(\phi)$ мажорирует $|F''(\phi)|$
+\end{block}
+\end{frame}
+}
