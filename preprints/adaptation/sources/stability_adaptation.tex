@@ -1,0 +1,88 @@
+%!TEX root = ../main.tex
+
+\section{Адаптация по устойчивости}
+
+\subsection{Идея подхода}
+
+В работе \cite{ponomarev_stability} получено следующее условие устойчивости разностной схемы~\eqref{sch:transition_old},~\eqref{sch:borders}:
+\[
+	\tau \leqslant \cfrac{1}{4m} \min \left( \cfrac{\delta^{5/3}}{|\nabla \Phi|^2 \epsilon_0}, \cfrac{h^2}{\Gamma} \right).
+\]
+Неравенство с первым аргументом минимума эквивалентно соотношению
+\begin{equation}
+	m \tau \max\limits_{\phi \in [0, 1]} |F''(\phi)| \leqslant C,
+	\label{cond:stability_first}
+\end{equation}
+где $1 \geqslant C \approx 1.1 / 2$ -- константа, выбранная, во-первых, для создания <<запаса>> в оценке, во-вторых, для удобства формульной записи. Неравенство это, в свою очередь, получено применением для схемы спектрального признака устойчивости. Строго говоря, спектральный признак не дает достаточных условий устойчивости для нелинейных задач, однако на практике ее следует ожидать.
+
+Основная идея подхода к адаптации, предлагаемого авторами в этом разделе, заключается в том, чтобы в неравенстве \eqref{cond:stability_first} заменить формальный максимум по $\phi \in [0, 1]$ на максимум по значениям сеточной функции $\phi_j^k$ и, естественно, взять наибольшее возможное $\tau$. Таким образом получается следующая формула адаптивного шага по времени:
+\begin{equation}
+	\widetilde{\tau}_3^k = \cfrac{tol_3}{m \cdot \max\limits_{j = 0}^N |F''(\phi_j^k)|}.
+	\label{eq:time_step_stability_raw}
+\end{equation}
+Этот метод будем условно называть методом адаптации по устойчивости.
+
+Идея описанного подхода подразумевает, что для корректной работы схемы должно быть достаточно $tol_3 = 1$, позволяя отказаться от подбора значения. При большей желаемой точности расчета можно провести подбор $tol_3 < 1$.
+
+Однако формула \eqref{eq:time_step_stability_raw} в чистом виде имеет критический недостаток из-за вида функции $F''(\phi)$ и нуждается в доработке, которая будет проделана в следующем подразделе.
+
+
+\subsection{Доработка метода}
+
+Будем считать, что конфигурация модели относится к случаю, представляющему наибольший практический интерес, -- случаю <<сильного напряжения>> (см. \cite{ponomarev_stability}). Функция $F(\phi)$, заданная формулой \eqref{eq:allen_cahn_potential}, имеет на интервале $(0, 1)$ положительную производную, а значит, строго возрастает. Так как на $(0, 1)$ выполнено $f' > 0$, $\epsilon' < 0$, то $|f'| < |\epsilon'|$. Более того, вблизи точки $0$ верно $\epsilon \approx \epsilon_0 / \delta$, $\delta \ll 1$, то есть $\epsilon(\phi)$ вместе со своими производными много больше $f(\phi)$ с ее производными. Исходя из этого, поведение функции $F(\phi)$ определяется главным образом поведением функции $\epsilon(\phi)$.
+
+В работе \cite{ponomarev_stability} проводится анализ функции $\epsilon(\phi)$ вблизи точки $\phi = 0$. Далее будет приведено определенное обобщение старых результатов, не слишком сложное, но полезное для глубокого понимания вопроса.
+
+Приведем формулы для производных функций $f(\phi)$ и $\epsilon(\phi)$:
+\[
+	f(\phi) = 4 \phi^3 - 3 \phi^4, \quad f'(\phi) = 12 \phi^2 - 12 \phi^3, \quad f''(\phi) = 24 \phi - 36 \phi^2,
+\]
+откуда
+\begin{gather}
+	\epsilon'(\phi) = \epsilon'_f \cdot f' = \cfrac{-\epsilon_0 f'(\phi)}{(f(\phi) + \delta)^2},
+	\label{eq:epsilon_phi} \\
+	\epsilon''(\phi) = \epsilon''_{ff} \cdot (f')^2 + \epsilon'_f \cdot f'' = \epsilon_0 \cfrac{2 (f'(\phi))^2 - f''(\phi)(f(\phi) + \delta)}{(f(\phi) + \delta)^3}.
+	\label{eq:epsilon_phi_phi}
+\end{gather}
+
+Рассмотрим замену переменной $\phi = \delta^{1/3} z$, $z \in [0, \delta^{-1/3}]$.
+
+\begin{proposition}
+	\label{prop:convergence}
+	\begin{gather*}
+		\cfrac{\delta \epsilon(\delta^{1/3} z)}{\epsilon_0} \to \cfrac{1}{4 z^3 + 1} = g(z), \qquad \delta^{4/3} \cfrac{\epsilon'(\delta^{1/3} z)}{\epsilon_0} \to \cfrac{-12 z^2}{(4 z^3 + 1)^2} = g'(z), \\
+		\cfrac{\delta^{5/3} \epsilon''(\delta^{1/3} z)}{\epsilon_0} \to \cfrac{24z (8 z^3 - 1)}{(4 z^3 + 1)^3} = g''(z)
+	\end{gather*}
+	поточечно на луче $[0, +\infty)_z$ при $\delta \to +0$.
+\end{proposition}
+
+\begin{proposition}
+	\label{prop:convergence_uniform}
+	В утверждении \ref{prop:convergence} сходимость на отрезке $[0, \delta^{-1/3}]_z$ с подвижной правой границей равномерная, с порядком $\bigO(\delta^{1/3})$. \absent{Так ли это?}
+\end{proposition}
+
+Утверждения \ref{prop:convergence} и \ref{prop:convergence_uniform} позволяют записать приближенные представления $\epsilon(\phi) \approx \delta^{-1} g(\delta^{-1/3} \phi)$, $\epsilon'(\phi) \approx \delta^{-4/3} g'(\delta^{-1/3} \phi)$, $\epsilon''(\phi) \approx \delta^{-5/3} g(\delta^{-1/3} \phi)$. Отсюда становится совершенно ясным описанное в работе \cite{ponomarev_stability} убывание корней $\epsilon''$ с порядком $\delta^{1/3}$ и порядок $\delta^{-5/3}$ модулей экстремумов $\epsilon''$.
+
+Функция $\epsilon(\phi)$ на отрезке $[0, 1]$ монотонно убывает; ее производная унимодальна: вначале убывает от $0$, затем возрастает до $0$; вторая производная имеет три промежутка роста: убывает, затем возрастает, затем убывает. $\epsilon''$ вблизи $0$ меняется очень быстро, достигает больших по модулю значений и всецело определяет поведение $F''$. $\epsilon''(\phi)$ имеет ноль $\phi_0 \sim 0.5 \cdot \delta^{1/3}$, а также локальный минимум и локальный максимум в точках
+\[
+	\phi_\pm \sim \cfrac{1}{\sqrt[3]{32 \pm 12 \sqrt{6}}} \cdot \delta^{1/3}
+\]
+соответственно, что следует из равномерной сходимости $\epsilon'' \Rightarrow g''$.
+
+По перечисленным выше причинам функция $F''(\phi)$ в формуле \eqref{eq:time_step_stability_raw} крайне неудобна: вблизи $0$ она достигает больших по модулю значений и к тому же имеет ноль, так что при взятии модуля в зоне больших значений возникает резкий <<провал>> до $0$. Чтобы решить проблему, мажорируем $|F''(\phi)|$ гладкой функцией, не имеющей такого недостатка.
+\begin{multline*}
+	\cfrac{\delta^{5/3} \epsilon''(\delta^{1/3} t)}{\epsilon_0} = \cfrac{24 (t^2 - \delta^{1/3} t^3) - (24 t - 36 \delta^{1/3} t^2)(4 t^3 - 3 \delta^{1/3} t^4 + 1)}{(4 t^3 - 3 \delta^{1/3} t^4 + 1)^3} = \\
+	= \cfrac{12t (16 t^3 - 30 \delta^{1/3} t^4 + 15 \delta^{2/3} t^5 + 3t \delta^{1/3} - 2)}{(4 t^3 - 3 \delta^{1/3} t^4 + 1)^3}.
+\end{multline*}
+Поведение функции вблизи $0$ определяется слагаемым $-2 \cdot 12t$. Поменяем его знак и получим функцию
+\begin{gather*}
+	\widetilde{G}(t) = \cfrac{12t (16 t^3 - 30 \delta^{1/3} t^4 + 15 \delta^{2/3} t^5 + 3t \delta^{1/3} + 2)}{(4 t^3 - 3 \delta^{1/3} t^4 + 1)^3}; \\
+	G(\phi) = \cfrac{|\nabla \Phi|^2 \epsilon_0}{2} \delta^{-5/3} \widetilde{G}(\delta^{-1/3} \phi) = |\nabla \Phi|^2 \epsilon_0 \cfrac{6 \phi (16 \phi^3 - 30 \phi^4 + 15 \phi^5 + 3 \delta \phi + 2 \delta)}{(4 \phi^3 - 3 \phi^4 + \delta)^3}.
+\end{gather*}
+$G(\phi) \geqslant 0$ на $[0, 1]$. Имеем $G(x) = |G(x)| \geqslant |F''(\phi)|$.
+
+Исправим формулу \eqref{eq:time_step_stability_raw} в методе адаптации по устойчивости:
+\begin{equation}
+	\widetilde{\tau}_3^k = \cfrac{tol_3}{m \cdot \max\limits_{j = 0}^N G(\phi_j^k)}.
+	\label{eq:time_step_stability}
+\end{equation}
