@@ -12,6 +12,45 @@
 		\]
 		\item Уравнение фазового поля $\phi$ (типа Аллена--Кана):
 		\[
+			\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \gradsq{\Phi} + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \Delta \phi
+		\]
+	\end{itemize}
+\end{block}
+\begin{itemize}
+	\item Плотность свободной энергии
+	\vspace{-0.2cm}
+	\[
+		\pi = -\half \epsilon[\phi] \gradsq{\Phi} + \Gamma \cfrac{1 - f(\phi)}{l^2} + \cfrac{\Gamma}{4} \gradsq{\phi}
+	\]
+\end{itemize}
+\vspace{-1.9cm}
+{\raggedleft Подробнее: \cite{ponomarev_stability}, \cite{zipunova_higher_codimension} \par}
+\vspace{0.9cm}
+\begin{columns}
+\column{0.33\textwidth}
+	\vspace{0.35cm}
+	\[
+		f(\phi) = 4 \phi^3 - 3 \phi^4
+	\]
+\column{0.33\textwidth}
+	\[
+		\epsilon(\vx, t) = \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) + \delta}
+	\]
+\column{0.33\textwidth}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Математическая модель}
+\vspace{-0.3cm}
+\begin{block}{Уравнения динамики системы}
+	\begin{itemize}
+		\item Уравнение электрического потенциала $\Phi$:
+		\[
+			\Div(\epsilon[\phi] \nabla \Phi) = 0
+		\]
+		\item Уравнение фазового поля $\phi$ (типа Аллена--Кана):
+		\[
 			\cfrac{1}{m} \partt{\phi} = -F'(\phi; |\nabla \Phi|) + \half \Gamma \Delta \phi
 		\]
 	\end{itemize}
@@ -58,6 +97,8 @@
 \hfill \\
 \vspace{3.5cm}
 \hspace{-2.5cm}
+Из работы \cite{ponomarev_stability}. \\
+\hspace{-2.5cm}
 Узлов по измерениям: \\
 \hspace{-2.5cm}
 $N_x = 10^3$, $N_t = 10^5$
@@ -67,7 +108,7 @@ $N_x = 10^3$, $N_t = 10^5$
 
 \begin{frame}{Цель работы}
 \begin{itemize}
-	\item Типичное поведение модели: долгий период медленных изменений, затем стремительное развитие пробоя.
+	\item Типичное поведение модели: долгий период медленных изменений, \\ затем стремительное развитие пробоя.
 \end{itemize}
 \begin{block}{Цель работы}
 	Исследовать несколько подходов к адаптации расчетного шага по времени.
