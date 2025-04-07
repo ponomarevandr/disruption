@@ -7,19 +7,19 @@
 Рассмотрим первые два подхода к адаптации шага по времени, предложенные в статьях \cite{li_time_step} и \cite{zhang_time_step} соответственно. Введем их вместе из-за определенной их общности:
 \begin{align}
 	\widetilde{\tau}_1^k & = \cfrac{tol_1}{\left\| \left[ \partt{\phi} \right]_h \right\|_C},
-	\label{eq:time_step_phi} \\
+	\label{sch:time_step_phi} \\
 	\widetilde{\tau}_2^k & = \cfrac{tol_2}{\left| \left[ \cfrac{d \Pi}{dt} \right]_h \right|}.
-	\label{eq:time_step_energy}
+	\label{sch:time_step_energy}
 \end{align}
 Здесь $tol_1$ и $tol_2$ -- некоторые числовые константы, подбираемые на практике; символом $[\; \cdot \;]_h$ обозначены разностные производные.
 
-В формуле \eqref{eq:time_step_phi} в качестве $[\partflt{\phi}]_h$ удобно использовать $[\partflt{\phi}]^{k + 1/2}$ из левой части разностного уравнения \eqref{eq:subtractive}. В этом случае
+В формуле \eqref{sch:time_step_phi} в качестве $[\partflt{\phi}]_h$ удобно использовать $[\partflt{\phi}]^{k + 1/2}$ из левой части разностного уравнения \eqref{eq:subtractive}. В этом случае
 \[
 	\left\| \left[ \partt{\phi} \right]_h^{k + 1/2} \right\|_C = \max\limits_{j = 0}^N \left| \left[ \partt{\phi} \right]_j^{k + 1/2} \right|.
 \]
 Если сделать этого не удается (например, из-за проблем с синхронизацией параллельных вычислений), то можно использовать $[\partflt{\phi}]^{k - 1/2}$, сохраненную с предыдущего шага.
 
-В формуле \eqref{eq:time_step_energy} в знаменателе модуль производной полной энергии $\Pi(t)$. В силу вывода уравнений \eqref{eq:Phi},~\eqref{eq:phi} динамики системы, в адекватном расчете $[\partflt{\Pi}]_h$ либо отрицательна, либо крайне мала по модулю (сеточный эффект колебания системы вблизи минимума $\Pi$), поэтому, вообще говоря, вместо взятия модуля можно написать знак $-$.
+В формуле \eqref{sch:time_step_energy} в знаменателе модуль производной полной энергии $\Pi(t)$. В силу вывода уравнений \eqref{eq:Phi},~\eqref{eq:phi} динамики системы, в адекватном расчете $[\partflt{\Pi}]_h$ либо отрицательна, либо крайне мала по модулю (сеточный эффект колебания системы вблизи минимума $\Pi$), поэтому, вообще говоря, вместо взятия модуля можно написать знак $-$.
 
 Плотность энергии $\pi$ вычисляется из уравнения \eqref{eq:energy_density}, для чего необходима разностная производная $[\partflx{\phi}]_h$. Предлагается использовать следуюшие формулы:
 \begin{gather*}
@@ -30,12 +30,12 @@
 	\end{cases} \\
 	\Pi^k = \cfrac{h \pi_0^k + h \pi_N^k}{2} + \sum\limits_{j = 1}^{N - 1} h \pi_j^k.
 \end{gather*}
-В формуле \eqref{eq:time_step_energy} будем использовать разностную производную энергии \linebreak с предыдущего шага
+В формуле \eqref{sch:time_step_energy} будем использовать разностную производную энергии \linebreak с предыдущего шага
 \[
 	\left[ \cfrac{d \Pi}{dt} \right]_h^{k - 1/2} = \cfrac{\Pi^k - \Pi^{k - 1}}{\tau^{k - 1}}.
 \]
 
-Использование формулы \eqref{eq:time_step_phi} для расчета $\widetilde{\tau}^k$ будем условно называть адаптацией по фазовому полю, формулы \eqref{eq:time_step_energy} -- адаптацией по энергии.
+Использование формулы \eqref{sch:time_step_phi} для расчета $\widetilde{\tau}^k$ будем условно называть адаптацией по фазовому полю, формулы \eqref{sch:time_step_energy} -- адаптацией по энергии.
 
 
 \subsection{Связь с нормированием приращения фазового поля}
@@ -59,4 +59,4 @@
 	\left\| [d \phi]_h \right\|_2 = \widetilde{\tau}_2^k \cdot \left\| \left[ \partt{\phi} \right]_h^{k + 1/2} \right\|_2 \approx \cfrac{tol_2}{\cfrac{1}{m} \left\| \left[ \partt{\phi} \right]_h^{k - 1/2} \right\|_2^2} \cdot \left\| \left[ \partt{\phi} \right]_h^{k + 1/2} \right\|_2 \approx \cfrac{tol_2 \cdot m}{\left\| \left[ \partt{\phi} \right]_h \right\|_2}.
 \]
 
-Авторы не стали отклоняться от предложенного в работе \cite{zhang_time_step} метода адаптации, однако из проделанных рассуждений получается, что из модуля производной энергии в формуле \eqref{eq:time_step_energy} логичнее было бы извлечь квадратный корень, чтобы выполнялось $\left\| [d \phi]_h \right\|_2 \approx tol_2 \cdot \sqrt{m}$.
+Авторы не стали отклоняться от предложенного в работе \cite{zhang_time_step} метода адаптации, однако из проделанных рассуждений получается, что из модуля производной энергии в формуле \eqref{sch:time_step_energy} логичнее было бы извлечь квадратный корень, чтобы выполнялось $\left\| [d \phi]_h \right\|_2 \approx tol_2 \cdot \sqrt{m}$.
