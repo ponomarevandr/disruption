@@ -1,0 +1,149 @@
+\documentclass[aspectratio=169]{beamer}
+
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+\usepackage{mathtext} 				% русские буквы в формулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+\usepackage{indentfirst}
+\frenchspacing
+
+%%% Дополнительная работа с математикой
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools}  % AMS
+
+%%% Текст в колонки
+\usepackage{multicol}
+
+%%% Системы уравнений
+\usepackage{cases}
+
+%%% Таблицы
+\usepackage{array}
+
+%%% Картинки
+\usepackage{graphicx}
+\usepackage{float}
+
+%%% Список литературы
+\usepackage[sorting=none]{biblatex}
+\renewbibmacro{in:}{\ifentrytype{article}
+    {}
+    {\bibstring{in}\printunit{\intitlepunct}}
+}
+\addbibresource{references.bib}
+
+%%% Гиперссылки
+\usepackage{hyperref}
+
+%%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+{\hbox{$\mathsurround=0pt #1$}}{}}
+
+
+%%% Свои команды
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\vx}{{\vect{x}}}
+\newcommand{\vn}{{\vect{n}}}
+
+\newcommand{\half}{\cfrac{1}{2}}
+
+\newcommand{\partt}[1]{\cfrac{\partial #1}{\partial t}}
+\newcommand{\partx}[1]{\cfrac{\partial #1}{\partial x}}
+\newcommand{\partxx}[1]{\cfrac{\partial^2 #1}{\partial x^2}}
+\newcommand{\partvn}[1]{\cfrac{\partial #1}{\partial \vn}}
+
+\newcommand{\partflt}[1]{\partial #1 / \partial t}
+\newcommand{\partflx}[1]{\partial #1 / \partial x}
+\newcommand{\partflxx}[1]{\partial^2 #1 / \partial x^2}
+\newcommand{\partflvn}[1]{\partial #1 / \partial \vn}
+
+\newcommand{\gradsq}[1]{(\nabla #1, \nabla #1)}
+
+\newcommand{\difftau}[1]{\cfrac{{#1}_j^{k + 1} - {#1}_j^k}{\tau}}
+\newcommand{\diffhh}[1]{\cfrac{{#1}_{j + 1}^k - 2 {#1}_j^k + {#1}_{j - 1}^k}{h^2}}
+
+\newcommand{\Natural}{{\mathbb{N}}}
+\newcommand{\Real}{{\mathbb{R}}}
+\newcommand{\bigO}{{\mathcal{O}}}
+\newcommand{\clOmega}{{\overline{\Omega}}}
+
+\newcommand{\norm}[1]{\| \, #1 \, \|}
+\newcommand{\enorm}{{\| \cdot \|}}
+
+\newcommand{\unitm}{{\text{м}}}
+\newcommand{\units}{{\text{с}}}
+\newcommand{\unitJ}{{\text{Дж}}}
+\newcommand{\unitC}{{\text{Кл}}}
+\newcommand{\unitV}{{\text{В}}}
+\newcommand{\unitF}{{\text{Ф}}}
+
+\newcommand{\nologo}{\setbeamertemplate{logo}{}}
+
+
+%%% Свои операторы
+\DeclareMathOperator{\Div}{{div}}
+\DeclareMathOperator{\Const}{{const}}
+
+%%% Цвета
+\definecolor{green}{RGB}{0,200,0}
+\definecolor{red}{RGB}{200,0,0}
+
+%%% Тема оформления
+\usetheme{Madrid}
+
+
+%%% Титульный лист
+\title[Адаптация шага по времени]{Адаптация шага по времени в модели типа диффузной границы, \\ содержащей уравнение Аллена–Кана}
+\author[]{
+	Пономарев А. С.\textsuperscript{1,2}, Савенков Е. Б.\textsuperscript{2}, Зипунова Е. В.\textsuperscript{2}
+}
+\institute[МФТИ, ИПМ]{
+	\textsuperscript{1}МФТИ (НИУ) \\
+	\textsuperscript{2}ИПМ им. М. В. Келдыша РАН
+}
+\date[67-я Конференция МФТИ]{
+	67-я Всероссийская научная конференция МФТИ \\[1mm]
+	31.03.2025
+}
+\logo{\includegraphics[height=0.8cm]{../figures/labels.jpg}}
+
+
+\begin{document}
+
+\AtBeginSection[]{
+	\begin{frame}{Содержание}
+	\Large
+	\tableofcontents[currentsection]
+	\end{frame}
+}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\input{sources/introduction}
+
+\input{sources/problem_setting}
+
+\input{sources/adaptation_methods}
+
+\input{sources/numerical_experiment}
+
+\input{sources/conclusion}
+
+
+\begin{frame}{Литература}
+\printbibliography
+\end{frame}
+
+\begin{frame}{}
+\begin{center}
+	\Large
+	Спасибо за внимание!
+\end{center}
+\end{frame}
+
+\end{document}
