@@ -36,13 +36,15 @@
 Заметим, что, таким образом, число узлов сетки по пространству $N_x = 64$, по времени -- $312 \leqslant N_t \leqslant 2 \cdot 10^7$.
 
 Зададим следующие краевые условия:
-\begin{gather*}
-	\phi(0, t) = \phi(W, t) = 1, \qquad \phi(x, 0) = \phi_0(x), \\
+\begin{gather}
+	\phi(0, t) = \phi(W, t) = 1, \qquad \phi(x, 0) = \phi_0(x),
+	\label{exp:border} \\
 	\phi_0(x) = \begin{cases}
 		1 - 0.025 \cdot \left( 1 + \cos \left[ \cfrac{\pi}{0.08} \left( \cfrac{x}{W} - \half \right) \right] \right) \text{ при } \cfrac{x}{W} \in [0.42, 0.58]; \\
 		1 \text{ иначе}.
 	\end{cases}
-\end{gather*}
+	\nonumber
+\end{gather}
 Функция $\phi_0(x)$ отлична от $1$ в небольшой области вокруг $x = W / 2$, где <<прогибается>> как один период $\cos$, достигая минимума $\phi = 0.95$.
 
 
@@ -56,9 +58,22 @@
 
 При адаптации шага по времени в разностной схеме \eqref{sch:borders},~\eqref{sch:transition},~\eqref{sch:time_step_min_max} на итерации $k$ будем использовать не рассчитываемое $\tau_k$ напрямую, а максимальное $\tau_k' = 2^s \tau_{min} \leqslant \tau_k$, $s \in \Natural_0$ к тому же допустимое описанным разбиением <<типа дерева отрезков>> временного промежутка $T$ на $N$ отрезков, а именно:
 \begin{gather*}
-	p_0 = 0, \quad p_k = p_{k - 1} + 2^{s_k}, s_k \in \Natural; \\
+	p_0 = 0, \quad p_k = p_{k - 1} + 2^{s_k} \leqslant N, s_k \in \Natural_0; \\
 	\tau_k' = 2^{s_k} \cdot \tau_{min} \leqslant \tau_k, \quad p_{k - 1} \divby 2^{s_k}; \\
 	s_k \to \max.
 \end{gather*}
 
 Для сравнения по равномерной норме $\enorm_{C, h}$ двух сеточных решений~$\phi_1$ и~$\phi_2$ на разбиениях $D_1$ и $D_2$ соответственно ограничим их оба на объемлющем разбиении $D = D_1 \cap D_2$.
+
+
+\subsection{Результаты расчетов}
+
+На рис. \ref{fig:solution_basic} изображен результат расчета с параметрами из табл. \ref{tab:parameters} и краевыми условиями \eqref{exp:border} без адаптации шага по времени. Видно, как из малого начального возмущения фазового поля $\phi$ постепенно растет канал электрического пробоя. В момент времени $t \approx 1.82 \cdot 10^{-3}$ в точке $x = W / 2$ фазовое поле $\phi$  становится мало отличимо от $0$ -- происходит <<пробой насквозь>>. Обратим внимание, что значение фазового поля упало от $\phi \approx 0.6$ до $\phi \approx 0$ менее чем за время $10^{-5}$, то есть $0.5 \%$ от всего времени эксперимента. Далее канал пробоя растет в толщину примерно с постоянной скоростью.
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=\textwidth]{figures/solution_basic.png}
+	\vspace{-0.8cm}
+	\caption{Решение задачи (расчет без адаптации)}
+	\label{fig:solution_basic}
+\end{figure}
