@@ -5,9 +5,10 @@
 \subsection{Идея подхода}
 
 В работе \cite{ponomarev_stability} получено следующее условие устойчивости разностной схемы~\eqref{sch:transition_old},~\eqref{sch:borders}:
-\[
+\begin{equation}
 	\tau \leqslant \cfrac{1}{4m} \min \left( \cfrac{\delta^{5/3}}{|\nabla \Phi|^2 \epsilon_0}, \cfrac{h^2}{\Gamma} \right).
-\]
+	\label{cond:stability}
+\end{equation}
 Неравенство с первым аргументом минимума эквивалентно соотношению
 \begin{equation}
 	m \tau \max\limits_{\phi \in [0, 1]} |F''(\phi)| \leqslant C,
@@ -17,7 +18,7 @@
 
 Основная идея подхода к адаптации, предлагаемого авторами в этом разделе, заключается в том, чтобы в неравенстве \eqref{cond:stability_first} заменить формальный максимум по $\phi \in [0, 1]$ на максимум по значениям сеточной функции $\phi_j^k$ и, естественно, взять наибольшее возможное $\tau$. Таким образом получается следующая формула адаптивного шага по времени:
 \begin{equation}
-	\widetilde{\tau}_3^k = \cfrac{tol_3}{m \cdot \max\limits_{j = 0}^N |F''(\phi_j^k)|}.
+	\widetilde{\tau}_3^k = \cfrac{tol_3}{m \cdot \max\limits_{j = 0}^M |F''(\phi_j^k)|}.
 	\label{sch:time_step_stability_raw}
 \end{equation}
 Этот метод будем условно называть методом адаптации по устойчивости.
@@ -83,6 +84,6 @@ $G(\phi) \geqslant 0$ на $[0, 1]$. Имеем $G(x) = |G(x)| \geqslant |F''(\p
 
 Исправим формулу \eqref{sch:time_step_stability_raw} в методе адаптации по устойчивости:
 \begin{equation}
-	\widetilde{\tau}_3^k = \cfrac{tol_3}{m \cdot \max\limits_{j = 0}^N G(\phi_j^k)}.
+	\widetilde{\tau}_3^k = \cfrac{tol_3}{m \cdot \max\limits_{j = 0}^M G(\phi_j^k)}.
 	\label{sch:time_step_stability}
 \end{equation}

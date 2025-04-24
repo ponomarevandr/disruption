@@ -15,7 +15,7 @@
 
 В формуле \eqref{sch:time_step_phi} в качестве $[\partflt{\phi}]_h$ удобно использовать $[\partflt{\phi}]^{k + 1/2}$ из левой части разностного уравнения \eqref{eq:subtractive}. В этом случае
 \[
-	\left\| \left[ \partt{\phi} \right]_h^{k + 1/2} \right\|_C = \max\limits_{j = 0}^N \left| \left[ \partt{\phi} \right]_j^{k + 1/2} \right|.
+	\left\| \left[ \partt{\phi} \right]_h^{k + 1/2} \right\|_C = \max\limits_{j = 0}^M \left| \left[ \partt{\phi} \right]_j^{k + 1/2} \right|.
 \]
 Если сделать этого не удается (например, из-за проблем с синхронизацией параллельных вычислений), то можно использовать $[\partflt{\phi}]^{k - 1/2}$, сохраненную с предыдущего шага.
 
@@ -25,10 +25,10 @@
 \begin{gather*}
 	\pi_j^k = F(\phi_j^k) + \cfrac{\Gamma}{4} \left( \left[ \partt{\phi} \right]_j^k \right)^2, \qquad \left[ \partt{\phi} \right]_j^k = \begin{cases}
 		\cfrac{\phi_1^k - \phi_0^k}{\tau} & \text{при } j = 0; \\
-		\cfrac{\phi_{j + 1}^k - \phi_{j - 1}^k}{2 \tau} & \text{при } j = \overline{1, N - 1}; \\
-		\cfrac{\phi_N^k - \phi_{N - 1}^k}{\tau} & \text{при } j = N;
+		\cfrac{\phi_{j + 1}^k - \phi_{j - 1}^k}{2 \tau} & \text{при } j = \overline{1, M - 1}; \\
+		\cfrac{\phi_M^k - \phi_{M - 1}^k}{\tau} & \text{при } j = M;
 	\end{cases} \\
-	\Pi^k = \cfrac{h \pi_0^k + h \pi_N^k}{2} + \sum\limits_{j = 1}^{N - 1} h \pi_j^k.
+	\Pi^k = \cfrac{h \pi_0^k + h \pi_M^k}{2} + \sum\limits_{j = 1}^{M - 1} h \pi_j^k.
 \end{gather*}
 В формуле \eqref{sch:time_step_energy} будем использовать разностную производную энергии \linebreak с предыдущего шага
 \[
