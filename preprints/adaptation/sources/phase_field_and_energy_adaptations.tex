@@ -28,7 +28,7 @@
 		\cfrac{\phi_{j + 1}^k - \phi_{j - 1}^k}{2 h} & \text{при } j = \overline{1, M - 1}; \\
 		\cfrac{\phi_M^k - \phi_{M - 1}^k}{h} & \text{при } j = M;
 	\end{cases} \\
-	\Pi^k = \cfrac{h \pi_0^k + h \pi_M^k}{2} + \sum\limits_{j = 1}^{M - 1} h \pi_j^k.
+	\Pi^k = \cfrac{h \pi_0^k + h \pi_M^k}{2} + \sum\limits_{j = 1}^{M - 1} h \pi_j^k = h \cdot \left( \cfrac{\pi_0^k + \pi_M^k}{2} + \sum\limits_{j = 1}^{M - 1} \pi_j^k \right).
 \end{gather*}
 В формуле \eqref{sch:time_step_energy} будем использовать разностную производную энергии \linebreak с предыдущего временного слоя
 \[
