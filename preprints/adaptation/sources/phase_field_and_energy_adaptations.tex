@@ -6,12 +6,12 @@
 
 Рассмотрим первые два подхода к адаптации шага по времени, предложенные в статьях \cite{li_time_step} и \cite{zhang_time_step} соответственно. Введем их вместе из-за определенной общности:
 \begin{align}
-	\widetilde{\tau}_1^k & = \cfrac{\tol_1}{\left\| \left[ \partt{\phi} \right]_h \right\|_C},
+	\widetilde{\tau}_1^k & = \cfrac{\tol_1}{\left\| \left[ \partflt{\phi} \right]_h \right\|_C},
 	\label{sch:time_step_phi} \\
-	\widetilde{\tau}_2^k & = \cfrac{\tol_2}{\left| \left[ \cfrac{d \Pi}{dt} \right]_h \right|}.
+	\widetilde{\tau}_2^k & = \cfrac{\tol_2}{\left| \left[ d \Pi / dt \right]_h \right|}.
 	\label{sch:time_step_energy}
 \end{align}
-Числовые константы $\tol_1$ и $\tol_2$ подбираются эмпирически. Здесь и далее символами $[\; \cdot \;]_h$ и $[\; \cdot \;]_j^k$ обозначаются сеточные функции ($j$, $k$ -- индексы на сетке, целые либо полуцелые), а именно разностные производные и приращения.
+Числовые константы $\tol_1$ и $\tol_2$ подбираются эмпирически. Здесь и далее символами $[\; \cdot \;]_h$ и $[\; \cdot \;]_j^k$ обозначаются сеточные функции, а именно разностные производные и приращения ($j$, $k$ -- индексы на сетке, целые либо полуцелые).
 
 В формуле \eqref{sch:time_step_phi} в качестве $[\partflt{\phi}]_h$ удобно использовать
 \[
@@ -33,7 +33,7 @@
 \end{gather*}
 В формуле \eqref{sch:time_step_energy} будем использовать разностную производную энергии \linebreak с предыдущего временного слоя
 \[
-	\left[ \cfrac{d \Pi}{dt} \right]_h^{k - 1/2} = \cfrac{\Pi^k - \Pi^{k - 1}}{\tau^{k - 1}},
+	\left[ \cfrac{d \Pi}{dt} \right]^{k - 1/2} = \cfrac{\Pi^k - \Pi^{k - 1}}{\tau^{k - 1}},
 \]
 положив $\tau_0 = \taumin$.
 
@@ -42,23 +42,23 @@
 
 \subsection{Связь с нормированием приращения фазового поля}
 
-Общность описанных двух подходов и, возможно, ключ к их интуитивному пониманию заключается в следующем. Для адаптации по фазовому полю рассмотрим норму приращения $[\Delta \phi]_h$:
+Общность описанных двух подходов и, возможно, ключ к их интуитивному пониманию заключается в следующем. Для адаптации по фазовому полю рассмотрим норму приращения $\phi^{k + 1} - \phi^k$:
 \[
-	\left\| [\Delta \phi]^{k + 1/2} \right\|_C = \widetilde{\tau}_1^k \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C = \cfrac{\tol_1}{\left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C} \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C = \tol_1.
+	\left\| \phi^{k + 1} - \phi^k \right\|_C = \widetilde{\tau}_1^k \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C = \tol_1 \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C^{-1} \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C = \tol_1.
 \]
 Выходит нормирование приращения фазового поля (с оговоркой на ограничения через $\taumin$ и $\taumax$).
 
 В случае адаптации по энергии можно провести похожее рассуждение. Из~вывода уравнения \eqref{eq:phi} верно следующее равенство:
 \[
-	\cfrac{d \Pi}{dt} = -\cfrac{1}{m} \int\limits_{\Omega} \left( \partt{\phi} \right)^2 d \vx,
+	\cfrac{d \Pi}{dt} = -\cfrac{1}{m} \varint\limits_{\Omega} \left( \partt{\phi} \right)^2 d \vx,
 \]
 что для сеточных функций дает
 \[
 	\left| \left[ \cfrac{d \Pi}{dt} \right]_h \right| \approx \cfrac{1}{m} \left\| \left[ \partt{\phi} \right]_h \right\|_2^2.
 \]
 Здесь $\enorm_2$ обозначена сеточная $L_2$-норма. Таким образом, при адаптации по~энергии
-\[
-	\left\| [\Delta \phi]_h \right\|_2 = \widetilde{\tau}_2^k \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_2 \approx \cfrac{\tol_2}{\cfrac{1}{m} \left\| \left[ \partt{\phi} \right]^{k - 1/2} \right\|_2^2} \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_2 \approx \cfrac{\tol_2 \cdot m}{\left\| \left[ \partt{\phi} \right]_h \right\|_2}.
-\]
+\begin{multline*}
+	\left\| \phi^{k + 1} - \phi^k \right\|_2 = \widetilde{\tau}_2^k \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_2 \approx \tol_2 \cdot m \left\| \left[ \partt{\phi} \right]^{k - 1/2} \right\|_2^{-2} \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_2 \approx \\ \approx \tol_2 \cdot m \cdot \left\| \left[ \partt{\phi} \right]_h \right\|_2^{-1}.
+\end{multline*}
 
 Авторы не стали отклоняться от предложенного в работе \cite{zhang_time_step} метода адаптации, однако из проделанных рассуждений получается, что из модуля производной энергии в формуле \eqref{sch:time_step_energy} логичнее было бы извлечь квадратный корень, чтобы выполнялось $\left\| [\Delta \phi]_h \right\|_2 \approx \tol_2 \cdot \sqrt{m}$.

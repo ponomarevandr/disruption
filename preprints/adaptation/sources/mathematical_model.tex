@@ -17,12 +17,12 @@
 
 Постулируется следующее выражение для свободной энергии $\Pi$ системы:
 \begin{gather*}
-	\Pi = \int \limits_\Omega \pi d \vx, \\
-	\pi = -\half \epsilon[\phi] \gradsq{\Phi} + \Gamma \cfrac{1 - f(\phi)}{l^2} + \cfrac{\Gamma}{4} \gradsq{\phi}.
+	\Pi = \varint \limits_\Omega \pi d \vx, \\
+	\pi = -\half \epsilon[\phi] \cdot \norm{\nabla \Phi}^2 + \Gamma \cfrac{1 - f(\phi)}{l^2} + \cfrac{\Gamma}{4} \norm{\nabla \phi}^2.
 \end{gather*}
-Здесь $\Gamma > 0$, $l > 0$~-- числовые параметры модели, константы.
+Здесь $\Gamma > 0$, $l > 0$~-- числовые параметры модели, константы; $\enorm$ обозначает евклидову норму в $\Real^3$.
 
-Постулируются два уравнения, определяющие динамику системы:
+Принимается, что динамика системы описывается следующими двумя \linebreak уравнениями:
 \begin{equation*}
 \begin{cases}
 	\cfrac{\delta \Pi}{\delta \Phi} = 0; \\[3mm]
@@ -35,36 +35,36 @@
 \begin{numcases}{}
 	\Div(\epsilon[\phi] \nabla \Phi) = 0;
 	\label{eq:Phi} \\
-	\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \gradsq{\Phi} + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \Delta \phi.
+	\cfrac{1}{m} \partt{\phi} = \half \epsilon'(\phi) \norm{\nabla \Phi}^2 + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \Delta \phi.
 	\label{eq:phi}
 \end{numcases}
-Здесь $(\cdot)' \equiv (\cdot)_\phi'$. Система состоит из двух уравнений, на $\phi$ и $\Phi$ соответственно, и описывает их совместную эволюцию.
+Здесь $(\cdot)' \equiv (\cdot)_\phi'$. Система состоит из двух уравнений относительно скалярных полей $\phi$ и $\Phi$ и описывает их совместную эволюцию.
 
 Уравнение \eqref{eq:phi} имеет вид
 \[
-	\cfrac{1}{m} \partt{\phi} = -F'(\phi; |\nabla \Phi|) + \half \Gamma \Delta \phi,
+	\cfrac{1}{m} \partt{\phi} = -F'(\phi; \norm{\nabla \Phi}) + \half \Gamma \Delta \phi,
 \]
 где
 \begin{equation}
-	F(\phi; |\nabla \Phi|) = -\half \epsilon[\phi] |\nabla \Phi|^2 + \Gamma \cfrac{1 - f(\phi)}{l^2}
+	F(\phi; \norm{\nabla \Phi}) = -\half \epsilon[\phi] \cdot \norm{\nabla \Phi}^2 + \Gamma \cfrac{1 - f(\phi)}{l^2}
 	\label{eq:allen_cahn_potential}
 \end{equation}
-есть определенная нелинейная функция от $\phi$, которая к тому же зависит от~$|\nabla \Phi|$ как от параметра. Таким образом, перед нами нелинейное уравнение типа Аллена--Кана \cite{allen_cahn_boundary_theory}.
+есть определенная нелинейная функция от $\phi$, которая к тому же зависит от~$\norm{\nabla \Phi}$ как от параметра. Таким образом, перед нами нелинейное уравнение типа Аллена--Кана \cite{allen_cahn_boundary_theory}.
 
 Из вывода модели очевидна следующая запись формулы для плотности свободной энергии:
 \begin{equation}
-	\pi = F(\phi; |\nabla \Phi|) + \cfrac{\Gamma}{4} \gradsq{\phi}.
+	\pi = F(\phi; \norm{\nabla \Phi}) + \cfrac{\Gamma}{4} \norm{\nabla \phi}^2.
 	\label{eq:energy_density}
 \end{equation}
 
-В классическом варианте уравнений Аллена--Кана $F$ -- двухъямный потенциал. В рассматриваемой задаче $F$ меняет поведение в зависимости от~значения $|\nabla \Phi|$, как было показано в работе \cite{ponomarev_stability}. Возможны три случая в соответствии с величиной
+В рассматриваемой задаче функция $F$ имеет различное поведение в зависимости от~значения $\norm{\nabla \Phi}$, как было показано в работе \cite{ponomarev_stability}. Возможны три случая в соответствии со значением параметра
 \[
-	\xi = \cfrac{|\nabla \Phi|^2 l^2 \epsilon_0}{2 \Gamma},
+	\xi = \cfrac{\norm{\nabla \Phi}^2 l^2 \epsilon_0}{2 \Gamma},
 \]
 а именно:
 \begin{itemize}
-	\item \makebox[5.3cm][l]{<<слабое напряжение>>,} \makebox[4.0cm][l]{$\xi < \delta^2$:} $F(\phi)$ монотонно убывает;
-	\item \makebox[5.3cm][l]{<<среднее напряжение>>,} \makebox[4.0cm][l]{$\delta^2 < \xi < (1 + \delta)^2$:} $F(\phi)$ унимодальна, убывание \par {\raggedleft сменяется возрастанием; \hspace{0.1cm} \par}
-	\item \makebox[5.3cm][l]{<<сильное напряжение>>,} \makebox[4.0cm][l]{$\xi > (1 + \delta)^2$:} $F(\phi)$ монотонно возрастает.
+	\item <<слабое напряжение>>, $\xi < \delta^2$: $F(\phi)$ монотонно убывает;
+	\item <<среднее напряжение>>, $\delta^2 < \xi < (1 + \delta)^2$: $F(\phi)$ унимодальна, убывание сменяется возрастанием;
+	\item <<сильное напряжение>>, $\xi > (1 + \delta)^2$: $F(\phi)$ монотонно возрастает.
 \end{itemize}
 Наибольший интерес для практики моделирования представляет случай \linebreak <<сильного напряжения>>, так как именно тогда канал пробоя развивается из~сколь угодно малых возмущений неповрежденной среды.
