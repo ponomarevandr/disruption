@@ -136,8 +136,12 @@ void Model::iterationDerivatives() {
 		phi_x_x[i] = (phi[i - 1] - 2.0 * phi[i] + phi[i + 1]) / (params.dx * params.dx);
 		phi_t[i] = params.m * (
 			0.5 * eps_phi(i) * params.Phi_gradient * params.Phi_gradient +
-			params.Gamma[i] / (params.l * params.l) * f_phi(phi[i]) +
-			0.5 * params.Gamma[i] * phi_x_x[i]
+			params.Gamma[i] / (params.l * params.l) * f_phi(phi[i])
+
+#ifndef NO_LAPLACIAN
+			+ 0.5 * params.Gamma[i] * phi_x_x[i]
+#endif
+
 		);
 		instability_value[i] = instabilityFunction(i);
 	}
