@@ -1,0 +1,102 @@
+%!TEX root = ../main.tex
+
+\section{Постановка задачи}
+
+\begin{frame}{Математическая модель}
+\begin{block}{Модель типа диффузной границы}
+	Вещество находится в разных фазах. Состояние вещества описывается гладкой функцией $\phi(\vx, t)$ -- фазовым полем.
+\end{block}
+\begin{itemize}
+	\item $\phi = 1$ -- неповрежденная среда
+	\item $\phi = 0$ -- полностью разрушенная среда
+	\item Зона $\phi \in (0, 1)$ -- диффузная граница
+	\item На разрушение среды тратится энергия
+\end{itemize}
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{figures/diffuse_edge.jpg}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Математическая модель}
+\vspace{-0.3cm}
+\begin{block}{Уравнения динамики системы}
+	\begin{itemize}
+		\item Уравнение электрического потенциала $\Phi$:
+		\[
+			\Div(\epsilon[\phi] \nabla \Phi) = 0
+		\]
+		\item Уравнение фазового поля $\phi$ (типа Аллена--Кана):
+		\[
+			\cfrac{1}{m} \partt{\phi} = -F'(\phi; \| \nabla \Phi \|_2) + \half \Gamma \Delta \phi
+		\]
+	\end{itemize}
+\end{block}
+\begin{itemize}
+	\item Плотность свободной энергии
+	\vspace{-0.2cm}
+	\[
+		\pi = F(\phi; \| \nabla \Phi \|_2) + \cfrac{\Gamma}{4} \gradsq{\phi}
+	\]
+	\item $m$, $\Gamma$ -- параметры модели, константы
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Математическая модель}
+\[
+	F(\phi; \| \nabla \Phi \|_2) = -\half \epsilon[\phi] \| \nabla \Phi \|_2^2 + \Gamma \cfrac{1 - f(\phi)}{l^2}
+\]
+\[
+	\epsilon(\vx, t) = \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) + \delta}
+\]
+\[
+	f(\phi) = 4 \phi^3 - 3 \phi^4
+\]
+\begin{itemize}
+	\item $l$, $\delta$ -- параметры модели
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Разностная схема}
+\vspace{-0.9cm}
+\[
+	\cfrac{1}{m} \partt{\phi} = -F'(\phi; \| \nabla \Phi \|) + \half \Gamma \partxx{\phi}
+\]
+\vspace{-0.4cm}
+\begin{itemize}
+	\item $\| \nabla \Phi \|$ -- параметр
+\end{itemize}
+\begin{block}{Разностная задача}
+	\[
+		\cfrac{1}{m} \cfrac{\phi_i^{j + 1} - \phi_i^j}{\tau} = -F'(\phi_i^j; \| \nabla \Phi \|) + \cfrac{\Gamma}{2} \cfrac{\phi_{i + 1}^j - 2 \phi_i^j + \phi_{i - 1}^j}{h^2}
+	\]
+	\[\phi_i^0 = \phi_0(ih); \quad \phi_0^j = \phi_l(j \tau); \quad \phi_n^j = \phi_r(j \tau)\]
+	Сетка регулярная; $\tau$ -- шаг по времени, $h$ -- шаг по пространству.
+\end{block}
+Явная разностная схема первого порядка по времени, второго по пространству.
+\end{frame}
+
+
+\begin{frame}{Открытые вопросы}
+\large
+\begin{itemize}
+	\item Большие вычислительные затраты на расчет
+	\item Уточнение определяющих соотношений модели
+	\item Воспроизведение в модели физического эксперимента
+\end{itemize}
+\begin{block}{Цель работы}
+	Предложить ответы на назревшие вопросы
+\end{block}
+\end{frame}
+
+
+\begin{frame}{Решения}
+\Large
+\begin{itemize}
+	\item Интегрирование по времени с адаптивным шагом
+	\item Использование результатов из теории трещин
+	\item Настройка <<большой>> программы для моделирования
+\end{itemize}
+\end{frame}

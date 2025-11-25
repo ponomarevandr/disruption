@@ -1,6 +1,7 @@
 # ========== Custom
 bin
 build
+tmp
 *.sublime-*
 ~$*.docx
 .~lock.*

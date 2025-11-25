@@ -3,6 +3,7 @@
 #include "model/model_parameters.h"
 #include "model/time_step_manager.h"
 #include "display/progress_bar.h"
+#include "defines.h"
 
 #include <iostream>
 #include <vector>
@@ -50,6 +51,13 @@ protected:
 	void initialize();
 	double f(double phi) const;
 	double f_phi(double phi) const;
+
+	#ifdef EPS_NEW
+	static double power(double x, uint32_t p);
+	double eps_u(double x) const;
+	double eps_u_x(double x) const;
+	#endif
+
 	double eps(size_t i) const;
 	double eps_phi(size_t i) const;
 	double instabilityFunction(size_t i) const;

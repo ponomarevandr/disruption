@@ -66,6 +66,43 @@ double Model::f_phi(double phi) const {
 	return 12.0 * phi * phi * (1.0 - phi);
 }
 
+
+#ifdef EPS_NEW
+
+double Model::power(double x, uint32_t p) {
+	double result = 1.0;
+	for (uint32_t i = 0; i < p; ++i) {
+		result *= x;
+	}
+	return result;
+}
+
+double Model::eps_u(double x) const {
+	return
+		params.delta * (x - 1.0) +
+		1.0 +
+		-(1.0 - params.delta) * power(1.0 - x, EPS_U_POWER);
+}
+
+double Model::eps_u_x(double x) const {
+	return
+		params.delta +
+		(1.0 - params.delta) * EPS_U_POWER * power(1.0 - x, EPS_U_POWER - 1);
+}
+
+double Model::eps(size_t i) const {
+	return params.eps_0[i] * (
+		1.0 + 1.0 / params.delta +
+		-1.0 / params.delta * eps_u(f(phi[i]))
+	);
+}
+
+double Model::eps_phi(size_t i) const {
+	return -params.eps_0[i] / params.delta * eps_u_x(f(phi[i])) * f_phi(phi[i]);
+}
+
+#else
+
 double Model::eps(size_t i) const {
 	return params.eps_0[i] / (f(phi[i]) + params.delta);
 }
@@ -75,6 +112,9 @@ double Model::eps_phi(size_t i) const {
 	return
 		-params.eps_0[i] / ((f_value + params.delta) * (f_value + params.delta)) * f_phi(phi[i]);
 }
+
+#endif
+
 
 double Model::instabilityFunction(size_t i) const {
 	double f_value = f(phi[i]);
@@ -96,8 +136,12 @@ void Model::iterationDerivatives() {
 		phi_x_x[i] = (phi[i - 1] - 2.0 * phi[i] + phi[i + 1]) / (params.dx * params.dx);
 		phi_t[i] = params.m * (
 			0.5 * eps_phi(i) * params.Phi_gradient * params.Phi_gradient +
-			params.Gamma[i] / (params.l * params.l) * f_phi(phi[i]) +
-			0.5 * params.Gamma[i] * phi_x_x[i]
+			params.Gamma[i] / (params.l * params.l) * f_phi(phi[i])
+
+#ifndef NO_LAPLACIAN
+			+ 0.5 * params.Gamma[i] * phi_x_x[i]
+#endif
+
 		);
 		instability_value[i] = instabilityFunction(i);
 	}
