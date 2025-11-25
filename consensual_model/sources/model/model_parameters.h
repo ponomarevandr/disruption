@@ -12,7 +12,7 @@ struct ModelParameters {
 	double l;
 	std::vector<double> Gamma;
 	double m;
-	double Phi_gradient;
+	double q;
 	size_t x_grid;
 	size_t x_skip;
 	size_t t_grid;

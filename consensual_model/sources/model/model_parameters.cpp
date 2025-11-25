@@ -6,7 +6,7 @@ void ModelParameters::read(std::istream& in, bool read_phi_0) {
 	delta = environment.getVariableValue("delta");
 	l = environment.getVariableValue("l");
 	m = environment.getVariableValue("m");
-	Phi_gradient = environment.getVariableValue("Phi_gradient");
+	q = environment.getVariableValue("q");
 	x_grid = environment.getVariableValue("x_grid");
 	x_skip = environment.getVariableValue("x_skip");
 	t_grid = environment.getVariableValue("t_grid");

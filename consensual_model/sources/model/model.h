@@ -3,7 +3,6 @@
 #include "model/model_parameters.h"
 #include "model/time_step_manager.h"
 #include "display/progress_bar.h"
-#include "defines.h"
 
 #include <iostream>
 #include <vector>
@@ -31,6 +30,7 @@ protected:
 	std::vector<double> energy_density_electrical;
 	std::vector<double> energy_density_border;
 	std::vector<double> energy_density_inner;
+	double E;
 	double energy_electrical;
 	double energy_border;
 	double energy_inner;
@@ -51,18 +51,14 @@ protected:
 	void initialize();
 	double f(double phi) const;
 	double f_phi(double phi) const;
-
-	#ifdef EPS_NEW
-	static double power(double x, uint32_t p);
-	double eps_u(double x) const;
-	double eps_u_x(double x) const;
-	#endif
-
+	double feps(double phi) const;
+	double feps_phi(double phi) const;
 	double eps(size_t i) const;
 	double eps_phi(size_t i) const;
-	double instabilityFunction(size_t i) const;
+	//double instabilityFunction(size_t i) const;
 	void iterationDerivatives();
 	void iterationUpdate();
+	void calculateE();
 	void calculateEnergy();
 	double timeStepBounded(double time_step) const;
 	void calculateTimeStep();

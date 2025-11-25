@@ -66,57 +66,27 @@ double Model::f_phi(double phi) const {
 	return 12.0 * phi * phi * (1.0 - phi);
 }
 
-
-#ifdef EPS_NEW
-
-double Model::power(double x, uint32_t p) {
-	double result = 1.0;
-	for (uint32_t i = 0; i < p; ++i) {
-		result *= x;
-	}
-	return result;
+double Model::feps(double phi) const {
+	double phi_squared = phi * phi;
+	return 3 * phi_squared - 2 * phi_squared * phi;
 }
 
-double Model::eps_u(double x) const {
-	return
-		params.delta * (x - 1.0) +
-		1.0 +
-		-(1.0 - params.delta) * power(1.0 - x, EPS_U_POWER);
-}
-
-double Model::eps_u_x(double x) const {
-	return
-		params.delta +
-		(1.0 - params.delta) * EPS_U_POWER * power(1.0 - x, EPS_U_POWER - 1);
+double Model::feps_phi(double phi) const {
+	return 6.0 * phi * (1.0 - phi);
 }
 
 double Model::eps(size_t i) const {
 	return params.eps_0[i] * (
-		1.0 + 1.0 / params.delta +
-		-1.0 / params.delta * eps_u(f(phi[i]))
-	);
+		1.0 +
+		1.0 / params.delta * (1.0 - feps(phi[i])
+	));
 }
 
 double Model::eps_phi(size_t i) const {
-	return -params.eps_0[i] / params.delta * eps_u_x(f(phi[i])) * f_phi(phi[i]);
+	return -params.eps_0[i] / params.delta * feps_phi(phi[i]);
 }
 
-#else
-
-double Model::eps(size_t i) const {
-	return params.eps_0[i] / (f(phi[i]) + params.delta);
-}
-
-double Model::eps_phi(size_t i) const {
-	double f_value = f(phi[i]);
-	return
-		-params.eps_0[i] / ((f_value + params.delta) * (f_value + params.delta)) * f_phi(phi[i]);
-}
-
-#endif
-
-
-double Model::instabilityFunction(size_t i) const {
+/*double Model::instabilityFunction(size_t i) const {
 	double f_value = f(phi[i]);
 	double phi_cubed = phi[i] * phi[i] * phi[i];
 	double eps_phi_phi_majorant = params.eps_0[i] * 12.0 * phi[i] * (
@@ -129,21 +99,18 @@ double Model::instabilityFunction(size_t i) const {
 		(f_value + params.delta) * (f_value + params.delta) * (f_value + params.delta)
 	);
 	return 0.5 * params.m * params.Phi_gradient * params.Phi_gradient * eps_phi_phi_majorant;
-}
+}*/
 
 void Model::iterationDerivatives() {
+	calculateE();
 	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
 		phi_x_x[i] = (phi[i - 1] - 2.0 * phi[i] + phi[i + 1]) / (params.dx * params.dx);
 		phi_t[i] = params.m * (
-			0.5 * eps_phi(i) * params.Phi_gradient * params.Phi_gradient +
+			0.5 * eps_phi(i) * E * E +
 			params.Gamma[i] / (params.l * params.l) * f_phi(phi[i])
-
-#ifndef NO_LAPLACIAN
 			+ 0.5 * params.Gamma[i] * phi_x_x[i]
-#endif
-
 		);
-		instability_value[i] = instabilityFunction(i);
+		instability_value[i] = 0.0; //instabilityFunction(i);
 	}
 	if (calculate_energy)
 		calculateEnergy();
@@ -157,6 +124,15 @@ void Model::iterationUpdate() {
 	}
 }
 
+void Model::calculateE() {
+	double eps_int = 0;
+	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
+		eps_int += params.dx * eps(i);
+	}
+	eps_int += 0.5 * params.dx * (eps(0) + eps(params.x_grid));
+	E = params.q / eps_int;
+}
+
 void Model::calculateEnergy() {
 	phi_x[0] = (phi[1] - phi[0]) / params.dx;
 	phi_x[params.x_grid] = (phi[params.x_grid] - phi[params.x_grid - 1]) / params.dx;
@@ -164,7 +140,7 @@ void Model::calculateEnergy() {
 		phi_x[i] = 0.5 * (phi[i + 1] - phi[i - 1]) / params.dx;
 	}
 	for (size_t i = 0; i <= params.x_grid; ++i) {
-		energy_density_electrical[i] = -0.5 * eps(i) * params.Phi_gradient * params.Phi_gradient;
+		energy_density_electrical[i] = -0.5 * eps(i) * E * E;
 		energy_density_border[i] = 0.25 * params.Gamma[i] * (phi_x[i] * phi_x[i]);
 		energy_density_inner[i] = params.Gamma[i] * (1.0 - f(phi[i])) / (params.l * params.l);
 	}
