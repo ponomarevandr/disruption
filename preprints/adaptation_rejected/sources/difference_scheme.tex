@@ -34,7 +34,7 @@
 
 Для аппроксимации дифференциальной задачи \eqref{eq:one_dim}, \eqref{eq:one_dim_initial}, \eqref{eq:one_dim_marginal} в работе \cite{ponomarev_stability} предложено разностное уравнение
 \begin{equation}
-	\cfrac{1}{m} \cfrac{\phi_j^{k + 1} - \phi_j^k}{\tau} = -F'(\phi_j^k) + \cfrac{\Gamma}{2} \diffhh{\phi}
+	\cfrac{1}{m} \difftau{\phi} = \half K_\phi^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \diffhh{\phi}
 	\label{eq:subtractive}
 \end{equation}
 и используется разностная схема

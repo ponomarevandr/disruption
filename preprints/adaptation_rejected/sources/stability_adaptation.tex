@@ -6,21 +6,21 @@
 
 В работе \cite{ponomarev_stability} предложено следующее условие устойчивости разностной схемы~\eqref{sch:transition_old},~\eqref{sch:borders}:
 \begin{equation}
-	\tau \leqslant \cfrac{1}{4m} \min \left( \cfrac{\delta^{5/3}}{\norm{\nabla \Phi}^2 \epsilon_0}, \cfrac{h^2}{\Gamma} \right).
+	\tau \leqslant \cfrac{1}{4m} \min \left( \cfrac{\delta^{5/3}}{|\nabla \Phi|^2 \epsilon_0}, \cfrac{h^2}{\Gamma} \right).
 	\label{cond:stability}
 \end{equation}
 Это неравенство получено применением для уравнения \eqref{eq:subtractive} спектрального признака устойчивости. Строго говоря, спектральный признак не дает достаточных условий устойчивости для нелинейных задач, однако на практике ее можно ожидать.
 
 Неравенство \eqref{cond:stability} с первым аргументом минимума эквивалентно соотношению
 \begin{equation}
-	m \tau \max\limits_{\phi \in [0, 1]} \left| F''(\phi) \right| \leqslant C,
+	m \tau \max\limits_{\phi \in [0, 1]} |F''(\phi)| \leqslant C,
 	\label{cond:stability_first}
 \end{equation}
 где $C \approx 1.1 / 2$ -- константа, выбранная, во-первых, для создания <<запаса>> в оценке, во-вторых, для удобства формульной записи. Существенно, что \linebreak $C \leqslant 1$.
 
 Основная идея подхода к адаптации, предлагаемого авторами в этом разделе, заключается в том, чтобы в неравенстве \eqref{cond:stability_first} заменить формальный максимум по $\phi \in [0, 1]$ на максимум по значениям сеточной функции $\phi_j^k$ на~текущем временном слое и, естественно, взять наибольшее возможное $\tau$. Таким образом получается следующая формула адаптивного шага по времени:
 \begin{equation}
-	\widetilde{\tau}_3^k = \cfrac{\tol_3}{m \cdot \max\limits_{j = 0}^M \left| F''(\phi_j^k) \right|}.
+	\widetilde{\tau}_3^k = \cfrac{\tol_3}{m \cdot \max\limits_{j = 0}^M |F''(\phi_j^k)|}.
 	\label{sch:time_step_stability_raw}
 \end{equation}
 Этот метод будем условно называть адаптацией по устойчивости.
@@ -32,7 +32,7 @@
 
 \subsection{Детали реализации метода}
 
-Будем считать, что значения параметров модели относятся к случаю, представляющему наибольший практический интерес, -- случаю <<сильного напряжения>> (см. \cite{ponomarev_stability}). Функция $F(\phi)$, заданная формулой \eqref{eq:allen_cahn_potential}, строго возрастает, имея на интервале $(0, 1)$ положительную производную. Так~как на~$(0, 1)$ выполнено $f' > 0$, $\epsilon' < 0$, то $(\Gamma / l^2) \cdot |f'| < (\norm{\nabla \Phi}^2 / 2) \cdot |\epsilon'|$. Более того, вблизи точки $0$ и вовсе верно $\epsilon \approx \epsilon_0 / \delta$, $\delta \ll 1$. Исходя из этих соображений, можно полуэмпирически заключить, что поведение функции $F(\phi)$ определяется главным образом поведением функции~$\epsilon(\phi)$.
+Будем считать, что значения параметров модели относятся к случаю, представляющему наибольший практический интерес, -- случаю <<сильного напряжения>> (см. \cite{ponomarev_stability}). Функция $F(\phi)$, заданная формулой \eqref{eq:allen_cahn_potential}, строго возрастает, имея на интервале $(0, 1)$ положительную производную. Так~как на~$(0, 1)$ выполнено $f' > 0$, $\epsilon' < 0$, то $(\Gamma / l^2) \cdot |f'| < (|\nabla \Phi|^2 / 2) \cdot |\epsilon'|$. Более того, вблизи точки $0$ и вовсе верно $\epsilon \approx \epsilon_0 / \delta$, $\delta \ll 1$. Исходя из этих соображений, можно полуэмпирически заключить, что поведение функции $F(\phi)$ определяется главным образом поведением функции~$\epsilon(\phi)$.
 
 В работе \cite{ponomarev_stability} проводится анализ функции $\epsilon(\phi)$ вблизи точки $\phi = 0$. Далее будет приведено определенное обобщение предыдущих результатов, полезное для~глубокого понимания вопроса.
 
@@ -46,7 +46,7 @@
 	\label{eq:epsilon_phi_phi}
 \end{gather}
 
-Рассмотрим замену переменной $\phi = z\delta^{1/3}$, $\phi \in [0, 1]$, $z \in [0, \delta^{-1/3}]$. Домножим на $\delta$ функцию $\epsilon(\phi)$, определяемую выражением \eqref{eq:epsilon}; получим
+Рассмотрим замену переменной $\phi = z\delta^{1/3}$, $\phi \in [0, 1]$, $z \in [0, \delta^{-1/3}]$. Домножим на $\delta$ функцию $\epsilon(\phi)$, определяемую выражением \eqref{eq:epsilon}. Получим
 \[
 	\cfrac{\delta \cdot \epsilon(z \delta^{1/3})}{\epsilon_0} = \cfrac{1}{4 z^3 - 3 z^4 \delta^{1/3} + 1}.
 \]
@@ -136,9 +136,9 @@
 \end{multline*}
 Поведение функции вблизи $0$ определяется слагаемым $-2 \cdot 12z$. Поменяем его знак и получим функцию
 \begin{gather}
-	\widetilde{G}(z) = \cfrac{12z (16 z^3 - 30 \delta^{1/3} z^4 + 15 \delta^{2/3} z^5 + 3z \delta^{1/3} + 2)}{(4 z^3 - 3 \delta^{1/3} z^4 + 1)^3};
+	\widetilde{G}(z) = \cfrac{12t (16 z^3 - 30 \delta^{1/3} z^4 + 15 \delta^{2/3} z^5 + 3z \delta^{1/3} + 2)}{(4 z^3 - 3 \delta^{1/3} z^4 + 1)^3};
 	\nonumber \\
-	G(\phi) = \cfrac{\norm{\nabla \Phi}^2 \epsilon_0}{2} \delta^{-5/3} \widetilde{G}(\delta^{-1/3} \phi) = \norm{\nabla \Phi}^2 \epsilon_0 \cfrac{6 \phi (16 \phi^3 - 30 \phi^4 + 15 \phi^5 + 3 \delta \phi + 2 \delta)}{(4 \phi^3 - 3 \phi^4 + \delta)^3}.
+	G(\phi) = \cfrac{|\nabla \Phi|^2 \epsilon_0}{2} \delta^{-5/3} \widetilde{G}(\delta^{-1/3} \phi) = |\nabla \Phi|^2 \epsilon_0 \cfrac{6 \phi (16 \phi^3 - 30 \phi^4 + 15 \phi^5 + 3 \delta \phi + 2 \delta)}{(4 \phi^3 - 3 \phi^4 + \delta)^3}.
 	\label{eq:stability_majorant}
 \end{gather}
 $G(\phi) \geqslant 0$ на $[0, 1]$. Имеем $G(x) = |G(x)| \geqslant |F''(\phi)|$.
