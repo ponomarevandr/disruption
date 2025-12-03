@@ -140,7 +140,7 @@ void Model::calculateEnergy() {
 		phi_x[i] = 0.5 * (phi[i + 1] - phi[i - 1]) / params.dx;
 	}
 	for (size_t i = 0; i <= params.x_grid; ++i) {
-		energy_density_electrical[i] = -0.5 * eps(i) * E * E;
+		energy_density_electrical[i] = 0.5 * eps(i) * E * E;
 		energy_density_border[i] = 0.25 * params.Gamma[i] * (phi_x[i] * phi_x[i]);
 		energy_density_inner[i] = params.Gamma[i] * (1.0 - f(phi[i])) / (params.l * params.l);
 	}
@@ -215,9 +215,5 @@ void Model::printValues(std::ostream& out) const {
 			out << ";";
 	}
 	out << ";" << energy_electrical << ";" << energy_border << ";" << energy_inner;
-	out << ";" << normUniform(phi_t);
-	out << ";" << std::abs(energy_total_t);
-	out << ";" << normUniform(instability_value);
-	out << ";" << dt_adaptive_phi << ";" << dt_adaptive_energy << ";" << dt_adaptive_stability;
 	out << "\n";
 }
