@@ -1,0 +1,68 @@
+%!TEX root = ../main.tex
+
+\section{Адаптации по фазовому полю и по энергии}
+
+\subsection{Формулировка методов}
+
+Рассмотрим первые два подхода к адаптации шага по времени, предложенные в статьях \cite{li_time_step} и \cite{zhang_time_step} соответственно. Введем их вместе из-за определенной общности:
+\begin{align}
+	\widetilde{\tau}_1^k & = \cfrac{\tol_1}{\left\| \left[ \partflt{\phi} \right]_h \right\|_C},
+	\label{sch:time_step_phi} \\
+	\widetilde{\tau}_2^k & = \cfrac{\tol_2}{\left| \left[ d \Pi / dt \right]_h \right|}.
+	\label{sch:time_step_energy}
+\end{align}
+Числовые константы $\tol_1$ и $\tol_2$ подбираются эмпирически. Здесь и далее символами $[\; \cdot \;]_h$ и $[\; \cdot \;]_j^k$ обозначаются сеточные функции, в большинстве случаев~-- разностные производные ($j$, $k$ -- индексы на сетке, целые либо полуцелые).
+
+В формуле \eqref{sch:time_step_phi} в качестве $[\partflt{\phi}]_h$ удобно использовать
+\[
+	\left[ \partt{\phi} \right]_j^{k + 1/2} = \cfrac{\phi_j^{k + 1} - \phi_j^k}{\tau^k}
+\]
+из левой части разностного уравнения \eqref{eq:subtractive}. Дополнительные вычисления \linebreak не потребуются, так как в расчете уже используется значение правой части уравнения \eqref{eq:subtractive}. Если такой подход неприменим (например, из-за проблем с синхронизацией параллельных вычислений), то можно использовать производную $[\partflt{\phi}]^{k - 1/2}$, сохраненную с предыдущего временного слоя.
+
+В формуле \eqref{sch:time_step_energy} в знаменателе находится модуль разностной производной полной энергии $\Pi(t)$. В силу вывода уравнений \eqref{eq:Phi},~\eqref{eq:phi} динамики системы, в~адекватном расчете $[d \Pi / dt]_h$ либо отрицательна, либо крайне мала по модулю (сеточный эффект колебания системы вблизи минимума $\Pi$).
+
+Плотность энергии $\pi$ вычисляется из уравнения \eqref{eq:energy_density}, для чего необходима разностная производная $[\partflx{\phi}]_h$. Предлагается использовать следующие формулы:
+\begin{gather*}
+	\allowdisplaybreaks
+	\pi_j^k = F(\phi_j^k) + \cfrac{\Gamma}{4} \left( \left[ \partx{\phi} \right]_j^k \right)^2, \qquad \left[ \partx{\phi} \right]_j^k = \begin{cases}
+		\cfrac{\phi_1^k - \phi_0^k}{h} & \text{при } j = 0; \\
+		\cfrac{\phi_{j + 1}^k - \phi_{j - 1}^k}{2 h} & \text{при } j = \overline{1, M - 1}; \\
+		\cfrac{\phi_M^k - \phi_{M - 1}^k}{h} & \text{при } j = M;
+	\end{cases} \\
+	\Pi^k = \cfrac{h \pi_0^k + h \pi_M^k}{2} + \sum\limits_{j = 1}^{M - 1} h \pi_j^k = h \cdot \left( \cfrac{\pi_0^k + \pi_M^k}{2} + \sum\limits_{j = 1}^{M - 1} \pi_j^k \right).
+\end{gather*}
+В формуле \eqref{sch:time_step_energy} будем использовать разностную производную энергии \linebreak с предыдущего временного слоя
+\[
+	\left[ \cfrac{d \Pi}{dt} \right]^{k - 1/2} = \cfrac{\Pi^k - \Pi^{k - 1}}{\tau^{k - 1}},
+\]
+положив $\tau_0 = \taumin$.
+
+Использование формулы \eqref{sch:time_step_phi} для расчета $\widetilde{\tau}^k$ будем условно называть адаптацией по фазовому полю, формулы \eqref{sch:time_step_energy} -- адаптацией по энергии.
+
+
+\subsection{Связь с нормированием приращения фазового поля}
+
+Общность описанных двух подходов заключается в следующем. Для адаптации по фазовому полю рассмотрим норму приращения $\phi^{k + 1} - \phi^k$:
+\[
+	\left\| \phi^{k + 1} - \phi^k \right\|_C = \tau_1^k \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C = \tol_1 \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C^{-1} \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C = \tol_1.
+\]
+Выходит нормирование приращения фазового поля (с оговоркой на ограничения через $\taumin$ и $\taumax$).
+
+В случае адаптации по энергии можно провести похожее рассуждение. Из~вывода уравнения \eqref{eq:phi} верно следующее равенство:
+\[
+	\cfrac{d \Pi}{dt} = -\cfrac{1}{m} \int\limits_{\Omega} \left( \partt{\phi} \right)^2 d \vx,
+\]
+что для сеточных функций дает
+\[
+	\left| \left[ \cfrac{d \Pi}{dt} \right]_h \right| \approx \cfrac{1}{m} \left\| \left[ \partt{\phi} \right]_h \right\|_2^2.
+\]
+Здесь $\enorm_2$ обозначена сеточная $L_2$-норма:
+\[
+	\norm{[\psi]_h}_2 = \sqrt{h \sum\limits_{j = 0}^M (\psi_j)^2}.
+\]
+Таким образом, при адаптации по~энергии
+\begin{multline*}
+	\left\| \phi^{k + 1} - \phi^k \right\|_2 = \tau_2^k \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_2 \approx \tol_2 \cdot m \left\| \left[ \partt{\phi} \right]^{k - 1/2} \right\|_2^{-2} \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_2 \approx \\ \approx \tol_2 \cdot m \cdot \left\| \left[ \partt{\phi} \right]_h \right\|_2^{-1}.
+\end{multline*}
+
+Авторы не стали отклоняться от предложенного в работе \cite{zhang_time_step} метода адаптации, однако из проделанных рассуждений получается, что из модуля производной энергии в формуле \eqref{sch:time_step_energy} логичнее было бы извлечь квадратный корень, чтобы выполнялось $\norm{\phi^{k + 1} - \phi^k}_2 \approx \tol_2 \cdot \sqrt{m}$.
