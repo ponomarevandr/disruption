@@ -1,14 +1,11 @@
 \documentclass[a4paper,12pt]{article}
 
-%%% Размер шрифта
-\usepackage[14pt]{extsizes}
-
 %%% Поля
 \usepackage[
-	left=2cm,
-	right=2cm,
+	left=3cm,
+	right=1.5cm,
 	top=2cm,
-	bottom=3cm,
+	bottom=2cm,
 	bindingoffset=0cm
 ]{geometry}
 
@@ -154,19 +151,18 @@
 %%% Описание препринта
 % Комментирование конца строки убирает паразитные пробелы
 \newcommand{\PreprintTitle}{%
-	Адаптация шага по времени в модели типа <<диффузной границы>> на основе уравнения Аллена--Кана%
-}
-\newcommand{\PreprintTitleFormatted}{%
-	Адаптация шага по времени \\ в модели типа <<диффузной границы>> \\ на основе уравнения Аллена--Кана%
+	Адаптация шага по времени в модели типа \\ <<диффузной границы>> на основе уравнения Аллена--Кана%
 }
 \newcommand{\PreprintTitleEnglish}{%
-	Time step adaptation in~a~diffuse interface model based on Allen--Cahn equation%
+	Time step adaptation in a diffuse interface model \\ based on Allen--Cahn equation%
 }
 \newcommand{\PreprintAuthors}{%
-	А.~С.~Пономарев, Е.~В.~Зипунова, А.~А.~Кулешов, Е.~Б.~Савенков%
+	А.~С.~Пономарев\textsuperscript{1}, Е.~В.~Зипунова\textsuperscript{1}, А.~А.~Кулешов\textsuperscript{1}, Е.~Б.~Савенков\textsuperscript{1} \\
+	\textsuperscript{1}ИПМ им. М. В. Келдыша РАН%
 }
 \newcommand{\PreprintAuthorsEnglish}{%
-	A.~S.~Ponomarev, E.~V.~Zipunova, A.~A.~Kuleshov, E.~B.~Savenkov%
+	A.~S.~Ponomarev\textsuperscript{1}, E.~V.~Zipunova\textsuperscript{1}, A.~A.~Kuleshov\textsuperscript{1}, E.~B.~Savenkov\textsuperscript{1} \\
+	\textsuperscript{1}Keldysh Institute of Applied Mathematics%
 }
 
 
@@ -175,56 +171,40 @@
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{titlepage}
 
-\begin{center}
-	РОССИЙСКАЯ АКАДЕМИЯ НАУК \\
-	ОРДЕНА ЛЕНИНА \\
-	ИНСТИТУТ ПРИКЛАДНОЙ МАТЕМАТИКИ \\
-	имени М. В. КЕЛДЫША \par
-
-	\vspace*{60mm}
-	{
-		\Large{\PreprintAuthors} \par
-	}
-	\vspace*{20mm}
-	{
-		\large \textbf{\PreprintTitleFormatted} \par
-	}
-	\vspace*{\fill}
-	\Large{Москва, 2025}
-	\vspace*{-15mm}
-\end{center}
-
-\end{titlepage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\setcounter{page}{2}
-
-\thispagestyle{empty}
-
-\noindent \emph{\PreprintAuthors,} \PreprintTitle \\[3mm]
-\textbf{Аннотация} \par
+{
+	\centering
+	{\large \textbf{\PreprintTitle} \par}
+	\vspace{2mm}
+	\PreprintAuthors \par
+	\vspace{2mm}
+}
 {
 	\noindent \small
 	В работе исследованы три различных подхода к адаптации шага по времени в модели развития канала электрического пробоя типа диффузной границы, включающей уравнение типа Аллена--Кана. Один из подходов предложен авторами настоящей работы, дано его теоретическое обоснование. Для всех трех алгоритмов адаптации проведены численные эксперименты; выявлен наиболее эффективный из них. \\
-	Исследованные методы адаптации универсальны – они могут использоваться и в других моделях типа диффузной границы, основанных на уравнении Аллена–Кана. \\[3mm]
-	\textbf{Ключевые слова:} модель типа диффузной границы, уравнение Аллена--Кана, адаптация шага по времени \par
+	Исследованные методы адаптации универсальны – они могут использоваться и в других моделях типа диффузной границы, основанных на уравнении Аллена–Кана. \\[2mm]
+	Ключевые слова: модель типа диффузной границы, уравнение Аллена--Кана, адаптация шага по времени \par
 	\vspace{5mm}
 }
+
 \begin{otherlanguage}{english}
-\noindent \emph{\PreprintAuthorsEnglish,} \PreprintTitleEnglish \\[3mm]
-\textbf{Abstract} \par
+{
+	\centering
+	{\large \textbf{\PreprintTitleEnglish} \par}
+	\vspace{1mm}
+	\PreprintAuthorsEnglish \par
+	\vspace{1mm}
+}
 {
 	\noindent \small
 	The subject of the present paper is a diffuse interface model describing the development of~electrical breakdown channel. The model includes Allen--Cahn equation. Three different adaptive time-stepping methods for the model are investigated. Among the methods there is a new one, proposed by the authors, with its theoretical base given. Computational experiments are performed for all the three adaptation algorithms; the most effective of them is exposed. \\
-	The analysed adaptation methods can also be applied in other diffuse interface models based on Allen--Cahn equation -- in~this regard, the methods are universal. \\[3mm]
-	\textbf{Key words and phrases:} diffuse interface model, Allen--Cahn equation, adaptive time-step\-ping method \par
-	\vspace{5mm}
+	The analysed adaptation methods can also be applied in other diffuse interface models based on Allen--Cahn equation -- in~this regard, the methods are universal. \\[2mm]
+	Key words and phrases: diffuse interface model, Allen--Cahn equation, adaptive time-stepping method \par
+	\vspace{2mm}
 }
 \end{otherlanguage}
 
-\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{sources/introduction}
 
