@@ -39,20 +39,30 @@
 
 
 \begin{frame}{Модель с измененными граничными условиями}
-	\[
-		\Div(\epsilon[\phi] \nabla \Phi) = 0
-	\]
-	\[
-		\cfrac{1}{m} \partt{\phi} = \half \epsilon'[\phi] \cdot \| \nabla \Phi \|^2 + \cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{\Gamma}{2} \Delta \phi
-	\]
-	\[
-		\Phi|_{y = 0} = -\Phi|_{y = H} = \Phi^+(t)
-	\]
-	\[
-		q^+ = \int\limits_{y = 0} \epsilon \cfrac{\partial \Phi}{\partial y} dS = \int\limits_{y = H} \epsilon \cfrac{\partial \Phi}{\partial y} dS
-	\]
-	\begin{itemize}
-		\item Потенциал на обкладках $\Phi^+(t) = -\Phi^-(t)$ есть функция времени
-		\item $q^+ = -q^-$ -- постоянный поверхностный заряд на обкладках
-	\end{itemize}
+\[
+	\Div(\epsilon[\phi] \nabla \Phi) = 0
+\]
+\[
+	\cfrac{1}{m} \partt{\phi} = \half \epsilon'[\phi] \cdot \| \nabla \Phi \|^2 + \cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{\Gamma}{2} \Delta \phi
+\]
+\[
+	\Phi|_{y = 0} = -\Phi|_{y = H} = \Phi^+(t)
+\]
+\[
+	q^+ = \int\limits_{y = 0} \epsilon \cfrac{\partial \Phi}{\partial y} dS = \int\limits_{y = H} \epsilon \cfrac{\partial \Phi}{\partial y} dS
+\]
+\begin{itemize}
+	\item Потенциал на обкладках $\Phi^+(t) = -\Phi^-(t)$ есть функция времени
+	\item $q^+ = -q^-$ -- постоянный поверхностный заряд на обкладках
+\end{itemize}
 \end{frame}
+
+
+{\nologo
+\begin{frame}{Модель с измененными граничными условиями}
+\vspace{-0.2cm}
+\begin{figure}
+	\includegraphics[width=0.82\textwidth]{figures/stationary_solution.png}
+\end{figure}
+\end{frame}
+}
