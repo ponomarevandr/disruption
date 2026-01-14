@@ -1,0 +1,58 @@
+%!TEX root = ../main.tex
+
+\section{Параллели с механикой}
+
+\begin{frame}{Связь с моделированием трещин}
+\begin{itemize}
+	\item Изучение статьи \cite{sargado_high_accuracy}
+\end{itemize}
+\vspace{0.5cm}
+\centering
+\begin{tabular}{|>{\centering\arraybackslash}m{7cm}|>{\centering\arraybackslash}m{7cm}|}
+	\hline
+	& \\[-3mm]
+	смещение $\vect{u}$ 										& электрический потенциал $\Phi$ \\[1mm]
+	\hline
+	& \\[-3mm]
+	деформация $\hat{\epsilon}$									& напряженность электрического поля $\vect{E}$ \\[1mm]
+	\hline
+	& \\[-3mm]
+	упругость (жёсткость) $\hat{C}$								& диэлектрическая проницаемость $\epsilon$ \\[1mm]
+	\hline
+	& \\[-3mm]
+	напряжение $\hat{\sigma} = \hat{C} : \hat{\epsilon}$	& электрическая индукция $\vect{D} = \epsilon \vect{E}$ \\[1mm]
+	\hline
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}{Связь с моделированием трещин}
+\begin{itemize}
+	\item Рост канала электрического пробоя соответствует не разрушению, а отвердеванию:
+	\[
+		\epsilon(\phi = 0) \gg \epsilon(\phi = 1), \qquad \hat{C}(\phi = 0) \ll \hat{C}(\phi = 1).
+	\]
+	\item Задача разрушения: граничные условия на смещение / электрический потенциал,\\
+	задача отвердевания: граничные условия на напряжение / электрическую индукцию.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Модель с измененными граничными условиями}
+	\[
+		\Div(\epsilon[\phi] \nabla \Phi) = 0
+	\]
+	\[
+		\cfrac{1}{m} \partt{\phi} = \half \epsilon'[\phi] \cdot \| \nabla \Phi \|^2 + \cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{\Gamma}{2} \Delta \phi
+	\]
+	\[
+		\Phi|_{y = 0} = -\Phi|_{y = H} = \Phi^+(t)
+	\]
+	\[
+		q^+ = \int\limits_{y = 0} \epsilon \cfrac{\partial \Phi}{\partial y} dS = \int\limits_{y = H} \epsilon \cfrac{\partial \Phi}{\partial y} dS
+	\]
+	\begin{itemize}
+		\item Потенциал на обкладках $\Phi^+(t) = -\Phi^-(t)$ есть функция времени
+		\item $q^+ = -q^-$ -- постоянный поверхностный заряд на обкладках
+	\end{itemize}
+\end{frame}
