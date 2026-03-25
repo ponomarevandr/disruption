@@ -31,7 +31,7 @@
 	\item Плотность свободной энергии Гельмгольца
 	\vspace{-0.2cm}
 	\[
-		\pi = F( \phi; \| \nabla \Phi \|) + \cfrac{\Gamma}{4} \| \nabla \phi \|_2^2 + \cfrac{\beta}{4} \Gamma l^2 \| \nabla \phi \|_2^4
+		\pi = F(\phi; \| \nabla \Phi \|) + \cfrac{\Gamma}{4} \| \nabla \phi \|_2^2 + \cfrac{\beta}{4} \Gamma l^2 \| \nabla \phi \|_2^4
 	\]
 	\item $m$, $\Gamma$, $l$ -- параметры модели, константы
 \end{itemize}
@@ -47,11 +47,13 @@
 	\end{alignedat} \\[2mm]
 	f(\phi) = 4 \phi^3 - 3 \phi^4
 \end{gather*}
-\vspace{-3mm}
+\vspace{-6mm}
 \begin{itemize}
 	\item $\delta$ -- регуляризующий параметр
 	\item $f(\phi)$ -- интерполирующая функция
 \end{itemize}
+\vspace{1mm}
+\parind Модель описана в \cite{zipunova_computational} на основе \cite{pitike_dielectric_breakdown}
 \end{frame}
 
 
@@ -63,6 +65,7 @@
 	\item $\left[ \partt{\rho} \right]_h = \Div_h \left( \sigma[\phi] \nabla_h \hat{\Phi} \right)$
 	\item $\hat{\phi} = \phi + \tau \cdot \left[ \partt{\phi} \right]_h; \qquad \hat{\rho}_E = \rho_E + \tau \cdot \left[ \partt{\rho} \right]_h$
 \end{enumerate}
+\parind $\Pi = \sum h^3 \cdot \left( F(\phi; \| \nabla_h \Phi \|) + \cfrac{\Gamma}{4} \| \nabla_h \phi \|_2^2 + \cfrac{\beta}{4} \Gamma l^2 \| \nabla_h \phi \|_2^4 \right)$
 \end{frame}
 
 
@@ -76,7 +79,7 @@
 \end{minipage}
 \end{center}
 \vspace{3mm}
-\hspace{8mm} Требования к алгоритму адаптации:
+\parind Требования к алгоритму адаптации:
 \begin{itemize}
 	\item Простота реализации
 	\item Малый объем дополнительных вычислений

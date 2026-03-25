@@ -69,6 +69,16 @@
 \newcommand{\bigO}{{\mathcal{O}}}
 \newcommand{\clOmega}{{\overline{\Omega}}}
 
+\newcommand{\taumin}{{\tau_{\min}}}
+\newcommand{\taumax}{{\tau_{\max}}}
+
+\newcommand{\parind}{\hspace{7.5mm}}
+\newcommand{\tabularitem}[2]{%
+\begin{itemize}
+	\begin{minipage}[c][#1]{\hsize} \item #2 \end{minipage}
+\end{itemize}%
+}
+
 \newcommand{\nologo}{\setbeamertemplate{logo}{}}
 
 
@@ -112,10 +122,10 @@
 
 
 \input{sources/problem_setting}
-{}
-\input{sources/time_step_adaptation}
 
-\input{sources/mechanics_parallels.tex}
+\input{sources/adaptation_method}
+
+\input{sources/computational_experiment}
 
 
 \begin{frame}{Литература}

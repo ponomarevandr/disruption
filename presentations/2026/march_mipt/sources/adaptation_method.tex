@@ -1,0 +1,17 @@
+%!TEX root = ../main.tex
+
+\section{Метод адаптации}
+
+\begin{frame}{Адаптация по фазовому полю}
+\begin{block}{Формула расчета адаптивного шага}
+	\[
+		\tau^k = \max \left[ \taumin, \min \left( \taumax, \cfrac{\Tol}{\left\| [\partflt{\phi}]_h \right\|_C} \right) \right]
+	\]
+\end{block}
+\vspace{3mm}
+\parind Идея метода:
+\[
+	\| \hat{\phi} - \phi \|_C = \tau^k \cdot \left\| \left[ \partt{\phi} \right]_h \right\|_C = \cfrac{\Tol}{\left\| [\partflt{\phi}]_h \right\|_C} \cdot \left\| \left[ \partt{\phi} \right]_h \right\|_C \approx \Tol
+\]
+\parind Предложен в статье \cite{li_time_step}
+\end{frame}
