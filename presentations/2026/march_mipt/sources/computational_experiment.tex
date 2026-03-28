@@ -24,10 +24,10 @@
 	\subfloat[Перед пробоем <<насквозь>>]{\frame{\includegraphics[width=0.333\textwidth]{figures/result_needle_2.png}}}
 \end{figure}
 \vspace{-7mm}
-\begin{minipage}[l]{0.66\textwidth}
+\begin{minipage}[l]{0.93\textwidth}
 \begin{align*}
-	N_h &= 129 & T &\approx 7 \cdot 10^{-7} & \taumin &= 10^{-12} \\
-	N_t &= 51000 & \Tol &= 10^{-2} & \taumax &= 10^{-7}
+	N_h &= 129 & T &\approx 7 \cdot 10^{-7} & \taumin &= 10^{-12} & 56 \text{ MPI-процессов} \\
+	N_t &= 51000 & \Tol &= 10^{-2} & \taumax &= 10^{-7} &
 \end{align*}
 \end{minipage}
 \end{frame}
@@ -52,10 +52,10 @@
 	\subfloat[Пробой <<насквозь>>]{\frame{\includegraphics[width=0.333\textwidth]{figures/result_disturbance_3.png}}}
 \end{figure}
 \vspace{-7mm}
-\begin{minipage}[l]{0.66\textwidth}
+\begin{minipage}[l]{0.93\textwidth}
 \begin{align*}
-	N_h &= 129 & T &\approx 1.7 \cdot 10^{-6} & \taumin &= 10^{-12} \\
-	N_t &= 22000 & \Tol &= 10^{-2} & \taumax &= 10^{-7}
+	N_h &= 129 & T &\approx 1.7 \cdot 10^{-6} & \taumin &= 10^{-12} & 56 \text{ MPI-процессов} \\
+	N_t &= 22000 & \Tol &= 10^{-2} & \taumax &= 10^{-7} &
 \end{align*}
 \end{minipage}
 \end{frame}
@@ -88,9 +88,9 @@
 	&& \\[-1.5mm]
 	\hline
 	&& \\[-3mm]
-	<<иголка>>				& $6.67$		& $> 24$	\\[1mm]
+	<<иголка>>				& $6.67$		& $> 32$	\\[1mm]
 	&& \\[-3mm]
-	случайные возмущения	& $5.09$		& $> 18$	\\[1mm]
+	случайные возмущения	& $5.09$		& $> 25$	\\[1mm]
 	\hline
 \end{tabular}
 \end{center}
