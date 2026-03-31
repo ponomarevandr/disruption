@@ -1,0 +1,47 @@
+%!TEX root = ../main.tex
+
+\section{Метод адаптации}
+
+\begin{frame}{Адаптация по фазовому полю}
+\begin{block}{Формула расчета адаптивного шага}
+	\[
+		\tau^k = \max \left[ \taumin, \min \left( \taumax, \cfrac{\Tol}{\left\| [\partflt{\phi}]_h \right\|_C} \right) \right]
+	\]
+\end{block}
+\vspace{3mm}
+\parind Идея метода:
+\[
+	\| \hat{\phi} - \phi \|_C = \tau^k \cdot \left\| \left[ \partt{\phi} \right]_h \right\|_C = \cfrac{\Tol}{\left\| [\partflt{\phi}]_h \right\|_C} \cdot \left\| \left[ \partt{\phi} \right]_h \right\|_C \approx \Tol
+\]
+\parind Предложен в статье \cite{li_time_step}
+\end{frame}
+
+
+\begin{frame}{Адаптация по фазовому полю}
+\begin{columns}
+\column{0.65\textwidth}
+	\vspace{-12mm}
+	\begin{figure}
+		\hspace*{-2mm}
+		\includegraphics[width=1.05\textwidth]{figures/solution_basic.png}
+	\end{figure}
+\column{0.35\textwidth}
+	\vspace{10mm}
+	\begin{itemize}
+		\setlength\itemsep{3mm}
+		\item Работа метода проверена в~программе для одно- мерного случая задачи
+		\item В модельном расчете -- ускорение около $64$ раз
+	\end{itemize}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Создаваемая программа}
+\large
+\begin{itemize}
+	\setlength\itemsep{3mm}
+	\item Программа для моделирования полной, трехмерной, постановки задачи
+	\item Использование параллельных вычислений \linebreak (MPI, в дальнейшем поддержка CUDA)
+	\item Решение СЛАУ многосеточным методом
+\end{itemize}
+\end{frame}

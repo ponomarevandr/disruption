@@ -1,0 +1,117 @@
+%!TEX root = ../main.tex
+
+\section{Постановка задачи}
+
+\begin{frame}{Физика процесса}
+\begin{block}{Электрический пробой}
+	Явление резкого возрастания тока в диэлектрике при приложении электрического напряжения выше критического.
+\end{block}
+\begin{itemize}
+	\item Может возникать в стационарных/переменных/импульсных полях
+	\item В ряде случаев связан с образованием тонкого проводящего канала
+	\item Может приводить к развитию необратимых повреждений в материале
+	\item В твердых телах -- наиболее сложный комплекс механизмов, богатая физика
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Математическая модель}
+\begin{block}{Модель типа диффузной границы}
+	Вещество находится в разных фазах. Состояние вещества описывается гладкой функцией $\phi(\vx, t)$ -- фазовым полем.
+\end{block}
+\begin{itemize}
+	\item Фазы: $\phi = 1$ -- неповрежденная среда, $\phi = 0$ -- полностью разрушенная
+	\item Зона $\phi \in (0, 1)$ -- диффузная граница
+	\item На разрушение среды тратится энергия
+	\item Возможно учесть произвольную геометрию раздела фаз
+\end{itemize}
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{figures/diffuse_edge.jpg}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Математическая модель}
+%\vspace{-0.3cm}
+\begin{block}{Уравнения динамики системы}
+	\vspace{-2mm}
+	\begin{gather*}
+		\Div(\epsilon[\phi] \nabla \Phi) = -\rho_E \\
+		\partt{\rho_E} = \Div(\sigma[\phi] \nabla \Phi) \\
+		\cfrac{1}{m} \partt{\phi} = -F'( \phi; \| \nabla \Phi \|) + \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left( \| \nabla \phi \|_2^2 \nabla \phi \right)
+	\end{gather*}
+	\vspace{-4mm}
+\end{block}
+\begin{itemize}
+	\item Плотность свободной энергии Гельмгольца
+	\vspace{-0.2cm}
+	\[
+		\pi = F(\phi; \| \nabla \Phi \|) + \cfrac{\Gamma}{4} \| \nabla \phi \|_2^2 + \cfrac{\beta}{4} \Gamma l^2 \| \nabla \phi \|_2^4
+	\]
+	\item $m$, $\Gamma$, $l$, $\beta$ -- параметры модели, константы
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Математическая модель}
+\vspace{-3mm}
+\begin{gather*}
+	F(\phi; \| \nabla \Phi \|) = -\half \epsilon[\phi] \cdot \| \nabla \Phi \|_2^2 + \Gamma \cfrac{1 - f(\phi)}{l^2} \\
+	\begin{alignedat}{3}
+		\epsilon[\phi] &= \epsilon(\vx, t) &&= \cfrac{\epsilon_0(\vx)}{f(\phi(\vx, t)) + \delta} \\
+		\sigma[\phi] &= \sigma(\vx, t) &&= \cfrac{\sigma_0(\vx)}{f(\phi(\vx, t)) + \delta}
+	\end{alignedat} \\[2mm]
+	f(\phi) = 4 \phi^3 - 3 \phi^4
+\end{gather*}
+\vspace{-6mm}
+\begin{itemize}
+	\item $\delta$ -- регуляризующий параметр
+	\item $f(\phi)$ -- интерполирующая функция
+\end{itemize}
+\vspace{1mm}
+\parind Модель описана в \cite{zipunova_computational} на основе \cite{pitike_dielectric_breakdown}
+\end{frame}
+
+
+\begin{frame}{Разностная схема}
+\vspace{-3mm}
+\begin{enumerate}
+	\item $\; \Div_h \left( \epsilon[\phi] \nabla_h \hat{\Phi} \right) = - \rho_E \quad \leadsto \quad \hat{\Phi}$
+	\item $\left[ \partt{\phi} \right]_h = m \cdot \left( -F'( \phi; \| \nabla_h \hat{\Phi} \|) + \cfrac{\Gamma}{2} \Delta_h \phi + \beta \Gamma l^2 \Div_h \left( \| \nabla_h \phi \|_2^2 \nabla_h \phi \right) \right)$
+	\item $\left[ \partt{\rho} \right]_h = \Div_h \left( \sigma[\phi] \nabla_h \hat{\Phi} \right)$
+	\item $\hat{\phi} = \phi + \tau \cdot \left[ \partt{\phi} \right]_h; \qquad \hat{\rho}_E = \rho_E + \tau \cdot \left[ \partt{\rho} \right]_h$
+\end{enumerate}
+\vspace{2mm}
+\parind $\Pi = \sum h^3 \cdot \left( F(\phi; \| \nabla_h \Phi \|) + \cfrac{\Gamma}{4} \| \nabla_h \phi \|_2^2 + \cfrac{\beta}{4} \Gamma l^2 \| \nabla_h \phi \|_2^4 \right)$
+\end{frame}
+
+
+\begin{frame}{Проблемы}
+\large
+\begin{itemize}
+	\setlength\itemsep{3mm}
+	\item Нелинейная модель
+	\item Сложная динамика с различным временным масштабом процессов
+	\item Необходимость решать СЛАУ на каждом шаге
+	\item Значительные ограничения на шаг по времени из-за параболичности оператора и нелинейности
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Цель работы}
+\large
+\vspace{-3mm}
+\begin{center}
+\begin{minipage}{0.95\textwidth}
+\begin{block}{\Large Цель работы \par}
+	Исследовать применение адаптивного шага по времени при расчете задачи в~полной, трехмерной, постановке
+\end{block}
+\end{minipage}
+\end{center}
+\vspace{3mm}
+\parind Требования к алгоритму адаптации:
+\begin{itemize}
+	\item Простота реализации
+	\item Малый объем дополнительных вычислений
+\end{itemize}
+\end{frame}

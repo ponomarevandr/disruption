@@ -41,6 +41,7 @@
 %%% Рисунки
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage[inkscapepath=build/svg-inkscape]{svg}
 
 %%% Точка в подписях к рисункам
 \usepackage[labelsep=period]{caption}
@@ -53,13 +54,17 @@
 	sorting = none,
 	backend = biber,
 	language = autobib,
-	autolang = other
+	autolang = other,
+	url = false
 ]{biblatex}
 \addbibresource{references.bib}
 
 %%% Исправление символа номера при использовании gost-numeric.bbx
 \usepackage{textcomp}
 \DefineBibliographyStrings{russian}{number={\textnumero}}
+
+%%% Прямой символ интеграла
+\usepackage[integrals]{wasysym}
 
 %%% Гиперссылки
 \usepackage[pdftex,unicode]{hyperref}
@@ -76,6 +81,10 @@
 \newcommand{\vx}{{\vect{x}}}
 \newcommand{\vn}{{\vect{n}}}
 
+\newcommand{\taumin}{{\tau_\text{min}}}
+\newcommand{\taumax}{{\tau_\text{max}}}
+\newcommand{\tol}{{\text{tol}}}
+
 \newcommand{\half}{\cfrac{1}{2}}
 
 \newcommand{\partt}[1]{\cfrac{\partial #1}{\partial t}}
@@ -88,9 +97,6 @@
 \newcommand{\partflxx}[1]{\partial^2 #1 / \partial x^2}
 \newcommand{\partflvn}[1]{\partial #1 / \partial \vn}
 
-\newcommand{\gradsq}[1]{(\nabla #1, \nabla #1)}
-
-\newcommand{\difftau}[1]{\cfrac{{#1}_j^{k + 1} - {#1}_j^k}{\tau}}
 \newcommand{\diffhh}[1]{\cfrac{{#1}_{j + 1}^k - 2 {#1}_j^k + {#1}_{j - 1}^k}{h^2}}
 
 \newcommand{\Natural}{{\mathbb{N}}}
@@ -98,22 +104,21 @@
 \newcommand{\bigO}{{\mathcal{O}}}
 \newcommand{\clOmega}{{\overline{\Omega}}}
 
-\newcommand{\norm}[1]{\| \, #1 \, \|}
+\newcommand{\norm}[1]{\| #1 \|}
 \newcommand{\enorm}{{\| \cdot \|}}
 
-\newcommand{\forcehyphenation}{-\linebreak}
+\newcommand{\unitm}{{\text{м}}}
+\newcommand{\units}{{\text{с}}}
+\newcommand{\unitJ}{{\text{Дж}}}
+\newcommand{\unitC}{{\text{Кл}}}
+\newcommand{\unitV}{{\text{В}}}
+\newcommand{\unitF}{{\text{Ф}}}
 
-\newcommand{\multeqstart}{
-	\begingroup
-	\setlength{\abovedisplayshortskip}{\the\abovedisplayskip}
-	\setlength{\belowdisplayshortskip}{\the\belowdisplayskip}
+\DeclareRobustCommand{\divby}{%
+ 	\mathrel{\vbox{\baselineskip.65ex\lineskiplimit0pt\hbox{.}\hbox{.}\hbox{.}}}%
 }
-\newcommand{\multeqnext}{
-	\vspace{-7mm}
-}
-\newcommand{\multeqfinish}{
-	\endgroup
-}
+
+\newcommand{\forcehyphenation}{-\linebreak}
 
 \newcommand{\absent}[1]{[...#1...]}
 
@@ -121,6 +126,7 @@
 %%% Свои операторы
 \DeclareMathOperator{\Div}{{div}}
 \DeclareMathOperator{\Int}{{Int}}
+\DeclareMathOperator*{\argmin}{{argmin}}
 
 
 %%% Оформление теорем
@@ -148,19 +154,19 @@
 %%% Описание препринта
 % Комментирование конца строки убирает паразитные пробелы
 \newcommand{\PreprintTitle}{%
-	Адаптация шага по времени в модели типа <<диффузной границы>>, содержащей уравнение Аллена--Кана%
+	Адаптация шага по времени в модели типа <<диффузной границы>> на основе уравнения Аллена--Кана%
 }
 \newcommand{\PreprintTitleFormatted}{%
-	Адаптация шага по времени \\ в модели типа <<диффузной границы>>, \\ содержащей уравнение Аллена--Кана%
+	Адаптация шага по времени \\ в модели типа <<диффузной границы>> \\ на основе уравнения Аллена--Кана%
 }
-\newcommand{\PreprintTitleEnglish}{
-	Time step adaptation in a diffuse interface model including an Allen--Cahn equation%
+\newcommand{\PreprintTitleEnglish}{%
+	Time step adaptation in~a~diffuse interface model based on Allen--Cahn equation%
 }
 \newcommand{\PreprintAuthors}{%
-	А.~С.~Пономарев, Е.~В.~Зипунова, Е.~Б.~Савенков%
+	А.~С.~Пономарев, Е.~В.~Зипунова, А.~А.~Кулешов, Е.~Б.~Савенков%
 }
 \newcommand{\PreprintAuthorsEnglish}{%
-	A.~S.~Ponomarev, E.~V.~Zipunova, E.~B.~Savenkov%
+	A.~S.~Ponomarev, E.~V.~Zipunova, A.~A.~Kuleshov, E.~B.~Savenkov%
 }
 
 
@@ -201,8 +207,8 @@
 \textbf{Аннотация} \par
 {
 	\noindent \small
-	В работе исследованы три различных подхода к адаптации шага по времени в модели развития канала электрического пробоя типа диффузной границы. Один из подходов предложен авторами настоящей работы, дано его теоретическое обоснование. Для всех трех алгоритмов адаптации проведены численные эксперименты; выявлен наиболее эффективный из них. \\
-	Исследованные алгоритмы адаптации универсальны – они могут использоваться и в других моделях типа диффузной границы с уравнением Аллена–Кана. \\[3mm]
+	В работе исследованы три различных подхода к адаптации шага по времени в модели развития канала электрического пробоя типа диффузной границы, включающей уравнение типа Аллена--Кана. Один из подходов предложен авторами настоящей работы, дано его теоретическое обоснование. Для всех трех алгоритмов адаптации проведены численные эксперименты; выявлен наиболее эффективный из них. \\
+	Исследованные методы адаптации универсальны – они могут использоваться и в других моделях типа диффузной границы, основанных на уравнении Аллена–Кана. \\[3mm]
 	\textbf{Ключевые слова:} модель типа диффузной границы, уравнение Аллена--Кана, адаптация шага по времени \par
 	\vspace{5mm}
 }
@@ -211,7 +217,8 @@
 \textbf{Abstract} \par
 {
 	\noindent \small
-	\absent{Annotaceaya rabotea na angliyskom} \\[3mm]
+	The subject of the present paper is a diffuse interface model describing the development of~electrical breakdown channel. The model includes Allen--Cahn equation. Three different adaptive time-stepping methods for the model are investigated. Among the methods there is a new one, proposed by the authors, with its theoretical base given. Computational experiments are performed for all the three adaptation algorithms; the most effective of them is exposed. \\
+	The analysed adaptation methods can also be applied in other diffuse interface models based on Allen--Cahn equation -- in~this regard, the methods are universal. \\[3mm]
 	\textbf{Key words and phrases:} diffuse interface model, Allen--Cahn equation, adaptive time-step\-ping method \par
 	\vspace{5mm}
 }
@@ -223,11 +230,15 @@
 
 \input{sources/mathematical_model}
 
-\input{sources/differential_scheme}
+\input{sources/difference_scheme}
 
 \input{sources/phase_field_and_energy_adaptations}
 
 \input{sources/stability_adaptation}
+
+\input{sources/computational_experiment}
+
+\input{sources/conclusion}
 
 \clearpage
 \printbibliography[

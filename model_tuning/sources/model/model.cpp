@@ -128,7 +128,10 @@ double Model::instabilityFunction(size_t i) const {
 	) / (
 		(f_value + params.delta) * (f_value + params.delta) * (f_value + params.delta)
 	);
-	return 0.5 * params.m * params.Phi_gradient * params.Phi_gradient * eps_phi_phi_majorant;
+	return params.m * (
+		0.5 * params.Phi_gradient * params.Phi_gradient * eps_phi_phi_majorant +
+		12.0 * params.Gamma[i] / (params.l * params.l)
+	);
 }
 
 void Model::iterationDerivatives() {

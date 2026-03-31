@@ -1,0 +1,235 @@
+\documentclass[a4paper,12pt]{article}
+
+%%% Поля
+\usepackage[
+	left=3cm,
+	right=1.5cm,
+	top=2cm,
+	bottom=2cm,
+	bindingoffset=0cm
+]{geometry}
+
+%%% Работа с русским языком
+\usepackage{cmap}						% поиск в PDF
+\usepackage{mathtext}					% русские буквы в формулах
+\usepackage[T2A]{fontenc}				% кодировка
+\usepackage[utf8]{inputenc}				% кодировка исходного текста
+\usepackage[english,russian]{babel}		% локализация и переносы
+\usepackage{indentfirst}
+\frenchspacing
+
+%%% Дополнительная работа с математикой
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools}  % AMS
+
+%%% Текст в колонки
+\usepackage{multicol}
+
+%%% Списки
+\usepackage{enumitem}
+\setlist{nosep, leftmargin=*}
+\renewcommand{\labelenumi}{\arabic*)}
+
+%%% Системы уравнений
+\usepackage{cases}
+
+%%% Таблицы
+\usepackage{array}
+
+%%% Рисунки
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[inkscapepath=build/svg-inkscape]{svg}
+
+%%% Точка в подписях к рисункам
+\usepackage[labelsep=period]{caption}
+
+%%% Список литературы
+\bibliographystyle{bibliography_style/gost-numeric.bbx}
+\usepackage[
+	natbib = true,
+	style = gost-numeric,
+	sorting = none,
+	backend = biber,
+	language = autobib,
+	autolang = other,
+	url = false
+]{biblatex}
+\addbibresource{references.bib}
+
+%%% Исправление символа номера при использовании gost-numeric.bbx
+\usepackage{textcomp}
+\DefineBibliographyStrings{russian}{number={\textnumero}}
+
+%%% Прямой символ интеграла
+\usepackage[integrals]{wasysym}
+
+%%% Гиперссылки
+\usepackage[pdftex,unicode]{hyperref}
+
+%%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}{\hbox{$\mathsurround=0pt #1$}}{}}
+
+
+%%% Свои команды
+
+\newcommand*{\No}{\textnumero}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\vx}{{\vect{x}}}
+\newcommand{\vn}{{\vect{n}}}
+
+\newcommand{\taumin}{{\tau_\text{min}}}
+\newcommand{\taumax}{{\tau_\text{max}}}
+\newcommand{\tol}{{\text{tol}}}
+
+\newcommand{\half}{\cfrac{1}{2}}
+
+\newcommand{\partt}[1]{\cfrac{\partial #1}{\partial t}}
+\newcommand{\partx}[1]{\cfrac{\partial #1}{\partial x}}
+\newcommand{\partxx}[1]{\cfrac{\partial^2 #1}{\partial x^2}}
+\newcommand{\partvn}[1]{\cfrac{\partial #1}{\partial \vn}}
+
+\newcommand{\partflt}[1]{\partial #1 / \partial t}
+\newcommand{\partflx}[1]{\partial #1 / \partial x}
+\newcommand{\partflxx}[1]{\partial^2 #1 / \partial x^2}
+\newcommand{\partflvn}[1]{\partial #1 / \partial \vn}
+
+\newcommand{\diffhh}[1]{\cfrac{{#1}_{j + 1}^k - 2 {#1}_j^k + {#1}_{j - 1}^k}{h^2}}
+
+\newcommand{\Natural}{{\mathbb{N}}}
+\newcommand{\Real}{{\mathbb{R}}}
+\newcommand{\bigO}{{\mathcal{O}}}
+\newcommand{\clOmega}{{\overline{\Omega}}}
+
+\newcommand{\norm}[1]{\| #1 \|}
+\newcommand{\enorm}{{\| \cdot \|}}
+
+\newcommand{\unitm}{{\text{м}}}
+\newcommand{\units}{{\text{с}}}
+\newcommand{\unitJ}{{\text{Дж}}}
+\newcommand{\unitC}{{\text{Кл}}}
+\newcommand{\unitV}{{\text{В}}}
+\newcommand{\unitF}{{\text{Ф}}}
+
+\DeclareRobustCommand{\divby}{%
+ 	\mathrel{\vbox{\baselineskip.65ex\lineskiplimit0pt\hbox{.}\hbox{.}\hbox{.}}}%
+}
+
+\newcommand{\forcehyphenation}{-\linebreak}
+
+\newcommand{\absent}[1]{[...#1...]}
+
+
+%%% Свои операторы
+\DeclareMathOperator{\Div}{{div}}
+\DeclareMathOperator{\Int}{{Int}}
+\DeclareMathOperator*{\argmin}{{argmin}}
+
+
+%%% Оформление теорем
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}
+\newtheorem{proposition}{Утверждение}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Замечание}
+
+
+%%% Пояснение к меткам
+% eq	-- equation
+% cond	-- condition
+% char	-- characteristic
+% sch	-- scheme
+% est	-- estimation
+% exp	-- experiment
+% fig	-- figure
+% tab	-- table
+% sec	-- section
+
+
+%%% Описание препринта
+% Комментирование конца строки убирает паразитные пробелы
+\newcommand{\PreprintTitle}{%
+	Адаптация шага по времени в модели типа \\ <<диффузной границы>> на основе уравнения Аллена--Кана%
+}
+\newcommand{\PreprintTitleEnglish}{%
+	Time step adaptation in a diffuse interface model \\ based on Allen--Cahn equation%
+}
+\newcommand{\PreprintAuthors}{%
+	А.~С.~Пономарев\textsuperscript{1}, Е.~В.~Зипунова\textsuperscript{1}, А.~А.~Кулешов\textsuperscript{1}, Е.~Б.~Савенков\textsuperscript{1} \\
+	\textsuperscript{1}ИПМ им. М. В. Келдыша РАН%
+}
+\newcommand{\PreprintAuthorsEnglish}{%
+	A.~S.~Ponomarev\textsuperscript{1}, E.~V.~Zipunova\textsuperscript{1}, A.~A.~Kuleshov\textsuperscript{1}, E.~B.~Savenkov\textsuperscript{1} \\
+	\textsuperscript{1}Keldysh Institute of Applied Mathematics%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{
+	\centering
+	{\large \textbf{\PreprintTitle} \par}
+	\vspace{2mm}
+	\PreprintAuthors \par
+	\vspace{2mm}
+}
+{
+	\noindent \small
+	Предмет исследования работы -- модель развития канала электрического пробоя типа диффузной границы, основанная на уравнении типа Аллена--Кана. Дано краткое описание модели, приведена используемая авторами явная разностная схема. Временные масштабы процессов в моделируемой системе существенно различаются, поэтому закономерно использование адаптации расчетного шага по времени. \\
+	В работе исследованы три различных метода адаптации шага по времени в указанной модели. Для двух методов, предложенных ранее в близких по тематике статьях других авторов, проведен теоретический анализ, выявлена определенная их общность. Третий метод предложен авторами настоящей работы, дано его теоретическое обоснование, приведены детали реализации. Для всех трех алгоритмов адаптации выполнены численные эксперименты в модели с определенными упрощающими допущениями. Получены ошибки решения для различных величин ускорения расчета; выявлен наиболее эффективный из рассмотренных алгоритмов. В результате удалось добиться существенного ускорения расчета при приемлемой величине ошибки, используя метод, простой с точки зрения реализации и с малыми вычислительными затратами. \\
+	Исследованные методы адаптации шага по времени универсальны – они могут использоваться и в других моделях типа диффузной границы, основанных на уравнении Аллена–Кана. \\[2mm]
+	Ключевые слова: модель типа диффузной границы, уравнение Аллена--Кана, адаптация шага по времени \par
+	\vspace{5mm}
+}
+
+\begin{otherlanguage}{english}
+{
+	\centering
+	{\large \textbf{\PreprintTitleEnglish} \par}
+	\vspace{1mm}
+	\PreprintAuthorsEnglish \par
+	\vspace{1mm}
+}
+{
+	\noindent \small
+	The subject of the present paper is a diffuse interface model describing the development of an electrical breakdown channel. The model is based on the Allen--Cahn equation. A brief description of the model is given; the explicit finite difference scheme used is stated. Time scales of processes in the system vary significantly, thus the use of a calculation time step adaptation is appropriate. \\
+	Three different adaptive time-stepping methods for the model are investigated. Two of them are previously proposed in articles on similar themes by other authors. For these methods, theoretical analysis is performed and a certain community is identified. The third method is a new one proposed by the authors, with its theoretical base and implementation details given. Computational experiments are performed for all the three adaptation algorithms, with some simplifying assumptions in the model. Solution errors are obtained for various acceleration values of the calculations. The most effective of the considered methods is exposed. As a result, a significant boost of the calculations with acceptable error values is achieved, using a method that is simple in terms of implementation and with low computational costs. \\
+	The analysed adaptation methods can also be applied in other diffuse interface models based on Allen--Cahn equation -- in~this regard, the methods are universal. \\[2mm]
+	Key words and phrases: diffuse interface model, Allen--Cahn equation, adaptive time-stepping method \par
+	\vspace{2mm}
+}
+\end{otherlanguage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{sources/introduction}
+
+\input{sources/mathematical_model}
+
+\input{sources/difference_scheme}
+
+\input{sources/phase_field_and_energy_adaptations}
+
+\input{sources/stability_adaptation}
+
+\input{sources/computational_experiment}
+
+\input{sources/conclusion}
+
+\clearpage
+\printbibliography[
+	heading=bibintoc
+]
+
+\clearpage
+\tableofcontents
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
