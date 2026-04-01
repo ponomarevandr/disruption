@@ -8,8 +8,6 @@ class Model:
 		self._df_phi = None
 
 	def from_file(self, filename):
-		for name in ['eps_0', 'delta', 'l', 'Gamma', 'm', 'Phi_gradient']:
-			self._params[name] = '[not a number]'
 		file = open(filename)
 		lines = file.readlines()
 		header_lines = 2
@@ -25,12 +23,15 @@ class Model:
 					splitted[-1] = int(splitted[-1])
 			if (isinstance(splitted[-1], str)):
 				splitted[-1] = float(splitted[-1])
-			self._params[splitted[0]] = splitted[-1]
+			name_splitted = splitted[0].split('_')
+			if name_splitted[-1] in ['mean']:
+				name_splitted.pop()
+			self._params['_'.join(name_splitted)] = splitted[-1]
 		file.close()
 		if 't_0' not in self._params:
 			self._params['t_0'] = 0.0
-		self._params['dx'] = self._params['width'] / self._params['x_grid']
-		self._params['dt'] = self._params['duration'] / self._params['t_grid']
+		self._params['dx'] = self._params['L'] / self._params['x_grid']
+		self._params['dt'] = self._params['T'] / self._params['t_grid']
 		self._params['dx_data'] = self._params['dx'] * self._params['x_skip']
 		self._params['x_size'] = self._params['x_grid'] // self._params['x_skip'] + 1
 		data = pd.read_csv(filename, sep=';', header=None, skiprows=header_lines + 1)
@@ -44,6 +45,7 @@ class Model:
 		self._energy_electrical = data.iloc[:, self._params['x_size'] + 2].to_numpy()
 		self._energy_border = data.iloc[:, self._params['x_size'] + 3].to_numpy()
 		self._energy_inner = data.iloc[:, self._params['x_size'] + 4].to_numpy()
+		self._E = data.iloc[:, self._params['x_size'] + 5].to_numpy()
 
 	@property
 	def params(self):
@@ -68,6 +70,10 @@ class Model:
 	@property
 	def energy_inner(self):
 		return self._energy_inner
+
+	@property
+	def E(self):
+		return self._E
 
 	@property
 	def xs(self):

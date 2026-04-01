@@ -40,7 +40,7 @@ void Model::run() {
 }
 
 void Model::write_phi(std::ostream& out) const {
-	double t_end = params.t_0 + params.duration;
+	double t_end = params.t_0 + params.T;
 	out.write(reinterpret_cast<const char*>(&t_end), sizeof(double));
 	out.write(reinterpret_cast<const char*>(phi.data()), sizeof(double) * phi.size());
 }
@@ -54,7 +54,6 @@ void Model::initialize() {
 	energy_density_border.assign(params.x_grid + 1, 0);
 	energy_density_inner.assign(params.x_grid + 1, 0);
 	energy_electrical = energy_border = energy_inner = 0;
-	instability_value.assign(params.x_grid + 1, 0);
 }
 
 double Model::f(double phi) const {
@@ -86,21 +85,6 @@ double Model::eps_phi(size_t i) const {
 	return -params.eps_0[i] / params.delta * feps_phi(phi[i]);
 }
 
-/*double Model::instabilityFunction(size_t i) const {
-	double f_value = f(phi[i]);
-	double phi_cubed = phi[i] * phi[i] * phi[i];
-	double eps_phi_phi_majorant = params.eps_0[i] * 12.0 * phi[i] * (
-		16.0 * phi_cubed +
-		-30.0 * phi_cubed * phi[i] +
-		15.0 * phi_cubed * phi[i] * phi[i] +
-		3 * phi[i] * params.delta +
-		2 * params.delta
-	) / (
-		(f_value + params.delta) * (f_value + params.delta) * (f_value + params.delta)
-	);
-	return 0.5 * params.m * params.Phi_gradient * params.Phi_gradient * eps_phi_phi_majorant;
-}*/
-
 void Model::iterationDerivatives() {
 	calculateE();
 	for (size_t i = 1; i + 1 <= params.x_grid; ++i) {
@@ -110,7 +94,6 @@ void Model::iterationDerivatives() {
 			params.Gamma[i] / (params.l * params.l) * f_phi(phi[i])
 			+ 0.5 * params.Gamma[i] * phi_x_x[i]
 		);
-		instability_value[i] = 0.0; //instabilityFunction(i);
 	}
 	if (calculate_energy)
 		calculateEnergy();
@@ -172,16 +155,12 @@ double Model::timeStepBounded(double time_step) const {
 void Model::calculateTimeStep() {
 	dt_adaptive_phi = timeStepBounded(params.tol_phi / normUniform(phi_t));
 	dt_adaptive_energy = timeStepBounded(params.tol_energy / std::abs(energy_total_t));
-	dt_adaptive_stability = timeStepBounded(params.tol_stability / normUniform(instability_value));
 	switch (params.adaptation_type) {
 	case 1:
 		dt_adaptive = dt_adaptive_phi;
 		break;
 	case 2:
 		dt_adaptive = dt_adaptive_energy;
-		break;
-	case 3:
-		dt_adaptive = dt_adaptive_stability;
 		break;
 	default:
 		dt_adaptive = params.dt;
@@ -215,5 +194,6 @@ void Model::printValues(std::ostream& out) const {
 			out << ";";
 	}
 	out << ";" << energy_electrical << ";" << energy_border << ";" << energy_inner;
+	out << ";" << E;
 	out << "\n";
 }

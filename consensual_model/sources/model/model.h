@@ -37,10 +37,8 @@ protected:
 	double energy_total;
 	double energy_total_previous = std::numeric_limits<double>::infinity();
 	double energy_total_t;
-	std::vector<double> instability_value;
 	double dt_adaptive_phi;
 	double dt_adaptive_energy;
-	double dt_adaptive_stability;
 	double dt_adaptive;
 	TimeStepManager time_step_manager;
 	mutable size_t t_iterations = 0;
@@ -55,7 +53,6 @@ protected:
 	double feps_phi(double phi) const;
 	double eps(size_t i) const;
 	double eps_phi(size_t i) const;
-	//double instabilityFunction(size_t i) const;
 	void iterationDerivatives();
 	void iterationUpdate();
 	void calculateE();

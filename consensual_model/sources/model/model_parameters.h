@@ -8,17 +8,19 @@
 
 struct ModelParameters {
 	std::vector<double> eps_0;
+	double eps_0_mean;
 	double delta;
 	double l;
 	std::vector<double> Gamma;
+	double Gamma_mean;
 	double m;
 	double q;
 	size_t x_grid;
 	size_t x_skip;
 	size_t t_grid;
 	size_t t_skip;
-	double width;
-	double duration;
+	double L;
+	double T;
 	std::vector<double> phi_0;
 	double dt_max;
 	double tol_phi;
@@ -33,4 +35,6 @@ struct ModelParameters {
 	void read(std::istream& in, bool read_phi_0 = true);
 	void write(std::ostream& out) const;
 	void read_phi_0(std::istream& in);
+
+	static double mean(const std::vector<double>&);
 };

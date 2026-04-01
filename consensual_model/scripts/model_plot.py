@@ -30,14 +30,14 @@ def model_plot(model, times, print_params=True, **kwargs):
 				'l = {}\n' +
 				'Gamma = {}\n' +
 				'm = {}\n' +
-				'Phi_gradient = {}'
+				'q = {}'
 			).format(
 				formatted(model.params['eps_0']),
 				formatted(model.params['delta']),
 				formatted(model.params['l']),
 				formatted(model.params['Gamma']),
 				formatted(model.params['m']),
-				formatted(model.params['Phi_gradient'])
+				formatted(model.params['q'])
 			),
 			va='top'
 		)
@@ -46,15 +46,15 @@ def model_plot(model, times, print_params=True, **kwargs):
 				't_grid = {}\n' +
 				'dx = {}\n' +
 				'dt = {}\n' +
-				'width = {}\n' +
-				'duration = {}'
+				'L = {}\n' +
+				'T = {}'
 			).format(
 				formatted(model.params['x_grid']),
 				formatted(model.params['t_grid']),
 				formatted(model.params['dx']),
 				formatted(model.params['dt']),
-				formatted(model.params['width']),
-				formatted(model.params['duration'])
+				formatted(model.params['L']),
+				formatted(model.params['T'])
 			),
 			va='top'
 		)
