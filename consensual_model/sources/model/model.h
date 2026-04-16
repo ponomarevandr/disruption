@@ -44,13 +44,15 @@ protected:
 	mutable size_t t_iterations = 0;
 	ProgressBar progress_bar;
 
+	static constexpr size_t F_POWER = 4;
+
 protected:
 	static size_t log2Floor(size_t value);
 	void initialize();
 	double f(double phi) const;
 	double f_phi(double phi) const;
-	double feps(double phi) const;
-	double feps_phi(double phi) const;
+	double g(double phi) const;
+	double g_phi(double phi) const;
 	double eps(size_t i) const;
 	double eps_phi(size_t i) const;
 	void iterationDerivatives();

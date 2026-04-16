@@ -1,5 +1,7 @@
 #include "model.h"
 
+#include "utils.h"
+
 #include <cmath>
 #include <algorithm>
 
@@ -57,32 +59,45 @@ void Model::initialize() {
 }
 
 double Model::f(double phi) const {
-	double phi_cubed = phi * phi * phi;
-	return 4 * phi_cubed - 3 * phi_cubed * phi;
+	double phi_powered = Utils::powerNatural<F_POWER - 1>(phi);
+	return F_POWER * phi_powered - (F_POWER - 1) * phi_powered * phi;
 }
 
 double Model::f_phi(double phi) const {
-	return 12.0 * phi * phi * (1.0 - phi);
+	double phi_powered = Utils::powerNatural<F_POWER - 2>(phi);
+	return F_POWER * (F_POWER - 1) * phi_powered * (1.0 - phi);
 }
 
-double Model::feps(double phi) const {
-	double phi_squared = phi * phi;
+/*double Model::g(double phi) const {
+	double phi_squared = Utils::powerNatural<2>(phi);
 	return 3 * phi_squared - 2 * phi_squared * phi;
 }
 
-double Model::feps_phi(double phi) const {
+double Model::g_phi(double phi) const {
 	return 6.0 * phi * (1.0 - phi);
-}
+}*/
 
 double Model::eps(size_t i) const {
-	return params.eps_0[i] * (
+	/*return params.eps_0[i] * (
 		1.0 +
-		1.0 / params.delta * (1.0 - feps(phi[i])
-	));
+		1.0 / params.delta * (1.0 - g(phi[i])
+	));*/
+	//return params.eps_0[i] / (params.delta + f(phi[i]));
+	return params.eps_0[i] + params.eps_0[i] * (
+		(1.0 + params.delta) / (params.delta + f(phi[i])) - 1.0
+	);
 }
 
 double Model::eps_phi(size_t i) const {
-	return -params.eps_0[i] / params.delta * feps_phi(phi[i]);
+	//return -params.eps_0[i] / params.delta * g_phi(phi[i]);
+	/*return -params.eps_0[i] * f_phi(phi[i]) / (
+		(params.delta + f(phi[i])) *
+		(params.delta + f(phi[i]))
+	);*/
+	return -params.eps_0[i] * f_phi(phi[i]) * (1.0 + params.delta) / (
+		(params.delta + f(phi[i])) *
+		(params.delta + f(phi[i]))
+	);
 }
 
 void Model::iterationDerivatives() {
