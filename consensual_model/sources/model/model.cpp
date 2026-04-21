@@ -7,8 +7,14 @@
 
 
 Model::Model(ModelParameters&& params, std::ostream& out, const std::string& description,
-		bool calculate_energy): params(std::move(params)), out(out), description(description),
-		calculate_energy(calculate_energy), progress_bar(params.t_grid) {
+	bool calculate_energy):
+		params(std::move(params)),
+		delta_squared_scaled(this->params.delta * this->params.delta * 1000.0),
+		out(out),
+		description(description),
+		calculate_energy(calculate_energy),
+		progress_bar(this->params.t_grid)
+{
 	time_step_manager = TimeStepManager(this->params.t_grid, this->params.dt);
 	this->params.t_skip = 1ull << log2Floor(this->params.t_skip);
 }
@@ -59,45 +65,61 @@ void Model::initialize() {
 }
 
 double Model::f(double phi) const {
-	double phi_powered = Utils::powerNatural<F_POWER - 1>(phi);
-	return F_POWER * phi_powered - (F_POWER - 1) * phi_powered * phi;
+	double phi_cubed = Utils::powerNatural<3>(phi);
+	return 4.0 * phi_cubed - 3.0 * phi_cubed * phi;
 }
 
 double Model::f_phi(double phi) const {
-	double phi_powered = Utils::powerNatural<F_POWER - 2>(phi);
-	return F_POWER * (F_POWER - 1) * phi_powered * (1.0 - phi);
+	return 12.0 * phi * phi * (1.0 - phi);
 }
 
-/*double Model::g(double phi) const {
-	double phi_squared = Utils::powerNatural<2>(phi);
-	return 3 * phi_squared - 2 * phi_squared * phi;
+double Model::g(double phi) const {
+	double phi_minus_powered = Utils::powerNatural<G_POWER - 1>(1.0 - phi);
+	return (1.0 - delta_squared_scaled) * (
+		1.0 - G_POWER * phi_minus_powered + (G_POWER - 1) * phi_minus_powered * (1.0 - phi)
+	) + delta_squared_scaled * (
+		3.0 * phi * phi - 2.0 * phi * phi * phi
+	);
+	/*double phi_minus_powered = Utils::powerNatural<G_POWER>(1.0 - phi);
+	return 1.0 - 1.0 / (phi * phi) * (
+		(1.0 - delta_squared_scaled) * phi_minus_powered +
+		delta_squared_scaled * (1.0 - phi) * (1.0 - phi)
+	);*/
 }
 
 double Model::g_phi(double phi) const {
-	return 6.0 * phi * (1.0 - phi);
-}*/
+	double phi_minus_powered = Utils::powerNatural<G_POWER - 2>(1.0 - phi);
+	return (1.0 - delta_squared_scaled) * (
+		G_POWER * (G_POWER - 1) * phi_minus_powered * phi
+	) + delta_squared_scaled * (
+		6.0 * phi * (1.0 - phi)
+	);
+	/*double phi_minus_powered = Utils::powerNatural<G_POWER - 1>(1.0 - phi);
+	return 2.0 / (phi * phi * phi) * (
+		(1.0 - delta_squared_scaled) * phi_minus_powered * (1.0 - phi) +
+		delta_squared_scaled * (1.0 - phi) * (1.0 - phi)
+	) + 1.0 / (phi * phi) * (
+		(1.0 - delta_squared_scaled) * G_POWER * phi_minus_powered +
+		delta_squared_scaled * 2.0 * (1.0 - phi)
+	);*/
+}
 
 double Model::eps(size_t i) const {
-	/*return params.eps_0[i] * (
+	return params.eps_0[i] * (
 		1.0 +
-		1.0 / params.delta * (1.0 - g(phi[i])
-	));*/
-	//return params.eps_0[i] / (params.delta + f(phi[i]));
-	return params.eps_0[i] + params.eps_0[i] * (
-		(1.0 + params.delta) / (params.delta + f(phi[i])) - 1.0
+		1.0 / params.delta * (1.0 - g(phi[i]))
 	);
+	/*return params.eps_0[i] + params.eps_0[i] * (
+		(1.0 + params.delta) / (params.delta + f(phi[i])) - 1.0
+	);*/
 }
 
 double Model::eps_phi(size_t i) const {
-	//return -params.eps_0[i] / params.delta * g_phi(phi[i]);
-	/*return -params.eps_0[i] * f_phi(phi[i]) / (
+	return -params.eps_0[i] / params.delta * g_phi(phi[i]);
+	/*return -params.eps_0[i] * f_phi(phi[i]) * (1.0 + params.delta) / (
 		(params.delta + f(phi[i])) *
 		(params.delta + f(phi[i]))
 	);*/
-	return -params.eps_0[i] * f_phi(phi[i]) * (1.0 + params.delta) / (
-		(params.delta + f(phi[i])) *
-		(params.delta + f(phi[i]))
-	);
 }
 
 void Model::iterationDerivatives() {

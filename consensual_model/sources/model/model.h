@@ -20,6 +20,7 @@ public:
 
 protected:
 	ModelParameters params;
+	const double delta_squared_scaled;
 	std::ostream& out;
 	std::string description;
 	std::vector<double> phi;
@@ -44,7 +45,7 @@ protected:
 	mutable size_t t_iterations = 0;
 	ProgressBar progress_bar;
 
-	static constexpr size_t F_POWER = 4;
+	static constexpr size_t G_POWER = 20;
 
 protected:
 	static size_t log2Floor(size_t value);

@@ -6,7 +6,7 @@
 
 Model::Model(ModelParameters&& params, std::ostream& out, const std::string& description,
 		bool calculate_energy): params(std::move(params)), out(out), description(description),
-		calculate_energy(calculate_energy), progress_bar(params.t_grid) {
+		calculate_energy(calculate_energy), progress_bar(this->params.t_grid) {
 	time_step_manager = TimeStepManager(this->params.t_grid, this->params.dt);
 	this->params.t_skip = 1ull << log2Floor(this->params.t_skip);
 }
