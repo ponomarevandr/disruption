@@ -68,30 +68,32 @@ double Model::f(double phi) const {
 	//double phi_cubed = Utils::powerNatural<3>(phi);
 	//return 4.0 * phi_cubed - 3.0 * phi_cubed * phi;
 	//return 1.0 - 16.0 * phi * phi * (1.0 - phi) * (1.0 - phi);
-	return 1.0 / (1 + (1.0 - phi) * (1.0 - phi));
+	//return 1.0 / (1 + (1.0 - phi) * (1.0 - phi));
+	return 1.0 - (1.0 - phi) * (1.0 - phi);
 }
 
 double Model::f_phi(double phi) const {
 	//return 12.0 * phi * phi * (1.0 - phi);
 	//return -16.0 * 2.0 * phi * (1.0 - phi) * (1.0 - 2.0 * phi);
-	return 2.0 * (1.0 - phi) / (
+	/*return 2.0 * (1.0 - phi) / (
 		(1 + (1.0 - phi) * (1.0 - phi)) * (1 + (1.0 - phi) * (1.0 - phi))
-	);
+	);*/
+	return 2.0 * (1.0 - phi);
 }
 
 double Model::g(double phi) const {
 	//double phi_cubed = Utils::powerNatural<3>(phi);
 	//return 4.0 * phi_cubed - 3.0 * phi_cubed * phi;
-	return 1.0 / (1.0 + (1.0 - phi) * (1.0 - phi) + Utils::powerNatural<4>(1.0 - phi));
+	return 1.0 / (1.0 + 1e-0 * (1.0 - phi) * (1.0 - phi) + 1e4 * Utils::powerNatural<4>(1.0 - phi));
 }
 
 double Model::g_phi(double phi) const {
 	//return 12.0 * phi * phi * (1.0 - phi);
 	double phi_minus_cubed = Utils::powerNatural<3>(1.0 - phi);
 	double phi_minus_fourth = Utils::powerNatural<4>(1.0 - phi);
-	return (2.0 * (1.0 - phi) + 4.0 * phi_minus_cubed) / (
-		(1.0 + (1.0 - phi) * (1.0 - phi) + phi_minus_fourth) *
-		(1.0 + (1.0 - phi) * (1.0 - phi) + phi_minus_fourth)
+	return (2.0 * 1e-0 * (1.0 - phi) + 4.0 * 1e4 * phi_minus_cubed) / (
+		(1.0 + 1e-0 * (1.0 - phi) * (1.0 - phi) + 1e4 * phi_minus_fourth) *
+		(1.0 + 1e-0 * (1.0 - phi) * (1.0 - phi) + 1e4 * phi_minus_fourth)
 	);
 }
 
