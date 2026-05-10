@@ -22,9 +22,12 @@
 \onehalfspacing
 
 %%% Размер шрифта в названиях разделов
-\usepackage{sectsty}
-\sectionfont{\large}
-\subsectionfont{\large}
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+\titlespacing\section   {0pt}{10pt plus 4pt minus 2pt}{2pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{10pt plus 4pt minus 2pt}{2pt plus 2pt minus 2pt}
+
 
 %%% Дополнительная работа с математикой
 \usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools}  % AMS
@@ -159,14 +162,16 @@
 %\includepdf[pages=-]{title_page.pdf}
 
 \begin{abstract}
-    Цель настоящей работы -- исследование качественных характеристик и численный анализ модели типа диффузной границы, описывающей развитие канала электрического пробоя в твердом диэлектрике. Проведен анализ устойчивости положений равновесия системы; установлены условия развития канала пробоя из малых возмущений неповрежденной среды. Построена и изучена разностная схема для задачи, дана содержательная оценка ее устойчивости. Полученные теоретические результаты подтверждены моделированием на компьютере. Наконец, исследовано обобщение исходной математической модели; методом конечных объемов построена другая разностная схема, учитывающая ожидаемую особенность решения на границе области моделирования. Даны комментарии об эффекте, оказываемом подобным обобщением модели.
+    \absent{Здесь будет аннотация}
 \end{abstract}
 
 \setcounter{page}{2}
 \tableofcontents
 \clearpage
 
-Здравствуйте! \cite{ponomarev_stability}
+\input{sources/introduction}
+
+\input{sources/mathematical_model}
 
 \clearpage
 \printbibliography[
