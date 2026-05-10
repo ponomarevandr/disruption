@@ -1,0 +1,176 @@
+\documentclass[a4paper,12pt]{article}
+
+%%% Поля
+\usepackage[
+    left=30mm,
+    right=15mm,
+    top=20mm,
+    bottom=20mm,
+    bindingoffset=0mm
+]{geometry}
+\parindent=1.25cm
+
+%%% Работа с русским языком
+\usepackage{cmap}                       % поиск в PDF
+\usepackage{mathtext}                   % русские буквы в формулах
+\usepackage[T2A]{fontenc}               % кодировка
+\usepackage[utf8]{inputenc}             % кодировка исходного текста
+\usepackage[english,russian]{babel}     % локализация и переносы
+\usepackage{indentfirst}
+\frenchspacing
+\usepackage{setspace}                   % межстрочный интервал
+\onehalfspacing
+
+%%% Размер шрифта в названиях разделов
+\usepackage{sectsty}
+\sectionfont{\large}
+\subsectionfont{\large}
+
+%%% Дополнительная работа с математикой
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools}  % AMS
+
+%%% Текст в колонки
+\usepackage{multicol}
+
+%%% Списки
+\usepackage{enumitem}
+\setlist{nosep, leftmargin=*}
+\renewcommand{\labelenumi}{\arabic*)}
+
+%%% Системы уравнений
+\usepackage{cases}
+
+%%% Таблицы
+\usepackage{array}
+
+%%% Рисунки
+\usepackage{graphicx}
+\usepackage{float}
+
+%%% Тире в подписях к рисункам
+\usepackage{caption}
+\captionsetup{labelsep=endash}
+
+%%% Список литературы
+\bibliographystyle{bibliography_style/gost-numeric.bbx}
+\usepackage[
+    natbib = true,
+    style = gost-numeric,
+    sorting = none,
+    backend = biber,
+    language = autobib,
+    autolang = other,
+    url = false
+]{biblatex}
+\addbibresource{references.bib}
+
+%%% Исправление символа номера при использовании gost-numeric.bbx
+\usepackage{textcomp}
+\DefineBibliographyStrings{russian}{number={\textnumero}}
+
+%%% Прямой символ интеграла
+\usepackage[integrals]{wasysym}
+
+%%% Гиперссылки
+\usepackage[pdftex,unicode]{hyperref}
+
+%%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}{\hbox{$\mathsurround=0pt #1$}}{}}
+
+%%% Вставка pdf-файла (для титульного листа)
+\usepackage{pdfpages}
+
+
+%%% Свои команды
+
+\newcommand*{\No}{\textnumero}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\vx}{{\vect{x}}}
+\newcommand{\vn}{{\vect{n}}}
+
+\newcommand{\taumin}{{\tau_\text{min}}}
+\newcommand{\taumax}{{\tau_\text{max}}}
+\newcommand{\tol}{{\text{tol}}}
+
+\newcommand{\half}{\cfrac{1}{2}}
+
+\newcommand{\partt}[1]{\cfrac{\partial #1}{\partial t}}
+\newcommand{\partx}[1]{\cfrac{\partial #1}{\partial x}}
+\newcommand{\partxx}[1]{\cfrac{\partial^2 #1}{\partial x^2}}
+\newcommand{\partvn}[1]{\cfrac{\partial #1}{\partial \vn}}
+
+\newcommand{\partflt}[1]{\partial #1 / \partial t}
+\newcommand{\partflx}[1]{\partial #1 / \partial x}
+\newcommand{\partflxx}[1]{\partial^2 #1 / \partial x^2}
+\newcommand{\partflvn}[1]{\partial #1 / \partial \vn}
+
+\newcommand{\Natural}{{\mathbb{N}}}
+\newcommand{\Real}{{\mathbb{R}}}
+\newcommand{\bigO}{{\mathcal{O}}}
+\newcommand{\clOmega}{{\overline{\Omega}}}
+
+\newcommand{\unitm}{{\text{м}}}
+\newcommand{\units}{{\text{с}}}
+\newcommand{\unitJ}{{\text{Дж}}}
+\newcommand{\unitC}{{\text{Кл}}}
+\newcommand{\unitV}{{\text{В}}}
+\newcommand{\unitF}{{\text{Ф}}}
+
+\DeclareRobustCommand{\divby}{%
+    \mathrel{\vbox{\baselineskip.65ex\lineskiplimit0pt\hbox{.}\hbox{.}\hbox{.}}}%
+}
+
+\newcommand{\forcehyphenation}{-\linebreak}
+
+\newcommand{\absent}[1]{[...#1...]}
+
+
+%%% Свои операторы
+\DeclareMathOperator{\Div}{{div}}
+\DeclareMathOperator{\Int}{{Int}}
+\DeclareMathOperator*{\argmin}{{argmin}}
+
+
+%%% Оформление теорем
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Теорема}
+\newtheorem{proposition}{Утверждение}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Замечание}
+
+
+%%% Пояснение к меткам
+% eq    -- equation
+% cond  -- condition
+% char  -- characteristic
+% sch   -- scheme
+% est   -- estimation
+% exp   -- experiment
+% fig   -- figure
+% tab   -- table
+% sec   -- section
+
+
+\begin{document}
+
+%\includepdf[pages=-]{title_page.pdf}
+
+\begin{abstract}
+    Цель настоящей работы -- исследование качественных характеристик и численный анализ модели типа диффузной границы, описывающей развитие канала электрического пробоя в твердом диэлектрике. Проведен анализ устойчивости положений равновесия системы; установлены условия развития канала пробоя из малых возмущений неповрежденной среды. Построена и изучена разностная схема для задачи, дана содержательная оценка ее устойчивости. Полученные теоретические результаты подтверждены моделированием на компьютере. Наконец, исследовано обобщение исходной математической модели; методом конечных объемов построена другая разностная схема, учитывающая ожидаемую особенность решения на границе области моделирования. Даны комментарии об эффекте, оказываемом подобным обобщением модели.
+\end{abstract}
+
+\setcounter{page}{2}
+\tableofcontents
+\clearpage
+
+Здравствуйте! \cite{ponomarev_stability}
+
+\clearpage
+\printbibliography[
+    heading=bibintoc
+]
+
+\end{document}
