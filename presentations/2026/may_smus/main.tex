@@ -58,12 +58,16 @@
 \newcommand{\half}{\cfrac{1}{2}}
 
 \newcommand{\partt}[1]{\cfrac{\partial #1}{\partial t}}
+\newcommand{\partr}[1]{\cfrac{\partial #1}{\partial r}}
 \newcommand{\partvn}[1]{\cfrac{\partial #1}{\partial \vn}}
 
 \newcommand{\partflt}[1]{\partial #1 / \partial t}
+\newcommand{\partflr}[1]{\partial #1 / \partial r}
 \newcommand{\partflvn}[1]{\partial #1 / \partial \vn}
 
 \newcommand{\gradsq}[1]{(\nabla #1, \nabla #1)}
+\newcommand{\plapl}[2]{\Div(\| {\nabla #1}_2^{#2} \| \nabla #1)}
+\newcommand{\bilapl}[1]{\Delta^2 #1}
 
 \newcommand{\Natural}{{\mathbb{N}}}
 \newcommand{\Real}{{\mathbb{R}}}
@@ -74,11 +78,6 @@
 \newcommand{\taumax}{{\tau_{\max}}}
 
 \newcommand{\parind}{\hspace{7.5mm}}
-\newcommand{\tabularitem}[2]{%
-\begin{itemize}
-	\begin{minipage}[c][#1]{\hsize} \item #2 \end{minipage}
-\end{itemize}%
-}
 
 \newcommand{\nologo}{\setbeamertemplate{logo}{}}
 
@@ -87,6 +86,10 @@
 \DeclareMathOperator{\Div}{{div}}
 \DeclareMathOperator{\Const}{{const}}
 \DeclareMathOperator{\Tol}{{tol}}
+
+%%% Цвета
+\definecolor{dark_red}{RGB}{100, 0, 0}
+\definecolor{dark_green}{RGB}{0, 150, 0}
 
 %%% Тема оформления
 \usetheme{Madrid}
@@ -141,6 +144,10 @@
 
 
 \input{sources/introduction}
+
+\input{sources/stability}
+
+\input{sources/generalization}
 
 
 \begin{frame}{Литература}
