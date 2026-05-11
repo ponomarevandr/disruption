@@ -37,6 +37,7 @@
     {\bibstring{in}\printunit{\intitlepunct}}
 }
 \addbibresource{references.bib}
+\renewcommand*{\bibfont}{\small}
 
 %%% Гиперссылки
 \usepackage{hyperref}
@@ -78,6 +79,9 @@
 \newcommand{\taumax}{{\tau_{\max}}}
 
 \newcommand{\parind}{\hspace{7.5mm}}
+\newcommand{\cellcentered}[2]{%
+	\begin{minipage}[c][#1]{\hsize} #2 \end{minipage}%
+}
 
 \newcommand{\nologo}{\setbeamertemplate{logo}{}}
 
@@ -88,7 +92,7 @@
 \DeclareMathOperator{\Tol}{{tol}}
 
 %%% Цвета
-\definecolor{dark_red}{RGB}{100, 0, 0}
+\definecolor{dark_red}{RGB}{150, 0, 0}
 \definecolor{dark_green}{RGB}{0, 150, 0}
 
 %%% Тема оформления
@@ -149,10 +153,32 @@
 
 \input{sources/generalization}
 
+\input{sources/adaptation}
 
+
+\begin{frame}{Заключение}
+\large
+\parind Исследовано:
+\begin{itemize}
+	\item устойчивость положений равновесия (в частности, неповрежденной среды);
+	\item особенности стационарных решений обобщенной задачи;
+	\item адаптация расчетного шага по времени.
+\end{itemize}
+\vspace{4mm}
+\parind Дальнейшие вопросы:
+\begin{itemize}
+	\item настройка определяющих соотношений модели;
+	\item поведение заряда в системе.
+\end{itemize}
+\end{frame}
+
+{
+\nologo
 \begin{frame}{Литература}
+\vspace{-2mm}
 \printbibliography
 \end{frame}
+}
 
 \begin{frame}{}
 \begin{center}
