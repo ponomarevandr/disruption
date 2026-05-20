@@ -91,6 +91,9 @@
 \newcommand{\vect}[1]{\boldsymbol{#1}}
 \newcommand{\vx}{{\vect{x}}}
 \newcommand{\vn}{{\vect{n}}}
+\newcommand{\vE}{{\vect{E}}}
+\newcommand{\vD}{{\vect{D}}}
+\newcommand{\vj}{{\vect{j}}}
 
 \newcommand{\taumin}{{\tau_\text{min}}}
 \newcommand{\taumax}{{\tau_\text{max}}}
@@ -101,12 +104,17 @@
 \newcommand{\partt}[1]{\cfrac{\partial #1}{\partial t}}
 \newcommand{\partx}[1]{\cfrac{\partial #1}{\partial x}}
 \newcommand{\partxx}[1]{\cfrac{\partial^2 #1}{\partial x^2}}
+\newcommand{\party}[1]{\cfrac{\partial #1}{\partial y}}
 \newcommand{\partvn}[1]{\cfrac{\partial #1}{\partial \vn}}
 
 \newcommand{\partflt}[1]{\partial #1 / \partial t}
 \newcommand{\partflx}[1]{\partial #1 / \partial x}
 \newcommand{\partflxx}[1]{\partial^2 #1 / \partial x^2}
+\newcommand{\partfly}[1]{\partial #1 / \partial y}
 \newcommand{\partflvn}[1]{\partial #1 / \partial \vn}
+
+\newcommand{\intOmega}{{\int\limits_\Omega}}
+\newcommand{\intpartOmega}{{\int\limits_{\partial \Omega}}}
 
 \newcommand{\Natural}{{\mathbb{N}}}
 \newcommand{\Real}{{\mathbb{R}}}
@@ -131,6 +139,7 @@
 
 %%% Свои операторы
 \DeclareMathOperator{\Div}{{div}}
+\DeclareMathOperator{\Rot}{{rot}}
 \DeclareMathOperator{\Int}{{Int}}
 \DeclareMathOperator*{\argmin}{{argmin}}
 
@@ -155,6 +164,8 @@
 % fig   -- figure
 % tab   -- table
 % sec   -- section
+% prop  -- proposition
+% tmp   -- local calculation
 
 
 \newcommand{\customtitle}{%
