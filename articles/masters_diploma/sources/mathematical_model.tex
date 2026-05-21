@@ -103,24 +103,42 @@ $(\cdot, \cdot)$ и $[\cdot, \cdot]$ обозначены скалярное и 
 
 
 \subsection{Соотношения баланса энергии}
+\label{ssec:energy_balance}
 
 Будем рассматривать сделующую постановку задачи. Пусть образец вещества имеет форму параллелепипеда, то есть область решения $\clOmega = [0, L]_x \times [0, H]_y \times [0, D]_z$. Образец зажат между двумя проводящими пластинами $y = 0$ и $y = H$ под напряжением.
 
-На <<боковых>> гранях $\partial \Omega$ зададим однородное условие Неймана на электрический потенциал: $\partflvn{\Phi}|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 0$; а также условие Дирихле либо Неймана на фазовое поле: $\phi|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 1$ либо $\partflvn{\phi}|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 0$. На верхней и нижней грани считаем заданным однородное условие Неймана на фазовое поле.
-
-Так как пластины из идеального проводника, то $\Phi|_{y = 0} = \Phi^+(t)$, $\Phi|_{y = H} = \Phi^-(t)$, где $\Phi^+$ и $\Phi^-$ -- функции времени. Потенциал на обкладках может меняться как из-за притока заряда извне, так и за счет изменения сопротивления образца между ними.
+\begin{subequations}
+\label{cond:boundary_basic}
+На <<боковых>> гранях $\partial \Omega$ зададим однородное условие Неймана на электрический потенциал:
+\begin{equation}
+	\partvn{\Phi} \bigg|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 0;
+\end{equation}
+а также условие Дирихле либо Неймана на фазовое поле:
+\begin{equation}
+	\phi|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 1 \quad \text{либо} \quad \partvn{\phi} \bigg|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 0.
+\end{equation}
+На верхней и нижней грани считаем заданным однородное условие Неймана на фазовое поле:
+\begin{equation}
+	\partvn{\phi} \bigg|_{y = 0, H} = 0.
+\end{equation}
+Так как пластины из идеального проводника, то
+\begin{equation}
+	\Phi|_{y = 0} = \Phi^+(t), \quad \Phi|_{y = H} = \Phi^-(t),
+\end{equation}
+где $\Phi^+(t)$ и $\Phi^-(t)$ -- функции времени. Потенциал на обкладках может меняться как из-за притока заряда извне, так и за счет изменения сопротивления образца между ними.
+\end{subequations}
 
 На обкладках сконцентрированы следующие поверхностные заряды:
 \begin{equation}
-	q^+(t) = \int\limits_{y = 0} \epsilon \cdot (\vE, \vn) dS = \int\limits_{y = 0} \epsilon \party{\Phi} dS, \qquad q^-(t) = \int\limits_{y = H} \epsilon \cdot (\vE, \vn) dS = -\int\limits_{y = H} \epsilon \party{\Phi} dS.
+	q^-(t) = \int\limits_{y = 0} \epsilon \cdot (\vE, \vn) dS = \int\limits_{y = 0} \epsilon \party{\Phi} dS, \qquad q^+(t) = \int\limits_{y = H} \epsilon \cdot (\vE, \vn) dS = -\int\limits_{y = H} \epsilon \party{\Phi} dS.
 	\label{eq:charge}
 \end{equation}
-
 Интегрируя уравнение \eqref{eq:electrostatic_c}, по формуле Гаусса--Остроградского
 \[
-	\intOmega \rho d \vx = \intOmega \Div(-\epsilon \nabla \Phi) = \int\limits_{y = 0} \epsilon \party{\Phi} dS - \int\limits_{y = H} \epsilon \party{\Phi} dS = q^+ + q^-.
+	\intOmega \rho d \vx = \intOmega \Div(-\epsilon \nabla \Phi) = \int\limits_{y = 0} \epsilon \party{\Phi} dS - \int\limits_{y = H} \epsilon \party{\Phi} dS = q^- + q^+.
 \]
-Можно считать $\Phi^- = 0$, то есть уровнем нулевого потенциала. Заданное $\Phi^+$ замыкает граничные условия, тогда однозначно определяется $\Phi$, а значит, и $q^+$, $q^-$ (по формуле \eqref{eq:charge}). Верно и обратное: заданное $q^+$ определяет $\Phi^+$. Для этого рассмотрим однородную ($\rho \equiv 0$) задачу с $\Phi^+ = 1$ и неоднородную с исходным $\rho$ и $\Phi^+ = 0$. Линейная комбинация их решений с коэффициентами $k$, $1$ даст исходное значение $\rho$ и произвольное -- $q^+$.
+
+Можно считать $\Phi^- = 0$, то есть уровнем нулевого потенциала. Заданное $\Phi^+$ замыкает граничные условия, тогда однозначно определяется $\Phi$, а значит, и $q^-$, $q^+$ (по формуле \eqref{eq:charge}). Верно и обратное: заданное $q^-$ определяет $\Phi^+$. Для этого рассмотрим однородную ($\rho \equiv 0$) задачу с $\Phi^+ = 1$ и неоднородную с исходным $\rho$ и $\Phi^+ = 0$. Линейная комбинация их решений с коэффициентами $k$, $1$ даст исходное значение $\rho$ и произвольное -- $q^-$.
 
 \begin{proposition}
 \label{prop:minimization}
@@ -129,7 +147,7 @@ $(\cdot, \cdot)$ и $[\cdot, \cdot]$ обозначены скалярное и 
 	W = \intOmega w d \vx
 	\label{eq:energy_inner}
 \end{equation}
-на касательном пространстве, определяемом системой уравнений \eqref{eq:electrostatic}, при мгновенном постоянстве $q^+$.
+на касательном пространстве, определяемом системой уравнений \eqref{eq:electrostatic}, при мгновенном постоянстве $q^-$.
 \end{proposition}
 \begin{proof}
 Переходя к мгновенным вариациям в уравнениях \eqref{eq:electrostatic_c} и \eqref{eq:charge} (с учетом постоянства $q^\pm$), получаем следующие уравнения касательного пространства:
@@ -193,7 +211,7 @@ $(\cdot, \cdot)$ и $[\cdot, \cdot]$ обозначены скалярное и 
 \label{prop:energy_electrical_balance}
 Справедливо следующее уравнение баланса энергии $W_E$ электрического поля:
 \begin{equation}
-	\cfrac{d W_E}{dt} = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \left( \partt{q^+} + \int\limits_{y = 0} \sigma \party{\Phi} dS \right) - \intOmega Q_j d \vx,
+	\cfrac{d W_E}{dt} = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \left( \partt{q^-} + \int\limits_{y = 0} \sigma \party{\Phi} dS \right) - \intOmega Q_j d \vx,
 	\label{eq:energy_electrical_balance}
 \end{equation}
 где $Q_j$, определяемое формулой \eqref{eq:heat}, есть тепло, выделяемое при протекании тока в среде.
@@ -205,7 +223,7 @@ $(\cdot, \cdot)$ и $[\cdot, \cdot]$ обозначены скалярное и 
 \begin{gather}
 	\Div \left( \partt{\epsilon} \nabla \Phi + \epsilon \nabla \partt{\Phi} \right) = -\partt{\rho},
 	\label{eq:tangent_temporal_rho} \\
-	\partt{q^+} = \int\limits_{y = 0} \left( \partt{\epsilon} \party{\Phi} + \epsilon \partt{} \party{\Phi} \right) dS.
+	\int\limits_{y = 0} \left( \partt{\epsilon} \party{\Phi} + \epsilon \partt{} \party{\Phi} \right) dS = \partt{q^-}.
 	\label{eq:tangent_temporal_charge}
 \end{gather}
 
@@ -214,10 +232,11 @@ $(\cdot, \cdot)$ и $[\cdot, \cdot]$ обозначены скалярное и 
 	\cfrac{d W_E}{dt} = \intOmega \left[ \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) + \half \partt{\epsilon} (\nabla \Phi, \nabla \Phi) \right] d \vx.
 	\label{tmp:energy_electrical_deriv}
 \end{equation}
-Преобразуя пер{}вое слагаемое с учетом \eqref{eq:tangent_temporal_rho}, \eqref{eq:tangent_temporal_charge} тем же образом, что для $\partial W_E$ в доказательстве утверждения \ref{prop:minimization}, имеем
-\[
-	\intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx = -\intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \partt{q^+} + \intOmega \Phi \partt{\rho} d \vx.
-\]
+Преобразуя первое слагаемое с учетом \eqref{eq:tangent_temporal_rho}, \eqref{eq:tangent_temporal_charge} тем же образом, что для $\partial W_E$ в доказательстве утверждения \ref{prop:minimization}, имеем
+\begin{equation}
+	\intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx = -\intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \partt{q^-} + \intOmega \Phi \partt{\rho} d \vx.
+	\label{tmp:energy_electrical_deriv_first}
+\end{equation}
 Выразим производную заряда из уравнения \eqref{eq:electrostatic_b} и подставим в последнее слагаемое выражения выше:
 \begin{multline*}
 	\intOmega \Phi \partt{\rho} d \vx = \intOmega \Phi \Div (\sigma \nabla \Phi) d \vx = \intpartOmega \Phi \sigma \cdot (\nabla \Phi, \vn) dS - \intOmega \sigma \cdot (\nabla \Phi, \nabla \Phi) d \vx = \\ = -\Phi^+ \int\limits_{y = 0} \sigma \party{\Phi} dS - \intOmega Q_j d \vx.
@@ -226,22 +245,11 @@ $(\cdot, \cdot)$ и $[\cdot, \cdot]$ обозначены скалярное и 
 В итоге, подставляя два последних равенства выше в выражение \eqref{tmp:energy_electrical_deriv}, получаем уравнение \eqref{eq:energy_electrical_balance} баланса электрической энергии.
 \end{proof}
 
-\begin{remark}
-Если считать, что приток заряда на обкладки извне отсутствует, то
-\[
-	\cfrac{d q^+}{dt} = -\int\limits_{y = 0} \sigma \party{\Phi} dS.
-\]
-В этом случае уравнение \eqref{eq:energy_electrical_balance} принимает вид
-\[
-	\cfrac{d W_E}{dt} = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \intOmega Q_j d \vx.
-\]
-\end{remark}
-
 \begin{proposition}
 \label{prop:energy_inner_balance}
 Справедливо следующее уравнение баланса внутренней энергии $W$ системы:
 \begin{equation}
-	\cfrac{dW}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx - \Phi^+ \left( \partt{q^+} + \int\limits_{y = 0} \sigma \party{\Phi} dS \right) - \intOmega Q_j d \vx.
+	\cfrac{dW}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx - \Phi^+ \left( \partt{q^-} + \int\limits_{y = 0} \sigma \party{\Phi} dS \right) - \intOmega Q_j d \vx.
 	\label{eq:energy_inner_balance}
 \end{equation}
 \end{proposition}
@@ -252,3 +260,62 @@ $(\cdot, \cdot)$ и $[\cdot, \cdot]$ обозначены скалярное и 
 \end{multline*}
 Прибавляя полученную производную к равенству \eqref{eq:energy_electrical_balance} и выделяя под интегралом правую часть уравнения \eqref{eq:phi} динамики фазового поля, получаем уравнение \eqref{eq:energy_inner_balance}.
 \end{proof}
+
+\begin{remark}
+\label{rem:charge_conservative}
+Если считать, что приток заряда на обкладки извне отсутствует, то
+\[
+	\cfrac{d q^-}{dt} = -\int\limits_{y = 0} \sigma \party{\Phi} dS.
+\]
+В этом случае уравнения \eqref{eq:energy_electrical_balance} и \eqref{eq:energy_inner_balance} соответственно принимают вид
+\begin{align*}
+	\cfrac{d W_E}{dt} & = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \intOmega Q_j d \vx, \\
+	\cfrac{dW}{dt} & = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx - \intOmega Q_j d \vx.
+\end{align*}
+Легко видеть, что в таком случае $dW / dt \leq 0$ -- $W$ не возрастает.
+\end{remark}
+
+\begin{remark}
+\label{rem:charge_constant}
+Если верно $\sigma = k\epsilon$, $k$ -- константа, то из уравнений \eqref{eq:electrostatic_b}, \eqref{eq:electrostatic_c} следует
+\[
+	\partt{\rho} + k \rho = 0, \quad \rho(\vx, t) = \rho(\vx, 0) e^{-kt}.
+\]
+Если притом начальная плотность заряда $\rho(\vx, 0) = \rho_0(\vx) = 0$ (и, следовательно, $\rho \equiv 0$), а также заряды на обкладках поддерживаются постоянными: $q^-(t) = -q^+(t) = \Const$, то балансовые соотношения \eqref{eq:energy_electrical_balance} и \eqref{eq:energy_inner_balance} соответственно принимают вид
+\begin{align*}
+	\cfrac{d W_E}{dt} & = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx, \\
+	\cfrac{dW}{dt} & = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx,
+\end{align*}
+так как второе и третье слагаемые в соотношении \eqref{tmp:energy_electrical_deriv_first} становятся нулевыми. Очевидным образом, $W$ не возрастает.
+
+Более того, в этом случае $W_E$ и $W$ ведут себя подобно консервативным величинам. Действительно, в такой постановке задачи потенциал $\Phi$ однозначно определяется фазовым полем $\phi$, а значит, справедливы функциональные зависимости $W_E = W_E[\phi]$, $W = W[\phi]$. В строго физическом смысле, естественно, $W_E$ и $W$ не консервативны, так как происходит потеря энергии в виде тепла; однако она <<компенсируется>> за счет нагнетания заряда на обкладки.
+\end{remark}
+
+
+\subsection{Граничные условия}
+
+В начале подраздела \ref{ssec:energy_balance} уже обсуждался общий вид граничных условий \eqref{cond:boundary_basic}. Для их замыкания остается определить $\Phi^+(t)$, или, эквивалентно, $q^-(t)$. Перечислим основные способы это сделать.
+
+\begin{subequations}
+\begin{itemize}
+	\item Постоянное напряжение на обкладках:
+	\begin{equation}
+		\Phi^+(t) = \Phi^+ = \Const.
+	\end{equation}
+	Такая постановка наиболее проста и распространена в практике моделирования.
+	\item Сохранение заряда в системе (отсутствие притока заряда на обкладки извне):
+	\begin{equation}
+		\cfrac{d q^-}{dt} = -\int\limits_{y = 0} \sigma \party{\Phi} dS, \quad \text{(и, следовательно)} \quad \cfrac{d q^+}{dt} = \int\limits_{y = H} \sigma \party{\Phi} dS.
+	\end{equation}
+	Постановка, которая видится наиболее естественной; полная энергия $W$ системы не возрастает, что объяснено в замечании \ref{rem:charge_conservative}.
+	\item Постоянный заряд на обкладках при пропорциональной связи $\epsilon$ и $\sigma$ и нулевой плотности заряда в среде:
+	\begin{equation}
+	\begin{gathered}
+		\sigma = k \epsilon, \quad k = \Const, \\
+		\rho_0(\vx) = 0 \quad \text{и, следовательно,} \quad \rho \equiv 0, \\
+		-q^+(t) = q^-(t) = q^- = \Const.
+	\end{gathered}
+	\end{equation}
+	Наиболее простая постановка, подходящая для теоретического исследования задачи. Постановке посвящено замечание \ref{rem:charge_constant}.
+\end{itemize}
+\end{subequations}
