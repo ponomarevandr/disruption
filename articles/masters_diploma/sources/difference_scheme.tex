@@ -1,0 +1,164 @@
+%!TEX root = ../main.tex
+
+\section{Разностная схема одномерной задачи}
+
+\subsection{Разностная схема}
+
+Будем численно решать одномерную задачу \eqref{eq:one_dim}, \eqref{eq:one_dim_marginal}, \eqref{eq:one_dim_charge}, замыкая граничные условия одним из способов \eqref{cond:boundary_voltage} ($\Phi^+ = \Const$) или \eqref{cond:boundary_charge} ($q^+ = \Const$). Задача имеет свободную функциональную переменную $\phi$ в области решения $\clOmega = [0, L]_x \times [0, +\infty)_t$, а также, во второй постановке, переменную $q^+(t)$.
+
+Будем использовать регулярную сетку с временным шагом $\tau$ и пространственным $h$. Пусть $L / h = M \in \Natural$ -- число узлов сетки по пространству; $\phi_j^k$ -- значение сеточной функции в узле с координатами $(jh, k \tau) \in \clOmega$; $E^k$ и $q^{+,k}$ -- значения соответствующих функций на временном слое номер $k$. Перейдем к следующей разностной задаче:
+\begin{subequations}
+\label{sch:one_dim_task}
+\begin{gather}
+	\cfrac{1}{m} \cfrac{\phi_j^{k + 1} - \phi_j^k}{\tau} = \half (E^k)^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \cfrac{\phi_{j + 1}^k - 2 \phi_j^k + \phi_{j - 1}^k}{h^2},
+	\label{sch:one_dim_task_a} \\
+	q^{+,k} = E^k h \left[\cfrac{\epsilon(\phi_0^k) + \epsilon(\phi_M^k)}{2} + \sum\limits_{j = 1}^{M - 1} \epsilon(\phi_j^k) \right].
+	\label{sch:one_dim_task_b}
+\end{gather}
+\end{subequations}
+Отсюда получим следующую разностную схему:
+\begin{subequations}
+\label{sch:one_dim}
+\begin{gather}
+	\begin{aligned}
+		\phi_j^{k + 1} = \phi_j^k + m \tau \left[ \half (E^k)^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \cfrac{\phi_{j + 1}^k - 2 \phi_j^k + \phi_{j - 1}^k}{h^2} \right], \\
+		j = \overline{1, M - 1}, \quad k \in \Natural_0;
+	\end{aligned} \\
+	\phi_j^0 = \phi_0(jh), \quad \phi_0^k = \phi_l(k \tau), \quad \phi_N^k = \phi_r(k \tau); \\
+	E^k = E \quad \text{либо} \quad E^k = q^+ \cfrac{1}{h} \left[\cfrac{\epsilon(\phi_0^k) + \epsilon(\phi_M^k)}{2} + \sum\limits_{j = 1}^{M - 1} \epsilon(\phi_j^k) \right]^{-1}.
+\end{gather}
+\end{subequations}
+Схема явная, первого порядка аппроксимации по времени, второго по пространству.
+
+Центральный вопрос этого раздела -- устойчивость разностной схемы \eqref{sch:one_dim}. Для ее исследования применим элементы теории сходимости линейных разностных схем, приближающих линейные дифференциальные задачи (см., например, \cite[глава 10]{bahvalov_computational_methods} или \cite[глава IX]{kalitkin_computational_methods}). Основное утверждение упомянутой теории в несколько упрощенном виде звучит так: если разностная задача является устойчивой и аппроксимирует дифференциальную задачу, то решение разностной задачи сходится к решению дифференциальной, причем с порядком не меньше, чем порядок аппроксимации.
+
+Итак, разностную схему \eqref{sch:one_dim} будем исследовать следующим образом: линеаризуем разностное уравнение \eqref{sch:one_dim_task_a} при фиксированном аргументе $\phi$, а затем применим к нему так называемый спектральный признак устойчивости \cite{bahvalov_computational_methods}. При выполнении признака у схемы следует ожидать устойчивость (в <<разумных>> нормах, например, равномерной и $L_2$-норме), а значит, с учетом аппроксимации следует ожидать и сходимость.
+
+
+\subsection{Оценка устойчивости схемы}
+
+Для начала будем считать $E = \Const$, как при условии \eqref{cond:boundary_voltage}. Получим условие устойчивости по принципу <<замороженных коэффициентов>> (см., например, \cite{bahvalov_computational_methods}). Пусть $\phi_j^k$ и $\phi_j^k + \delta_j^k$ -- решения разностного уравнения~\eqref{sch:one_dim_task_a}. Подставим в него $\phi_j^k + \delta_j^k$, учитывая, что $\phi_j^k$ есть решение разностной задачи, и линеаризуем по возмущению $\delta_j^k$. Рассматривая точку $\phi_j^k = C$, получим уравнение на возмущение
+\begin{equation}
+	\delta_j^{k + 1} = \delta_j^k + m \tau \left[ \half E^2 \epsilon''(C) \delta_j^k + \cfrac{\Gamma}{l^2} f''(C) \delta_j^k + \cfrac{\Gamma}{2} \cfrac{\delta_{j + 1}^k - 2 \delta_j^k + \delta_{j - 1}^k}{h^2} \right].
+	\label{tmp:scheme_variation}
+\end{equation} 
+
+Применим спектральный признак устойчивости. Пусть $\delta_j^k = \lambda(\theta)^k \cdot \exp(\imath j \theta)$, $\imath^2 = -1$; подставим в уравнение \eqref{tmp:scheme_variation} выражение для $\delta_j^k$ и, сократив на $\lambda(\theta)^k \cdot \exp(\imath j \theta)$, получим:
+\[
+	\lambda(\theta) = 1 + m \tau \left[ \half E^2 \epsilon''(C) + \cfrac{\Gamma}{l^2} f''(C) + \cfrac{\Gamma}{2} \cfrac{\exp(\imath \theta) - 2 + \exp(-\imath \theta)}{h^2} \right],
+\]
+или
+\begin{equation}
+	\lambda(\theta) = 1 + m \tau \left[ \half E^2 \epsilon''(C) + \cfrac{\Gamma}{l^2} f''(C) - \cfrac{2 \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \right].
+	\label{tmp:spectral}
+\end{equation}
+
+Согласно спектральному признаку связь $\tau = \tau(h)$ дает устойчивые вычисления в области $[0, L]_x \times [0, T]_t$ при $\tau, h \to +0$, если существует $A > 0$, такое что для любого~$\theta$ выполнено $|\lambda(\theta)| \leqslant e^{A\tau}$. Заметим, что можно использовать условие $|\lambda(\theta)| \leqslant 1 + A\tau$, как более сильное. Если же для любого $\theta$ выполнено $|\lambda(\theta)| \leqslant 1$, то устойчивыми будут вычисления в области $[0, L]_x \times [0, +\infty)_t$ с бесконечным временным интервалом. Строго говоря, условие спектрального признака не является достаточным для устойчивости разностной схемы, однако на практике устойчивость можно ожидать.
+
+Заметим, что
+\[
+	|\lambda(\theta)| \leqslant \left| 1 - \cfrac{2 \tau m \Gamma}{h^2} \sin^2 \cfrac{\theta}{2} \right| + m \tau \left| \half E^2 \epsilon''(C) + \cfrac{\Gamma}{l^2} f''(C) \right|,
+\]
+то есть при условии
+\begin{equation}
+	\tau \leqslant \cfrac{h^2}{2m \Gamma}
+	\label{cond:stability_laplacian}
+\end{equation}
+значение первого слагаемого не больше $1$, а значит, расчет устойчив в области $[0, L]_x \hm \times [0, T]_t$ с любым конечным $T$ достаточно малых $\tau, h$. Необходимость выполнения \eqref{cond:stability_laplacian} вполне стандартна для устойчивости явных разностных схем, приближающих оператор Лапласа.
+
+Далее естественно потребовать
+\[
+	m \tau \left| \half E^2 \epsilon''(C) + \cfrac{\Gamma}{l^2} f''(C) \right| \leqslant 1,
+\]
+что в случае отрицательного значения под модулем давало бы, согласно выражению \eqref{tmp:spectral}, устойчивый расчет в области $[0, L]_x \times [0, +\infty)_t$; в случае положительного -- ограниченный значением $2$ множитель $\lambda(\theta)$ роста возмущения. Итак, необходимо установить максимальное по модулю значение функции
+\[
+	\chi'(C) = \half E^2 \epsilon''(C) + \cfrac{\Gamma}{l^2} f''(C).
+\]
+
+Исследуем фукнцию $\epsilon(\phi)$. Рассмотрим замену переменной $\phi = z\delta^{1/3}$, $\phi \in [0, 1]$, $z \in [0, \delta^{-1/3}]$. Домножим на $\delta$ функцию $\epsilon(\phi)$, получим
+\[
+	\cfrac{\delta \cdot \epsilon(z \delta^{1/3})}{\epsilon_0} = \cfrac{1}{4 z^3 - 3 z^4 \delta^{1/3} + 1}.
+\]
+Таким образом, в результате двух преобразований получена функция, имеющая очевидный поточечный предел $1/(1 + 4 z^3)$ при $\delta \to +0$.
+
+Производные $\delta \cdot \epsilon$ порядка $k$ по $z$ и по $\phi$ легко выражаются друг через друга:
+\[
+	\cfrac{d^k}{d z^k} \left[ \delta \cdot \epsilon(z \delta^{1/3}) \right] = \delta^{1 + k/3} \cdot \epsilon^{(k)}(z \delta^{1/3}),
+\]
+где $\epsilon^{(k)}$ обозначена $d^k \epsilon / d \phi^k$.
+
+Очевидное утверждение о поточечной сходимости $\delta \cdot \epsilon(z \delta^{1/3}) / \epsilon_0$ может быть значительно усилено.
+
+\begin{proposition}
+	\label{prop:convergence_uniform}
+	Пусть $C > 0$ произвольное. На отрезке $[0, C]_z$ для любого порядка $k$ имеет место равномерная сходимость производных
+	\[
+		\cfrac{d^k}{d z^k} \left[ \cfrac{\delta \cdot \epsilon(z \delta^{1/3})}{\epsilon_0} \right] \rightrightarrows \cfrac{d^k}{d z^k} \left[ \cfrac{1}{1 + 4 z^3} \right]
+	\]
+	при $\delta \to +0$.
+\end{proposition}
+\begin{proof}
+
+Обозначим исследуемую функцию $g(z) = \delta \cdot \epsilon(z \delta^{1/3}) / \epsilon_0$.
+
+Зафиксируем $\delta$. Представим $g(z)$ на отрезке $[0, \delta^{-1/3}]$ в виде функционального ряда следующим образом:
+\[
+	g(z) = \cfrac{1}{1 + 4 z^3} \cdot \cfrac{1}{1 - \cfrac{3 z^4 \delta^{1/3}}{1 + 4 z^3}} = \cfrac{1}{1 + 4 z^3} \sum\limits_{n = 0}^\infty \left( \cfrac{3 z^4}{1 + 4 z^3} \right)^n \delta^{n / 3}.
+\]
+Ряд сходится равномерно по $z$. Действительно,
+\[
+	\cfrac{3 z^4}{1 + 4 z^3} \delta^{1/3} = \cfrac{3 z^3}{1 + 4 z^3} \cdot z \delta^{1/3} = \cfrac{3}{4 + 1 / z^3} \cdot z \delta^{1/3} \leqslant \cfrac{3}{4} \cdot 1 = \cfrac{3}{4},
+\]
+то есть рассматриваемый ряд из положительных членов мажорируется геометрической прогрессией с основанием $3/4$.
+
+Обозначим
+\[
+	S_j(z) = \sum\limits_{n = 0}^\infty \cfrac{(n + j)!}{n!} \left( \cfrac{3 z^4}{1 + 4 z^3} \right)^n \delta^{n / 3}.
+\]
+В этих обозначениях $g(z) = S_0(z) / (1 + 4 z^3)$.
+
+Все функциональные ряды $S_j$ также сходятся на $[0, \delta^{-1/3}]$ равномерно по~$z$, так как мажорируются сходящимися рядами
+\[
+	\sum\limits_{n = 0}^\infty P_j(n) \cdot \left( \cfrac{3}{4} \right)^n,
+\]
+где $P_j(n)$ -- положительный при $n \in \Natural_0$ многочлен степени $j$.
+
+Рассмотрим ряд из производных членов ряда $S_j$:
+\[
+	\sum\limits_{n = 0}^\infty \left[ \cfrac{(n + j)!}{n!} \left( \cfrac{3 z^4}{1 + 4 z^3} \right)^n \delta^{n / 3} \right]'_z = \left( \cfrac{3 z^4}{1 + 4 z^3} \right)'_z \delta^{1/3} \cdot S_{j + 1}(z).
+\]
+Полученный ряд есть $S_{j + 1}$, домноженный на $\delta^{j / 3}$ и ограниченную функцию, следовательно, он сходится на $[0, \delta^{-1/3}]$ равномерно. Так как и сам $S_j$, и ряд из его непрерывных производных равномерно сходятся, то $S_j$ можно продифференцировать почленно, то есть
+\[
+	\cfrac{d S_j}{dz} = \left( \cfrac{3 z^4}{1 + 4 z^3} \right)'_z \delta^{1/3} \cdot S_{j + 1}(z).
+\]
+
+Как говорилось ранее, $g(z) = S_0(z) / (1 + 4 z^3)$. Дифференцируя, получаем
+\[
+	\cfrac{dg}{dz} = \left( \cfrac{1}{1 + 4 z^3} \right)'_z \cdot S_0(z) + \cfrac{1}{1 + 4 z^3} \left( \cfrac{3 z^4}{1 + 4 z^3} \right)'_z \delta^{1/3} \cdot S_1(z).
+\]
+По индукции заключаем, что $d^k g / d z^k$ есть сумма $S_j \delta^{j / 3}$, $j = \overline{0, k}$, домноженных на ограниченные функции.
+
+Теперь рассмотрим отрезок $[0, C]$ и $\delta \to +0$. Легко видеть, что на $[0, C]$ $S_j(z) \hm \to (0 + j)! / 0!$ равномерно по $z$, в частности, $S_0(z) \to 1$. Тогда, очевидным образом, $g(z) \rightrightarrows 1 / (1 + 4 z^3)$. Помимо этого, так как любая производная $g(z)$ представляется в виде суммы $S_j \delta^{j / 3}$, домноженных на ограниченные функции, то верно
+\[
+	\cfrac{d^k g(z)}{d z^k} \rightrightarrows \cfrac{d^k}{d z^k} \left[ \cfrac{1}{1 + 4 z^3} \right]
+\]
+на $[0, C]$ равномерно по $z$ при $\delta \to +0$.
+
+\end{proof}
+
+\begin{remark}
+	В утверждении \ref{prop:convergence_uniform}, как можно заключить из его доказательства, равномерная по $z$ сходимость имеет асимптотику $\bigO_{C, k}(\delta^{1/3})$.
+\end{remark}
+
+Неформально смысл утверждения \ref{prop:convergence_uniform} состоит в справедливости приближенных представлений
+\[
+	\epsilon^{(k)}(\phi) \approx \epsilon_0 \delta^{-1 - k / 3} \cdot \cfrac{d^k}{d z^k} \left[ \cfrac{1}{1 + 4 z^3} \right] \bigg|_{z = \delta^{-1/3} \phi}.
+\]
+
+Доказанная для всех производных $\delta \cdot \epsilon(z \delta^{1/3})$ на $[0, C]_z$ равномерная сходимость влечет в том числе сходимость нулей функций, интервалов знакопостоянства и точек экстремумов, а также интервалов выпуклости-вогнутости. Из вида функции $1 / (1 + 4z^3)$ следует, что при достаточно большом $C$ и $\delta \to +0$ на отрезке $[0, C \delta^{1/3}]_\phi$ функция $\epsilon(\phi)$ монотонно убывает, $\epsilon'(\phi)$ вначале убывает, затем возрастает; $\epsilon''(\phi)$ имеет три промежутка роста (начиная с убывания), два экстремума и корень. Отсюда становится совершенно ясным полученный в работе \cite{ponomarev_stability} порядок $\delta^{1/3}$ корней и точек экстремума $\epsilon''$ и порядок~$\delta^{-5/3}$ модулей экстремумов $\epsilon''$.
+
+$\epsilon''(\phi)$ имеет ноль $\phi_0 \sim 0.5 \cdot \delta^{1/3}$, а также локальный минимум и локальный максимум в~точках
+\[
+	\phi_\mp \sim \cfrac{1}{\sqrt[3]{32 \mp 12 \sqrt{6}}} \cdot \delta^{1/3}
+\]
+соответственно.
