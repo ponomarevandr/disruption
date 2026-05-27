@@ -4,27 +4,190 @@
 
 \subsection{Упрощающие допущения}
 
-Для описанной модели будем использовать разностную схему из работы \cite{ponomarev_stability}, где предварительно делается ряд допущений, упрощающих задачу. Кратко перечислим их.
+Для теоретического анализа описанной модели \eqref{eq:electrostatic}, \eqref{eq:phi} будем рассматривать ее при определенных упрощающих допущениях, в дополнение к граничным условиям \eqref{cond:boundary_basic} и одному из \eqref{cond:boundary_cases}.
 
-Система \eqref{eq:Phi},~\eqref{eq:phi} рассматривается в замкнутой области $\clOmega = [0, W]_x \hm \times [0, H]_y \times I_z$, где $W, H > 0, \; I$~-- некоторый отрезок. Пусть $\epsilon_0(\vx) = \epsilon_0(x)$, а также задано начальное условие $\phi(\vx, 0) = \phi_0(x)$, то есть диэлектрическая проницаемость неповрежденной среды и начальное распределение фаз зависят только от $x$. На $\partial \Omega$ считаем заданным следующее граничное условие на $\phi$: $\phi|_{x = 0} = \phi_l(t)$, $\phi|_{x = W} = \phi_r(t)$, а также $\partflvn{\phi}= 0$ на <<гранях>> области $\clOmega$, перпендикулярных осям $y$ и $z$; следующее граничное условие~на~$\Phi$: $\Phi|_{y = 0} = \Phi^-$, $\Phi|_{y = H} = \Phi^+$, где $\Phi^-, \Phi^+ \in \Real$, $\Phi^+ \geqslant \Phi^-$, а также $\partflvn{\Phi} = 0$ на <<гранях>> $\clOmega$, перпендикулярных осям $x$ и $z$.
+Итак, система рассматривается в замкнутой области $\clOmega = [0, L]_x \times [0, H]_y \times [0, D]_z$. Пусть $\epsilon_0(\vx) = \epsilon_0(x)$, $\sigma_0(\vx) = \sigma_0(x)$, а также задано начальное условие $\phi(\vx, 0) = \phi_0(x)$, то есть диэлектрическая проницаемость и электропроводность неповрежденной среды и начальное распределение фаз зависят только от $x$. Пусть $\rho_0(\vx) = 0$. Обкладки под напряжением, как говорилось ранее, имеют коориданты $y = 0$ и $y = H$, $\Phi|_{y = 0} = \Phi^+$, $\Phi|_{y = H} = \Phi^-$.
 
-Учитывая описанные краевые условия, решение системы уравнений \eqref{eq:Phi},~\eqref{eq:phi} ищется в виде $\phi(\vx, t) = \phi(x, t)$, $\Phi(\vx, t) = \Phi(y, t)$. Решение $\Phi(\vx, t) = \Phi^- + (y / H)(\Phi^+ - \Phi^-)$ известно аналитически, и система, таким образом, сводится к единственному уравнению
+Для простоты анализа положим $\beta = 0$, то есть исключим из рассмотрения эффект, оказываемый $p$-лапласианом в уравнении \eqref{eq:phi}.
+
+Учитывая описанные краевые условия, решение системы уравнений \eqref{eq:electrostatic}, \eqref{eq:phi} ищется в виде $\phi(\vx, t) = \phi(x, t)$, $\Phi(\vx, t) = \Phi(y, t)$. Уравнения \eqref{eq:electrostatic} разрешаются относительно $\Phi$ и $\rho$ аналитически: $\Phi(\vx, t) = \Phi^+(t) \cdot (1 - y / H)$, $\vE = -\nabla \Phi = \vect{e}_y \cdot \Phi^+ / H$, $\rho(\vx, t) = 0$. Система, таким образом, сводится к единственному уравнению
 \begin{equation}
-	\cfrac{1}{m} \partt{\phi} = -F'(\phi; \norm{\nabla \Phi}) + \half \Gamma \partxx{\phi}
+	\cfrac{1}{m} \partt{\phi} = \half E^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{\Gamma}{2} \partxx{\phi}.
 	\label{eq:one_dim}
 \end{equation}
-на функцию $\phi(x, t)$ в области $[0, W]_x \times [0, +\infty)_t$, с начальным условием
+\begin{subequations}
+\label{eq:one_dim_marginal}
+на функцию $\phi(x, t)$ в области $[0, L]_x \times [0, +\infty)_t$, с начальным условием
 \begin{equation}
 	\phi(x, 0) = \phi_0(x)
-	\label{eq:one_dim_initial}{}
+	\label{eq:one_dim_initial}
 \end{equation}
-и граничным условием
+и граничным условием (считая, что оно типа Дирихле)
 \begin{equation}
 	\phi(0, t) = \phi_l(t), \quad \phi(W, t) = \phi_r(t).
-	\label{eq:one_dim_marginal}
+	\label{eq:one_dim_boundary}
 \end{equation}
-Здесь $\norm{\nabla \Phi} = (\Phi^+ - \Phi^-) / H$ -- константа. В дальнейшем именно $\norm{\nabla \Phi}$ будет считаться параметром модели, конкретные значения $\Phi^+$ и $\Phi^-$ при этом неважны.
+\end{subequations}
+Здесь $E(t) = \Phi^+(t) / H$, в простейшей постановке являющаяся константой, но вообще говоря, функция времени.
 
-Так как в рассматриваемой постановке задачи $\norm{\nabla \Phi}$ -- константа, то вместо \linebreak $F(\phi; \norm{\nabla \Phi})$ будем писать $F(\phi)$.
+Формулы \eqref{eq:charge} зарядов на обкладках в таком случае принимают вид
+\begin{equation}
+	-q^- = q^+ = S \cdot E \int\limits_0^L \epsilon dx,
+	\label{eq:one_dim_charge}
+\end{equation}
+где $S = H \cdot D$ -- площадь $yz$-грани области $\Omega$.
 
-Для простоты анализа везде далее $\epsilon_0$ считается константой.
+Для простоты анализа в этом разделе $\epsilon_0$ считается константой. Величина $\sigma$ при описанных допущениях не играет роли. Далее будет проведен анализ устойчивости положений равновесия системы в постановках \eqref{cond:boundary_voltage} ($\Phi^+ = \Const$) и \eqref{cond:boundary_charge} ($q^- = \Const$).
+
+
+\subsection{Анализ положений равновесия}
+
+При определенных условиях электрический пробой может развиваться из малых возмущений свойств неповрежденной среды. Для отыскания этих условий исследуем положения равновесия уравнения \eqref{eq:one_dim} вида $\phi(x, t) \equiv C$, $C \in [0, 1]$ (то есть $\phi$ постоянна и во времени, и в пространстве).
+
+Приведем формулы для производных функции $\epsilon(\phi)$, заданной формулой \eqref{eq:epsilon}:
+\begin{equation}
+	\epsilon'(\phi) = \cfrac{-\epsilon_0 f'(\phi)}{(f(\phi) + \delta)^2}; \qquad \epsilon''(\phi) = \epsilon_0 \cfrac{2 (f'(\phi))^2 - f''(\phi)(f(\phi) + \delta)}{(f(\phi) + \delta)^3}.
+	\label{eq:epsilon_derivatives}
+\end{equation}
+
+Будем для начала считать $E$ константой (как в случае постановки \eqref{cond:boundary_voltage}). Пусть $\phi \equiv C$ -- решение уравнения \eqref{eq:one_dim}, а значит, $C$ есть ноль функции
+\begin{equation}
+	\chi(\phi) = \half E^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi);
+	\label{eq:equilibruim_characteristic}
+\end{equation}
+$\delta \phi(x, t)$ -- возмущение. Записав уравнение \eqref{eq:one_dim} для возмущенного решения $\phi + \delta \phi$, после линеаризации придем к следующему уравнению относительно возмущения $\delta \phi$:
+\begin{equation}
+	\cfrac{1}{m} \partt{(\delta \phi)} = \left[ \half E^2 \epsilon''(C) + \cfrac{\Gamma}{l^2} f''(C) \right] \delta \phi + \half \Gamma \partxx{(\delta \phi)}.
+	\label{tmp:variation}
+\end{equation}
+Это уравнение имеет вид
+\[
+	\partt{(\delta \phi)} = A \delta \phi + B \partxx{(\delta \phi)}
+\]
+где $A$ и $B$ -- некоторые постоянные, причем $B > 0$. $A = \chi'(C)$.
+
+Подставим в уравнение выше $\delta \phi = e^{\alpha t} \sin(\omega x)$, то есть некоторую экспоненциально растущую или убывающую во времени (в зависимости от знака $\alpha$) гармонику, и получим уравнение относительно параметров возмущения:
+\[
+	\alpha e^{\alpha t} \sin(\omega x) = A e^{\alpha t} \sin(\omega x) - B \omega^2 e^{\alpha t} \sin(\omega x),
+\]
+откуда:
+\[
+	\alpha = A - B \omega^2.
+\]
+Возможны три случая поведения решений $\delta \phi$.
+\begin{enumerate}[label=\arabic*.]
+	\item $A > 0$. При $\omega^2 \in [0, A / B)$ верно $\alpha > 0$, то есть существуют возмущения $\delta \phi$, возрастающие во времени. Значит, положение равновесия $\phi \equiv C$ неустойчивое.
+	\item $A < 0$. Для любого $\omega$ выполняется $\alpha \leqslant A < 0$. Любое возмущение $\delta \phi$ на отрезке $[0, L]_x$ можно представить в виде интеграла Фурье по гармоникам, все они убывают не медленнее гармоники $\omega = 0$. Значит, положение равновесия $\phi \equiv C$ устойчивое.
+	\item $A = 0$. Рассуждаем аналогично случаю $A < 0$, однако здесь возможны сколь угодно медленно убывающие гармоники (со сколь угодно малым $\alpha$). Этот случай соответствует нейтральному равновесию. Здесь проведенного анализа с линеаризацией недостаточно.
+\end{enumerate}
+
+Заметим, что в представленном разборе случаев выводы об устойчивости повторяют таковые при анализе положений равновесия обыкновенного дифференциального уравнения
+\[
+	\psi' = \chi(\psi),
+\]
+где $\psi = \psi(t)$, $\chi(\cdot)$ задана формулой \eqref{eq:equilibruim_characteristic}. Стационарному решению такого уравнения соответствует ноль $C$ функции $\chi$, возрастание $\chi$ в точке $C$ влечет неустойчивость решения, убывание $\chi$ -- устойчивость. То же было строго показано для уравнения \eqref{tmp:variation} в случае нуля $\chi(\phi)$ первого порядка, когда $A = \chi'(C) \neq 0$. Из общих соображений в случае нуля высшего порядка ($A = 0$) при переходе к младшей ненулевой производной функции $\chi$ в точке $C$ можно заключить ту же связь с возрастанием-убыванием $\chi$.
+
+Решим уравнение $\chi(C) = 0$. С учетом выражения \eqref{eq:epsilon_derivatives} получим:
+\[
+	f'(C) \left( \cfrac{\Gamma}{l^2} - \half E^2 \cfrac{\epsilon_0}{(f(C) + \delta)^2} \right) = 0.
+\]
+Рассмотрим сначала случай $f'(C) = 0$: имеем $f'(C) = 12C^2 (1 - C) = 0$, следовательно, $C \in \{0, 1\}$. Значит, $\phi \equiv 0$ и $\phi \equiv 1$ -- положения равновесия.
+
+Пусть теперь $C \neq 0, 1$. Тогда
+\[
+	\cfrac{\Gamma}{l^2} = \cfrac{E^2 \epsilon_0}{2 (f(C) + \delta)^2} \quad \text{и} \quad f(C) + \delta = E l \sqrt{\cfrac{\epsilon_0}{2 \Gamma}}.
+\]
+Заметим, что $f(C) \in [0, 1]$, к тому же $f(\phi)$ строго возрастает, поэтому если $E l \sqrt{\epsilon_0 / (2 \Gamma)} \hm \in (\delta, 1 + \delta)$, то уравнение $\chi(C) = 0$ имеет отличный от $0$ и $1$ третий корень
+\[
+	C_3 = f^{-1} \left( E l \sqrt{\cfrac{\epsilon_0}{2 \Gamma}} - \delta \right).
+\]
+В противном случае у уравнения $\chi(C) = 0$ корня только два. Итак, число положений равновесия системы вида $\phi \equiv C$ зависит от выполнения условия
+\begin{equation}
+	\delta^2 < \cfrac{E^2 l^2 \epsilon_0}{2 \Gamma} < (1 + \delta)^2.
+	\label{cond:equilibriums_number}
+\end{equation}
+
+Теперь установим возрастание-убывание $\chi(\phi)$ в своих нулях.
+
+Рассмотрим $\phi = 1$: $f''(1) = -12$, $\epsilon''(1) = 12 \epsilon_0 / (1 + \delta)^2$ (см. выражение \eqref{eq:epsilon_derivatives}); получаем:
+\[
+	\chi'(1) = \half E^2 \epsilon''(1) + \cfrac{\Gamma}{l^2} f''(1) = \cfrac{6 E^2 \epsilon_0}{(1 + \delta)^2} - \cfrac{12 \Gamma}{l^2}.
+\]
+$\chi$ убывает при отрицательной производной, то есть при условии
+\begin{equation}
+	\cfrac{E^2 l^2 \epsilon_0}{2 \Gamma} < (1 + \delta)^2;
+	\label{tmp:equilibrium_1_stable}
+\end{equation}
+соответственно, возрастает при противоположном знаке в неравенстве.
+
+Покажем, что в нуле $C_3 \in (0, 1)$ (в случае его существования) функция $\chi(\phi)$ имеет ненулевую производную. Имеем:
+\[
+	\chi(C_3) = f'(C_3) \left( \cfrac{\Gamma}{l^2} - \cfrac{E^2 \epsilon_0}{2 (f(C_3) + \delta)^2} \right) = 0.
+\]
+Учитывая, что $f'(C_3) \ne 0$, получим:
+\[
+	\cfrac{\Gamma}{l^2} - \cfrac{E^2 \epsilon_0}{2 (f(C_3) + \delta)^2} = 0.
+\]
+Тогда:
+\[
+	\chi'(\phi)|_{C_3} = f'(C_3) \left( \cfrac{\Gamma}{l^2} - \cfrac{E^2 \epsilon_0}{2 (f(\phi) + \delta)^2} \right) ' \bigg|_{C_3} = (f'(C_3))^2 \cfrac{E^2 \epsilon_0}{(f(C_3) + \delta)^3} \ne 0.
+\]
+
+Таким образом, зная знак $\chi'(1)$ и учитывая первый порядок корня $C_3$, можно из гладкости функции $\chi(\phi)$ установить ее возрастание-убывание в своих нулях. Как видно из условий \eqref{cond:equilibriums_number} и \eqref{tmp:equilibrium_1_stable}, оно определяется величиной
+\begin{equation}
+	\xi = \cfrac{E^2 l^2 \epsilon_0}{2 \Gamma}.
+	\label{char:equilibriums}
+\end{equation}
+
+Вначале рассмотрим случай $0 \leqslant \xi < \delta^2$. Нули $\chi(\phi)$: $0$, $1$; $\chi'(0) = 0$, $\chi'(1) < 0$. Поведение функции $\chi(\phi)$ схематично изображено на рис. \ref{fig:equilibriums_case_1}. Положения равновесия: $\phi \equiv 0$ неустойчивое, $\phi \equiv 1$ устойчивое. Эту конфигурацию условно назовем случаем <<слабого электрического напряжения>>. Интуитивно конфигурация означает, что при фиксированных прочих параметрах электрическое поле мало настолько, что даже близкая к полностью разрушенной среда $\phi \approx 0$ со временем <<восстанавливается>> до $\phi \approx 1$.
+
+Рассмотрим теперь случай $\delta^2 < \xi < (1 + \delta)^2$. Нули $\chi(\phi)$: $0$, $C_3$, $1$; $\chi'(0) = 0$, $\chi'(C_3) > 0$, $\chi'(1) < 0$. Поведение функции $\chi(\phi)$ схематично изображено на рис. \ref{fig:equilibriums_case_2}. Положения равновесия: $\phi \equiv 0$ устойчивое, $\phi \equiv C_3$ неустойчивое, $\phi \equiv 1$ устойчивое. Такую конфигурацию условно назовем случаем <<среднего электрического напряжения>>. Интуитивно конфигурация означает, что при достаточно близких к $0$ значениях $\phi$ среда <<разрушается>> до $0$, при достаточно близких к $1$ -- <<восстанавливается>> до $1$; посередине же, <<на границе>>, -- неустойчивое равновесие.
+
+Наконец, рассмотрим случай $(1 + \delta)^2 < \xi$. Нули $\chi(\phi)$: $0$, $1$; $\chi'(0) = 0$, $\chi'(1) > 0$. Поведение функции $\chi(\phi)$ схематично изображено на рис. \ref{fig:equilibriums_case_3}. Положения равновесия: $\phi \equiv 0$ устойчивое, $\phi \equiv 1$ неустойчивое. Эту конфигурацию условно назовем случаем <<сильного электрического напряжения>>. Интуитивно конфигурация означает, что электрическое поле достаточно сильно, чтобы сколь угодно близкую к неповрежденной среду $\phi \approx 1$ <<разрушить>> до $\phi \approx 0$. Именно в этом случае электрический пробой развивается из малых возмущений свойств неповрежденной среды.
+
+\begin{figure}[!t]
+    \centering
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/equilibriums_case_1.png}
+        \caption{<<Слабое напряжение>>.}
+        \label{fig:equilibriums_case_1}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/equilibriums_case_2.png}
+        \caption{<<Среднее напряжение>>.}
+        \label{fig:equilibriums_case_2}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/equilibriums_case_3.png}
+        \caption{<<Сильноге напряжение>>.}
+        \label{fig:equilibriums_case_3}
+    \end{subfigure}
+    \caption{Различные случаи поведения функции $\chi(\phi)$.}
+\end{figure}
+
+Напомним, что описанный выше разбор случаев проведен при условии \eqref{cond:boundary_voltage} постоянного потенциала на обкладках и, следовательно, постоянной напряженности электрического поля $E = \Phi^+ / H$. Рассмотрим теперь положения равновесия системы вида $\phi \equiv C$ при условии \eqref{cond:boundary_charge} постоянного заряда $q^+ = -q^-$ на обкладках.
+
+Из уравнения \eqref{eq:one_dim_charge} при $\phi \equiv 1$ и $\phi \equiv 0$ верно соответственно
+\[
+	E_1 = \cfrac{q^+/S}{\epsilon_0 L}, \qquad E_0 = \cfrac{\delta \cdot q^+/S}{\epsilon_0 L} = \delta \cdot E_1.
+\]
+
+Рассматривая возмущенное решение $\phi + \delta \phi$, из того же уравнения \eqref{eq:one_dim_charge} получаем аналогичное \eqref{eq:tangent_instant_charge} уравнение в вариациях
+\[
+	\int\limits_0^L \left( \epsilon dE + E \epsilon' \delta \phi \right) dx.
+\]
+Притом заметим, что для $\phi = 0$ и $\phi = 1$ выполнено $\epsilon'(\phi) = 0$, а значит, при возмущении решения $dE = 0$. Таким образом, для этих положений равновесия системы верны те выводы об устойчивости, которые были сделаны выше при условии $E = \Const$.
+
+Подставляя $E_1$ и $E_0$ в формулу \eqref{char:equilibriums} характеристической величины $\xi$, получаем, что
+\begin{gather*}
+	\xi_q = \cfrac{(q^+/S)^2 l^2}{2 \epsilon_0 \Gamma L^2}, \\
+	\begin{aligned}
+		\phi \equiv 1 \; \; \text{устойчиво} \quad & \Longleftrightarrow \quad \xi_q > (1 + \delta)^2; \\
+		\phi \equiv 0 \; \; \text{устойчиво} \quad & \Longleftrightarrow \quad \xi_q < \cfrac{(1 + \delta)^2}{\delta^2}.
+	\end{aligned}
+\end{gather*}
+
+Отметим, что в широком диапазоне величины $\xi_q$ от $(1 + \delta)^2$ до $(1 + \delta) / \delta^2$ оба упомянутых положения равновесия неустойчивы. Это, а также объясненный в замечании~\ref{rem:charge_constant} характер поведения внутренней энергии системы при условии \eqref{cond:boundary_charge} позволяет в таком случае предположить наличие у модели нетривиальных стационарных решений. В дальнейшем они будут анализироваться теоретически в одномерной постановке задачи.
