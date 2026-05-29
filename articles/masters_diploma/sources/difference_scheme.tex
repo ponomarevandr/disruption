@@ -6,13 +6,13 @@
 
 Будем численно решать одномерную задачу \eqref{eq:one_dim}, \eqref{eq:one_dim_marginal}, \eqref{eq:one_dim_charge}, замыкая граничные условия одним из способов \eqref{cond:boundary_voltage} ($\Phi^+ = \Const$) или \eqref{cond:boundary_charge} ($q^+ = \Const$). Задача имеет свободную функциональную переменную $\phi$ в области решения $\clOmega = [0, L]_x \times [0, +\infty)_t$, а также, во второй постановке, переменную $q^+(t)$.
 
-Будем использовать регулярную сетку с временным шагом $\tau$ и пространственным $h$. Пусть $L / h = M \in \Natural$ -- число узлов сетки по пространству; $\phi_j^k$ -- значение сеточной функции в узле с координатами $(jh, k \tau) \in \clOmega$; $E^k$ и $q^{+,k}$ -- значения соответствующих функций на временном слое номер $k$. Перейдем к следующей разностной задаче:
+Будем использовать регулярную сетку с временным шагом $\tau$ и пространственным $h$. Пусть $L / h = M \in \Natural$ -- число узлов сетки по пространству; $\phi_j^k$ -- значение сеточной функции в узле с координатами $(jh, k \tau) \in \clOmega$; $E^k$ и $[q^+/D]^k$ -- значения соответствующих функций на временном слое номер $k$. Перейдем к следующей разностной задаче:
 \begin{subequations}
 \label{sch:one_dim_task}
 \begin{gather}
 	\cfrac{1}{m} \cfrac{\phi_j^{k + 1} - \phi_j^k}{\tau} = \half (E^k)^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \cfrac{\phi_{j + 1}^k - 2 \phi_j^k + \phi_{j - 1}^k}{h^2},
 	\label{sch:one_dim_task_a} \\
-	q^{+,k} = E^k h \left[\cfrac{\epsilon(\phi_0^k) + \epsilon(\phi_M^k)}{2} + \sum\limits_{j = 1}^{M - 1} \epsilon(\phi_j^k) \right].
+	[q^+/D]^k = E^k h \left[\cfrac{\epsilon(\phi_0^k) + \epsilon(\phi_M^k)}{2} + \sum\limits_{j = 1}^{M - 1} \epsilon(\phi_j^k) \right].
 	\label{sch:one_dim_task_b}
 \end{gather}
 \end{subequations}
@@ -23,9 +23,12 @@
 	\begin{aligned}
 		\phi_j^{k + 1} = \phi_j^k + m \tau \left[ \half (E^k)^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \cfrac{\phi_{j + 1}^k - 2 \phi_j^k + \phi_{j - 1}^k}{h^2} \right], \\
 		j = \overline{1, M - 1}, \quad k \in \Natural_0;
-	\end{aligned} \\
-	\phi_j^0 = \phi_0(jh), \quad \phi_0^k = \phi_l(k \tau), \quad \phi_N^k = \phi_r(k \tau); \\
-	E^k = E \quad \text{либо} \quad E^k = q^+ \cfrac{1}{h} \left[\cfrac{\epsilon(\phi_0^k) + \epsilon(\phi_M^k)}{2} + \sum\limits_{j = 1}^{M - 1} \epsilon(\phi_j^k) \right]^{-1}.
+	\end{aligned}
+	\label{sch:one_dim_a} \\
+	\phi_j^0 = \phi_0(jh), \quad \phi_0^k = \phi_l(k \tau), \quad \phi_N^k = \phi_r(k \tau);
+	\label{sch:one_dim_b} \\
+	E^k = E \quad \text{либо} \quad E^k = [q^+/D] \cfrac{1}{h} \left[\cfrac{\epsilon(\phi_0^k) + \epsilon(\phi_M^k)}{2} + \sum\limits_{j = 1}^{M - 1} \epsilon(\phi_j^k) \right]^{-1}.
+	\label{sch:one_dim_c}
 \end{gather}
 \end{subequations}
 Схема явная, первого порядка аппроксимации по времени, второго по пространству.
@@ -67,15 +70,16 @@
 значение первого слагаемого не больше $1$, а значит, расчет устойчив в области $[0, L]_x \hm \times [0, T]_t$ с любым конечным $T$ достаточно малых $\tau, h$. Необходимость выполнения \eqref{cond:stability_laplacian} вполне стандартна для устойчивости явных разностных схем, приближающих оператор Лапласа.
 
 Далее естественно потребовать
-\[
+\begin{equation}
 	m \tau \left| \half E^2 \epsilon''(C) + \cfrac{\Gamma}{l^2} f''(C) \right| \leqslant 1,
-\]
+	\label{cond:stability_function_general}
+\end{equation}
 что в случае отрицательного значения под модулем давало бы, согласно выражению \eqref{tmp:spectral}, устойчивый расчет в области $[0, L]_x \times [0, +\infty)_t$; в случае положительного -- ограниченный значением $2$ множитель $\lambda(\theta)$ роста возмущения. Итак, необходимо установить максимальное по модулю значение функции
 \[
 	\chi'(C) = \half E^2 \epsilon''(C) + \cfrac{\Gamma}{l^2} f''(C).
 \]
 
-Исследуем фукнцию $\epsilon(\phi)$. Рассмотрим замену переменной $\phi = z\delta^{1/3}$, $\phi \in [0, 1]$, $z \in [0, \delta^{-1/3}]$. Домножим на $\delta$ функцию $\epsilon(\phi)$, получим
+Исследуем фукнцию $\epsilon(\phi)$, заданную формулой \eqref{eq:epsilon}. Рассмотрим замену переменной $\phi = z\delta^{1/3}$, $\phi \in [0, 1]$, $z \in [0, \delta^{-1/3}]$. Домножим на $\delta$ функцию $\epsilon(\phi)$, получим
 \[
 	\cfrac{\delta \cdot \epsilon(z \delta^{1/3})}{\epsilon_0} = \cfrac{1}{4 z^3 - 3 z^4 \delta^{1/3} + 1}.
 \]
@@ -91,7 +95,7 @@
 
 \begin{proposition}
 	\label{prop:convergence_uniform}
-	Пусть $C > 0$ произвольное. На отрезке $[0, C]_z$ для любого порядка $k$ имеет место равномерная сходимость производных
+	Пусть $Z > 0$ произвольное. На отрезке $[0, Z]_z$ для любого порядка $k$ имеет место равномерная сходимость производных
 	\[
 		\cfrac{d^k}{d z^k} \left[ \cfrac{\delta \cdot \epsilon(z \delta^{1/3})}{\epsilon_0} \right] \rightrightarrows \cfrac{d^k}{d z^k} \left[ \cfrac{1}{1 + 4 z^3} \right]
 	\]
@@ -138,16 +142,16 @@
 \]
 По индукции заключаем, что $d^k g / d z^k$ есть сумма $S_j \delta^{j / 3}$, $j = \overline{0, k}$, домноженных на ограниченные функции.
 
-Теперь рассмотрим отрезок $[0, C]$ и $\delta \to +0$. Легко видеть, что на $[0, C]$ $S_j(z) \hm \to (0 + j)! / 0!$ равномерно по $z$, в частности, $S_0(z) \to 1$. Тогда, очевидным образом, $g(z) \rightrightarrows 1 / (1 + 4 z^3)$. Помимо этого, так как любая производная $g(z)$ представляется в виде суммы $S_j \delta^{j / 3}$, домноженных на ограниченные функции, то верно
+Теперь рассмотрим отрезок $[0, Z]$ и $\delta \to +0$. Легко видеть, что на $[0, Z]$ $S_j(z) \hm \to (0 + j)! / 0!$ равномерно по $z$, в частности, $S_0(z) \to 1$. Тогда, очевидным образом, $g(z) \rightrightarrows 1 / (1 + 4 z^3)$. Помимо этого, так как любая производная $g(z)$ представляется в виде суммы $S_j \delta^{j / 3}$, домноженных на ограниченные функции, то верно
 \[
 	\cfrac{d^k g(z)}{d z^k} \rightrightarrows \cfrac{d^k}{d z^k} \left[ \cfrac{1}{1 + 4 z^3} \right]
 \]
-на $[0, C]$ равномерно по $z$ при $\delta \to +0$.
+на $[0, Z]$ равномерно по $z$ при $\delta \to +0$.
 
 \end{proof}
 
 \begin{remark}
-	В утверждении \ref{prop:convergence_uniform}, как можно заключить из его доказательства, равномерная по $z$ сходимость имеет асимптотику $\bigO_{C, k}(\delta^{1/3})$.
+	В утверждении \ref{prop:convergence_uniform}, как можно заключить из его доказательства, равномерная по $z$ сходимость имеет асимптотику $\bigO_{Z, k}(\delta^{1/3})$.
 \end{remark}
 
 Неформально смысл утверждения \ref{prop:convergence_uniform} состоит в справедливости приближенных представлений
@@ -155,10 +159,86 @@
 	\epsilon^{(k)}(\phi) \approx \epsilon_0 \delta^{-1 - k / 3} \cdot \cfrac{d^k}{d z^k} \left[ \cfrac{1}{1 + 4 z^3} \right] \bigg|_{z = \delta^{-1/3} \phi}.
 \]
 
-Доказанная для всех производных $\delta \cdot \epsilon(z \delta^{1/3})$ на $[0, C]_z$ равномерная сходимость влечет в том числе сходимость нулей функций, интервалов знакопостоянства и точек экстремумов, а также интервалов выпуклости-вогнутости. Из вида функции $1 / (1 + 4z^3)$ следует, что при достаточно большом $C$ и $\delta \to +0$ на отрезке $[0, C \delta^{1/3}]_\phi$ функция $\epsilon(\phi)$ монотонно убывает, $\epsilon'(\phi)$ вначале убывает, затем возрастает; $\epsilon''(\phi)$ имеет три промежутка роста (начиная с убывания), два экстремума и корень. Отсюда становится совершенно ясным полученный в работе \cite{ponomarev_stability} порядок $\delta^{1/3}$ корней и точек экстремума $\epsilon''$ и порядок~$\delta^{-5/3}$ модулей экстремумов $\epsilon''$.
+Доказанная для всех производных $\delta \cdot \epsilon(z \delta^{1/3})$ на $[0, Z]_z$ равномерная сходимость влечет в том числе сходимость нулей функций, интервалов знакопостоянства и точек экстремумов, а также интервалов выпуклости-вогнутости. Из вида функции $1 / (1 + 4z^3)$ следует, что при достаточно большом $Z$ и $\delta \to +0$ на отрезке $[0, Z \delta^{1/3}]_\phi$ функция $\epsilon(\phi)$ монотонно убывает, $\epsilon'(\phi)$ вначале убывает, затем возрастает; $\epsilon''(\phi)$ имеет три промежутка роста (начиная с убывания), два экстремума и корень. Отсюда становится совершенно ясным полученный в работе \cite{ponomarev_stability} порядок $\delta^{1/3}$ корней и точек экстремума $\epsilon''$ и порядок~$\delta^{-5/3}$ модулей экстремумов $\epsilon''$.
 
-$\epsilon''(\phi)$ имеет ноль $\phi_0 \sim 0.5 \cdot \delta^{1/3}$, а также локальный минимум и локальный максимум в~точках
+Итак, $\epsilon''(\phi)$ имеет ноль $\phi_0 \sim 0.5 \cdot \delta^{1/3}$, а также локальный минимум и локальный максимум в~точках
 \[
 	\phi_\mp \sim \cfrac{1}{\sqrt[3]{32 \mp 12 \sqrt{6}}} \cdot \delta^{1/3}
 \]
-соответственно.
+со значениями
+\[
+	\epsilon''(\phi_-) \approx 2.216 \epsilon_0 \delta^{-5 / 3}, \quad \epsilon''(\phi_+) \approx -4.378 \epsilon_0 \delta^{-5 / 3}.
+\]
+
+Абсолютное значение функции $f''(\phi) = 24 \phi - 36 \phi^2$ ограничено числом $12$.
+
+Таким образом, при достаточно малом $\delta$ справедлива оценка
+\[
+	| \chi'(C) | \leqslant \half E^2 \epsilon_0 \cdot 4.4 \delta^{-5/3} + \cfrac{\Gamma}{l^2} \cdot 12,
+\]
+и для устойчивости схемы условие \eqref{cond:stability_function_general} можно заменить на более сильное
+\begin{equation}
+	\tau \leqslant \cfrac{1}{m} \left[ 3 E^2 \epsilon_0 \delta^{-5/3} + 12 \cfrac{\Gamma}{l^2} \right]^{-1}.
+	\label{cond:stability_function_voltage}
+\end{equation}
+Для постановки \eqref{cond:boundary_voltage} с постоянным напряжением интересен случай <<сильного напряжения>>, когда $\xi > 1$ (см. \eqref{char:equilibriums_voltage}) и, следовательно, $\Gamma / l^2 < E^2 \epsilon_0 / 2$. Учитывая таже, что $\delta \ll 1$, заключаем, что в формуле выше второе слагаемое пренебрежимо мало и может быть исключено. Объединяя оценки \eqref{cond:stability_laplacian} и \eqref{cond:stability_function_voltage}, получаем условие устойчивости
+\begin{equation}
+	\tau \leqslant \cfrac{1}{m} \min \left( \cfrac{h^2}{2 \Gamma}, \cfrac{\delta^{5/3}}{3 E^2 \epsilon_0} \right).
+	\label{cond:stability_voltage}
+\end{equation}
+
+Рассмотрим теперь задачу в постановке \eqref{cond:boundary_charge} с постоянным зарядом на обкладках ($q^+ = \Const$). Сеточная функция напряженности электрического поля $E^k$ вычисляется по второй формуле \eqref{sch:one_dim_c}. Ранее при оценке $| \chi'(\phi) |$ мы переходили к максимуму $\epsilon''$ и $f''$ по $\phi = C$. Теперь же будем считать известным $\min_j \phi_j^k = C$ и учитывать оценку сверху для $E_j^k$. Из второго уравнения \eqref{sch:one_dim_c} получаем
+\begin{equation}
+	E^k \leqslant \cfrac{q^+/D}{h \cdot [(M - 1) \epsilon_0 + \epsilon(C)]} \leqslant \cfrac{q^+}{\epsilon_0 S + h D [\epsilon(C) - \epsilon_0]},
+	\label{tmp:electric_tension_estimate}
+\end{equation}
+что при оценке $(E^k)^2$ и подстановке в условие \eqref{cond:stability_function_general} дает цепочку все более сильных условий
+\begin{multline}
+	m \tau \left| \half \cdot \cfrac{(q^+)^2 \epsilon''(C)}{\epsilon_0^2 S^2 + h^2 D^2 [\epsilon(C) - \epsilon_0]^2} + \cfrac{\Gamma}{l^2} f''(C) \right| \leqslant \\ \leqslant m \tau \left[ \cfrac{(q^+)^2}{2 \epsilon_0^2 S^2} \cdot \cfrac{|\epsilon''(C)|}{1 + (h^2 D^2 / S^2) \cdot [\epsilon(C) / \epsilon_0 - 1]^2} + \cfrac{\Gamma}{l^2} |f''(C)| \right] \leqslant \\ \leqslant m \tau \left[ \cfrac{(q^+)^2}{2 \epsilon_0^2 S^2} \min \left( |\epsilon''(C)|, \cfrac{S^2 |\epsilon''(C)|}{h^2 D^2 \cdot [\epsilon(C) / \epsilon_0]^2} \right) + \cfrac{\Gamma}{l^2} |f''(C)| \right] \leqslant 1.
+	\label{tmp:stability_function}
+\end{multline}
+Отметим, что $h^2 D^2 / S^2 < 1$, $D^2 / S^2 = L^2$.
+
+Исследуем функцию $\epsilon''(C) / [\epsilon(C)]^2$. Подставляя формулы \eqref{eq:epsilon}, \eqref{eq:epsilon_derivatives}, получаем
+\[
+	\cfrac{\epsilon''(C)}{[\epsilon(C)]^2} = \cfrac{2 [f'(C)]^2 - f''(C)(f(C) + \delta)}{\epsilon_0 \cdot (f(C) + \delta)} = \cfrac{1}{\epsilon_0} \left[ \cfrac{2 [f'(C)]^2}{f(C) + \delta} - f''(C) \right].
+\]
+$[f'(\phi)]^2 / f(C) = 144 \phi (1 - \phi)^2 / (4 - 3 \phi)$ не превосходит $8$ на отрезке $[0, 1]$, следовательно,
+\[
+	\cfrac{|\epsilon''(C)|}{[\epsilon(C)]^2} \leqslant \cfrac{2 \cdot 8 + 12}{\epsilon_0}.
+\]
+
+Аналогично преобразованию оценки \eqref{cond:stability_function_voltage}, нам интересен случай неустойчивости состояния $\phi \equiv 1$, а значит, из условия $\xi_q > 1$ (см. \eqref{char:equilibriums_charge}) следует $(q^+)^2 / (\epsilon_0 S) > \Gamma / l^2$, то есть в оценке \eqref{tmp:stability_function} второе слагаемое под модулем пренебрежимо мало и может быть исключено.
+
+Сказанное выше позволяет, с учетом произведенных ранее оценок $\epsilon''(C)$ и $f''(C)$, преобразовать последнее из условий \eqref{tmp:stability_function} к
+\begin{equation}
+	\tau \leqslant \cfrac{\epsilon_0 S^2}{m (q^+)^2} \max \left( \cfrac{\delta^{5/3}}{3}, \cfrac{h^2 D^2}{14 S^2} \right).
+	\label{cond:stability_function_charge}
+\end{equation}
+Объединив условия \eqref{cond:stability_laplacian} и \eqref{cond:stability_function_charge}, получим
+\begin{equation}
+	\tau \leqslant \cfrac{1}{m} \min \left[ \cfrac{h^2}{2 \Gamma}, \cfrac{\epsilon_0 L^2}{(q^+/D)^2} \max \left( \cfrac{\delta^{5/3}}{3}, \cfrac{h^2}{14 L^2} \right) \right].
+	\label{cond:stability_charge}
+\end{equation}
+
+
+\subsection{Применимость оценок в трехмерной постановке задачи}
+
+Данные выше условия устойчивости были выведены для упрощенного, одномерного, случая рассматриваемой задачи. Однако их главная цель -- позволить оценить, пусть и приблизительно, допустимые величины шагов $\tau$ и $h$ при моделировании задачи в полной, трехмерной постановке.
+
+В трехмерной постановке задачи можно использовать явную по $\phi$ схему, аналогичную \eqref{sch:one_dim}, но с тем важным отличием, что на каждом временном слое необходимо разрешать уравнение \eqref{eq:electrostatic_c} относительно сеточной функции электрического потенциала $\Phi^j_k$. Динамику плотности заряда пока что исключим из рассмотрения, считая $\rho \equiv 0$.
+
+Условие устойчивого расчета по явной схеме с лапласианом \eqref{cond:stability_laplacian} в трехмерном случае остается без изменений. В условии \eqref{cond:stability_function_voltage} необходимо заменить ранее постоянное $E$ на некоторую его оценку, например, на элементарную $\| \nabla \Phi \|_2 \leqslant \Phi^+ / h$. Таким образом, условие \eqref{cond:stability_voltage} принимает вид
+\[
+	\tau \leqslant \cfrac{1}{m} \min \left( \cfrac{h^2}{2 \Gamma}, \cfrac{\delta^{5/3} h^2}{3 (\Phi^+)^2 \epsilon_0} \right).
+\]
+Полученное ограничение, вероятно, излишне строго из-за грубости оценки $E$.
+
+Заметим, что на вывод условия \eqref{cond:stability_function_charge} одномерность задачи повлияла значительно, а именно, в оценке \eqref{tmp:electric_tension_estimate} величины $E^k$ подразумевается разрушение элемента длиной $h$ (и шириной $D$) при длине $L$ всего образца. Однако в полной постановке задачи должно произойти разрушение элемента площадью $h^2$ некоего горизонтального сечения образца площади $S$. Таким образом, оценка приобретает вид
+\[
+	E^k \leqslant \cfrac{q^+}{\epsilon_0 S + h^2 [\epsilon(C) - \epsilon_0]},
+\]
+а условие устойчивости \eqref{cond:stability_charge} -- вид
+\[
+	\tau \leqslant \cfrac{1}{m} \min \left[ \cfrac{h^2}{2 \Gamma}, \cfrac{\epsilon_0 S^2}{(q^+)^2} \max \left( \cfrac{\delta^{5/3}}{3}, \cfrac{h^4}{14 S^2} \right) \right].
+\]

@@ -32,10 +32,10 @@
 
 Формулы \eqref{eq:charge} зарядов на обкладках в таком случае принимают вид
 \begin{equation}
-	-q^- = q^+ = S \cdot E \int\limits_0^L \epsilon dx,
+	-q^- = q^+ = D \cdot E \int\limits_0^L \epsilon dx,
 	\label{eq:one_dim_charge}
 \end{equation}
-где $S = H \cdot D$ -- площадь $yz$-грани области $\Omega$.
+где $D$ -- размер области $\clOmega$ по координате $z$.
 
 Для простоты анализа в этом разделе $\epsilon_0$ считается константой. Величина $\sigma$ при описанных допущениях не играет роли. Далее будет проведен анализ устойчивости положений равновесия системы в постановках \eqref{cond:boundary_voltage} ($\Phi^+ = \Const$) и \eqref{cond:boundary_charge} ($q^+ = -q^- \hm = \Const$).
 
@@ -136,7 +136,7 @@ $\chi$ убывает при отрицательной производной, 
 Таким образом, зная знак $\chi'(1)$ и учитывая первый порядок корня $C_3$, можно из гладкости функции $\chi(\phi)$ установить ее возрастание-убывание в своих нулях. Как видно из условий \eqref{cond:equilibriums_number} и \eqref{tmp:equilibrium_1_stable}, оно определяется величиной
 \begin{equation}
 	\xi = \cfrac{E^2 l^2 \epsilon_0}{2 \Gamma}.
-	\label{char:equilibriums}
+	\label{char:equilibriums_voltage}
 \end{equation}
 
 Вначале рассмотрим случай $0 \leqslant \xi < \delta^2$. Нули $\chi(\phi)$: $0$, $1$; $\chi'(0) = 0$, $\chi'(1) < 0$. Поведение функции $\chi(\phi)$ схематично изображено на рис. \ref{fig:equilibriums_case_1}. Положения равновесия: $\phi \equiv 0$ неустойчивое, $\phi \equiv 1$ устойчивое. Эту конфигурацию условно назовем случаем <<слабого электрического напряжения>>. Интуитивно конфигурация означает, что при фиксированных прочих параметрах электрическое поле мало настолько, что даже близкая к полностью разрушенной среда $\phi \approx 0$ со временем <<восстанавливается>> до $\phi \approx 1$.
@@ -172,22 +172,27 @@ $\chi$ убывает при отрицательной производной, 
 
 Из уравнения \eqref{eq:one_dim_charge} при $\phi \equiv 1$ и $\phi \equiv 0$ верно соответственно
 \[
-	E_1 = \cfrac{q^+/S}{\epsilon_0 L}, \qquad E_0 = \cfrac{\delta \cdot q^+/S}{\epsilon_0 L} = \delta \cdot E_1.
+	E_1 = \cfrac{q^+}{\epsilon_0 S}, \qquad E_0 = \cfrac{\delta \cdot q^+}{\epsilon_0 S} = \delta \cdot E_1,
 \]
+где $S = L \cdot D$ -- площадь $xz$-грани области $\clOmega$.
 
 Рассматривая возмущенное решение $\phi + \delta \phi$, из того же уравнения \eqref{eq:one_dim_charge} получаем аналогичное \eqref{eq:tangent_instant_charge} уравнение в вариациях
 \[
-	\int\limits_0^L \left( \epsilon dE + E \epsilon' \delta \phi \right) dx.
+	\int\limits_0^L \left( \epsilon dE + E \epsilon' \delta \phi \right) dx = 0.
 \]
 Притом заметим, что для $\phi = 0$ и $\phi = 1$ выполнено $\epsilon'(\phi) = 0$, а значит, при возмущении решения $dE = 0$. Таким образом, для этих положений равновесия системы верны те выводы об устойчивости, которые были сделаны выше при условии $E = \Const$.
 
-Подставляя $E_1$ и $E_0$ в формулу \eqref{char:equilibriums} характеристической величины $\xi$, получаем, что
-\begin{gather*}
-	\xi_q = \cfrac{(q^+/S)^2 l^2}{2 \epsilon_0 \Gamma L^2}, \\
+Подставляя $E_1$ и $E_0$ в формулу \eqref{char:equilibriums_voltage} характеристической величины $\xi$, получаем, что
+\begin{gather}
+	\xi_q = \cfrac{(q^+)^2 l^2}{2 \epsilon_0 \Gamma S^2},
+	\label{char:equilibriums_charge}\\
 	\begin{aligned}
-		\phi \equiv 1 \; \; \text{устойчиво} \quad & \Longleftrightarrow \quad \xi_q > (1 + \delta)^2; \\
-		\phi \equiv 0 \; \; \text{устойчиво} \quad & \Longleftrightarrow \quad \xi_q < \cfrac{(1 + \delta)^2}{\delta^2}.
+		\phi \equiv 1 \; \; \text{устойчиво} \quad & \Longleftrightarrow \quad \xi_q < (1 + \delta)^2; \\
+		\phi \equiv 0 \; \; \text{устойчиво} \quad & \Longleftrightarrow \quad \xi_q > \cfrac{(1 + \delta)^2}{\delta^2}.
 	\end{aligned}
-\end{gather*}
+	\nonumber
+\end{gather}
 
 Отметим, что в широком диапазоне величины $\xi_q$ от $(1 + \delta)^2$ до $(1 + \delta) / \delta^2$ оба упомянутых положения равновесия неустойчивы. Это, а также объясненный в замечании~\ref{rem:charge_constant} характер поведения внутренней энергии системы при условии \eqref{cond:boundary_charge} позволяет в таком случае предположить наличие у модели нетривиальных стационарных решений. В дальнейшем они будут анализироваться теоретически в одномерной постановке задачи.
+
+Полученные условия устойчивости положений равновесия $\phi \equiv 1$ и $\phi \equiv 0$ через величины \eqref{char:equilibriums_voltage} и \eqref{char:equilibriums_charge}, хотя и выведены для упрощенной, одномерной, постановки задачи, но нигде существенно не используют свойство одномерности. Они в том же виде подходят для оценки устойчивости положений равновесия в трехмерной постановке при условии однородности среды и в качестве грубых приближений для существенно неоднородной среды.
