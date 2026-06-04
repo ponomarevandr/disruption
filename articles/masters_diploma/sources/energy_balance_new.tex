@@ -49,7 +49,7 @@
 \begin{proof}
 Используя известное дифференциальное тождество
 \begin{equation}
-	\Div(\xi \vect{V}) = \xi \Div \vect{V} + (\nabla \xi, \vect{V}),
+	\Div(\zeta \vect{V}) = \zeta \Div \vect{V} + (\nabla \zeta, \vect{V}),
 	\label{eq:identity_gradients_product}
 \end{equation}
 для плотности $w_E$ энергии получаем
@@ -167,9 +167,10 @@ $W = W_E + W_b$, $\Psi = -W_E + W_b$ (см. \eqref{eq:energy_densities}). Про
 Если притом начальная плотность заряда $\rho(\vx, 0) = \rho_0(\vx) = 0$, то верно $\rho \equiv 0$.
 
 Пусть к тому же разность потенциалов на обкладках поддерживается постоянной, то есть $\Phi^+ = \Const$. В этом случае уравнение \eqref{eq:energy_free_balance} принимает вид
-\[
+\begin{equation}
 	\cfrac{d \Psi}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx,
-\]
+	\label{eq:energy_free_decrease}
+\end{equation}
 и, следовательно, $d \Psi / dt \leq 0$, то есть свободная энергия $\Psi$ системы не возрастает.
 \end{remark}
 
