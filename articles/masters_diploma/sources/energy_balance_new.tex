@@ -1,0 +1,202 @@
+%!TEX root = ../main.tex
+
+\subsection{Соотношения баланса энергии}
+\label{ssec:energy_balance}
+
+Будем рассматривать сделующую постановку задачи. Пусть образец вещества имеет форму параллелепипеда, то есть область решения $\clOmega = [0, L]_x \times [0, H]_y \times [0, D]_z$. Образец зажат между двумя проводящими пластинами $y = 0$ и $y = H$ под напряжением.
+
+\begin{subequations}
+\label{cond:boundary_basic}
+На <<боковых>> гранях $\partial \Omega$ зададим однородное условие Неймана на электрический потенциал:
+\begin{equation}
+	\partvn{\Phi} \bigg|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 0;
+\end{equation}
+а также условие Дирихле либо Неймана на фазовое поле:
+\begin{equation}
+	\phi|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 1 \quad \text{либо} \quad \partvn{\phi} \bigg|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 0.
+\end{equation}
+На верхней и нижней грани считаем заданным однородное условие Неймана на фазовое поле:
+\begin{equation}
+	\partvn{\phi} \bigg|_{y = 0, H} = 0.
+\end{equation}
+Так как пластины из идеального проводника, то
+\begin{equation}
+	\Phi|_{y = 0} = \Phi^+(t), \quad \Phi|_{y = H} = \Phi^-(t),
+\end{equation}
+где $\Phi^+(t)$ и $\Phi^-(t)$ -- функции времени. Потенциал на обкладках может меняться как из-за притока заряда извне, так и за счет изменения сопротивления образца между ними.
+\end{subequations}
+
+На обкладках сконцентрированы следующие поверхностные заряды:
+\begin{equation}
+	q^-(t) = \int\limits_{y = 0} \epsilon \cdot (\vE, \vn) dS = \int\limits_{y = 0} \epsilon \party{\Phi} dS, \qquad q^+(t) = \int\limits_{y = H} \epsilon \cdot (\vE, \vn) dS = -\int\limits_{y = H} \epsilon \party{\Phi} dS.
+	\label{eq:charge}
+\end{equation}
+Интегрируя уравнение \eqref{eq:electrostatic_c}, по формуле Гаусса--Остроградского
+\[
+	\intOmega \rho d \vx = \intOmega \Div(-\epsilon \nabla \Phi) d \vx = \int\limits_{y = 0} \epsilon \party{\Phi} dS - \int\limits_{y = H} \epsilon \party{\Phi} dS = q^- + q^+.
+\]
+
+Можно считать $\Phi^- = 0$, то есть уровнем нулевого потенциала. Заданное $\Phi^+$ замыкает граничные условия, тогда однозначно определяется $\Phi$, а значит, и $q^-$, $q^+$ (по формуле \eqref{eq:charge}). Верно и обратное: заданное $q^-$ определяет $\Phi^+$. Для этого рассмотрим однородную ($\rho \equiv 0$) задачу с $\Phi^+ = 1$ и неоднородную с исходным $\rho$ и $\Phi^+ = 0$. Линейная комбинация их решений с коэффициентами $k$, $1$ даст исходное значение $\rho$ и произвольное -- $q^-$.
+
+\begin{proposition}
+\label{prop:energy_electrical_form}
+Функционал энергии $W_E$ электрического поля, плотность которой задана формулой \eqref{eq:energy_density_electrical}, может быть представлен в следующем виде:
+\begin{equation}
+	W_E = -\half \left( \Phi^+ q^- + \intOmega \Phi \rho d \vx \right).
+	\label{eq:energy_electrical_form}
+\end{equation}
+\end{proposition}
+\begin{proof}
+Используя известное дифференциальное тождество
+\begin{equation}
+	\Div(\xi \vect{V}) = \xi \Div \vect{V} + (\nabla \xi, \vect{V}),
+	\label{eq:identity_gradients_product}
+\end{equation}
+для плотности $w_E$ энергии получаем
+\[
+	2 w_E = (\nabla \Phi, \epsilon \nabla \Phi) = \Div(\Phi \epsilon \nabla \Phi) - \Phi \Div(\epsilon \nabla \Phi), 
+\]
+и далее, по формуле Гаусса--Остроградского, учитывая $\Phi^- = 0$ и равенства \eqref{eq:charge}, \eqref{eq:electrostatic_c},
+\[
+	2 W_E = \intOmega 2 w_E d \vx = \intpartOmega \Phi \epsilon (\nabla \Phi, \vn) dS - \intOmega \Phi \Div(\epsilon \nabla \Phi) d \vx = -\Phi^+ q^- - \intOmega \Phi \rho d \vx.
+\]
+\end{proof}
+
+\begin{proposition}
+Производная энергии $W_E$ по времени, равная
+\begin{equation}
+	\cfrac{d W_E}{dt} = \half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx + \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx,
+	\label{eq:energy_electrical_deriv}
+\end{equation}
+может быть представлена в виде
+\begin{equation}
+	\cfrac{d W_E}{dt} = -\half \left[ \Phi^+ \cfrac{d q^-}{dt} + q^- \cfrac{d \Phi^+}{dt} + \intOmega \left( \rho \partt{\Phi} + \Phi \partt{\rho} \right) d \vx \right],
+	\label{eq:energy_electrical_deriv_form}
+\end{equation}
+причем
+\begin{subequations}
+\label{eq:energy_electrical_deriv_terms}
+\begin{align}
+	-\half \left[ q^- \cfrac{d \Phi^+}{dt} + \intOmega \rho \partt{\Phi} d \vx \right] & = \half \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx,
+	\label{eq:energy_electrical_deriv_term_a} \\
+	-\half \left[ \Phi^+ \cfrac{d q^-}{dt} + \intOmega \Phi \partt{\rho} d \vx \right] & = \half \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx + \half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx.
+	\label{eq:energy_electrical_deriv_term_b}
+\end{align}
+\end{subequations}
+\end{proposition}
+\begin{proof}
+Формула \eqref{eq:energy_electrical_deriv} получается простым дифференцированием интеграла плотности $w_E$; формула \eqref{eq:energy_electrical_deriv_form} -- дифференцированием представления \eqref{eq:energy_electrical_form}.
+
+Для левой части выражения \eqref{eq:energy_electrical_deriv_term_a}, подставляя равенства \eqref{eq:charge} и \eqref{eq:electrostatic_c}, по тождеству \eqref{eq:identity_gradients_product} имеем
+\begin{multline*}
+	-q^- \cfrac{d \Phi^+}{dt} - \intOmega \rho \partt{\Phi} d \vx = \intpartOmega \left( \partt{\Phi} \epsilon \nabla \Phi, \vn \right) dS - \intOmega \partt{\Phi} \Div(\epsilon \nabla \Phi) d \vx = \\ = \intOmega \left[ \Div \left( \partt{\Phi} \epsilon \nabla \Phi \right) - \partt{\Phi} \Div(\epsilon \nabla \Phi) \right] d \vx = \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx.
+\end{multline*}
+Для левой части выражения \eqref{eq:energy_electrical_deriv_term_b} похожим образом получаем
+\begin{multline*}
+	-\Phi^+ \cfrac{d q^-}{dt} - \intOmega \Phi \partt{\rho} d \vx = \intpartOmega \left( \Phi \partt{}[\epsilon \nabla \Phi], \vn \right) dS - \intOmega \Phi \Div \partt{}[\epsilon \nabla \Phi] d \vx = \\ = \intOmega \left( \nabla \Phi, \partt{}[\epsilon \nabla \Phi] \right) d \vx = \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx + \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx.
+\end{multline*}
+Отметим, что вывод равенства \eqref{eq:energy_electrical_deriv_term_b} куда менее тривиален, чем равенства \eqref{eq:energy_electrical_deriv_term_a}: происходит подстановка интегральных представлений $q^-$ и $\rho$ под знак производной, что означает переход в касательное пространство функциональной поверхности.
+\end{proof}
+
+\begin{proposition}
+\label{prop:energy_electrical_balance}
+Справедливы следующие уравнения баланса энергии $W_E$ электрического поля:
+\begin{subequations}
+\label{eq:energy_electrical_balance}
+\begin{align}
+	\cfrac{d W_E}{dt} & = \half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - q^- \cfrac{d \Phi^+}{dt} - \intOmega \rho \partt{\Phi} d \vx,
+	\label{eq:energy_electrical_balance_a} \\
+	\cfrac{d W_E}{dt} & = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \left( \cfrac{d q^-}{dt} + \int\limits_{y = 0} \sigma \party{\Phi} dS \right) - \intOmega Q_j d \vx.
+	\label{eq:energy_electrical_balance_b}
+\end{align}
+\end{subequations}
+Здесь $Q_j$, определяемое формулой \eqref{eq:heat}, есть тепло, выделяемое при протекании тока в среде.
+\end{proposition}
+\begin{proof}
+Из правой части формулы \eqref{eq:energy_electrical_deriv} вычтем и прибавим удвоенные части равенств \eqref{eq:energy_electrical_deriv_term_a} и \eqref{eq:energy_electrical_deriv_term_b}, получим соответственно выражение \eqref{eq:energy_electrical_balance_a} и
+\begin{equation}
+	\cfrac{d W_E}{dt} = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \cfrac{d q^-}{dt} - \intOmega \Phi \partt{\rho} d \vx.
+	\label{tmp:energy_electrical_deriv}
+\end{equation}
+Преобразуем последнее слагаемое. Выразим производную плотости заряда $\rho$ из уравнения \eqref{eq:electrostatic_b} и далее по дифференциальному тождеству \eqref{eq:identity_gradients_product} имеем
+\begin{multline*}
+	\intOmega \Phi \partt{\rho} d \vx = \intOmega \Phi \Div (\sigma \nabla \Phi) d \vx = \intOmega [\Div(\Phi \sigma \nabla \Phi) - (\nabla \Phi, \sigma \nabla \Phi)] d \vx = \\ = \intpartOmega \Phi \sigma \cdot (\nabla \Phi, \vn) dS - \intOmega \sigma \cdot (\nabla \Phi, \nabla \Phi) d \vx = -\Phi^+ \int\limits_{y = 0} \sigma \party{\Phi} dS - \intOmega Q_j d \vx.
+\end{multline*}
+С учетом последнего преобразования получено выражение \eqref{eq:energy_electrical_balance_b}
+\end{proof}
+
+\begin{proposition}
+\label{prop:energy_balance}
+При динамике фазового поля, определяемой уравением \eqref{eq:phi}, справедливо следующее уравнение баланса свободной энергии $\Psi$ системы:
+\begin{equation}
+	\cfrac{d \Psi}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx + q^- \cfrac{d \Phi^+}{dt} + \intOmega \rho \partt{\Phi} d \vx;
+	\label{eq:energy_free_balance}
+\end{equation}
+а также следующее уравнение баланса внутренней энергии $W$ системы:
+\begin{equation}
+	\cfrac{dW}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx - \Phi^+ \left( \cfrac{d q^-}{dt} + \int\limits_{y = 0} \sigma \party{\Phi} dS \right) - \intOmega Q_j d \vx.
+	\label{eq:energy_inner_balance}
+\end{equation}
+\end{proposition}
+\begin{proof}
+$W = W_E + W_b$, $\Psi = -W_E + W_b$ (см. \eqref{eq:energy_densities}). Продифференцируем функционал $W_b$. Используя тождество \eqref{eq:identity_gradients_product}, а также учитывая граничные условия \eqref{cond:boundary_basic} фазового поля $\phi$ типа Дирихле либо однородные типа Неймана, стандартным способом преобразуя дифференциальные слагаемые, получаем
+\begin{multline}
+	\cfrac{d W_b}{dt} = \cfrac{d}{dt} \intOmega \left[ \cfrac{\Gamma}{l^2}[1 - f(\phi)] + \cfrac{\Gamma}{4} \| \nabla \phi \|_2^2 + \cfrac{\beta \Gamma l^2}{4} \| \nabla \phi \|_2^4 \right] d \vx = \\ = - \intOmega \partt{\phi} \left[ \cfrac{\Gamma}{l^2} f' + \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left( \| \nabla \phi \|_2^2 \nabla \phi \right) \right] d \vx.
+	\label{tmp:energy_breakdown_deriv}
+\end{multline}
+
+Для первого слагаемого в формулах \eqref{eq:energy_electrical_balance} верно
+\[
+	\intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx = \intOmega \partt{\phi} \epsilon'[\phi] (\nabla \Phi, \nabla \Phi) d \vx.
+\]
+Прибавим полученную производную \eqref{tmp:energy_breakdown_deriv} к равенству \eqref{eq:energy_electrical_balance_a}, взятому со знаком минус:
+\begin{multline*}
+	-\cfrac{d W_E}{dt} + \cfrac{d W_b}{dt} = \\ = -\intOmega \partt{\phi} \left[ \half \epsilon' \cdot (\nabla \Phi, \nabla \Phi) + \cfrac{\Gamma}{l^2} f' + \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left( \| \nabla \phi \|_2^2 \nabla \phi \right) \right] d \vx + q^- \cfrac{d \Phi^+}{dt} + \intOmega \rho \partt{\Phi} d \vx.
+\end{multline*}
+Выделяя под интегралом правую часть уравения \eqref{eq:phi} динамики фазового поля, получаем выражение \eqref{eq:energy_free_balance}.
+
+Выражение \eqref{eq:energy_inner_balance} выводится аналогично, прибавлением производной \eqref{tmp:energy_breakdown_deriv} к равенству \eqref{eq:energy_electrical_balance_b} с последующим выделением выражения \eqref{eq:phi} под интегралом.
+\end{proof}
+
+\begin{remark}
+\label{rem:Phi_constant}
+Если верно $\sigma = k\epsilon$, $k$ -- константа, то из уравнений \eqref{eq:electrostatic_b}, \eqref{eq:electrostatic_c} следует
+\[
+	\partt{\rho} + k \rho = 0, \quad \rho(\vx, t) = \rho(\vx, 0) e^{-kt}.
+\]
+Если притом начальная плотность заряда $\rho(\vx, 0) = \rho_0(\vx) = 0$, то верно $\rho \equiv 0$.
+
+Пусть к тому же разность потенциалов на обкладках поддерживается постоянной, то есть $\Phi^+ = \Const$. В этом случае уравнение \eqref{eq:energy_free_balance} принимает вид
+\[
+	\cfrac{d \Psi}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx,
+\]
+и, следовательно, $d \Psi / dt \leq 0$, то есть свободная энергия $\Psi$ системы не возрастает.
+\end{remark}
+
+\begin{remark}
+\label{rem:charge_conservative}
+Если считать, что приток заряда на обкладки извне отсутствует, то
+\[
+	\cfrac{d q^-}{dt} = -\int\limits_{y = 0} \sigma \party{\Phi} dS.
+\]
+В этом случае уравнения \eqref{eq:energy_electrical_balance_b} и \eqref{eq:energy_inner_balance} принимают соответственно вид
+\begin{align*}
+	\cfrac{d W_E}{dt} & = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \intOmega Q_j d \vx, \\
+	\cfrac{dW}{dt} & = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx - \intOmega Q_j d \vx.
+\end{align*}
+Легко видеть, что тогда $dW / dt \leq 0$ -- внутренняя энергия $W$ системы не возрастает.
+\end{remark}
+
+\begin{remark}
+\label{rem:charge_constant}
+Пусть, как и в замечании \ref{rem:Phi_constant}, $\sigma = k\epsilon$, $k$ -- константа, $\rho(\vx, 0) = \rho_0(\vx) = 0$ (и, следовательно, $\rho \equiv 0$). Если притом заряды на обкладках поддерживаются постоянными: $q^-(t) = -q^+(t) = \Const$, то балансовые соотношения \eqref{eq:energy_electrical_balance_b} и \eqref{eq:energy_inner_balance} принимают соответственно вид
+\begin{align*}
+	\cfrac{d W_E}{dt} & = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx, \\
+	\cfrac{dW}{dt} & = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx,
+\end{align*}
+так как второе и третье слагаемые в правой части выражения \eqref{tmp:energy_electrical_deriv} становятся нулевыми. Очевидным образом, $W$ не возрастает.
+
+Более того, в этом случае $W_E$ и $W$ ведут себя подобно консервативным величинам. Действительно, в такой постановке задачи электрический потенциал $\Phi$ однозначно определяется фазовым полем $\phi$, а значит, справедливы функциональные зависимости $W_E = W_E[\phi]$, $W = W[\phi]$. В строго физическом смысле, естественно, $W_E$ и $W$ не консервативны, так как происходит потеря энергии в виде тепла; однако она <<компенсируется>> за счет нагнетания заряда на обкладки.
+
+Заметим, что аналогичный вид принимает выражение для производной $d \Psi / dt$ в замечании \ref{rem:Phi_constant}. Однако существенная разница в том, что $W_E$ и $W$ -- неотрицательные величины, их убывание ограничено нулем; $\Psi$, напротив, не имеет характерного знака и, более того, на практике зачастую отрицательна, то есть ее убывание в условиях замечания \ref{rem:Phi_constant} не ограничено ничем. Следовательно, если консервативное убывание $W_E$ и $W$ может косвенно свидетельствовать о движении системы к некоему нетривиальному положению равновесия, то убывание $\Psi$ -- нет.
+\end{remark}
