@@ -79,3 +79,59 @@
 \end{multline*}
 
 Авторы не стали отклоняться от предложенного в работе \cite{zhang_time_step} метода адаптации, однако из проделанных рассуждений получается, что из модуля производной энергии в формуле \eqref{sch:time_step_energy} логичнее было бы извлечь квадратный корень, чтобы выполнялось $\| \phi^{k + 1} \hm - \phi^k \|_2 \approx \tol_2 \cdot \sqrt{m}$.
+
+
+\subsection{Адаптация по устойчивости}
+
+Подраздел \ref{ssub:scheme_stability} посвящен выводу условий устойчивости разностной схемы \eqref{sch:one_dim}. Условия для конкретных постановок задачи получены преобразованием условий общего вида \eqref{cond:stability_laplacian}, \eqref{cond:stability_function_general}, где первое связано с разностным оператором Лапласа и носит всеобщий характер, а второе есть ограничение на функцию фазового поля $\phi = C$, где $C$ воспринимается как произвольная величина.
+
+Основная идея подхода к адаптации, предлагаемого автором в этом разделе, заключается в том, чтобы условии \eqref{cond:stability_function_general} заменить произвольное $\phi = C$ на значения сеточной функции $\phi_j^k$ с текущего временного слоя и, естественно, взять наибольшее возможное $\tau$. Таким образом получается следующая формула адаптивного шага по времени:
+\begin{equation}
+	\widetilde{\tau}_3^k = \cfrac{\tol_3}{m \cdot \max\limits_{j = 0}^M \left| F(\phi_j^k, E) \right|}.
+	\label{sch:time_step_stability_raw}
+\end{equation}
+Здесь $F$ обозначена функция
+\[
+	F(\phi, E) = \half E^2 \epsilon''(\phi) + \cfrac{\Gamma}{l^2} f''(\phi).
+\]
+Этот метод будем условно называть адаптацией по устойчивости.
+
+Далее $F(\phi, E)$ будет исследоваться при фиксированном $E$, и в таком смысле она тождественна $\chi'(\phi)$ \eqref{eq:equilibrium_characteristic_deriv}, рассматривавшейся в подразделе \ref{ssub:scheme_stability}.
+
+Идея описанного подхода подразумевает, что для корректной работы схемы должно быть достаточно $\tol_3 = 1$, позволяя отказаться от подбора константы. При большей желаемой точности расчета можно провести подбор $\tol_3 < 1$.
+
+Однако формула \eqref{sch:time_step_stability_raw} в чистом виде имеет критический недостаток из-за вида функции $\chi'(\phi)$ и нуждается в доработке.
+
+Из утверждения \ref{prop:convergence_uniform} следует, что функция $\epsilon''(\phi)$ имеет в окрестности $\phi = 0$ три промежутка роста (начиная с убывания) с двумя экстремумами и корнем в точках $\phi \hm = \bigO(\delta^{1/3})$, причем модули экстремальных значений имеют асимптотику роста $\bigO(\delta^{-5/3})$. Подробнее перечисленные факты изложены в подразделе \ref{ssub:scheme_stability}.
+
+По этой причине функция $F = \chi'(\phi)$ в формуле~\eqref{sch:time_step_stability_raw} крайне неудобна из-за слагаемого $\epsilon'' \cdot \| \nabla \Phi \|^2 / 2$: вблизи $0$ оно достигает больших по модулю значений и к тому же имеет ноль, так что при взятии модуля в зоне больших значений возникает резкий <<провал>> до $0$. Чтобы решить проблему, мажорируем $|\epsilon''(\phi)|$ гладкой функцией, не имеющей такого недостатка. Преобразуя выражение \eqref{eq:epsilon_derivatives}, имеем
+\begin{multline*}
+	\cfrac{\delta^{5/3} \epsilon''(\delta^{1/3} z)}{\epsilon_0} = \cfrac{24 (z^2 - \delta^{1/3} z^3) - (24 z - 36 \delta^{1/3} z^2)(4 z^3 - 3 \delta^{1/3} z^4 + 1)}{(4 z^3 - 3 \delta^{1/3} z^4 + 1)^3} = \\
+	= \cfrac{12z (16 z^3 - 30 \delta^{1/3} z^4 + 15 \delta^{2/3} z^5 + 3z \delta^{1/3} - 2)}{(4 z^3 - 3 \delta^{1/3} z^4 + 1)^3}.
+\end{multline*}
+Поведение функции вблизи $0$ определяется слагаемым $-2 \cdot 12z$. Поменяем его знак и получим функцию
+\begin{gather}
+	\widetilde{G}(z) = \cfrac{12z (16 z^3 - 30 \delta^{1/3} z^4 + 15 \delta^{2/3} z^5 + 3z \delta^{1/3} + 2)}{(4 z^3 - 3 \delta^{1/3} z^4 + 1)^3};
+	\nonumber \\
+	G(\phi) = \delta^{-5/3} \widetilde{G}(\delta^{-1/3} \phi) = \cfrac{12 \phi (16 \phi^3 - 30 \phi^4 + 15 \phi^5 + 3 \delta \phi + 2 \delta)}{(4 \phi^3 - 3 \phi^4 + \delta)^3}.
+	\label{eq:eps_phi_phi_majorant}
+\end{gather}
+$G(\phi) \geqslant 0$ на $[0, 1]$. Имеем $G(x) = |G(x)| \geqslant |\epsilon''(\phi) / \epsilon_0|$ (рис. \ref{fig:eps_phi_phi_majorant}).
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/eps_phi_phi_majorant_bw}
+	\vspace{-0.2cm}
+	\caption{Гладкая оценка сверху для $|\epsilon''(\phi)|$, $\delta = 10^{-3}$}
+	\label{fig:eps_phi_phi_majorant}
+\end{figure}
+
+Наконец, используя $G(\phi)$, заданную выражением \eqref{eq:eps_phi_phi_majorant}, получим оценку
+\[
+	|F(\phi, E)| \leqslant \half E^2 \epsilon_0 G(\phi) + \cfrac{\Gamma}{l^2} \sup_{\phi \in [0, 1]} |f''(\phi)| = \half E^2 \epsilon_0 G(\phi) + 12 \cfrac{\Gamma}{l^2}
+\]
+и заменим ею $|F|$ в формуле \eqref{sch:time_step_stability_raw} метода адаптации по устойчивости:
+\begin{equation}
+	\widetilde{\tau}_3^k = \tol_3 \cdot \left[ m \cdot \max\limits_{j = 0}^M \left( \half E^2 \epsilon_0 G(\phi_j^k) + 12 \cfrac{\Gamma}{l^2} \right) \right]^{-1}.
+	\label{sch:time_step_stability}
+\end{equation}
