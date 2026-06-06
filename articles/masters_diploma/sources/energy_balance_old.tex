@@ -9,31 +9,31 @@
 \label{cond:boundary_basic}
 На <<боковых>> гранях $\partial \Omega$ зададим однородное условие Неймана на электрический потенциал:
 \begin{equation}
-	\partvn{\Phi} \bigg|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 0;
+    \partvn{\Phi} \bigg|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 0;
 \end{equation}
 а также условие Дирихле либо Неймана на фазовое поле:
 \begin{equation}
-	\phi|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 1 \quad \text{либо} \quad \partvn{\phi} \bigg|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 0.
+    \phi|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 1 \quad \text{либо} \quad \partvn{\phi} \bigg|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 0.
 \end{equation}
 На верхней и нижней грани считаем заданным однородное условие Неймана на фазовое поле:
 \begin{equation}
-	\partvn{\phi} \bigg|_{y = 0, H} = 0.
+    \partvn{\phi} \bigg|_{y = 0, H} = 0.
 \end{equation}
 Так как пластины из идеального проводника, то
 \begin{equation}
-	\Phi|_{y = 0} = \Phi^+(t), \quad \Phi|_{y = H} = \Phi^-(t),
+    \Phi|_{y = 0} = \Phi^+(t), \quad \Phi|_{y = H} = \Phi^-(t),
 \end{equation}
 где $\Phi^+(t)$ и $\Phi^-(t)$ -- функции времени. Потенциал на обкладках может меняться как из-за притока заряда извне, так и за счет изменения сопротивления образца между ними.
 \end{subequations}
 
 На обкладках сконцентрированы следующие поверхностные заряды:
 \begin{equation}
-	q^-(t) = \int\limits_{y = 0} \epsilon \cdot (\vE, \vn) dS = \int\limits_{y = 0} \epsilon \party{\Phi} dS, \qquad q^+(t) = \int\limits_{y = H} \epsilon \cdot (\vE, \vn) dS = -\int\limits_{y = H} \epsilon \party{\Phi} dS.
-	\label{eq:charge}
+    q^-(t) = \int\limits_{y = 0} \epsilon \cdot (\vE, \vn) dS = \int\limits_{y = 0} \epsilon \party{\Phi} dS, \qquad q^+(t) = \int\limits_{y = H} \epsilon \cdot (\vE, \vn) dS = -\int\limits_{y = H} \epsilon \party{\Phi} dS.
+    \label{eq:charge}
 \end{equation}
 Интегрируя уравнение \eqref{eq:electrostatic_c}, по формуле Гаусса--Остроградского
 \[
-	\intOmega \rho d \vx = \intOmega \Div(-\epsilon \nabla \Phi) = \int\limits_{y = 0} \epsilon \party{\Phi} dS - \int\limits_{y = H} \epsilon \party{\Phi} dS = q^- + q^+.
+    \intOmega \rho d \vx = \intOmega \Div(-\epsilon \nabla \Phi) = \int\limits_{y = 0} \epsilon \party{\Phi} dS - \int\limits_{y = H} \epsilon \party{\Phi} dS = q^- + q^+.
 \]
 
 Можно считать $\Phi^- = 0$, то есть уровнем нулевого потенциала. Заданное $\Phi^+$ замыкает граничные условия, тогда однозначно определяется $\Phi$, а значит, и $q^-$, $q^+$ (по формуле \eqref{eq:charge}). Верно и обратное: заданное $q^-$ определяет $\Phi^+$. Для этого рассмотрим однородную ($\rho \equiv 0$) задачу с $\Phi^+ = 1$ и неоднородную с исходным $\rho$ и $\Phi^+ = 0$. Линейная комбинация их решений с коэффициентами $k$, $1$ даст исходное значение $\rho$ и произвольное -- $q^-$.
@@ -42,65 +42,65 @@
 \label{prop:minimization}
 Уравнение \eqref{eq:phi} динамики фазового поля удовлетворяет принципу минимизации функционала внутренней энергии системы
 \begin{equation}
-	W = \intOmega w d \vx
-	\label{eq:energy_inner}
+    W = \intOmega w d \vx
+    \label{eq:energy_inner}
 \end{equation}
 на касательном пространстве, определяемом системой уравнений \eqref{eq:electrostatic}, при мгновенном постоянстве $q^-$.
 \end{proposition}
 \begin{proof}
 Переходя к мгновенным вариациям в уравнениях \eqref{eq:electrostatic_c} и \eqref{eq:charge} (с учетом постоянства $q^\pm$), получаем следующие уравнения касательного пространства:
 \begin{gather}
-	\Div \left( \delta \epsilon \nabla \Phi + \epsilon \nabla \delta \Phi \right) = 0,
-	\label{eq:tangent_instant_rho} \\
-	\int\limits_{y = 0, H} \left( \delta \epsilon \party{\Phi} + \epsilon \party{\delta \Phi} \right) dS = 0.
-	\label{eq:tangent_instant_charge}
+    \Div \left( \delta \epsilon \nabla \Phi + \epsilon \nabla \delta \Phi \right) = 0,
+    \label{eq:tangent_instant_rho} \\
+    \int\limits_{y = 0, H} \left( \delta \epsilon \party{\Phi} + \epsilon \party{\delta \Phi} \right) dS = 0.
+    \label{eq:tangent_instant_charge}
 \end{gather}
 
 Рассмотрим вариацию функционала $W$:
 \begin{equation}
-	\delta W = \delta W_E + \intOmega \left[ \cfrac{\Gamma}{l^2} f'(\phi) \delta \phi + \cfrac{\Gamma}{2} (\nabla \delta \phi, \nabla \phi) + \beta \Gamma l^2 \left( \nabla \delta \phi, \| \nabla \phi \|_2^2 \nabla \phi \right) \right] d \vx.
-	\label{eq:delta_energy}
+    \delta W = \delta W_E + \intOmega \left[ \cfrac{\Gamma}{l^2} f'(\phi) \delta \phi + \cfrac{\Gamma}{2} (\nabla \delta \phi, \nabla \phi) + \beta \Gamma l^2 \left( \nabla \delta \phi, \| \nabla \phi \|_2^2 \nabla \phi \right) \right] d \vx.
+    \label{eq:delta_energy}
 \end{equation}
 Используя известное дифференциальное тождество
 \[
-	\Div(\xi \nabla \eta) = (\nabla \xi, \nabla \eta) + \xi \Delta \eta,
+    \Div(\xi \nabla \eta) = (\nabla \xi, \nabla \eta) + \xi \Delta \eta,
 \]
 а также учитывая поставленные граничные условия типа Дирихле либо однородные типа Неймана, для слагаемых с дифференциальными операторами стандартным образом получаем
 \begin{equation}
-	\intOmega \left[ \cfrac{\Gamma}{2} (\nabla \delta \phi, \nabla \phi) + \beta \Gamma l^2 \left( \nabla \delta \phi, \| \nabla \phi \|_2^2 \nabla \phi \right) \right] d \vx = -\intOmega \delta \phi \left[ \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left(\| \nabla \phi \|_2^2 \nabla \phi \right) \right] d \vx.
-	\label{tmp:delta_energy_differential}
+    \intOmega \left[ \cfrac{\Gamma}{2} (\nabla \delta \phi, \nabla \phi) + \beta \Gamma l^2 \left( \nabla \delta \phi, \| \nabla \phi \|_2^2 \nabla \phi \right) \right] d \vx = -\intOmega \delta \phi \left[ \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left(\| \nabla \phi \|_2^2 \nabla \phi \right) \right] d \vx.
+    \label{tmp:delta_energy_differential}
 \end{equation}
 
 Осталось преобразовать $\delta W_E$.
 \[
-	\delta W_E = \intOmega \left[ \epsilon \cdot (\nabla \Phi, \nabla \delta \Phi) + \half \delta \epsilon \cdot (\nabla \Phi, \nabla \Phi) \right] d \vx,
+    \delta W_E = \intOmega \left[ \epsilon \cdot (\nabla \Phi, \nabla \delta \Phi) + \half \delta \epsilon \cdot (\nabla \Phi, \nabla \Phi) \right] d \vx,
 \]
 где для первого слагаемого
 \begin{equation}
-	\intOmega \epsilon \cdot (\nabla \Phi, \nabla \delta \Phi) d \vx = \intOmega \Div (\Phi \epsilon \nabla \delta \Phi) d \vx - \intOmega \Phi \Div (\epsilon \nabla \delta \Phi) d \vx.
-	\label{tmp:detla_energy_electrical_first}
+    \intOmega \epsilon \cdot (\nabla \Phi, \nabla \delta \Phi) d \vx = \intOmega \Div (\Phi \epsilon \nabla \delta \Phi) d \vx - \intOmega \Phi \Div (\epsilon \nabla \delta \Phi) d \vx.
+    \label{tmp:detla_energy_electrical_first}
 \end{equation}
 Далее, используя формулу Гаусса--Остроградского, учитывая равенство \eqref{eq:tangent_instant_charge} и $\Phi^- = 0$,
 \begin{multline*}
-	\intOmega \Div (\Phi \epsilon \nabla \delta \Phi) d \vx = \intpartOmega \Phi \epsilon \cdot (\nabla \delta \Phi, \vn) dS = -\Phi^+ \int\limits_{y = 0} \epsilon \party{\delta \Phi} dS = \Phi^+ \int\limits_{y = 0} \delta \epsilon \party{\Phi} dS = \\ = -\intpartOmega \Phi \delta \epsilon \cdot (\nabla \Phi, \vn) = -\intOmega \Div(\Phi \delta \epsilon \nabla \Phi) d \vx;
+    \intOmega \Div (\Phi \epsilon \nabla \delta \Phi) d \vx = \intpartOmega \Phi \epsilon \cdot (\nabla \delta \Phi, \vn) dS = -\Phi^+ \int\limits_{y = 0} \epsilon \party{\delta \Phi} dS = \Phi^+ \int\limits_{y = 0} \delta \epsilon \party{\Phi} dS = \\ = -\intpartOmega \Phi \delta \epsilon \cdot (\nabla \Phi, \vn) = -\intOmega \Div(\Phi \delta \epsilon \nabla \Phi) d \vx;
 \end{multline*}
 а также, используя равенство \eqref{eq:tangent_instant_rho},
 \[
-	\intOmega \Phi \Div (\epsilon \nabla \delta \Phi) d \vx = -\intOmega \Phi \Div(\delta \epsilon \nabla \Phi).
+    \intOmega \Phi \Div (\epsilon \nabla \delta \Phi) d \vx = -\intOmega \Phi \Div(\delta \epsilon \nabla \Phi).
 \]
 Возвращаясь к выражению \eqref{tmp:detla_energy_electrical_first}, имеем
 \[
-	\intOmega \epsilon \cdot (\nabla \Phi, \nabla \delta \Phi) d \vx = -\intOmega \left[ \Div(\Phi \delta \epsilon \nabla \Phi) - \Phi \Div(\delta \epsilon \nabla \Phi) \right] d \vx = -\intOmega \delta \epsilon \cdot (\nabla \Phi, \nabla \Phi) d \vx.
+    \intOmega \epsilon \cdot (\nabla \Phi, \nabla \delta \Phi) d \vx = -\intOmega \left[ \Div(\Phi \delta \epsilon \nabla \Phi) - \Phi \Div(\delta \epsilon \nabla \Phi) \right] d \vx = -\intOmega \delta \epsilon \cdot (\nabla \Phi, \nabla \Phi) d \vx.
 \]
 Таким образом,
 \begin{equation}
-	\delta W_E = -\intOmega \delta \epsilon \cdot (\nabla \Phi, \nabla \Phi) d \vx + \half \intOmega \delta \epsilon \cdot (\nabla \Phi, \nabla \Phi) d \vx = -\half \intOmega \delta \epsilon \cdot (\nabla \Phi, \nabla \Phi) d \vx.
-	\label{tmp:delta_energy_electrical}
+    \delta W_E = -\intOmega \delta \epsilon \cdot (\nabla \Phi, \nabla \Phi) d \vx + \half \intOmega \delta \epsilon \cdot (\nabla \Phi, \nabla \Phi) d \vx = -\half \intOmega \delta \epsilon \cdot (\nabla \Phi, \nabla \Phi) d \vx.
+    \label{tmp:delta_energy_electrical}
 \end{equation}
 
 Наконец, подставляя \eqref{tmp:delta_energy_differential} и \eqref{tmp:delta_energy_electrical} в \eqref{eq:delta_energy}, получаем
 \[
-	\cfrac{\delta W}{\delta \phi} = -\left[ \half \epsilon \cdot (\nabla \Phi, \nabla \Phi) + \cfrac{\Gamma}{l^2} f' + \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left(\| \nabla \phi \|_2^2 \nabla \phi \right) \right],
+    \cfrac{\delta W}{\delta \phi} = -\left[ \half \epsilon \cdot (\nabla \Phi, \nabla \Phi) + \cfrac{\Gamma}{l^2} f' + \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left(\| \nabla \phi \|_2^2 \nabla \phi \right) \right],
 \]
 где в квадратных скобках стоит правая часть уравнения \eqref{eq:phi} динамики фазового поля.
 \end{proof}
@@ -109,8 +109,8 @@
 \label{prop:energy_electrical_balance}
 Справедливо следующее уравнение баланса энергии $W_E$ электрического поля:
 \begin{equation}
-	\cfrac{d W_E}{dt} = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \left( \partt{q^-} + \int\limits_{y = 0} \sigma \party{\Phi} dS \right) - \intOmega Q_j d \vx,
-	\label{eq:energy_electrical_balance}
+    \cfrac{d W_E}{dt} = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \left( \partt{q^-} + \int\limits_{y = 0} \sigma \party{\Phi} dS \right) - \intOmega Q_j d \vx,
+    \label{eq:energy_electrical_balance}
 \end{equation}
 где $Q_j$, определяемое формулой \eqref{eq:heat}, есть тепло, выделяемое при протекании тока в среде.
 \end{proposition}
@@ -119,25 +119,25 @@
 
 Продифференцируем по времени уравнения \eqref{eq:electrostatic_c} и \eqref{eq:charge}, получим
 \begin{gather}
-	\Div \left( \partt{\epsilon} \nabla \Phi + \epsilon \nabla \partt{\Phi} \right) = -\partt{\rho},
-	\label{eq:tangent_temporal_rho} \\
-	\int\limits_{y = 0} \left( \partt{\epsilon} \party{\Phi} + \epsilon \partt{} \party{\Phi} \right) dS = \partt{q^-}.
-	\label{eq:tangent_temporal_charge}
+    \Div \left( \partt{\epsilon} \nabla \Phi + \epsilon \nabla \partt{\Phi} \right) = -\partt{\rho},
+    \label{eq:tangent_temporal_rho} \\
+    \int\limits_{y = 0} \left( \partt{\epsilon} \party{\Phi} + \epsilon \partt{} \party{\Phi} \right) dS = \partt{q^-}.
+    \label{eq:tangent_temporal_charge}
 \end{gather}
 
 Продиффиренцируем по времени функционал $W_E$:
 \begin{equation}
-	\cfrac{d W_E}{dt} = \intOmega \left[ \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) + \half \partt{\epsilon} (\nabla \Phi, \nabla \Phi) \right] d \vx.
-	\label{tmp:energy_electrical_deriv}
+    \cfrac{d W_E}{dt} = \intOmega \left[ \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) + \half \partt{\epsilon} (\nabla \Phi, \nabla \Phi) \right] d \vx.
+    \label{tmp:energy_electrical_deriv}
 \end{equation}
 Преобразуя первое слагаемое с учетом \eqref{eq:tangent_temporal_rho}, \eqref{eq:tangent_temporal_charge} тем же образом, что для $\partial W_E$ в доказательстве утверждения \ref{prop:minimization}, имеем
 \begin{equation}
-	\intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx = -\intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \partt{q^-} + \intOmega \Phi \partt{\rho} d \vx.
-	\label{tmp:energy_electrical_deriv_first}
+    \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx = -\intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \partt{q^-} + \intOmega \Phi \partt{\rho} d \vx.
+    \label{tmp:energy_electrical_deriv_first}
 \end{equation}
 Выразим производную заряда из уравнения \eqref{eq:electrostatic_b} и подставим в последнее слагаемое выражения выше:
 \begin{multline*}
-	\intOmega \Phi \partt{\rho} d \vx = \intOmega \Phi \Div (\sigma \nabla \Phi) d \vx = \intpartOmega \Phi \sigma \cdot (\nabla \Phi, \vn) dS - \intOmega \sigma \cdot (\nabla \Phi, \nabla \Phi) d \vx = \\ = -\Phi^+ \int\limits_{y = 0} \sigma \party{\Phi} dS - \intOmega Q_j d \vx.
+    \intOmega \Phi \partt{\rho} d \vx = \intOmega \Phi \Div (\sigma \nabla \Phi) d \vx = \intpartOmega \Phi \sigma \cdot (\nabla \Phi, \vn) dS - \intOmega \sigma \cdot (\nabla \Phi, \nabla \Phi) d \vx = \\ = -\Phi^+ \int\limits_{y = 0} \sigma \party{\Phi} dS - \intOmega Q_j d \vx.
 \end{multline*}
 
 В итоге, подставляя два последних равенства выше в выражение \eqref{tmp:energy_electrical_deriv}, получаем уравнение \eqref{eq:energy_electrical_balance} баланса электрической энергии.
@@ -147,14 +147,14 @@
 \label{prop:energy_inner_balance}
 Справедливо следующее уравнение баланса внутренней энергии $W$ системы:
 \begin{equation}
-	\cfrac{dW}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx - \Phi^+ \left( \partt{q^-} + \int\limits_{y = 0} \sigma \party{\Phi} dS \right) - \intOmega Q_j d \vx.
-	\label{eq:energy_inner_balance}
+    \cfrac{dW}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx - \Phi^+ \left( \partt{q^-} + \int\limits_{y = 0} \sigma \party{\Phi} dS \right) - \intOmega Q_j d \vx.
+    \label{eq:energy_inner_balance}
 \end{equation}
 \end{proposition}
 \begin{proof}
 Так как плотность $w$ внутренней энергии получается прибавлением к $w_E$ $\Gamma / l^2 \cdot [1 - f(\phi)]$ и еще двух дифференциальных слагаемых (см. \eqref{eq:energy_density_inner}), то проделав при дифференцировании этих слагаемых те же стандартные действия, что в начале доказательства \ref{prop:minimization}, получим
 \begin{multline*}
-	\cfrac{d}{dt} \intOmega \left[ \cfrac{\Gamma}{l^2}[1 - f(\phi)] + \cfrac{\Gamma}{4} \| \nabla \phi \|_2^2 + \cfrac{\beta \Gamma l^2}{4} \| \nabla \phi \|_2^4 \right] d \vx = \\ = - \intOmega \partt{\phi} \left[ \cfrac{\Gamma}{l^2} f' + \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left( \| \nabla \phi \|_2^2 \nabla \phi \right) \right] d \vx.
+    \cfrac{d}{dt} \intOmega \left[ \cfrac{\Gamma}{l^2}[1 - f(\phi)] + \cfrac{\Gamma}{4} \| \nabla \phi \|_2^2 + \cfrac{\beta \Gamma l^2}{4} \| \nabla \phi \|_2^4 \right] d \vx = \\ = - \intOmega \partt{\phi} \left[ \cfrac{\Gamma}{l^2} f' + \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left( \| \nabla \phi \|_2^2 \nabla \phi \right) \right] d \vx.
 \end{multline*}
 Прибавляя полученную производную к равенству \eqref{eq:energy_electrical_balance} и выделяя под интегралом правую часть уравнения \eqref{eq:phi} динамики фазового поля, получаем уравнение \eqref{eq:energy_inner_balance}.
 \end{proof}
@@ -163,12 +163,12 @@
 \label{rem:charge_conservative}
 Если считать, что приток заряда на обкладки извне отсутствует, то
 \[
-	\cfrac{d q^-}{dt} = -\int\limits_{y = 0} \sigma \party{\Phi} dS.
+    \cfrac{d q^-}{dt} = -\int\limits_{y = 0} \sigma \party{\Phi} dS.
 \]
 В этом случае уравнения \eqref{eq:energy_electrical_balance} и \eqref{eq:energy_inner_balance} соответственно принимают вид
 \begin{align*}
-	\cfrac{d W_E}{dt} & = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \intOmega Q_j d \vx, \\
-	\cfrac{dW}{dt} & = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx - \intOmega Q_j d \vx.
+    \cfrac{d W_E}{dt} & = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \intOmega Q_j d \vx, \\
+    \cfrac{dW}{dt} & = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx - \intOmega Q_j d \vx.
 \end{align*}
 Легко видеть, что в таком случае $dW / dt \leq 0$ -- $W$ не возрастает.
 \end{remark}
@@ -177,12 +177,12 @@
 \label{rem:charge_constant}
 Если верно $\sigma = k\epsilon$, $k$ -- константа, то из уравнений \eqref{eq:electrostatic_b}, \eqref{eq:electrostatic_c} следует
 \[
-	\partt{\rho} + k \rho = 0, \quad \rho(\vx, t) = \rho(\vx, 0) e^{-kt}.
+    \partt{\rho} + k \rho = 0, \quad \rho(\vx, t) = \rho(\vx, 0) e^{-kt}.
 \]
 Если притом начальная плотность заряда $\rho(\vx, 0) = \rho_0(\vx) = 0$ (и, следовательно, $\rho \equiv 0$), а также заряды на обкладках поддерживаются постоянными: $q^-(t) = -q^+(t) = \Const$, то балансовые соотношения \eqref{eq:energy_electrical_balance} и \eqref{eq:energy_inner_balance} соответственно принимают вид
 \begin{align*}
-	\cfrac{d W_E}{dt} & = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx, \\
-	\cfrac{dW}{dt} & = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx,
+    \cfrac{d W_E}{dt} & = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx, \\
+    \cfrac{dW}{dt} & = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx,
 \end{align*}
 так как второе и третье слагаемые в соотношении \eqref{tmp:energy_electrical_deriv_first} становятся нулевыми. Очевидным образом, $W$ не возрастает.
 

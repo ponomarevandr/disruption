@@ -9,62 +9,62 @@
 В основе модели лежат уравнения Максвелла распространения электромагнитного поля в их квазиэлектростатическом приближении:
 \begin{subequations}
 \begin{gather}
-	\Rot \vE = -\partt{\vect{B}} = 0,
-	\label{eq:maxwell_a} \\
-	\Rot \vect{H} = \partt{\vD} + \vj,
-	\label{eq:maxwell_b} \\
-	\Div \vD = \rho,
-	\label{eq:maxwell_c} \\
-	\Div \vect{B} = 0.
-	\label{eq:maxwell_d}
+    \Rot \vE = -\partt{\vect{B}} = 0,
+    \label{eq:maxwell_a} \\
+    \Rot \vect{H} = \partt{\vD} + \vj,
+    \label{eq:maxwell_b} \\
+    \Div \vD = \rho,
+    \label{eq:maxwell_c} \\
+    \Div \vect{B} = 0.
+    \label{eq:maxwell_d}
 \end{gather}
 \end{subequations}
 Здесь $\vE$ -- напряженность электрического поля, $\vD$ -- электрическая индукция, $\vect{H}$ -- напряженность магнитного поля, $\vect{B}$ -- магнитная индукция, $\rho$ -- пространственная плотность электрического заряда, $\vj$ -- плотность электрического тока.
 
 При этом используются следующие определяющие соотношения:
 \[
-	\vD = \epsilon \vE, \quad \vect{B} = \mu \vect{H}, \quad \vj = \sigma \vE,
+    \vD = \epsilon \vE, \quad \vect{B} = \mu \vect{H}, \quad \vj = \sigma \vE,
 \]
 где $\epsilon$ -- диэлектрическая проницаемость среды, $\mu$ -- магнитная проницаемость среды, $\sigma$ -- электропроводность.
 
 Из уравнения \eqref{eq:maxwell_a} следует возможность ввести электрический потенциал $\Phi$, так что $\vE = -\nabla \Phi$. Переходя к дивергенции обеих частей уравнения \eqref{eq:maxwell_b}, получим закон сохранения заряда. Таким образом, исключив из рассмотрения величины, связанные с магнитным полем, можно записать систему уравнений в виде
 \begin{subequations}
 \begin{gather}
-	\vE = -\nabla \Phi,
-	\label{eq:electrostatic_a} \\
-	\partt{\rho} + \Div (\sigma \vE) = 0,
-	\label{eq:electrostatic_b} \\
-	\Div (\epsilon \vE) = \rho.
-	\label{eq:electrostatic_c}
+    \vE = -\nabla \Phi,
+    \label{eq:electrostatic_a} \\
+    \partt{\rho} + \Div (\sigma \vE) = 0,
+    \label{eq:electrostatic_b} \\
+    \Div (\epsilon \vE) = \rho.
+    \label{eq:electrostatic_c}
 \end{gather}
 \label{eq:electrostatic}
 \end{subequations}
 
 Система уравнений Максвелла в квазиэлектростатическом приближении допускает закон сохранения энергии
 \begin{equation}
-	\Div [\vE, \vect{H}] + \partt{} \left( \half (\vE, \vD) \right) = -(\vE, \vj).
-	\label{eq:energy_conservation}
+    \Div [\vE, \vect{H}] + \partt{} \left( \half (\vE, \vD) \right) = -(\vE, \vj).
+    \label{eq:energy_conservation}
 \end{equation}
 $(\cdot, \cdot)$ и $[\cdot, \cdot]$ обозначены скалярное и векторное произведения векторов соответственно. Здесь
 \begin{equation}
-	w_E = \half (\vE, \vD)
-	\label{eq:energy_density_electrical}
+    w_E = \half (\vE, \vD)
+    \label{eq:energy_density_electrical}
 \end{equation}
 есть плотность энергии электрического поля, $[\vE, \vect{H}]$ -- вектор плотности потока энергии электромагнитного поля; величина
 \begin{equation}
-	Q_j = (\vE, \vj),
-	\label{eq:heat}
+    Q_j = (\vE, \vj),
+    \label{eq:heat}
 \end{equation}
 стоящая в правой части уравнения со знаком минус, описывает тепло, выделяющее при протекании электрического тока в среде.
 
 Преобразуя закон сохранения энергии \eqref{eq:energy_conservation} с учетом тождества
 \[
-	\Div[\vE, \vect{H}] = (\vect{H}, \Rot \vE) - (\vE, \Rot \vect{H}),
+    \Div[\vE, \vect{H}] = (\vect{H}, \Rot \vE) - (\vE, \Rot \vect{H}),
 \]
 а также уравнений \eqref{eq:maxwell_a}, \eqref{eq:maxwell_b}, получаем
 \begin{equation}
-	\partt{w_E} = \left( \vE, \partt{} \vD \right).
-	\label{eq:energy_density_electrical_deriv}
+    \partt{w_E} = \left( \vE, \partt{} \vD \right).
+    \label{eq:energy_density_electrical_deriv}
 \end{equation}
 
 Заметим, что далее, при использовании метода диффузной границы для описания среды, мы будем считать, что в системе нет <<чистых>> проводников и диэлектриков, а имеено, что каждый материал имеет некоторые конечные положительные значения $\epsilon$, $\mu$ и $\sigma$.
@@ -74,17 +74,17 @@ $(\cdot, \cdot)$ и $[\cdot, \cdot]$ обозначены скалярное и 
 
 Как упоминалось ранее, введем функцию $\phi(\vx)$, $\phi: \Real^3 \to [0, 1]$, -- фазовое поле. Значение $\phi \approx 1$ будет соответствовать неповрежденной среде, $\phi \approx 0$ -- среде внутри канала пробоя; характеристики первой по логике модели должны приближать диэлектрик, характеристики второй -- проводник. Для этого будем считать, что диэлектрическая проницаемость среды $\epsilon$ и электропроводность $\sigma$ являются функциями пространственных координат $\vx$ и фазового поля $\phi$. Следуя оригинальной постановке задачи из работы \cite{pitike_dielectric_breakdown}, примем
 \begin{gather}
-	\epsilon[\phi] = \epsilon(\vx, \phi) = \cfrac{\epsilon_0(\vx)}{\delta + f(\phi)},
-	\label{eq:epsilon} \\
-	\sigma[\phi] = \sigma(\vx, \phi) = \cfrac{\sigma_0(\vx)}{\delta + f(\phi)},
-	\label{eq:sigma}
+    \epsilon[\phi] = \epsilon(\vx, \phi) = \cfrac{\epsilon_0(\vx)}{\delta + f(\phi)},
+    \label{eq:epsilon} \\
+    \sigma[\phi] = \sigma(\vx, \phi) = \cfrac{\sigma_0(\vx)}{\delta + f(\phi)},
+    \label{eq:sigma}
 \end{gather}
 где $f(\phi) = 4 \phi^3 - 3 \phi^4$ -- интерполирующая функция ($f(0) = 0$, $f(1) = 1$, $f'(0) = f'(1) = 0$), $\delta \ll 1$ -- малый регуляризующий параметр. Таким образом, $\epsilon[0] \sim \epsilon[1] / \delta$, $\sigma[0] \sim \sigma[1] / \delta$.
 
 Динамика фазового поля в модели определяется следующим уравнением:
 \begin{equation}
-	\cfrac{1}{m} \partt{\phi} = \half \epsilon'[\phi] (\vE, \vE) + \cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left( \| \nabla \phi \|_2^2 \nabla \phi \right).
-	\label{eq:phi}
+    \cfrac{1}{m} \partt{\phi} = \half \epsilon'[\phi] (\vE, \vE) + \cfrac{\Gamma}{l^2} f'(\phi) + \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left( \| \nabla \phi \|_2^2 \nabla \phi \right).
+    \label{eq:phi}
 \end{equation}
 Здесь $(\cdot)'$ обозначена производная по $\phi$; $m$, $\Gamma$, $l$, $\beta$ -- параметры модели, константы, смысл которых будет обозначен ниже.
 
@@ -92,15 +92,15 @@ $(\cdot, \cdot)$ и $[\cdot, \cdot]$ обозначены скалярное и 
 \label{eq:energy_densities}
 Также для системы вводится несколько функционалов энергии. Плотность энергии, отнесенной к каналу пробоя, определяется формулой
 \begin{equation}
-	w_b = \cfrac{\Gamma}{l^2} [1 - f(\phi)] + \cfrac{\Gamma}{4} \| \nabla \phi \|_2^2 + \cfrac{\beta\Gamma l^2}{4} \| \nabla \phi \|_2^4,
-	\label{eq:energy_density_breakdown}
+    w_b = \cfrac{\Gamma}{l^2} [1 - f(\phi)] + \cfrac{\Gamma}{4} \| \nabla \phi \|_2^2 + \cfrac{\beta\Gamma l^2}{4} \| \nabla \phi \|_2^4,
+    \label{eq:energy_density_breakdown}
 \end{equation}
 плотности $w$ внутренней энергии и $\psi$ свободной энергии -- соответственно формулами
 \begin{gather}
-	w = w_E + w_b,
-	\label{eq:energy_density_inner} \\
-	\psi = w - \epsilon[\phi] \cdot (\vE, \vE) = -w_E + w_b,
-	\label{eq:energy_density_free}
+    w = w_E + w_b,
+    \label{eq:energy_density_inner} \\
+    \psi = w - \epsilon[\phi] \cdot (\vE, \vE) = -w_E + w_b,
+    \label{eq:energy_density_free}
 \end{gather}
 \end{subequations}
 где $w_E$ -- плотность энергии электрического поля \eqref{eq:energy_density_electrical}. Каждой из плотностей соответствует интегральный функционал энергии системы, в дальнейшем обозначаемый заглавной буквой: $W_E$, $W_b$, $W$, $\Psi$.
@@ -122,31 +122,31 @@ $(\cdot, \cdot)$ и $[\cdot, \cdot]$ обозначены скалярное и 
 \begin{subequations}
 \label{cond:boundary_cases}
 \begin{itemize}
-	\item Постоянное напряжение на обкладках. В рамках настоящей работы при этом будет использовано условие пропорциональной связи $\epsilon$ и $\sigma$ и нулевой плотности заряда в среде (хотя, вообще говоря, можно нарушить это условие и исследовать поведение свободных зарядов в системе). Итак,
-	\begin{equation}
-	\begin{gathered}
-		\sigma = k \epsilon, \quad k = \Const, \\
-		\rho_0(\vx) = 0 \quad \text{и, следовательно,} \quad \rho \equiv 0, \\
-		\Phi^+(t) = \Phi^+ = \Const.
-	\end{gathered}
-	\label{cond:boundary_voltage}
-	\end{equation}
-	Такая постановка наиболее проста и распространена в практике моделирования. Свободная энергия $\Psi$ не возрастает, как показано в замечании \ref{rem:Phi_constant}.
-	\item Сохранение заряда в системе (отсутствие притока заряда на обкладки извне):
-	\begin{equation}
-		\cfrac{d q^-}{dt} = -\int\limits_{y = 0} \sigma \party{\Phi} dS, \quad \text{(и, следовательно)} \quad \cfrac{d q^+}{dt} = \int\limits_{y = H} \sigma \party{\Phi} dS.
-		\label{cond:boundary_balance}
-	\end{equation}
-	Постановка, которая видится наиболее естественной; внутренняя энергия $W$ системы не возрастает, что объяснено в замечании \ref{rem:charge_conservative}.
-	\item Постоянный заряд на обкладках при пропорциональной связи $\epsilon$ и $\sigma$ и нулевой плотности заряда в среде:
-	\begin{equation}
-	\begin{gathered}
-		\sigma = k \epsilon, \quad k = \Const, \\
-		\rho_0(\vx) = 0 \quad \text{и, следовательно,} \quad \rho \equiv 0, \\
-		-q^+(t) = q^-(t) = q^- = \Const.
-	\end{gathered}
-	\label{cond:boundary_charge}
-	\end{equation}
-	Простая постановка, подходящая для теоретического исследования задачи. Постановке посвящено замечание \ref{rem:charge_constant}.
+    \item Постоянное напряжение на обкладках. В рамках настоящей работы при этом будет использовано условие пропорциональной связи $\epsilon$ и $\sigma$ и нулевой плотности заряда в среде (хотя, вообще говоря, можно нарушить это условие и исследовать поведение свободных зарядов в системе). Итак,
+    \begin{equation}
+    \begin{gathered}
+        \sigma = k \epsilon, \quad k = \Const, \\
+        \rho_0(\vx) = 0 \quad \text{и, следовательно,} \quad \rho \equiv 0, \\
+        \Phi^+(t) = \Phi^+ = \Const.
+    \end{gathered}
+    \label{cond:boundary_voltage}
+    \end{equation}
+    Такая постановка наиболее проста и распространена в практике моделирования. Свободная энергия $\Psi$ не возрастает, как показано в замечании \ref{rem:Phi_constant}.
+    \item Сохранение заряда в системе (отсутствие притока заряда на обкладки извне):
+    \begin{equation}
+        \cfrac{d q^-}{dt} = -\int\limits_{y = 0} \sigma \party{\Phi} dS, \quad \text{(и, следовательно)} \quad \cfrac{d q^+}{dt} = \int\limits_{y = H} \sigma \party{\Phi} dS.
+        \label{cond:boundary_balance}
+    \end{equation}
+    Постановка, которая видится наиболее естественной; внутренняя энергия $W$ системы не возрастает, что объяснено в замечании \ref{rem:charge_conservative}.
+    \item Постоянный заряд на обкладках при пропорциональной связи $\epsilon$ и $\sigma$ и нулевой плотности заряда в среде:
+    \begin{equation}
+    \begin{gathered}
+        \sigma = k \epsilon, \quad k = \Const, \\
+        \rho_0(\vx) = 0 \quad \text{и, следовательно,} \quad \rho \equiv 0, \\
+        -q^+(t) = q^-(t) = q^- = \Const.
+    \end{gathered}
+    \label{cond:boundary_charge}
+    \end{equation}
+    Простая постановка, подходящая для теоретического исследования задачи. Постановке посвящено замечание \ref{rem:charge_constant}.
 \end{itemize}
 \end{subequations}

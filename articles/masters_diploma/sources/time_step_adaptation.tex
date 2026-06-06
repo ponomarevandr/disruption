@@ -10,14 +10,14 @@
 
 При переходе между временными слоями $k$ и $k + 1$ будем использовать переменный шаг по времени $\tau^k$. Уравнение \eqref{sch:one_dim_a} приобретает вид
 \begin{equation}
-	\phi_j^{k + 1} = \phi_j^k + m \tau^k \left[ \half (E^k)^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \cfrac{\phi_{j + 1}^k - 2 \phi_j^k + \phi_{j - 1}^k}{h^2} \right],
-	\label{sch:transition_adaptive}
+    \phi_j^{k + 1} = \phi_j^k + m \tau^k \left[ \half (E^k)^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \cfrac{\phi_{j + 1}^k - 2 \phi_j^k + \phi_{j - 1}^k}{h^2} \right],
+    \label{sch:transition_adaptive}
 \end{equation}
 
 Далее будет рассмотрено несколько подходов к вычислению $\tau^k$. Общая формула его расчета
 \begin{equation}
-	\tau^k = \max \left[ \taumin, \min( \taumax, \widetilde{\tau}^k) \right],
-	\label{sch:time_step_min_max}
+    \tau^k = \max \left[ \taumin, \min( \taumax, \widetilde{\tau}^k) \right],
+    \label{sch:time_step_min_max}
 \end{equation}
 то есть величина $\widetilde{\tau}^k$ (рассчитываемая по своей формуле для каждого подхода) ограничивается снизу и сверху заранее выбранными значениями $\taumin$ и $\taumax$ соответственно. Последние выбираются эмпирически, исходя из критериев устойчивости, точности и скорости расчета.
 
@@ -26,16 +26,16 @@
 
 Рассмотрим первые два подхода к адаптации шага по времени, предложенные в статьях \cite{li_time_step} и \cite{zhang_time_step} соответственно. Введем их вместе из-за определенной общности:
 \begin{align}
-	\widetilde{\tau}_1^k & = \cfrac{\tol_1}{\left\| \left[ \partflt{\phi} \right]_h \right\|_C},
-	\label{sch:time_step_phi} \\
-	\widetilde{\tau}_2^k & = \cfrac{\tol_2}{\left| \left[ d \Psi / dt \right]_h \right|}.
-	\label{sch:time_step_energy}
+    \widetilde{\tau}_1^k & = \cfrac{\tol_1}{\left\| \left[ \partflt{\phi} \right]_h \right\|_C},
+    \label{sch:time_step_phi} \\
+    \widetilde{\tau}_2^k & = \cfrac{\tol_2}{\left| \left[ d \Psi / dt \right]_h \right|}.
+    \label{sch:time_step_energy}
 \end{align}
 Числовые константы $\tol_1$ и $\tol_2$ подбираются эмпирически. Здесь и далее символами $[\, \cdot \,]_h$ и $[\, \cdot \,]_j^k$ обозначаются сеточные функции, в большинстве случаев~-- разностные производные ($j$, $k$ -- индексы на сетке, целые либо полуцелые).
 
 В формуле \eqref{sch:time_step_phi} в качестве $[\partflt{\phi}]_h$ удобно использовать
 \[
-	\left[ \partt{\phi} \right]_j^{k + 1/2} = \cfrac{\phi_j^{k + 1} - \phi_j^k}{\tau^k}
+    \left[ \partt{\phi} \right]_j^{k + 1/2} = \cfrac{\phi_j^{k + 1} - \phi_j^k}{\tau^k}
 \]
 из левой части разностного уравнения \eqref{sch:one_dim_task_a}. Дополнительные вычисления не потребуются, так как в расчете уже используется значение правой части уравнения~\eqref{sch:one_dim_task_a}. Если такой подход неприменим (например, из-за трудностей с синхронизацией параллельных вычислений), то можно использовать производную $[\partflt{\phi}]^{k - 1/2}$, сохраненную с предыдущего временного слоя.
 
@@ -43,17 +43,17 @@
 
 Для расчета плотности $\psi$ свободной энергии необходима разностная производная $[\partflx{\phi}]_h$ (см. выражения \eqref{eq:energy_densities}, $\beta = 0$). Предлагается использовать следующие формулы:
 \begin{gather*}
-	\allowdisplaybreaks
-	\psi_j^k = F(\phi_j^k) + \cfrac{\Gamma}{4} \left( \left[ \partx{\phi} \right]_j^k \right)^2, \qquad \left[ \partx{\phi} \right]_j^k = \begin{cases}
-		\cfrac{\phi_1^k - \phi_0^k}{h} & \text{при } j = 0; \\
-		\cfrac{\phi_{j + 1}^k - \phi_{j - 1}^k}{2 h} & \text{при } j = \overline{1, M - 1}; \\
-		\cfrac{\phi_M^k - \phi_{M - 1}^k}{h} & \text{при } j = M;
-	\end{cases} \\
-	\Psi^k = \cfrac{h \psi_0^k + h \psi_M^k}{2} + \sum\limits_{j = 1}^{M - 1} h \psi_j^k = h \cdot \left( \cfrac{\psi_0^k + \psi_M^k}{2} + \sum\limits_{j = 1}^{M - 1} \psi_j^k \right).
+    \allowdisplaybreaks
+    \psi_j^k = F(\phi_j^k) + \cfrac{\Gamma}{4} \left( \left[ \partx{\phi} \right]_j^k \right)^2, \qquad \left[ \partx{\phi} \right]_j^k = \begin{cases}
+        \cfrac{\phi_1^k - \phi_0^k}{h} & \text{при } j = 0; \\
+        \cfrac{\phi_{j + 1}^k - \phi_{j - 1}^k}{2 h} & \text{при } j = \overline{1, M - 1}; \\
+        \cfrac{\phi_M^k - \phi_{M - 1}^k}{h} & \text{при } j = M;
+    \end{cases} \\
+    \Psi^k = \cfrac{h \psi_0^k + h \psi_M^k}{2} + \sum\limits_{j = 1}^{M - 1} h \psi_j^k = h \cdot \left( \cfrac{\psi_0^k + \psi_M^k}{2} + \sum\limits_{j = 1}^{M - 1} \psi_j^k \right).
 \end{gather*}
 В формуле \eqref{sch:time_step_energy} будем использовать разностную производную энергии с предыдущего временного слоя
 \[
-	\left[ \cfrac{d \Psi}{dt} \right]^{k - 1/2} = \cfrac{\Psi^k - \Psi^{k - 1}}{\tau^{k - 1}},
+    \left[ \cfrac{d \Psi}{dt} \right]^{k - 1/2} = \cfrac{\Psi^k - \Psi^{k - 1}}{\tau^{k - 1}},
 \]
 положив $\tau^0 = \taumin$.
 
@@ -61,21 +61,21 @@
 
 Общность описанных двух подходов заключается в следующем. Для адаптации по фазовому полю рассмотрим норму приращения $\phi^{k + 1} - \phi^k$:
 \[
-	\left\| \phi^{k + 1} - \phi^k \right\|_C = \tau_1^k \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C = \tol_1 \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C^{-1} \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C = \tol_1.
+    \left\| \phi^{k + 1} - \phi^k \right\|_C = \tau_1^k \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C = \tol_1 \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C^{-1} \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_C = \tol_1.
 \]
 Выходит нормирование приращения фазового поля (с оговоркой на ограничения через $\taumin$ и $\taumax$).
 
 В случае адаптации по энергии можно провести похожее рассуждение. В рассматриваемой постановке задачи выполняется равенство \eqref{eq:energy_free_decrease}, что для сеточных функций дает
 \[
-	\left| \left[ \cfrac{d \Psi}{dt} \right]_h \right| \approx \cfrac{1}{m} \left\| \left[ \partt{\phi} \right]_h \right\|_2^2.
+    \left| \left[ \cfrac{d \Psi}{dt} \right]_h \right| \approx \cfrac{1}{m} \left\| \left[ \partt{\phi} \right]_h \right\|_2^2.
 \]
 Здесь $\| \cdot \|_2$ обозначена сеточная $L_2$-норма:
 \[
-	\| [\zeta]_h \|_2 = \sqrt{h \sum\limits_{j = 0}^M (\zeta_j)^2}.
+    \| [\zeta]_h \|_2 = \sqrt{h \sum\limits_{j = 0}^M (\zeta_j)^2}.
 \]
 Таким образом, при адаптации по~энергии
 \begin{multline*}
-	\left\| \phi^{k + 1} - \phi^k \right\|_2 = \tau_2^k \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_2 \approx \tol_2 \cdot m \left\| \left[ \partt{\phi} \right]^{k - 1/2} \right\|_2^{-2} \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_2 \approx \\ \approx \tol_2 \cdot m \cdot \left\| \left[ \partt{\phi} \right]_h \right\|_2^{-1}.
+    \left\| \phi^{k + 1} - \phi^k \right\|_2 = \tau_2^k \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_2 \approx \tol_2 \cdot m \left\| \left[ \partt{\phi} \right]^{k - 1/2} \right\|_2^{-2} \cdot \left\| \left[ \partt{\phi} \right]^{k + 1/2} \right\|_2 \approx \\ \approx \tol_2 \cdot m \cdot \left\| \left[ \partt{\phi} \right]_h \right\|_2^{-1}.
 \end{multline*}
 
 Авторы не стали отклоняться от предложенного в работе \cite{zhang_time_step} метода адаптации, однако из проделанных рассуждений получается, что из модуля производной энергии в формуле \eqref{sch:time_step_energy} логичнее было бы извлечь квадратный корень, чтобы выполнялось $\| \phi^{k + 1} \hm - \phi^k \|_2 \approx \tol_2 \cdot \sqrt{m}$.
@@ -87,12 +87,12 @@
 
 Основная идея подхода к адаптации, предлагаемого автором в этом разделе, заключается в том, чтобы условии \eqref{cond:stability_function_general} заменить произвольное $\phi = C$ на значения сеточной функции $\phi_j^k$ с текущего временного слоя и, естественно, взять наибольшее возможное $\tau$. Таким образом получается следующая формула адаптивного шага по времени:
 \begin{equation}
-	\widetilde{\tau}_3^k = \cfrac{\tol_3}{m \cdot \max\limits_{j = 0}^M \left| F(\phi_j^k, E) \right|}.
-	\label{sch:time_step_stability_raw}
+    \widetilde{\tau}_3^k = \cfrac{\tol_3}{m \cdot \max\limits_{j = 0}^M \left| F(\phi_j^k, E) \right|}.
+    \label{sch:time_step_stability_raw}
 \end{equation}
 Здесь $F$ обозначена функция
 \[
-	F(\phi, E) = \half E^2 \epsilon''(\phi) + \cfrac{\Gamma}{l^2} f''(\phi).
+    F(\phi, E) = \half E^2 \epsilon''(\phi) + \cfrac{\Gamma}{l^2} f''(\phi).
 \]
 Этот метод будем условно называть адаптацией по устойчивости.
 
@@ -106,32 +106,83 @@
 
 По этой причине функция $F = \chi'(\phi)$ в формуле~\eqref{sch:time_step_stability_raw} крайне неудобна из-за слагаемого $\epsilon'' \cdot \| \nabla \Phi \|^2 / 2$: вблизи $0$ оно достигает больших по модулю значений и к тому же имеет ноль, так что при взятии модуля в зоне больших значений возникает резкий <<провал>> до $0$. Чтобы решить проблему, мажорируем $|\epsilon''(\phi)|$ гладкой функцией, не имеющей такого недостатка. Преобразуя выражение \eqref{eq:epsilon_derivatives}, имеем
 \begin{multline*}
-	\cfrac{\delta^{5/3} \epsilon''(\delta^{1/3} z)}{\epsilon_0} = \cfrac{24 (z^2 - \delta^{1/3} z^3) - (24 z - 36 \delta^{1/3} z^2)(4 z^3 - 3 \delta^{1/3} z^4 + 1)}{(4 z^3 - 3 \delta^{1/3} z^4 + 1)^3} = \\
-	= \cfrac{12z (16 z^3 - 30 \delta^{1/3} z^4 + 15 \delta^{2/3} z^5 + 3z \delta^{1/3} - 2)}{(4 z^3 - 3 \delta^{1/3} z^4 + 1)^3}.
+    \cfrac{\delta^{5/3} \epsilon''(\delta^{1/3} z)}{\epsilon_0} = \cfrac{24 (z^2 - \delta^{1/3} z^3) - (24 z - 36 \delta^{1/3} z^2)(4 z^3 - 3 \delta^{1/3} z^4 + 1)}{(4 z^3 - 3 \delta^{1/3} z^4 + 1)^3} = \\
+    = \cfrac{12z (16 z^3 - 30 \delta^{1/3} z^4 + 15 \delta^{2/3} z^5 + 3z \delta^{1/3} - 2)}{(4 z^3 - 3 \delta^{1/3} z^4 + 1)^3}.
 \end{multline*}
 Поведение функции вблизи $0$ определяется слагаемым $-2 \cdot 12z$. Поменяем его знак и получим функцию
 \begin{gather}
-	\widetilde{G}(z) = \cfrac{12z (16 z^3 - 30 \delta^{1/3} z^4 + 15 \delta^{2/3} z^5 + 3z \delta^{1/3} + 2)}{(4 z^3 - 3 \delta^{1/3} z^4 + 1)^3};
-	\nonumber \\
-	G(\phi) = \delta^{-5/3} \widetilde{G}(\delta^{-1/3} \phi) = \cfrac{12 \phi (16 \phi^3 - 30 \phi^4 + 15 \phi^5 + 3 \delta \phi + 2 \delta)}{(4 \phi^3 - 3 \phi^4 + \delta)^3}.
-	\label{eq:eps_phi_phi_majorant}
+    \widetilde{G}(z) = \cfrac{12z (16 z^3 - 30 \delta^{1/3} z^4 + 15 \delta^{2/3} z^5 + 3z \delta^{1/3} + 2)}{(4 z^3 - 3 \delta^{1/3} z^4 + 1)^3};
+    \nonumber \\
+    G(\phi) = \delta^{-5/3} \widetilde{G}(\delta^{-1/3} \phi) = \cfrac{12 \phi (16 \phi^3 - 30 \phi^4 + 15 \phi^5 + 3 \delta \phi + 2 \delta)}{(4 \phi^3 - 3 \phi^4 + \delta)^3}.
+    \label{eq:eps_phi_phi_majorant}
 \end{gather}
 $G(\phi) \geqslant 0$ на $[0, 1]$. Имеем $G(x) = |G(x)| \geqslant |\epsilon''(\phi) / \epsilon_0|$ (рис. \ref{fig:eps_phi_phi_majorant}).
 
 \begin{figure}[!t]
-	\centering
-	\includegraphics[width=0.8\textwidth]{figures/eps_phi_phi_majorant_bw}
-	\vspace{-0.2cm}
-	\caption{Гладкая оценка сверху для $|\epsilon''(\phi)|$, $\delta = 10^{-3}$}
-	\label{fig:eps_phi_phi_majorant}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/eps_phi_phi_majorant_bw}
+    \vspace{-0.2cm}
+    \caption{Гладкая оценка сверху для $|\epsilon''(\phi)|$, $\delta = 10^{-3}$}
+    \label{fig:eps_phi_phi_majorant}
 \end{figure}
 
 Наконец, используя $G(\phi)$, заданную выражением \eqref{eq:eps_phi_phi_majorant}, получим оценку
 \[
-	|F(\phi, E)| \leqslant \half E^2 \epsilon_0 G(\phi) + \cfrac{\Gamma}{l^2} \sup_{\phi \in [0, 1]} |f''(\phi)| = \half E^2 \epsilon_0 G(\phi) + 12 \cfrac{\Gamma}{l^2}
+    |F(\phi, E)| \leqslant \half E^2 \epsilon_0 G(\phi) + \cfrac{\Gamma}{l^2} \sup_{\phi \in [0, 1]} |f''(\phi)| = \half E^2 \epsilon_0 G(\phi) + 12 \cfrac{\Gamma}{l^2}
 \]
 и заменим ею $|F|$ в формуле \eqref{sch:time_step_stability_raw} метода адаптации по устойчивости:
 \begin{equation}
-	\widetilde{\tau}_3^k = \tol_3 \cdot \left[ m \cdot \max\limits_{j = 0}^M \left( \half E^2 \epsilon_0 G(\phi_j^k) + 12 \cfrac{\Gamma}{l^2} \right) \right]^{-1}.
-	\label{sch:time_step_stability}
+    \widetilde{\tau}_3^k = \tol_3 \cdot \left[ m \cdot \max\limits_{j = 0}^M \left( \half E^2 \epsilon_0 G(\phi_j^k) + 12 \cfrac{\Gamma}{l^2} \right) \right]^{-1}.
+    \label{sch:time_step_stability}
 \end{equation}
+
+
+\subsection{Вычислительный эксперимент: параметры, краевые условия}
+
+Создана программа, реализующая в рамках разностной схемы \eqref{sch:one_dim_b}, \eqref{sch:one_dim_c}, \eqref{sch:transition_adaptive}, \eqref{sch:time_step_min_max} перечисленные ранее алгоритмы адаптации временного шага: по фазовому полю~\eqref{sch:time_step_phi}, по энергии \eqref{sch:time_step_energy} и по устойчивости \eqref{sch:time_step_stability}.
+
+Будем использовать параметры модели, отражающие реальный физический эксперимент: см. табл. \ref{tab:parameters}. Часть параметров ($E$, $\epsilon_0$) являются полноценными физическими величинами, часть ($\Gamma$, $m$) могут быть подобраны для~согласования модели с результатами эксперимента. Чертой отделены параметры, которые либо происходят из связанных с диффузной границей допущений ($l$, $\delta$), либо описывают расчетную сетку.
+
+\begin{table}[!t]
+\captionsetup{justification=raggedright,singlelinecheck=false}
+\caption[]{Параметры модели в расчете}
+\centering
+\begin{tabular}{|l|c|l|}
+    \hline
+    Название & Параметр & Значение \\
+    \hline
+    Напряженность электрического поля       & $E$               & $5.625 \cdot 10^6 \; \unitV / \unitm$                         \\
+    Энергия роста единичной длины канала    & $\Gamma$          & $8.118 \cdot 10^{-10} \; \unitJ / \unitm$                     \\
+    Диэлектрическая проницаемость           & $\epsilon_0$      & $2.301 \cdot 10^{-11} \; \unitC^2 / (\unitJ \cdot \unitm)$    \\
+    Подвижность                             & $m$               & $12 \; \unitm^3 / (\unitJ \cdot \units)$                      \\
+    \hline
+    Характерная толщина границы             & $l$               & $1.5 \cdot 10^{-6} \; \unitm$                                 \\
+    Регуляризующий параметр                 & $\delta$          & $10^{-3}$                                                     \\
+    Размер образца                          & $L$               & $3.2 \cdot 10^{-5} \; \unitm$                                 \\
+    Продолжительность опыта                 & $T$               & $2 \cdot 10^{-3} \; \units$                                   \\
+    Шаг по пространству                     & $h$               & $5 \cdot 10^{-7} \; \unitm$                                   \\
+    Минимальный шаг по времени              & $\taumin$         & $10^{-10} \; \units$                                          \\
+    Максимальный шаг по времени             & $\taumax$         & $\leqslant 1.28 \cdot 10^{-5} \; \units$                      \\
+    \hline
+\end{tabular}
+\label{tab:parameters}
+\end{table}
+
+При подстановке значений параметров в условие \eqref{cond:stability_voltage} устойчивости разностной схемы получаем $\tau \leqslant \min(1.28 \cdot 10^{-5}, 3.82 \cdot 10^{-10}) \, \units$. Неравенство с первым аргументом минимума носит безусловный характер (см. \eqref{cond:stability_laplacian}). Неравенство со вторым аргументом является ограничением, происходящим из свойств функции $\chi'(\phi)$ \eqref{eq:equilibrium_characteristic_deriv} -- оно может быть ослаблено в зависимости от значений $\phi_j^k$ на текущем временном слое. Поэтому качестве $\taumax$ взято значение~$1.28 \cdot 10^{-5} \; \units$; $\taumin = 10^{-10} \; \units$ удовлетворяет обоим неравенствам и может рассматриваться как шаг по времени до введения адаптации.
+
+Число узлов сетки по пространству $N_x \equiv M = L / h = 64$, по времени -- $T / \taumax \hm \leqslant N_t \leqslant T / \taumin$, а именно $157 \leqslant N_t \leqslant 2 \cdot 10^7$.
+
+Зададим следующие краевые условия:
+\begin{subequations}
+\label{exp:adaptation_marginal}
+\begin{gather}
+    \phi(0, t) = \phi(L, t) = 1,
+    \label{exp:adaptation_boundary} \\
+    \phi(x, 0) = \phi_0(x) = \begin{cases}
+        1 - 0.025 \cdot \left( 1 + \cos \left[ \cfrac{\pi}{0.08} \left( \cfrac{x}{L} - \half \right) \right] \right) \text{ при } \cfrac{x}{L} \in [0.42, 0.58]; \\
+        1 \text{ иначе}.
+    \end{cases}
+    \label{exp:adaptation_initial}
+\end{gather}
+\end{subequations}
+Функция $\phi_0(x)$ отлична от $1$ в небольшой области вокруг $x = L / 2$, где <<прогибается>> как один период синусоиды, достигая минимума $\phi = 0.95$.
