@@ -76,10 +76,10 @@ $(\cdot, \cdot)$ и $[\cdot, \cdot]$ обозначены скалярное и 
 \begin{gather}
     \epsilon[\phi] = \epsilon(\vx, \phi) = \cfrac{\epsilon_0(\vx)}{\delta + f(\phi)},
     \label{eq:epsilon} \\
-    \sigma[\phi] = \sigma(\vx, \phi) = \cfrac{\sigma_0(\vx)}{\delta + f(\phi)},
+    \sigma[\phi] = \sigma(\vx, \phi) = \cfrac{\sigma_0(\vx)}{\delta_\sigma + f(\phi)},
     \label{eq:sigma}
 \end{gather}
-где $f(\phi) = 4 \phi^3 - 3 \phi^4$ -- интерполирующая функция ($f(0) = 0$, $f(1) = 1$, $f'(0) = f'(1) = 0$), $\delta \ll 1$ -- малый регуляризующий параметр. Таким образом, $\epsilon[0] \sim \epsilon[1] / \delta$, $\sigma[0] \sim \sigma[1] / \delta$.
+где $f(\phi) = 4 \phi^3 - 3 \phi^4$ -- интерполирующая функция ($f(0) = 0$, $f(1) = 1$, $f'(0) = f'(1) = 0$), $\delta, \delta_\sigma \ll 1$ -- малые регуляризующие параметры. Таким образом, $\epsilon[0] \sim \epsilon[1] / \delta$, $\sigma[0] \hm \sim \sigma[1] / \delta_\sigma$.
 
 Динамика фазового поля в модели определяется следующим уравнением:
 \begin{equation}
