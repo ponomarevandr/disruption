@@ -107,12 +107,16 @@
 \newcommand{\partxx}[1]{\cfrac{\partial^2 #1}{\partial x^2}}
 \newcommand{\party}[1]{\cfrac{\partial #1}{\partial y}}
 \newcommand{\partvn}[1]{\cfrac{\partial #1}{\partial \vn}}
+\newcommand{\partr}[1]{\cfrac{\partial #1}{\partial r}}
+\newcommand{\partrr}[1]{\cfrac{\partial^2 #1}{\partial r^2}}
 
 \newcommand{\partflt}[1]{\partial #1 / \partial t}
 \newcommand{\partflx}[1]{\partial #1 / \partial x}
 \newcommand{\partflxx}[1]{\partial^2 #1 / \partial x^2}
 \newcommand{\partfly}[1]{\partial #1 / \partial y}
 \newcommand{\partflvn}[1]{\partial #1 / \partial \vn}
+\newcommand{\partflr}[1]{\partial #1 / \partial r}
+\newcommand{\partflrr}[1]{\partial^2 #1 / \partial r^2}
 
 \newcommand{\intOmega}{{\int\limits_\Omega}}
 \newcommand{\intpartOmega}{{\int\limits_{\partial \Omega}}}
@@ -211,6 +215,8 @@
 \input{sources/mathematical_model}
 
 \input{sources/equilibrium_stability}
+
+\input{sources/boundary_problems}
 
 \input{sources/difference_scheme}
 
