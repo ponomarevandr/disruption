@@ -1,6 +1,7 @@
 %!TEX root = ../main.tex
 
 \section{Исследование модельных краевых задач}
+\label{ssec:boundary_problems}
 
 \subsection{Суть проблемы}
 \label{ssec:matter_of_problem}
@@ -335,50 +336,50 @@
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/volume_result_fl.png} %
-        \vspace{-6mm}
-        \caption{Плоский случай при $\alpha = 0$, $\beta = 0$}
+        \vspace{-7mm}
+        \caption{\centering Плоский случай при $\alpha = 0$, $\beta = 0$; \\ без особенности, $\bigO(r)$}
         \label{fig:volume_result_fl}
-        \vspace{6mm}
+        \vspace{4mm}
     \end{subfigure}
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/volume_result_fl_p.png}
-        \vspace{-6mm}
-        \caption{Плоский случай при $\alpha = 0$, $\beta = 1$}
+        \vspace{-7mm}
+        \caption{\centering Плоский случай при $\alpha = 0$, $\beta = 1$; \\ без особенности, $\bigO(r)$}
         \label{fig:volume_result_fl_p}
-        \vspace{6mm}
+        \vspace{4mm}
     \end{subfigure}
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/volume_result_fl_bi.png}
-        \vspace{-6mm}
-        \caption{Плоский случай при $\alpha = 1$, $\beta = 0$}
+        \vspace{-7mm}
+        \caption{\centering Плоский случай при $\alpha = 1$, $\beta = 0$; \\ без особенности, $\bigO(r^2)$}
         \label{fig:volume_result_fl_bi}
-        \vspace{6mm}
+        \vspace{4mm}
     \end{subfigure}
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/volume_result_cyl_p.png}
-        \vspace{-6mm}
-        \caption{Цилиндрический случай при $\alpha = 0$, $\beta = 1$}
+        \vspace{-7mm}
+        \caption{\centering Цилиндрический случай при $\alpha = 0$, $\beta = 1$; \\ особенность вида $r^{2/3}$}
         \label{fig:volume_result_cyl_p}
-        \vspace{6mm}
+        \vspace{4mm}
     \end{subfigure}
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/volume_result_cyl_bi.png}
-        \vspace{-6mm}
-        \caption{Цилиндрический случай при $\alpha = 1$, $\beta = 0$}
+        \vspace{-7mm}
+        \caption{\centering Цилиндрический случай при $\alpha = 1$, $\beta = 0$; \\ особенность вида $r^2 \ln r$}
         \label{fig:volume_result_cyl_bi}
-        \vspace{6mm}
+        \vspace{4mm}
     \end{subfigure}
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/volume_result_sph_p.png}
-        \vspace{-6mm}
-        \caption{Сферический случай при $\alpha = 0$, $\beta = 1$}
+        \vspace{-7mm}
+        \caption{\centering Сферический случай при $\alpha = 0$, $\beta = 1$; \\ особенность вида $r^{1/3}$}
         \label{fig:volume_result_sph_p}
-        \vspace{6mm}
+        \vspace{4mm}
     \end{subfigure}
     \vspace{-3mm}
     \caption{Решения $\phi(r)$ различных случаев задачи}
@@ -387,6 +388,10 @@
 
 Результаты вычислений изображены на рис. \ref{fig:volume_results}: рис. \ref{fig:volume_result_fl} и \ref{fig:volume_result_fl_p} -- случай 1 из описания разностной схемы, рис. \ref{fig:volume_result_fl_bi} -- случай 2, рис. \ref{fig:volume_result_cyl_p} -- случай 3, рис. \ref{fig:volume_result_cyl_bi} -- случай 4, рис.~\ref{fig:volume_result_sph_p} -- случай~5. Графики функций показаны до зримого момента выхода на примерно постоянное значение $1$, после чего они в действительности продолжаются до $R = 5$. Графики состоят из соединенных значений средних~$\avphi_i^j$, размещенных в центрах ячеек; вблизи~$0$ к ним добавлено несколько значений приближающей функции $g_{1/2}$, имеющей особенность в $0$, если того требует случай задачи.
 
-Отметим, что если в уравнения входит билапласиан ($\alpha \neq 0$), то функция~$\phi$ может быть немонотонной и в некоторых точках превышать значение~$1$ (см.~рис.~\ref{fig:volume_result_fl_bi},~\ref{fig:volume_result_cyl_bi}). В работе \cite{zipunova_higher_codimension} это было отмечено и указано, что монотонность~$\phi$ следует ожидать при достаточно малых $\alpha$.
+Заметим, что если в уравнения входит билапласиан ($\alpha > 0$), то функция~$\phi$ может быть немонотонной и в некоторых точках превышать значение~$1$ (см.~рис.~\ref{fig:volume_result_fl_bi},~\ref{fig:volume_result_cyl_bi}). В работе \cite{zipunova_higher_codimension} это было отмечено и указано, что монотонность~$\phi$ следует ожидать при достаточно малых $\alpha$.
 
-Итак, эксперимент подтверждает, что, несмотря на некоторую громоздкость формулировок, предложенная модификация метода конечных объемов позволяет эффективно моделировать решение $\phi$, даже если на границе области оно имеет особенность.
+Эксперимент подтверждает, что, несмотря на некоторую громоздкость формулировок, предложенная модификация метода конечных объемов позволяет эффективно моделировать решение $\phi$, учитывая возможные его особенности на границе области. Это свидетельствует в пользу сделанных предположений о видах особенности решения в различных случаях задачи.
+
+По результатам произведенного исследования обобщение модели выполняет поставленную задачу -- описанный ранее цилиндрический случай \eqref{eq:stationary_basic_cylindrical} задачи предположительно имеет решение (приведен косвенный довод, выполенена численная проверка), причем достаточно как $\alpha > 0$, так и $\beta > 0$. Более того, при $\alpha = 0$, $\beta > 0$ предположительно имеет решение и более <<жесткий>> сферический случай.
+
+Стоит отметить, что под особенностями в настоящем разделе понималось отсутствие конечного предела у некоторой производной функции $\phi$, входящей в уравнение \eqref{eq:phi_corrected} модели: первой (градиента) при $\alpha = 0$ или третьей (градиента лапласиана) -- при $\alpha > 0$. Однако в смысле гладкости особенность в $r = 0$ имеют все полученные решения при $\alpha = 0$. Такие особенности крайне затрудняют адекватное моделирование: пик подобного <<острого>> профиля канала будет стремиться пройти по узлам сетки, строго параллельно координатной оси, что, естественно, не соответствует решению дифференциальной задачи. В свою очередь, модель с $\alpha > 0$, не показывающая этой проблемы, имеет недостаток в виде разностного оператора на два порядка выше, что накладывает серьезные ограничения величин расчетного шага. Выбор одной из перечисленный конфигураций модели либо поиск некоторых других подходов к решению перечисленных проблем являются актуальными вопросами будущих исследований.
