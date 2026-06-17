@@ -3,7 +3,7 @@
 \subsection{Соотношения баланса энергии}
 \label{ssec:energy_balance}
 
-Будем рассматривать сделующую постановку задачи. Пусть образец вещества имеет форму параллелепипеда, то есть область решения $\clOmega = [0, L]_x \times [0, H]_y \times [0, D]_z$. Образец зажат между двумя проводящими пластинами $y = 0$ и $y = H$ под напряжением.
+Будем рассматривать следующую постановку задачи. Пусть образец вещества имеет форму параллелепипеда, то есть область решения $\clOmega = [0, L]_x \times [0, H]_y \times [0, D]_z$. Образец зажат между двумя проводящими пластинами $y = 0$ и $y = H$ под напряжением.
 
 \begin{subequations}
 \label{cond:boundary_basic}
@@ -119,7 +119,7 @@
     \cfrac{d W_E}{dt} = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \cfrac{d q^-}{dt} - \intOmega \Phi \partt{\rho} d \vx.
     \label{tmp:energy_electrical_deriv}
 \end{equation}
-Преобразуем последнее слагаемое. Выразим производную плотости заряда $\rho$ из уравнения \eqref{eq:electrostatic_b} и далее по дифференциальному тождеству \eqref{eq:identity_gradients_product} имеем
+Преобразуем последнее слагаемое. Выразим производную плотности заряда $\rho$ из уравнения \eqref{eq:electrostatic_b} и далее по дифференциальному тождеству \eqref{eq:identity_gradients_product} имеем
 \begin{multline*}
     \intOmega \Phi \partt{\rho} d \vx = \intOmega \Phi \Div (\sigma \nabla \Phi) d \vx = \intOmega [\Div(\Phi \sigma \nabla \Phi) - (\nabla \Phi, \sigma \nabla \Phi)] d \vx = \\ = \intpartOmega \Phi \sigma \cdot (\nabla \Phi, \vn) dS - \intOmega \sigma \cdot (\nabla \Phi, \nabla \Phi) d \vx = -\Phi^+ \int\limits_{y = 0} \sigma \party{\Phi} dS - \intOmega Q_j d \vx.
 \end{multline*}
@@ -128,7 +128,7 @@
 
 \begin{proposition}
 \label{prop:energy_balance}
-При динамике фазового поля, определяемой уравением \eqref{eq:phi}, справедливо следующее уравнение баланса свободной энергии $\Psi$ системы:
+При динамике фазового поля, определяемой уравнением \eqref{eq:phi}, справедливо следующее уравнение баланса свободной энергии $\Psi$ системы:
 \begin{equation}
     \cfrac{d \Psi}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx + q^- \cfrac{d \Phi^+}{dt} + \intOmega \rho \partt{\Phi} d \vx;
     \label{eq:energy_free_balance}
@@ -154,7 +154,7 @@ $W = W_E + W_b$, $\Psi = -W_E + W_b$ (см. \eqref{eq:energy_densities}). Про
 \begin{multline*}
     -\cfrac{d W_E}{dt} + \cfrac{d W_b}{dt} = \\ = -\intOmega \partt{\phi} \left[ \half \epsilon' \cdot (\nabla \Phi, \nabla \Phi) + \cfrac{\Gamma}{l^2} f' + \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left( \| \nabla \phi \|_2^2 \nabla \phi \right) \right] d \vx + q^- \cfrac{d \Phi^+}{dt} + \intOmega \rho \partt{\Phi} d \vx.
 \end{multline*}
-Выделяя под интегралом правую часть уравения \eqref{eq:phi} динамики фазового поля, получаем выражение \eqref{eq:energy_free_balance}.
+Выделяя под интегралом правую часть уравнения \eqref{eq:phi} динамики фазового поля, получаем выражение \eqref{eq:energy_free_balance}.
 
 Выражение \eqref{eq:energy_inner_balance} выводится аналогично, прибавлением производной \eqref{tmp:energy_breakdown_deriv} к равенству \eqref{eq:energy_electrical_balance_b} с последующим выделением выражения \eqref{eq:phi} под интегралом.
 \end{proof}

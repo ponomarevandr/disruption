@@ -82,7 +82,7 @@
     \label{eq:equilibrium_characteristic_deriv}
 \end{equation}
 
-Исследуем фукнцию $\epsilon(\phi)$, заданную формулой \eqref{eq:epsilon}. Рассмотрим замену переменной $\phi = z\delta^{1/3}$, $\phi \in [0, 1]$, $z \in [0, \delta^{-1/3}]$. Домножим на $\delta$ функцию $\epsilon(\phi)$, получим
+Исследуем функцию $\epsilon(\phi)$, заданную формулой \eqref{eq:epsilon}. Рассмотрим замену переменной $\phi = z\delta^{1/3}$, $\phi \in [0, 1]$, $z \in [0, \delta^{-1/3}]$. Домножим на $\delta$ функцию $\epsilon(\phi)$, получим
 \[
     \cfrac{\delta \cdot \epsilon(z \delta^{1/3})}{\epsilon_0} = \cfrac{1}{4 z^3 - 3 z^4 \delta^{1/3} + 1}.
 \]
@@ -184,7 +184,7 @@
     \tau \leqslant \cfrac{1}{m} \left[ 3 E^2 \epsilon_0 \delta^{-5/3} + 12 \cfrac{\Gamma}{l^2} \right]^{-1}.
     \label{cond:stability_function_voltage}
 \end{equation}
-Для постановки \eqref{cond:boundary_voltage} с постоянным напряжением интересен случай <<сильного напряжения>>, когда $\xi > 1$ (см. \eqref{char:equilibriums_voltage}) и, следовательно, $\Gamma / l^2 < E^2 \epsilon_0 / 2$. Учитывая таже, что $\delta \ll 1$, заключаем, что в формуле выше второе слагаемое пренебрежимо мало и может быть исключено. Объединяя оценки \eqref{cond:stability_laplacian} и \eqref{cond:stability_function_voltage}, получаем условие устойчивости
+Для постановки \eqref{cond:boundary_voltage} с постоянным напряжением интересен случай <<сильного напряжения>>, когда $\xi > 1$ (см. \eqref{char:equilibriums_voltage}) и, следовательно, $\Gamma / l^2 < E^2 \epsilon_0 / 2$. Учитывая также, что $\delta \ll 1$, заключаем, что в формуле выше второе слагаемое пренебрежимо мало и может быть исключено. Объединяя оценки \eqref{cond:stability_laplacian} и \eqref{cond:stability_function_voltage}, получаем условие устойчивости
 \begin{equation}
     \tau \leqslant \cfrac{1}{m} \min \left( \cfrac{h^2}{2 \Gamma}, \cfrac{\delta^{5/3}}{3 E^2 \epsilon_0} \right).
     \label{cond:stability_voltage}
