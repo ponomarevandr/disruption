@@ -7,15 +7,15 @@
 
 \begin{subequations}
 \label{cond:boundary_basic}
-На <<боковых>> гранях $\partial \Omega$ зададим однородное условие Неймана на электрический потенциал:
+На <<боковых>> гранях $\partial \Omega$ зададим однородное условие Неймана для электрического потенциала:
 \begin{equation}
     \partvn{\Phi} \bigg|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 0;
 \end{equation}
-а также условие Дирихле либо Неймана на фазовое поле:
+а также условие Дирихле либо Неймана для фазового поля:
 \begin{equation}
     \phi|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 1 \quad \text{либо} \quad \partvn{\phi} \bigg|_{ \{ x = 0, L \} \cup \{ z = 0, D \} } = 0.
 \end{equation}
-На верхней и нижней грани считаем заданным однородное условие Неймана на фазовое поле:
+На верхней и нижней грани считаем заданным однородное условие Неймана для фазового поля:
 \begin{equation}
     \partvn{\phi} \bigg|_{y = 0, H} = 0.
 \end{equation}
@@ -42,7 +42,7 @@
 \label{prop:energy_electrical_form}
 Функционал энергии $W_E$ электрического поля, плотность которой задана формулой \eqref{eq:energy_density_electrical}, может быть представлен в следующем виде:
 \begin{equation}
-    W_E = -\half \left( \Phi^+ q^- + \intOmega \Phi \rho d \vx \right).
+    W_E = \half \left( -\Phi^+ q^- + \intOmega \Phi \rho d \vx \right).
     \label{eq:energy_electrical_form}
 \end{equation}
 \end{proposition}
@@ -58,7 +58,7 @@
 \]
 и далее, по формуле Гаусса--Остроградского, учитывая $\Phi^- = 0$ и равенства \eqref{eq:charge}, \eqref{eq:electrostatic_c},
 \[
-    2 W_E = \intOmega 2 w_E d \vx = \intpartOmega \Phi \epsilon (\nabla \Phi, \vn) dS - \intOmega \Phi \Div(\epsilon \nabla \Phi) d \vx = -\Phi^+ q^- - \intOmega \Phi \rho d \vx.
+    2 W_E = \intOmega 2 w_E d \vx = \intpartOmega \Phi \epsilon (\nabla \Phi, \vn) dS - \intOmega \Phi \Div(\epsilon \nabla \Phi) d \vx = -\Phi^+ q^- + \intOmega \Phi \rho d \vx.
 \]
 \end{proof}
 
@@ -71,16 +71,16 @@
 \end{equation}
 может быть представлена в виде
 \begin{equation}
-    \cfrac{d W_E}{dt} = -\half \left[ \Phi^+ \cfrac{d q^-}{dt} + q^- \cfrac{d \Phi^+}{dt} + \intOmega \left( \rho \partt{\Phi} + \Phi \partt{\rho} \right) d \vx \right],
+    \cfrac{d W_E}{dt} = \half \left[ -\Phi^+ \cfrac{d q^-}{dt} - q^- \cfrac{d \Phi^+}{dt} + \intOmega \left( \rho \partt{\Phi} + \Phi \partt{\rho} \right) d \vx \right],
     \label{eq:energy_electrical_deriv_form}
 \end{equation}
 причем
 \begin{subequations}
 \label{eq:energy_electrical_deriv_terms}
 \begin{align}
-    -\half \left[ q^- \cfrac{d \Phi^+}{dt} + \intOmega \rho \partt{\Phi} d \vx \right] & = \half \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx,
+    -q^- \cfrac{d \Phi^+}{dt} + \intOmega \rho \partt{\Phi} d \vx & = \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx,
     \label{eq:energy_electrical_deriv_term_a} \\
-    -\half \left[ \Phi^+ \cfrac{d q^-}{dt} + \intOmega \Phi \partt{\rho} d \vx \right] & = \half \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx + \half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx.
+    -\Phi^+ \cfrac{d q^-}{dt} + \intOmega \Phi \partt{\rho} d \vx & = \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx + \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx.
     \label{eq:energy_electrical_deriv_term_b}
 \end{align}
 \end{subequations}
@@ -90,11 +90,11 @@
 
 Для левой части выражения \eqref{eq:energy_electrical_deriv_term_a}, подставляя равенства \eqref{eq:charge} и \eqref{eq:electrostatic_c}, по тождеству \eqref{eq:identity_gradients_product} имеем
 \begin{multline*}
-    -q^- \cfrac{d \Phi^+}{dt} - \intOmega \rho \partt{\Phi} d \vx = \intpartOmega \left( \partt{\Phi} \epsilon \nabla \Phi, \vn \right) dS - \intOmega \partt{\Phi} \Div(\epsilon \nabla \Phi) d \vx = \\ = \intOmega \left[ \Div \left( \partt{\Phi} \epsilon \nabla \Phi \right) - \partt{\Phi} \Div(\epsilon \nabla \Phi) \right] d \vx = \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx.
+    -q^- \cfrac{d \Phi^+}{dt} + \intOmega \rho \partt{\Phi} d \vx = \intpartOmega \left( \partt{\Phi} \epsilon \nabla \Phi, \vn \right) dS - \intOmega \partt{\Phi} \Div(\epsilon \nabla \Phi) d \vx = \\ = \intOmega \left[ \Div \left( \partt{\Phi} \epsilon \nabla \Phi \right) - \partt{\Phi} \Div(\epsilon \nabla \Phi) \right] d \vx = \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx.
 \end{multline*}
 Для левой части выражения \eqref{eq:energy_electrical_deriv_term_b} похожим образом получаем
 \begin{multline*}
-    -\Phi^+ \cfrac{d q^-}{dt} - \intOmega \Phi \partt{\rho} d \vx = \intpartOmega \left( \Phi \partt{}[\epsilon \nabla \Phi], \vn \right) dS - \intOmega \Phi \Div \partt{}[\epsilon \nabla \Phi] d \vx = \\ = \intOmega \left( \nabla \Phi, \partt{}[\epsilon \nabla \Phi] \right) d \vx = \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx + \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx.
+    -\Phi^+ \cfrac{d q^-}{dt} + \intOmega \Phi \partt{\rho} d \vx = \intpartOmega \left( \Phi \partt{}[\epsilon \nabla \Phi], \vn \right) dS - \intOmega \Phi \Div \partt{}[\epsilon \nabla \Phi] d \vx = \\ = \intOmega \left( \nabla \Phi, \partt{}[\epsilon \nabla \Phi] \right) d \vx = \intOmega \epsilon \cdot \left( \nabla \Phi, \nabla \partt{\Phi} \right) d \vx + \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx.
 \end{multline*}
 Отметим, что вывод равенства \eqref{eq:energy_electrical_deriv_term_b} куда менее тривиален, чем равенства \eqref{eq:energy_electrical_deriv_term_a}: происходит подстановка интегральных представлений $q^-$ и $\rho$ под знак производной, что означает переход в касательное пространство функциональной поверхности.
 \end{proof}
@@ -105,7 +105,7 @@
 \begin{subequations}
 \label{eq:energy_electrical_balance}
 \begin{align}
-    \cfrac{d W_E}{dt} & = \half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - q^- \cfrac{d \Phi^+}{dt} - \intOmega \rho \partt{\Phi} d \vx,
+    \cfrac{d W_E}{dt} & = \half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - q^- \cfrac{d \Phi^+}{dt} + \intOmega \rho \partt{\Phi} d \vx,
     \label{eq:energy_electrical_balance_a} \\
     \cfrac{d W_E}{dt} & = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \left( \cfrac{d q^-}{dt} + \int\limits_{y = 0} \sigma \party{\Phi} dS \right) - \intOmega Q_j d \vx.
     \label{eq:energy_electrical_balance_b}
@@ -114,9 +114,9 @@
 Здесь $Q_j$, определяемое формулой \eqref{eq:heat}, есть тепло, выделяемое при протекании тока в среде.
 \end{proposition}
 \begin{proof}
-Из правой части формулы \eqref{eq:energy_electrical_deriv} вычтем и прибавим удвоенные части равенств \eqref{eq:energy_electrical_deriv_term_a} и \eqref{eq:energy_electrical_deriv_term_b}, получим соответственно выражение \eqref{eq:energy_electrical_balance_a} и
+Из правой части формулы \eqref{eq:energy_electrical_deriv} вычтем и прибавим части ра\forcehyphenation венств~\eqref{eq:energy_electrical_deriv_term_a} и~\eqref{eq:energy_electrical_deriv_term_b}, получим соответственно выражение \eqref{eq:energy_electrical_balance_a} и
 \begin{equation}
-    \cfrac{d W_E}{dt} = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \cfrac{d q^-}{dt} - \intOmega \Phi \partt{\rho} d \vx.
+    \cfrac{d W_E}{dt} = -\half \intOmega \partt{\epsilon} (\nabla \Phi, \nabla \Phi) d \vx - \Phi^+ \cfrac{d q^-}{dt} + \intOmega \Phi \partt{\rho} d \vx.
     \label{tmp:energy_electrical_deriv}
 \end{equation}
 Преобразуем последнее слагаемое. Выразим производную плотности заряда $\rho$ из уравнения \eqref{eq:electrostatic_b} и далее по дифференциальному тождеству \eqref{eq:identity_gradients_product} имеем
@@ -130,7 +130,7 @@
 \label{prop:energy_balance}
 При динамике фазового поля, определяемой уравнением \eqref{eq:phi}, справедливо следующее уравнение баланса свободной энергии $\Psi$ системы:
 \begin{equation}
-    \cfrac{d \Psi}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx + q^- \cfrac{d \Phi^+}{dt} + \intOmega \rho \partt{\Phi} d \vx;
+    \cfrac{d \Psi}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx + q^- \cfrac{d \Phi^+}{dt} - \intOmega \rho \partt{\Phi} d \vx;
     \label{eq:energy_free_balance}
 \end{equation}
 а также следующее уравнение баланса внутренней энергии $W$ системы:
@@ -152,7 +152,7 @@ $W = W_E + W_b$, $\Psi = -W_E + W_b$ (см. \eqref{eq:energy_densities}). Про
 \]
 Прибавим полученную производную \eqref{tmp:energy_breakdown_deriv} к равенству \eqref{eq:energy_electrical_balance_a}, взятому со знаком минус:
 \begin{multline*}
-    -\cfrac{d W_E}{dt} + \cfrac{d W_b}{dt} = \\ = -\intOmega \partt{\phi} \left[ \half \epsilon' \cdot (\nabla \Phi, \nabla \Phi) + \cfrac{\Gamma}{l^2} f' + \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left( \| \nabla \phi \|_2^2 \nabla \phi \right) \right] d \vx + q^- \cfrac{d \Phi^+}{dt} + \intOmega \rho \partt{\Phi} d \vx.
+    -\cfrac{d W_E}{dt} + \cfrac{d W_b}{dt} = \\ = -\intOmega \partt{\phi} \left[ \half \epsilon' \cdot (\nabla \Phi, \nabla \Phi) + \cfrac{\Gamma}{l^2} f' + \cfrac{\Gamma}{2} \Delta \phi + \beta \Gamma l^2 \Div \left( \| \nabla \phi \|_2^2 \nabla \phi \right) \right] d \vx + q^- \cfrac{d \Phi^+}{dt} - \intOmega \rho \partt{\Phi} d \vx.
 \end{multline*}
 Выделяя под интегралом правую часть уравнения \eqref{eq:phi} динамики фазового поля, получаем выражение \eqref{eq:energy_free_balance}.
 
