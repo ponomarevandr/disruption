@@ -149,6 +149,19 @@
 
 \newcommand{\forcehyphenation}{-\linebreak}
 
+\newcommand{\multeqstart}{
+    \begingroup
+    \setlength{\abovedisplayshortskip}{\the\abovedisplayskip}
+    \setlength{\belowdisplayshortskip}{\the\belowdisplayskip}
+}
+\newcommand{\multeqnext}{
+    \vspace{-\baselineskip}
+    \vspace{-\belowdisplayskip}
+}
+\newcommand{\multeqfinish}{
+    \endgroup
+}
+
 \newcommand{\absent}[1]{[...#1...]}
 
 

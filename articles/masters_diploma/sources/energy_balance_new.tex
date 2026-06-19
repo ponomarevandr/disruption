@@ -31,10 +31,11 @@
     q^-(t) = \int\limits_{y = 0} \epsilon \cdot (\vE, \vn) dS = \int\limits_{y = 0} \epsilon \party{\Phi} dS, \qquad q^+(t) = \int\limits_{y = H} \epsilon \cdot (\vE, \vn) dS = -\int\limits_{y = H} \epsilon \party{\Phi} dS.
     \label{eq:charge}
 \end{equation}
-Интегрируя уравнение \eqref{eq:electrostatic_c}, по формуле Гаусса--Остроградского
-\[
+Интегрируя уравнение \eqref{eq:electrostatic_c}, по формуле Гаусса--Остроградского получаем
+\begin{equation}
     \intOmega \rho d \vx = \intOmega \Div(-\epsilon \nabla \Phi) d \vx = \int\limits_{y = 0} \epsilon \party{\Phi} dS - \int\limits_{y = H} \epsilon \party{\Phi} dS = q^- + q^+.
-\]
+    \label{eq:charge_balance}
+\end{equation}
 
 Можно считать $\Phi^- = 0$, то есть уровнем нулевого потенциала. Заданное $\Phi^+$ замыкает граничные условия, тогда однозначно определяется $\Phi$, а значит, и $q^-$, $q^+$ (по~формуле~\eqref{eq:charge}). Верно и обратное: заданное $q^-$ определяет $\Phi^+$. Для этого рассмотрим однородную ($\rho \equiv 0$) задачу с $\Phi^+ = 1$ и неоднородную с исходным $\rho$ и $\Phi^+ = 0$. Линейная комбинация их решений с коэффициентами $k$, $1$ даст исходное значение $\rho$ и~произвольное~-- $q^-$.
 
@@ -58,7 +59,7 @@
 \]
 и далее, по формуле Гаусса--Остроградского, учитывая $\Phi^- = 0$ и равенства \eqref{eq:charge}, \eqref{eq:electrostatic_c},
 \[
-    2 W_E = \intOmega 2 w_E d \vx = \intpartOmega \Phi \epsilon (\nabla \Phi, \vn) dS - \intOmega \Phi \Div(\epsilon \nabla \Phi) d \vx = -\Phi^+ q^- + \intOmega \Phi \rho d \vx.
+    2 W_E = \intOmega 2 w_E d \vx = \intpartOmega \Phi \epsilon \cdot (\nabla \Phi, \vn) dS - \intOmega \Phi \Div(\epsilon \nabla \Phi) d \vx = -\Phi^+ q^- + \intOmega \Phi \rho d \vx.
 \]
 \end{proof}
 
