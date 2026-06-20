@@ -1,0 +1,185 @@
+%!TEX root = ../main.tex
+
+\section{Устойчивость положений равновесия системы}
+
+\begin{frame}{Одномерная задача}
+\vspace{-5mm}
+Работа \cite{ponomarev_stability}
+\vspace{1mm}
+\begin{itemize}
+	\item $\phi(\vx, 0) = \phi_0(\vx) = \phi_0(x)$, $\epsilon_0(\vx) = \epsilon_0(x)$ не зависят от $y$ и $z$
+	\item $\Phi|_{y = 0} = \Phi^- \in \Real$, $\Phi|_{y = h} = \Phi^+ \in \Real$
+\end{itemize}
+\vspace{1mm}
+Функция электрического потенциала известна аналитически:
+\begin{columns}
+\column{0.65\textwidth}
+\vspace{-4mm}
+\[
+	\Phi(\vx, t) = \Phi^- \hm + \cfrac{y}{h}(\Phi^+ - \Phi^-), \quad E = \| \nabla \Phi \| = \Const.
+\]
+\raggedleft
+\begin{minipage}{0.98\textwidth}
+\vspace{-2mm}
+\begin{block}{Уравнение фазового поля $\phi$}
+	\[
+		\cfrac{1}{m} \partt{\phi} = \half E^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi) + \half \Gamma \cfrac{\partial^2 \phi}{\partial x^2}
+	\]
+	\vspace{-4mm}
+\end{block}
+\end{minipage}
+\column{0.35\textwidth}
+\begin{figure}
+	\vspace*{-18mm}
+	\hspace*{2mm}
+	\includegraphics[width=0.93\textwidth]{figures/one_dim_problem.jpg}
+\end{figure}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Анализ положений равновесия}
+\begin{itemize}
+	\item Канал пробоя может развиваться из малых возмущений неповрежденной среды.
+	\item Рассмотрим положения равновесия вида $\phi(x, t) \equiv C$. \\
+	Положению равновесия соответствует ноль $C$ функции
+\end{itemize}
+\[
+	\chi(\phi) = \half E^2 \epsilon'(\phi) + \cfrac{\Gamma}{l^2} f'(\phi).
+\]
+\vspace{-0.5cm}
+\begin{itemize}
+	\item Исследуем положения равновесия на устойчивость спектральным методом: к $\phi \equiv C$ прибавим возмущение $\delta \phi = e^{\alpha t} \sin(\omega x)$, линеаризуем уравнение на $\delta \phi$.
+\end{itemize}
+\begin{center}
+\begin{tabular}{c c c}
+	$\chi(\phi)$ возрастает в $C$ & $\Longrightarrow$ & равновесие неустойчиво; \\
+	$\chi(\phi)$ убывает в $C$ & $\Longrightarrow$ & равновесие устойчиво.
+\end{tabular}
+\end{center}
+\end{frame}
+
+
+{\nologo
+\begin{frame}{Анализ положений равновесия}
+\vspace{-8mm}
+\begin{columns}
+\column{0.3\textwidth}
+	\begin{center}
+		<<Слабое>> напряжение
+	\end{center}
+	\vspace{-1mm}
+	\[
+		0 \leqslant \cfrac{E^2 l^2 \epsilon_0}{2 \Gamma} < \delta^2
+	\]
+	\vspace{-6mm}
+	\begin{figure}
+		\includegraphics[width=\textwidth]{figures/equilibriums_case_1.png}
+	\end{figure}
+\column{0.3\textwidth}
+	\begin{center}
+		<<Среднее>> напряжение
+	\end{center}
+	\vspace{-1mm}
+	\[
+		\delta^2 < \cfrac{E^2 l^2 \epsilon_0}{2 \Gamma} < (1 + \delta)^2
+	\]
+	\vspace{-6mm}
+	\begin{figure}
+		\includegraphics[width=\textwidth]{figures/equilibriums_case_2.png}
+	\end{figure}
+\column{0.3\textwidth}
+	\begin{center}
+		<<Сильное>> напряжение
+	\end{center}
+	\vspace{-1mm}
+	\[
+		(1 + \delta)^2 < \cfrac{E^2 l^2 \epsilon_0}{2 \Gamma}
+	\]
+	\vspace{-6mm}
+	\begin{figure}
+		\includegraphics[width=\textwidth]{figures/equilibriums_case_3.png}
+	\end{figure}
+\end{columns}
+\vspace{1mm}
+\begin{columns}
+\column{0.3\textwidth}
+	\hspace{5mm}
+	$\phi \equiv 0$ неустойчивое \\
+	\hspace{5mm}
+	$\phi \equiv 1$ устойчивое
+\column{0.3\textwidth}
+	\hspace{5mm}
+	$\phi \equiv 0$ устойчивое \\
+	\hspace{5mm}
+	$\phi \equiv С_3$ неустойчивое \\
+	\hspace{5mm}
+	$\phi \equiv 1$ устойчивое
+\column{0.3\textwidth}
+	\hspace{5mm}
+	$\phi \equiv 0$ устойчивое \\
+	\hspace{5mm}
+	$\phi \equiv 1$ неустойчивое
+\end{columns}
+\end{frame}
+}
+
+
+\begin{frame}{Разностная схема}
+\begin{block}{Разностная задача}
+	$$\cfrac{1}{m} \cfrac{\phi_i^{j + 1} - \phi_i^j}{\tau} = \half E_\phi^2 \epsilon'(\phi_i^j) + \cfrac{\Gamma}{l^2} f'(\phi_i^j) + \cfrac{\Gamma}{2} \cfrac{\phi_{i + 1}^j - 2 \phi_i^j + \phi_{i - 1}^j}{h^2}$$
+	$$\phi_i^0 = \phi_0(ih); \quad \phi_0^j = \phi_l(j \tau); \quad \phi_n^j = \phi_r(j \tau)$$
+	Сетка регулярная; $\tau$ -- шаг по времени, $h$ -- шаг по пространству.
+\end{block}
+\vspace{1mm}
+Явная разностная схема первого порядка по времени, второго -- по пространству.
+\end{frame}
+
+
+\begin{frame}{Оценка устойчивости}
+\begin{center}
+\begin{minipage}{0.95\textwidth}
+\begin{block}{Условие устойчивости}
+	$$\tau \leqslant \cfrac{1}{2 m} \left( \cfrac{E^2 \epsilon_0}{\delta^{5/3}} + \cfrac{\Gamma}{h^2} \right)^{-1}$$
+\end{block}
+\begin{block}{Упрощенное условие устойчивости}
+	$$\tau \leqslant \cfrac{1}{4 m} \min \left(\cfrac{\delta^{5/3}}{E^2 \epsilon_0}, \; \cfrac{h^2}{\Gamma} \right)$$
+\end{block}
+\end{minipage}
+\end{center}
+Оценка получена применением спектрального признака устойчивости \\ в окрестности $\phi = 0$.
+\end{frame}
+
+
+\begin{frame}{Вычисления: типичное решение}
+\vspace{-0.4cm}
+\begin{columns}
+\column{0.88\textwidth}
+\begin{figure}
+	\includegraphics[width=\textwidth]{figures/typical_solution.png}
+\end{figure}
+\column{0.12\textwidth}
+\hfill \\
+\vspace{3.5cm}
+\hspace{-2.5cm}
+Узлов по измерениям: \\
+\hspace{-2.5cm}
+$N_x = 10^3$, $N_t = 10^5$
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Вычисления: проверка устойчивости}
+\vspace{-0.4cm}
+\begin{columns}
+\column{0.7\textwidth}
+\begin{figure}
+	\includegraphics[width=\textwidth]{figures/stability_bounds.png}
+\end{figure}
+\column{0.3\textwidth}
+\hspace{1mm} Условие устойчивости:
+\[
+	\tau \leqslant \cfrac{1}{2m} \left( \cfrac{E^2 \epsilon_0}{\delta^{5/3}} + \cfrac{\Gamma}{h^2} \right)^{-1}
+\]
+\end{columns}
+\end{frame}

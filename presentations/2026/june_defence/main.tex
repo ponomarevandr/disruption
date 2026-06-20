@@ -1,0 +1,194 @@
+\documentclass[aspectratio=169]{beamer}
+
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+\usepackage{mathtext} 				% русские буквы в формулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+\usepackage{indentfirst}
+\frenchspacing
+
+%%% Дополнительная работа с математикой
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools}  % AMS
+
+%%% Текст в колонки
+\usepackage{multicol}
+
+%%% Системы уравнений
+\usepackage{cases}
+
+%%% Таблицы
+\usepackage{array}
+
+%%% Картинки
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{tikz}
+
+%%% Список литературы
+\usepackage[
+	sorting = none,
+	language = autobib,
+	autolang = other
+]{biblatex}
+\renewbibmacro{in:}{\ifentrytype{article}
+    {}
+    {\bibstring{in}\printunit{\intitlepunct}}
+}
+\addbibresource{references.bib}
+\renewcommand*{\bibfont}{\footnotesize}
+
+%%% Гиперссылки
+\usepackage{hyperref}
+
+%%% Прямой знак интеграла
+\usepackage[integrals]{wasysym}
+
+%%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+{\hbox{$\mathsurround=0pt #1$}}{}}
+
+
+%%% Свои команды
+
+\newcommand{\vect}[1]{\textbf{#1}}
+\newcommand{\vx}{{\vect{x}}}
+\newcommand{\vn}{{\vect{n}}}
+
+\newcommand{\half}{\cfrac{1}{2}}
+
+\newcommand{\partt}[1]{\cfrac{\partial #1}{\partial t}}
+\newcommand{\partr}[1]{\cfrac{\partial #1}{\partial r}}
+\newcommand{\partvn}[1]{\cfrac{\partial #1}{\partial \vn}}
+
+\newcommand{\partflt}[1]{\partial #1 / \partial t}
+\newcommand{\partflr}[1]{\partial #1 / \partial r}
+\newcommand{\partflvn}[1]{\partial #1 / \partial \vn}
+
+\newcommand{\gradsq}[1]{(\nabla #1, \nabla #1)}
+\newcommand{\plapl}[2]{\Div(\| {\nabla #1}_2^{#2} \| \nabla #1)}
+\newcommand{\bilapl}[1]{\Delta^2 #1}
+
+\newcommand{\Natural}{{\mathbb{N}}}
+\newcommand{\Real}{{\mathbb{R}}}
+\newcommand{\bigO}{{\mathcal{O}}}
+\newcommand{\clOmega}{{\overline{\Omega}}}
+
+\newcommand{\taumin}{{\tau_{\min}}}
+\newcommand{\taumax}{{\tau_{\max}}}
+
+\newcommand{\intOmega}{{\int\limits_\Omega}}
+
+\newcommand{\parind}{\hspace{7.5mm}}
+\newcommand{\cellcentered}[2]{%
+	\begin{minipage}[c][#1]{\hsize} #2 \end{minipage}%
+}
+
+\newcommand{\nologo}{\setbeamertemplate{logo}{}}
+
+
+%%% Свои операторы
+\DeclareMathOperator{\Div}{{div}}
+\DeclareMathOperator{\Const}{{const}}
+\DeclareMathOperator{\Tol}{{tol}}
+
+%%% Цвета
+\definecolor{dark_red}{RGB}{150, 0, 0}
+\definecolor{dark_green}{RGB}{0, 150, 0}
+\definecolor{light_grey}{RGB}{200, 200, 200}
+
+%%% Тема оформления
+\usetheme{Madrid}
+
+
+%%% Титульный лист
+\title[Электрический пробой]{Теоретические и численные вопросы моделирования \\ развития канала электрического пробоя \\ методом диффузной границы}
+\author[Пономарев А. С.]{
+	\hfill \\[-6mm]
+	Магистерская диссертация \\[3mm]
+	\raggedright
+	\hspace*{7.5cm}
+	\textbf{Студент:} \linebreak
+	\hspace*{7.5cm}
+	Пономарев Андрей Сергеевич \\[2mm]
+	\hspace*{7.5cm}
+	\textbf{Научный руководитель:} \linebreak
+	\hspace*{7.5cm}
+	Савенков Евгений Борисович \\[2mm]
+	\hspace*{7.5cm}
+	\textbf{Научный консультант:} \linebreak
+	\hspace*{7.5cm}
+	Зипунова Елизавета Вячеславовна \\[4mm]
+	\centering
+	22 июня 2026 г.
+}
+
+\institute[ИПМ, МФТИ]{}
+\date[Предзащита]{}
+\logo{\includegraphics[height=0.8cm]{../figures/labels.jpg}}
+
+
+\begin{document}
+
+\AtBeginSection[]{
+	\begin{frame}{Содержание}
+	\Large
+	\tableofcontents[currentsection]
+	\end{frame}
+}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Содержание}
+\Large
+\tableofcontents
+\end{frame}
+
+
+\input{sources/introduction}
+
+\input{sources/energy_balance}
+
+\input{sources/stability}
+
+\input{sources/generalization}
+
+\input{sources/adaptation}
+
+
+\begin{frame}{Заключение}
+\large
+\parind Исследовано:
+\begin{itemize}
+	\item устойчивость положений равновесия (в частности, неповрежденной среды);
+	\item особенности стационарных решений обобщенной задачи;
+	\item адаптация расчетного шага по времени.
+\end{itemize}
+\vspace{4mm}
+\parind Дальнейшие вопросы:
+\begin{itemize}
+	\item настройка определяющих соотношений модели;
+	\item поведение заряда в системе.
+\end{itemize}
+\end{frame}
+
+{
+\nologo
+\begin{frame}{Литература}
+\vspace{-2mm}
+\printbibliography
+\end{frame}
+}
+
+\begin{frame}{}
+\begin{center}
+	\Large
+	Спасибо за внимание!
+\end{center}
+\end{frame}
+
+\end{document}
