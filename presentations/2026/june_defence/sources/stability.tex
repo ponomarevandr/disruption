@@ -132,7 +132,7 @@
 	\begin{gather*}
 		\cfrac{1}{m} \cfrac{\phi_j^{k + 1} - \phi_j^k}{\tau} = \half (E^k)^2 \epsilon'(\phi_j^k) + \cfrac{\Gamma}{l^2} f'(\phi_j^k) + \cfrac{\Gamma}{2} \cfrac{\phi_{j + 1}^k - 2 \phi_j^k + \phi_{j - 1}^k}{h^2}; \\
 		\phi_j^0 = \phi_0(jh), \quad \phi_0^k = \phi_l(k \tau), \quad \phi_M^k = \phi_r(k \tau); \\
-		E^k = E \quad \text{либо} \quad E^k = \cfrac{[q^+]^k}{h} \left[ \sum\limits_{j = 0}^{M} \epsilon(\phi_j^k) \right]^{-1}.
+		E^k = E \quad \text{либо} \quad E^k = \cfrac{[q^+]^k}{h} \left[ \cfrac{\epsilon(\phi_0^k) + \epsilon(\phi_M^k)}{2} + \sum\limits_{j = 1}^{M - 1} \epsilon(\phi_j^k) \right]^{-1}.
 	\end{gather*}
 	Сетка регулярная; $\tau$ -- шаг по времени, $h$ -- шаг по пространству.
 \end{block}

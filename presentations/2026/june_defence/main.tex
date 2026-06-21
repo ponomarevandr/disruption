@@ -180,8 +180,14 @@
 {
 \nologo
 \begin{frame}{Литература}
-\vspace{-2mm}
-\printbibliography
+\vspace*{-4mm}
+\hspace*{-2mm}
+\begin{tikzpicture}
+	\node[text width=\textwidth] at (0, 0) {\printbibliography};
+    \draw (-7.45, -2.38) circle[radius=3mm];
+    \draw (-7.45, -0.14) circle[radius=3mm];
+    \draw (-7.45, 1.19) circle[radius=3mm];
+\end{tikzpicture}
 \end{frame}
 }
 
