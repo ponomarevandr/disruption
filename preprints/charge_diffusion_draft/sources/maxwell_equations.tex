@@ -1,0 +1,28 @@
+%!TEX root = ../main.tex
+
+\section{Уравнения Максвелла}
+
+Уравения Максвелла в электростатическом приближении можно записать в следующей форме, предварительно исключив из рассмотрения величины, связанные с магнитным полем.
+\begin{subequations}
+\begin{gather}
+    \vE = -\nabla \Phi,
+    \label{eq:electrostatic_a} \\
+    \partt{\rho} + \Div (\sigma \vE) = 0,
+    \label{eq:electrostatic_b} \\
+    \Div (\epsilon \vE) = \rho.
+    \label{eq:electrostatic_c}
+\end{gather}
+\label{eq:electrostatic}
+\end{subequations}
+
+Вектор Умова--Пойнтинга $\vect{S} = [\vE, \vect{H}]$ есть вектор переноса энергии электромагнитного поля. В электростатическом приближении верно
+\begin{equation}
+	\Div \vect{S} = \Div [\vE, \vect{H}] = -(\vE, \Rot \vect{H}) = -\left( \vE, \partt{\vD} \right) - (\vE, \vj),
+	\label{eq:poynting_vector}
+\end{equation}
+где слагаемое
+\begin{equation}
+	(\vE, \vj) = Q_j
+	\label{eq:heat}
+\end{equation}
+выражает джоулево тепло, выделяющееся при протекании тока в среде.
