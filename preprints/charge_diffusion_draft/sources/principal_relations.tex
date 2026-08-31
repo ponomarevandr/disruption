@@ -1,0 +1,30 @@
+%!TEX root = ../main.tex
+
+\section{Основные соотношения}
+
+Пусть плотность внутренней энергии среды $e = \hat{e}(\eta, \vD, \phi, \nabla \phi, \rho)$. Плотность свободной энергии $\psi$ получается из $e$ преобразованием Лежандра относительно пар переменных $\theta$--$\eta$ и $\vE$--$\vD$ и, таким образом,
+\begin{align}
+    \psi &= e - \vE \cdot \vD - \theta \eta,
+    \label{eq:free_energy_density} \\
+    \psi &= \hat{\psi}(\theta, \vE, \phi, \nabla \phi, \rho).
+    \nonumber
+\end{align}
+
+Уравнение баланса микросил и микронапряжений имеет вид
+\begin{equation}
+    \Div \vxi + \pi + \gamma = 0.
+    \label{eq:microforces}
+\end{equation}
+
+Закон сохранения внутренней энергии принимается в виде
+\begin{equation}
+    \dt{e} = -\Div \vq - \Div[\vE, \vect{H}] + \Div(\dt{\phi} \vxi) + \gamma \dt{\phi} - \Div(\kappa \rho \vj) + r,
+    \label{eq:energy_conservation}
+\end{equation}
+где $\vq$ -- плотность теплового потока, $[\vE, \vect{H}]$ -- плотность потока энергии электромагнитного поля, $\Div(\dt{\phi} \vxi)$ -- работа микронапряжений, $\dt{\phi} \gamma$ -- работа внешних микросил, $r$ -- работа внешних сил. Вектор $\kappa \rho \vj$, по-видимому, выражает поток энергии, связанный с диффузией заряда; он добавлен в уравнение, чтобы при дальнейшем выводе получить нужное определяющее соотношение для тока $\vj$ и положительный диапазон температуры $\theta$.
+
+В качестве энтропийного неравенства постулируется
+\begin{equation}
+    \dt{\eta} \geqslant -\Div \left( \cfrac{\vq}{\theta} \right) + \cfrac{r}{\theta}.
+    \label{eq:entropy_inequality}
+\end{equation}

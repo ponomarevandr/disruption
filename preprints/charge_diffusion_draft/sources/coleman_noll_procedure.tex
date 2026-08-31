@@ -1,0 +1,92 @@
+%!TEX root = ../main.tex
+
+\section{Процедура Колмана--Нолла}
+
+Подставляя уравнение баланса микросил и микронапряжений \eqref{eq:microforces} в закон сохранения внутренней энергии \eqref{eq:energy_conservation}, получаем
+\[
+    \dt{e} = -\Div \vq - \Div[\vE, \vect{H}] + \vxi \cdot \nabla \dt{\phi} - \pi \dt{\phi} - \Div(\kappa \rho \vj) + r.
+\]
+Выражая $\dt{e}$ из формулы \eqref{eq:free_energy_density}, получаем уравнение баланса свободной энергии в виде
+\begin{equation}
+    \dt{\psi} + \dt{\theta} \eta + \theta \dt{\eta} + \dt{\vE} \cdot \vD + \vE \cdot \dt{\vD} = -\Div \vq - \Div[\vE, \vect{H}] + \vxi \cdot \nabla \dt{\phi} - \pi \dt{\phi} - \Div(\kappa \rho \vj) + r.
+    \label{eq:free_energy_conservation}
+\end{equation}
+
+Домножим энтропийное неравенство \eqref{eq:entropy_inequality} на $\theta$ и вычтем из уравнения \eqref{eq:free_energy_conservation}, получим
+\[
+    \dt{\psi} + \dt{\theta} \eta + \dt{\vE} \cdot \vD + \vE \cdot \dt{\vD} \leqslant -\Div \vq + \theta \Div \left( \cfrac{\vq}{\theta} \right) + \vE \cdot (\vj + \dt{\vD}) + \vxi \cdot \nabla \dt{\phi} - \pi \dt{\phi} - \Div(\kappa \rho \vj)
+\]
+и, после сокращения,
+\begin{equation}
+    \dt{\psi} + \dt{\theta} \eta + \dt{\vE} \cdot \vD + \cfrac{\vq}{\theta} \cdot \nabla \theta - \vE \cdot \vj - \vxi \cdot \nabla \dt{\phi} + \pi \dt{\phi} + \Div(\kappa \rho \vj) \leqslant 0.
+    \label{eq:free_energy_inequality}
+\end{equation}
+
+Постулированная ранее функциональная зависимость $\psi = \hat{\psi}(\theta, \vE, \phi, \nabla \phi, \rho)$ влечет, по формуле дифференцирования сложной функции,
+\[
+    \dt{\psi} = \hat{\psi}_\theta \dt{\theta} + \hat{\psi}_\vE \cdot \dt{\vE} + \hat{\psi}_\phi \dt{\phi} + \hat{\psi}_{\nabla \phi} \cdot \nabla \dt{\phi} + \hat{\psi}_\rho \dt{\rho}.
+\]
+Подставляя это выражение в неравенство \eqref{eq:free_energy_inequality}, имеем
+\[
+    \dt{\theta} (\eta + \hat{\psi}_\theta) + \dt{\vE} \cdot (\vD + \hat{\psi}_\vE) + \cfrac{\vq}{\theta} \cdot \nabla \theta - \vE \cdot \vj + \nabla \dt{\phi} \cdot (-\vxi + \hat{\psi}_{\nabla \phi}) + \dt{\phi}(\pi + \hat{\psi}_\phi) + \Div(\kappa \rho \vj) + \hat{\psi}_\rho \dt{\rho} \leqslant 0.
+\]
+Положим
+\[
+    \hat{\psi}_\theta = -\eta, \quad \hat{\psi}_\vE = -\vD, \quad \hat{\psi}_{\nabla \phi} = \vxi,
+\]
+что обращает в ноль соответствующие слагаемые в неравенстве. Пусть также
+\[
+    \hat{\psi}_\rho = \kappa \rho.
+\]
+Тогда, учитывая, что
+\[
+    \Div(\kappa \rho \vj) + \kappa \rho \dt{\rho} = \Div(\kappa \rho \vj) - \kappa \rho \Div \vj = \nabla(\kappa \rho) \cdot \vj,
+\]
+получим
+\[
+    \cfrac{\vq}{\theta} \cdot \nabla \theta + \dt{\phi}(\pi + \hat{\psi}_\phi) - [\vE - \nabla(\kappa \rho)] \cdot \vj \leqslant 0.
+\]
+Далее положим
+\[
+    \hat{\psi}_\phi = -\pi - \beta \dt{\phi}, \quad \vq = -k \nabla \theta, \quad \vj = \sigma [\vE - \nabla (\kappa \rho)],
+\]
+где $\beta, k, \sigma, \kappa > 0$ и, вообще говоря,
+\[
+    \beta = \beta(\theta, \phi), \quad k = k(\theta, \phi), \quad \sigma = \sigma(\theta, \phi), \quad \kappa = \kappa(\theta, \phi).
+\]
+Неравенство для свободной энергии, таким образом, приобретает вид
+\[
+    \cfrac{k}{\theta} \nabla \theta \cdot \nabla \theta - \beta \dt{\phi}^2 - \sigma [\vE - \nabla(\kappa \rho)] \cdot [\vE - \nabla(\kappa \rho)] \leqslant 0,
+\]
+оказываясь верным при любых значениях свободных переменных.
+
+Учитывая полученные выражения для частных производных $\hat{\psi}$, можно записать
+\[
+    \dt{\psi} = -\dt{\theta} \eta - \dt{\vE} \cdot \vD + \vxi \cdot \nabla \dt{\phi} - \dt{\phi} (\pi + \beta \dt{\phi}) - \kappa \rho \Div \vj.
+\]
+Отыщем выражение для $\dt{\theta}$. Подставим соотношение выше в уравнение \eqref{eq:free_energy_conservation} баланса свободной энергии:
+\begin{gather*}
+    \theta \dt{\eta} + \vE \cdot \dt{\vD} - \beta \dt{\phi}^2 - \kappa \rho \Div \vj = -\Div \vq + \vE \cdot (\vj + \dt{\vD}) - \Div(\kappa \rho \vj) + r, \\
+    \theta \dt{\eta} = -\Div \vq + \beta \dt{\phi}^2 + [\vE - \nabla(\kappa \rho)] \cdot \vj + r.
+\end{gather*}
+Так как $\eta = -\hat{\psi}_\theta$, то
+\[
+    \theta \dt{\eta} = -\theta \left[ \hat{\psi}_{\theta \theta} \dt{\theta} + \hat{\psi}_{\theta \vE} \cdot \dt{\vE} + \hat{\psi}_{\theta \phi} \dt{\phi} + \hat{\psi}_{\theta \nabla \phi} \cdot \nabla \dt{\phi} + \hat{\psi}_{\theta \rho} \dt{\rho} \right].
+\]
+Величину $-\theta \hat{\psi}_{\theta \theta}$ будем обозначать $c$ и называть теплоемкостью. Можно выразить
+\begin{equation}
+    c \dt{\theta} = -\Div \vq + \beta \dt{\phi}^2 + [\vE - \nabla(\kappa \rho)] \cdot \vj + r + \theta \left[ \hat{\psi}_{\theta \vE} \cdot \dt{\vE} + \hat{\psi}_{\theta \phi} \dt{\phi} + \hat{\psi}_{\theta \nabla \phi} \cdot \nabla \dt{\phi} + \hat{\psi}_{\theta \rho} \dt{\rho} \right],
+    \label{eq:temperature}
+\end{equation}
+что в описываемой модели является уравнением динамики температуры $\theta$.
+
+Отметим, что уравнение \eqref{eq:temperature} гарантирует (при нулевом $r$) $\theta > 0$. Добавление диффузии заряда в описанном виде не нарушило этого свойства: третье слагаемое неотрицательно.
+
+Уравнение динамики фазового поля $\phi$ получим из баланса \eqref{eq:microforces} микросил и микронапряжений. Подставляя $\vxi = \hat{\psi}_{\nabla \phi}$ и $\pi = -\hat{\psi}_\phi - \beta \dt{\phi}$, имеем
+\begin{equation}
+    \beta \dt{\psi} = \Div \hat{\psi}_{\nabla \phi} - \hat{\psi}_\phi + \gamma.
+\end{equation}
+
+
+\section{Дальнейшее уточнение соотношений}
+

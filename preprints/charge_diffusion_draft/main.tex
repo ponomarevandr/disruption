@@ -80,6 +80,8 @@
 \newcommand{\vE}{{\vect{E}}}
 \newcommand{\vD}{{\vect{D}}}
 \newcommand{\vj}{{\vect{j}}}
+\newcommand{\vxi}{{\vect{\xi}}}
+\newcommand{\vq}{{\vect{q}}}
 
 \newcommand{\half}{\cfrac{1}{2}}
 
@@ -87,6 +89,7 @@
 \newcommand{\partx}[1]{\cfrac{\partial #1}{\partial x}}
 \newcommand{\party}[1]{\cfrac{\partial #1}{\partial y}}
 \newcommand{\partvn}[1]{\cfrac{\partial #1}{\partial \vn}}
+\newcommand{\dt}[1]{\overset{\boldsymbol{.}}{#1}}
 
 \newcommand{\Natural}{{\mathbb{N}}}
 \newcommand{\Real}{{\mathbb{R}}}
@@ -129,11 +132,10 @@
 
 \newcommand{\customtitle}{%
     \begin{center}
-        \Large
-        Диффузия заряда \\ в модели фазового поля \\ для развития канала электрического пробоя
-    \end{center}
-    \vspace{-2mm}
-    \begin{center}
+        {
+            \Large
+            Диффузия заряда \\ в модели фазового поля \\ для развития канала электрического пробоя \\[6mm]
+        }
         Набросок \\[5mm]
         \today
     \end{center}
@@ -145,6 +147,10 @@
 \customtitle
 
 \input{sources/maxwell_equations}
+
+\input{sources/principal_relations}
+
+\input{sources/coleman_noll_procedure}
 
 %\clearpage
 %\printbibliography[
