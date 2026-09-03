@@ -1,0 +1,104 @@
+\documentclass[10pt]{article}
+\usepackage{authblk, amssymb, amsmath, amsthm, latexsym, array, enumerate}
+
+
+%\oddsidemargin=0cm
+%\topmargin=-1,5cm
+%\textwidth=16cm
+%\textheight=23cm
+%\hfuzz=1.111pt
+
+\usepackage[english,russian]{babel}
+\usepackage[utf8]{inputenc} % sic!
+\usepackage[a5paper,margin=2cm,innermargin=2cm]{geometry}
+
+\makeatletter
+\renewenvironment{thebibliography}[1]
+{\subsubsection*{\refname}%
+	\@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+	\list{\@biblabel{\@arabic\c@enumiv}}%
+	{\settowidth\labelwidth{\@biblabel{#1}}%
+		\leftmargin\labelwidth
+		\advance\leftmargin\labelsep
+		\@openbib@code
+		\usecounter{enumiv}%
+		\let\p@enumiv\@empty
+		\renewcommand\theenumiv{\@arabic\c@enumiv}}%
+	\sloppy
+	\clubpenalty4000
+	\@clubpenalty \clubpenalty
+	\widowpenalty4000%
+	\sfcode`\.\@m}
+{\def\@noitemerr
+	{\@latex@warning{Empty `thebibliography' environment}}%
+	\endlist}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\theoremstyle {definition} \newtheorem {defi} {Definition[section] }
+	{\theoremstyle {plain}  \newtheorem {theorem} [defi] {Theorem}}
+	{\theoremstyle {plain}  \newtheorem {corollary} [defi]{Corollary}}
+	{\theoremstyle {plain}  \newtheorem {lemma} [defi]{Lemma}}
+	{\theoremstyle {plain}  \newtheorem {proposition} [defi]{Proposition}}
+	{\theoremstyle {plain} \newtheorem {remark}[defi] {Remark}}
+	{\theoremstyle {definition} \newtheorem {example}[defi] {Example}}
+	{\theoremstyle {definition} \newtheorem {problem}[defi] {Problem}}
+	{\theoremstyle {definition} \newtheorem {definition}[defi] {Definition}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{\Large 
+	Вопросы адаптации шага по времени \\ в модели электрического пробоя \\ типа диффузной границы
+%\footnote{Информация о финансировании.}
+}
+
+\author[1]{\underline{Андрей Пономарев}}
+
+\affil[1]{ИПМ им. М. В. Келдыша РАН}
+
+\date{}
+
+\renewcommand*{\Affilfont}{\small\it}
+\renewcommand*{\Authfont}{\bf\normalsize}
+
+\makeatletter
+\renewcommand{\Authand}{, }      % вместо "and" ставим запятую
+\renewcommand{\Authands}{, }     % для списка авторов
+\renewcommand{\Authsep}{, }      % разделитель между авторами
+\makeatother
+
+\begin{document}
+
+\maketitle
+
+
+Предмет исследования автора -- модель развития канала электрического пробоя в твердом диэлектрике, относящаяся к типу \linebreak диффузной границы, предложенная в статье \cite{ponopitike}. Одна из сложностей при работе с моделью состоит в существенно различных временных масштабах процессов: как правило, электрический пробой развивается стремительно, но ему предшествует долгий период медленных изменений в системе. Доклад посвящен возможному решению проблемы -- адаптации расчетного шага по времени в модели.
+
+Автором исследовано три различных метода адаптации шага по~времени, их работа проверена численно для задачи в упрощенной, одномерной, постановке. Подробный анализ методов приведен в~статье~\cite{ponoadaptation}.
+
+При выборе диапазона допустимых шагов по времени следует принимать во внимание несколько ограничений. Используемая явная разностная схема требует выполнения условий устойчивости~\cite{ponostability}. Также шаг по времени должен быть кратно меньше характерного времени релаксации заряда в среде.
+
+Наконец, самый удачный из исследованных методов адаптации внедрен в разрабатываемую научным коллективом программу \linebreak для~моделирования задачи в полной постановке. Проведены расчеты программы в~двух модельных постановках: развитие канала пробоя из~проводящей иголки и из случайных малых повреждений образца.
+
+Отметим, что в результате внедрения адаптации реальное время расчета снизилось кратно.
+
+{
+\begin{thebibliography}{9}
+
+\bibitem{ponopitike}
+K.~Ch.~Pitike, W.~Hong, {\it Phase-field model for dielectric breakdown in~solids}, Journal of Applied Physics {\bf 115(4)}, 044101 (2014).
+
+\bibitem{ponoadaptation}
+А.~С.~Пономарев [и др.], {\it Адаптация шага по времени в~модели типа <<диффузной границы>> на основе уравнения Аллена--Кана}, Математическое моделирование {\bf 38(4)}, 3--22 (2026).
+
+\bibitem{ponostability}
+А.~С.~Пономарев, Е.~В.~Зипунова, Е.~Б.~Савенков, {\it Устойчивость стационарных решений в модели развития канала электрического пробоя типа <<диффузной границы>>}, Препринты ИПМ им.~М.~В.~Келдыша {\bf 72}, 1--23 (2024).
+
+\end{thebibliography}
+}
+
+\end{document}
