@@ -56,7 +56,7 @@
 \]
 Неравенство для свободной энергии, таким образом, приобретает вид
 \[
-    \cfrac{k}{\theta} \nabla \theta \cdot \nabla \theta - \beta \dt{\phi}^2 - \sigma [\vE - \nabla(\kappa \rho)] \cdot [\vE - \nabla(\kappa \rho)] \leqslant 0,
+    -\cfrac{k}{\theta} \nabla \theta \cdot \nabla \theta - \beta \dt{\phi}^2 - \sigma [\vE - \nabla(\kappa \rho)] \cdot [\vE - \nabla(\kappa \rho)] \leqslant 0,
 \]
 оказываясь верным при любых значениях свободных переменных.
 
@@ -84,9 +84,73 @@
 
 Уравнение динамики фазового поля $\phi$ получим из баланса \eqref{eq:microforces} микросил и микронапряжений. Подставляя $\vxi = \hat{\psi}_{\nabla \phi}$ и $\pi = -\hat{\psi}_\phi - \beta \dt{\phi}$, имеем
 \begin{equation}
-    \beta \dt{\psi} = \Div \hat{\psi}_{\nabla \phi} - \hat{\psi}_\phi + \gamma.
+    \beta \dt{\phi} = \Div \hat{\psi}_{\nabla \phi} - \hat{\psi}_\phi + \gamma.
+    \label{eq:phi}
 \end{equation}
 
 
 \section{Дальнейшее уточнение соотношений}
 
+Примем следующую форму зависимости свободной энергии $\psi$ от параметров состояния среды:
+\[
+    \hat{\psi}(\theta, \vE, \phi, \nabla \phi, \rho) = \psi^{(2)}(\theta, \vE, \phi, \rho) + \cfrac{\lambda}{2} \nabla \phi \cdot \nabla \phi.
+\]
+Пусть $\lambda = \Const$, $\kappa = \Const$. Пусть также $\vD = \epsilon(\theta, \phi) \vE$. Тогда из $\psi^{(2)}_\vE = \hat{\psi}_\vE = -\vD = -\epsilon \vE$ следует
+\[
+    \psi^{(2)} = -\half \epsilon(\theta, \phi) \vE \cdot \vE + \psi^{(1)}(\theta, \phi, \rho).
+\]
+Аналогично, $\psi^{(1)}_\rho = \hat{\psi}_\rho = \kappa \rho$ влечет
+\[
+    \psi^{(1)} = \cfrac{\kappa}{2} \rho^2 + \psi^{(0)}(\theta, \phi).
+\]
+Таким образом, формула плотности свободной энергии имеет вид
+\begin{equation}
+    \hat{\psi}(\theta, \vE, \phi, \nabla \phi, \rho) = -\half \epsilon(\theta, \phi) \vE \cdot \vE + \psi^{(0)}(\theta, \phi) + \cfrac{\kappa}{2} \rho^2 + \cfrac{\lambda}{2} \nabla \phi \cdot \nabla \phi.
+\end{equation}
+При этом определяющие соотношения модели принимают вид
+\begin{align*}
+    \eta &= \half \epsilon_\theta(\theta, \phi) \vE \cdot \vE - \psi^{(0)}_\theta(\theta, \phi), \\
+    \vD &= \epsilon(\theta, \phi) \vE, \\
+    \vxi &= \lambda \nabla \phi, \\
+    \pi &= \half \epsilon_\phi(\theta, \phi) \vE \cdot \vE - \psi^{(0)}_\phi(\theta, \phi) - \beta(\theta, \phi) \dt{\phi}, \\
+    \vq &= -k(\theta, \phi) \nabla \theta, \\
+    \vj &= \sigma(\theta, \phi) (\vE - \kappa \nabla \rho).
+\end{align*}
+
+
+\section{Определение функций свойств среды}
+
+Для замыкания уравений модели остается определить функции $\epsilon$, $\sigma$, $\beta$, $k$ и $\psi^{(0)}$ переменных $\theta$ и $\phi$, выражающие зависимость свойств среды от температуры и фазового поля, то есть связь этих свойств с фазой вещества.
+
+Для функций свойств среды $\epsilon$, $\sigma$ в данной точке пространства постулируем зависимость исключительно от фазового поля $\phi$. Считая $\epsilon(\vx, \phi = 1) = \epsilon_0(\vx)$ и $\sigma_0(\vx, \phi = 1) = \sigma_0(\vx)$ известными, а также полагая $\epsilon(\phi = 0) \gg \epsilon(\phi = 1)$, $\sigma(\phi = 0) \gg \sigma(\phi = 1)$, примем
+\begin{align*}
+    \epsilon[\phi] &= \cfrac{\epsilon_0(\vx)}{g(\phi) + \delta_\epsilon}, \\
+    \sigma[\phi] &= \cfrac{\sigma_0(\vx)}{g(\phi) + \delta_\sigma},
+\end{align*}
+где $g(\phi)$ -- интерполирующая функция, гладкая и возрастающая, соединяющая значения $g(0) = 0$ и $g(1) = 1$; $\delta_\epsilon, \delta_\sigma \ll 1$, константы.
+
+Положим $\beta(\theta, \phi) = 1 / m = \Const$, где $m$ задает скорость изменения $\phi$ под действием единичной обобщенной силы и называется подвижностью.
+
+Пусть коэффициент теплопроводности $k(\theta, \phi) = k = \Const$.
+
+Примем следующий вид функции $\psi^{(0)}$:
+\[
+    \psi^{(0)}(\theta, \phi) = \psi^T(\theta, \phi) + \Gamma_V [1 - f(\phi)].
+\]
+Здесь первое слагаемое $\psi^T$ есть энергия, связанная с температурой среды. Второе слагаемое -- энергия, затрачиваемая на разрушение среды, то есть на фазовый переход от $\phi = 1$ к $\phi = 0$; $f(\phi)$ -- интерполирующая функция, гладкая и возрастающая, соединяющая значения $f(0) = 0$, $f(1) = 1$; $\Gamma_V$ имеет смысл энергии, затрачиваемой на фазовый переход единицы объема вещества.
+
+Для вывода формулы $\phi^T$ будем считать, что теплоемкость среды $c = -\hat{\psi}_{\theta \theta} = -\psi^T_{\theta \theta} \hm = c(\phi)$, то есть не зависит от температуры. Тогда, интегрируя, получим
+\[
+    \psi^T = c(\phi) \theta (1 - \ln \theta) + \widetilde{C}(\phi),
+\]
+где $\widetilde{C}$ -- произвольная функция $\phi$. Для энтропии $\eta = -\psi^T_\theta$ следует формула
+\[
+    \eta = c(\phi) \ln \theta + \widetilde{C}(\phi).
+\]
+Имея опорные значения энтропии $\eta_0(\phi)$ для $\phi \in [0, 1]$ при заданной $\theta_0$, можно выразить
+\begin{align*}
+    \eta(\theta, \phi) &= c(\phi) \ln \cfrac{\theta}{\theta_0} + \eta_0(\phi), \\
+    \psi^T(\theta, \phi) &= \theta \left[ c(\phi) - c(\phi) \ln \cfrac{\theta}{\theta_0} - \eta_0(\phi) \right].
+\end{align*}
+
+Отметим, что величина $l = \sqrt{\lambda / \Gamma_V}$ есть масштабный коэффициент характерной толщины диффузной границы. Переобозначим $\Gamma_V = \Gamma / l^2$, $\lambda = \Gamma$; здесь параметр $\Gamma$ имеет смысл характерной энергии образования электрического пробоя единичной длины (подразумевается <<площадь>> сечения $\approx l^2$).

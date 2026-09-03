@@ -1,0 +1,20 @@
+%!TEX root = ../main.tex
+
+\section{Полная система уравнений модели}
+
+Перечислим уравнения модели. Для начала, это уравнения Максвелла в электростатическом приближении \eqref{eq:electrostatic}.
+
+Плотность свободной энергии среды после уточнения вида \eqref{eq:free_energy_density} определяется выражением
+\[
+	\psi = -\half \epsilon(\phi) \vE \cdot \vE + \theta \left[ c(\phi) - c(\phi) \ln \cfrac{\theta}{\theta_0} - \eta_0(\phi) \right] + \cfrac{\Gamma}{l^2}[1 - f(\phi)] + \cfrac{\kappa}{2} \rho^2 + \cfrac{\Gamma}{4} \nabla \phi \cdot \nabla \phi.
+\]
+
+Уравнение \eqref{eq:temperature} изменения температуры принимает форму
+\[
+	c(\phi) \dt{\theta} = - \Div(-k \nabla \theta) + \cfrac{1}{m} \left( \partt{\phi} \right)^2 + \sigma(\phi) (\vE - \kappa \nabla \rho) \cdot (\vE - \kappa \nabla \rho) - \theta \partt{\phi} \left[ c'_\phi \ln \cfrac{\theta}{\theta_0} + (\eta_0)'_\phi \right].
+\]
+
+Уравнение \eqref{eq:phi} динамики фазового поля -- форму
+\[
+	\cfrac{1}{m} \partt{\phi} = \half \epsilon'_\phi \vE \cdot \vE + \theta \left[ -c'_\phi + c'_\phi \ln \cfrac{\theta}{\theta_0} + (\eta_0)'_\phi \right] + \cfrac{\Gamma}{l^2} f'_\phi + \cfrac{\Gamma}{2} \Delta \phi.
+\]
