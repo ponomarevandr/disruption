@@ -22,11 +22,18 @@
 Диэлектрическая проницаемость $\epsilon(\vx, \phi) = \epsilon[\phi]$ и электропроводность $\sigma(\vx, \phi) = \sigma[\phi]$ среды заданы формулами \eqref{eq:electrical_properties}. $m$, $k$, $\kappa$, $\Gamma$, $l$, $\theta_0$ -- константы; $c(\phi)$ и $\eta_0(\phi)$, вообще говоря, произвольные положительные функции, считающиеся известными.
 
 С учетом произведенных уточнений, определяющие соотношения модели имеют вид
+{\allowdisplaybreaks
 \begin{align*}
     \eta &= c(\phi) \ln \cfrac{\theta}{\theta_0} + \eta_0(\phi) \\
     \vD &= \epsilon[\phi] \vE, \\
     \vxi &= \Gamma \nabla \phi, \\
-    \pi &= \theta \left[ -c'_\phi + c'_\phi \ln \cfrac{\theta}{\theta_0} + (\eta_0)'_\phi \right] - \cfrac{1}{m} \partt{\phi}, \\
+    \pi &= \half \epsilon'_\phi \vE \cdot \vE + \theta \left[ -c'_\phi + c'_\phi \ln \cfrac{\theta}{\theta_0} + (\eta_0)'_\phi \right] + \cfrac{\Gamma}{l^2} f'_\phi - \cfrac{1}{m} \partt{\phi}, \\
     \vq &= -k \nabla \theta, \\
     \vj &= \sigma[\phi] (\vE - \kappa \nabla \rho).
 \end{align*}
+}
+
+Из соотношения \eqref{eq:free_energy_density} выразим плотность внутренней энергии среды. Учитывая, что из формул \eqref{eq:entropy_thermal_free_energy} $\psi^T + \theta \eta = \theta c(\phi)$, получим
+\[
+    e = \half \epsilon[\phi] \vE \cdot \vE + \theta c(\phi) + \cfrac{\Gamma}{l^2}[1 - f(\phi)] + \cfrac{\kappa}{2} \rho^2 + \cfrac{\Gamma}{4} \nabla \phi \cdot \nabla \phi.
+\]

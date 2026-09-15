@@ -1,0 +1,90 @@
+%!TEX root = ../main.tex
+
+\section[Коэффициент диффузии заряда, зависящий от температуры\textsuperscript{*}]{Коэффициент диффузии заряда, \\ зависящий от температуры\textsuperscript{*}}
+
+Проделанное введение в модель диффузии электрического заряда потребовало добавления в закон сохранения энергии \eqref{eq:energy_conservation} дополнительного консервативного члена с вектором $\kappa \rho \vj$ плотности потока. Это, с одной стороны, может выглядеть несколько искусственно. С другой стороны, энтропийное неравенство \eqref{eq:entropy_inequality} не поменяло своей стандартной формы, и подобное введение диффузии заряда может быть проделано и в более простой изотермической модели, вовсе без рассмотрения температуры $\theta$ и энтропии $\eta$. В таком случае неравенство~\eqref{eq:free_energy_inequality} для свободной энергии постулировалось бы, а не выводилось.
+
+Стоит отметить, что полученный вид неравенства \eqref{eq:free_energy_inequality} может быть получен, напротив, через изменение не закона сохранения энергии, а энтропийного неравенства, а именно:
+\begin{gather}
+    \dt{e} = -\Div \vq - \Div[\vE, \vect{H}] + \Div(\dt{\phi} \vxi) + \gamma \dt{\phi} + r,
+    \label{eq:energy_conservation_basic} \\
+    \dt{\eta} \geqslant -\Div \left( \cfrac{\vq}{\theta} \right) + \cfrac{r}{\theta} + \cfrac{\Div(\kappa \rho \vj)}{\theta}.
+    \nonumber
+\end{gather}
+Однако проблема такого подхода в том, что из-за недостающего слагаемого в законе сохранения энергии уравнение \eqref{eq:temperature} будет содержать вместо $[\vE - \nabla (\kappa \rho)] \cdot \vj$ член $\vE \cdot \vj$, что при желаемом определяющем соотношении $\vj = \vE - \nabla (\kappa \rho)$ не будет гарантировать положительности температуры $\theta$.
+
+Вместе с тем, упомянутый подход можно использовать в несколько другом виде. В известном из физики явлении диффузии заряда\footnote{\url{https://en.wikipedia.org/wiki/Diffusion_current}} коэффициент диффузии пропорционален абсолютной температуре. В соответствии с этим выведем иной вариант модели, где $\widetilde{\kappa} \hm = \kappa \theta$, $\kappa = \Const$.
+
+Примем закон сохранения энергии в форме \eqref{eq:energy_conservation_basic} и энтропийное неравенство
+\[
+    \dt{\eta} \geqslant -\Div \left( \cfrac{\vq}{\theta} \right) + \cfrac{r}{\theta} + \Div(\kappa \rho \vj).
+\]
+В таком случае неравенство \eqref{eq:free_energy_inequality} для свободной энергии примет вид
+\[
+    \dt{\psi} + \dt{\theta} \eta + \dt{\vE} \cdot \vD + \cfrac{\vq}{\theta} \cdot \nabla \theta - \vE \cdot \vj - \vxi \cdot \nabla \dt{\phi} + \pi \dt{\phi} + \theta \Div(\kappa \rho \vj) \leqslant 0.
+\]
+Считая $\kappa$ константой, примем те же определяющие соотношения, что и раньше, за исключением
+\[
+    \hat{\psi}_\rho = \kappa \theta \rho, \quad \vj = \sigma (\vE - \kappa \theta \nabla \rho).
+\]
+Аналогично, учитывая, что
+\[
+    \kappa \theta \Div(\rho \vj) + \hat{\psi}_\rho \dt{\rho} = \kappa \theta \Div(\rho \vj) - \kappa \theta \rho \Div \vj = \kappa \theta \nabla \rho \cdot \vj,
+\]
+сведем неравенство для свободной энергии к выражению
+\[
+    \cfrac{\vq}{\theta} \cdot \nabla \theta + \dt{\phi}(\pi + \hat{\psi}_\phi) - (\vE - \kappa \theta \nabla \rho) \cdot \vj \leqslant 0,
+\]
+верное для любого состояния системы.
+
+Заметим, что теперь $\hat{\psi}_{\theta \rho} = \kappa \rho > 0$, $\theta \hat{\psi}_{\theta \rho} \dt{\rho} = -\kappa \theta \rho \Div \vj$. Учитывая также измененный вид закона сохранения энергии, для эволюции температуры получим
+\begin{gather*}
+    \theta \dt{\eta} = -\Div \vq + \beta \dt{\phi}^2 + \vE \cdot \vj + \kappa \theta \rho \Div \vj + r, \\
+    c \dt{\theta} = -\Div \vq + \beta \dt{\phi}^2 + \vE \cdot \vj + r + \theta \left[ \hat{\psi}_{\theta \vE} \cdot \dt{\vE} + \hat{\psi}_{\theta \phi} \dt{\phi} + \hat{\psi}_{\theta \nabla \phi} \cdot \nabla \dt{\phi} \right].
+\end{gather*}
+Последнее выражение гарантирует положительность температуры (при нулевом $r$): хотя третье слагаемое больше не является скалярным квадратом, но $\vE \cdot \vj = \sigma \vE \cdot \vE + \theta \sigma \kappa \vE \cdot \nabla \rho$.
+
+При уточнении вида $\hat{\psi}$ иной вид имеет
+\[
+    \psi^{(1)} = \cfrac{\kappa}{2} \theta \rho^2 + \psi^{(0)}(\theta, \phi).
+\]
+Далее, сохраняя формулы для функций $\epsilon$, $\sigma$, $\beta$, $k$ свойств среды и учитывая, как и раньше, $c = -\theta \hat{\psi}_{\theta \theta} = -\theta \psi^T_{\theta \theta} = c(\phi)$, $\psi^T = \psi^T(\theta, \phi)$, получаем
+\begin{align*}
+    \psi^T_\theta &= -c(\phi) \ln \theta - \widetilde{C}(\phi), \\
+    \hat{\psi}_\theta &= -\eta = \psi^T_\theta + \cfrac{\kappa}{2} \rho^2
+\end{align*}
+и, имея опорные значения энтропии $\eta_0(\phi)$ при $\theta = \theta_0$ и $\rho = \rho_0 = 0$,
+\begin{align*}
+    \eta &= c(\phi) \ln \cfrac{\theta}{\theta_0} + \eta_0(\phi) - \cfrac{\kappa}{2} \rho^2, \\
+    \psi^T_\theta &= -c(\phi) \ln \cfrac{\theta}{\theta_0} - \eta_0(\phi), \\
+    \psi^T &= \theta \left[ c(\phi) - c(\phi) \ln \cfrac{\theta}{\theta_0} - \eta_0(\phi) \right].
+\end{align*}
+Таким образом, если опорные значения $\eta_0(\phi)$ взяты при $\rho_0 = 0$, то функция плотности энергии, связанной с температурой среды, сохраняет свой вид.
+
+В итоге получаем уравнения модели
+{\allowdisplaybreaks
+\begin{gather*}
+   \psi = -\half \epsilon[\phi] \vE \cdot \vE + \theta \left[ c(\phi) - c(\phi) \ln \cfrac{\theta}{\theta_0} - \eta_0(\phi) \right] + \cfrac{\Gamma}{l^2}[1 - f(\phi)] + \cfrac{\kappa}{2} \theta \rho^2 + \cfrac{\Gamma}{4} \nabla \phi \cdot \nabla \phi, \\
+   c(\phi) \dt{\theta} = - \Div(-k \nabla \theta) + \cfrac{1}{m} \left( \partt{\phi} \right)^2 + \sigma[\phi] \vE \cdot (\vE - \kappa \theta \nabla \rho) - \theta \partt{\phi} \left[ c'_\phi \ln \cfrac{\theta}{\theta_0} + (\eta_0)'_\phi \right], \\
+   \cfrac{1}{m} \partt{\phi} = \half \epsilon'_\phi \vE \cdot \vE + \theta \left[ -c'_\phi + c'_\phi \ln \cfrac{\theta}{\theta_0} + (\eta_0)'_\phi \right] + \cfrac{\Gamma}{l^2} f'_\phi + \cfrac{\Gamma}{2} \Delta \phi.
+\end{gather*}
+}
+Определяющие соотношения имеют вид
+{\allowdisplaybreaks
+\begin{align*}
+    \eta &= c(\phi) \ln \cfrac{\theta}{\theta_0} + \eta_0(\phi) - \cfrac{\kappa}{2} \rho^2 \\
+    \vD &= \epsilon[\phi] \vE, \\
+    \vxi &= \Gamma \nabla \phi, \\
+    \pi &= \half \epsilon'_\phi \vE \cdot \vE + \theta \left[ -c'_\phi + c'_\phi \ln \cfrac{\theta}{\theta_0} + (\eta_0)'_\phi \right] + \cfrac{\Gamma}{l^2} f'_\phi - \cfrac{1}{m} \partt{\phi}, \\
+    \vq &= -k \nabla \theta, \\
+    \vj &= \sigma[\phi] (\vE - \kappa \theta \nabla \rho).
+\end{align*}
+}
+
+Так как $\psi^T + \theta \eta = \theta c(\phi) - (\kappa / 2) \theta \rho^2$, то внутренняя энергия выражается как
+\[
+    e = \half \epsilon[\phi] \vE \cdot \vE + \theta c(\phi) + \cfrac{\Gamma}{l^2}[1 - f(\phi)] + \cfrac{\Gamma}{4} \nabla \phi \cdot \nabla \phi.
+\]
+Член $(\kappa / 2) \theta \rho^2$ сокращается, и, таким образом, $e$ оказывается не зависящей от $\rho$ !
+
+Вероятно, пропорциональная зависимость коэффициента диффузии электрического заряда представляет более верный подход с точки зрения физики, но для имеющихся нужд регуляризации модели подходит хуже, так как, по-первых, эта регуляризация, по-видимому, будет происходить в системе весьма неравномерно, во-вторых, переменный коэффициент диффузии представляет дополнительные сложности при численном моделировании, накладывая не известные заранее ограничения на шаги расчетной сетки.
