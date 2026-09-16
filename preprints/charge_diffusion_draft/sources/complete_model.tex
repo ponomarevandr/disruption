@@ -4,7 +4,7 @@
 
 Перечислим уравнения модели. Для начала, это уравнения Максвелла в электростатическом приближении \eqref{eq:electrostatic}.
 
-Плотность свободной энергии среды после уточнения вида \eqref{eq:free_energy_density} определяется выражением
+Плотность свободной энергии среды после конкретизации общего вида \eqref{eq:free_energy_density} определяется выражением
 \[
     \psi = -\half \epsilon[\phi] \vE \cdot \vE + \theta \left[ c(\phi) - c(\phi) \ln \cfrac{\theta}{\theta_0} - \eta_0(\phi) \right] + \cfrac{\Gamma}{l^2}[1 - f(\phi)] + \cfrac{\kappa}{2} \rho^2 + \cfrac{\Gamma}{4} \nabla \phi \cdot \nabla \phi.
 \]
@@ -26,7 +26,7 @@
 \begin{align*}
     \eta &= c(\phi) \ln \cfrac{\theta}{\theta_0} + \eta_0(\phi) \\
     \vD &= \epsilon[\phi] \vE, \\
-    \vxi &= \Gamma \nabla \phi, \\
+    \vxi &= \cfrac{\Gamma}{2} \nabla \phi, \\
     \pi &= \half \epsilon'_\phi \vE \cdot \vE + \theta \left[ -c'_\phi + c'_\phi \ln \cfrac{\theta}{\theta_0} + (\eta_0)'_\phi \right] + \cfrac{\Gamma}{l^2} f'_\phi - \cfrac{1}{m} \partt{\phi}, \\
     \vq &= -k \nabla \theta, \\
     \vj &= \sigma[\phi] (\vE - \kappa \nabla \rho).

@@ -46,6 +46,11 @@
 %%% Звездочка в сносках
 %\usepackage[symbol*]{footmisc}
 
+%%% Нежирные названия разделов в содержании
+\usepackage{tocloft}
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+
 %%% Список литературы
 %\bibliographystyle{bibliography_style/gost-numeric.bbx}
 %\usepackage[
@@ -165,7 +170,7 @@
 %    heading=bibintoc
 %]
 
-\clearpage
+%\clearpage
 \tableofcontents
 
 \end{document}
