@@ -1,0 +1,63 @@
+%!TEX root = ../main.tex
+
+\section{Ограничения шага по времени}
+
+{
+\nologo
+\begin{frame}{Разностная схема для одномерной постановки задачи}
+\vspace{-2mm}
+\begin{block}{Одномерная разностная задача}
+	\vspace{-2mm}
+	\begin{gather*}
+		\cfrac{1}{m} \cfrac{\phi_j^{k + 1} - \phi_j^k}{\tau} = -F'(\phi_j^k) + \cfrac{\Gamma}{2} \cfrac{\phi_{j + 1}^k - 2 \phi_j^k + \phi_{j - 1}^k}{h^2}; \\
+		\phi_j^0 = \phi_0(jh), \quad \phi_0^k = \phi_l(k \tau), \quad \phi_M^k = \phi_r(k \tau); \\
+		E = \Const
+	\end{gather*}
+	Сетка регулярная; $\tau$ -- шаг по времени, $h$ -- шаг по пространству.
+\end{block}
+\vspace{-2mm}
+\begin{block}{Условие устойчивости схемы}
+	\[
+		\tau \leqslant \cfrac{1}{m} \min \left( \cfrac{h^2}{2 \Gamma}, \cfrac{\delta^{5/3}}{3 \epsilon_0 E^2} \right).
+	\]
+\end{block}
+\vspace{-2mm}
+\begin{itemize}
+	\item Получено по спектральному признаку устойчивости в окрестности $\phi = 0$ в работе \cite{ponomarev_stability}.
+\end{itemize}
+\end{frame}
+}
+
+
+\begin{frame}{Ограничения шага по времени}
+\begin{itemize}
+	\item Из разностной задачи с лапласианом:
+\end{itemize}
+\vspace{-5mm}
+\begin{center}\begin{minipage}{0.4\textwidth}\begin{alertblock}{}
+\[
+	\tau \leqslant \cfrac{h^2}{2 \Gamma}
+\]
+\vspace{-3mm}
+\end{alertblock}\end{minipage}\end{center}
+\begin{itemize}
+	\item Из вида функции деградации свойств среды:
+\end{itemize}
+\vspace{-5mm}
+\begin{center}\begin{minipage}{0.4\textwidth}\begin{block}{}
+\[
+	\tau \leqslant \cfrac{\delta^{5/3}}{3 \epsilon_0 E^2}
+\]
+\vspace{-3mm}
+\end{block}\end{minipage}\end{center}
+\begin{itemize}
+	\item По времени релаксации заряда в среде:
+\end{itemize}
+\vspace{-5mm}
+\begin{center}\begin{minipage}{0.4\textwidth}\begin{alertblock}{}
+\[
+	\tau \ll \widetilde{\tau} = \cfrac{\epsilon[\phi]}{\sigma[\phi]}
+\]
+\vspace{-3mm}
+\end{alertblock}\end{minipage}\end{center}
+\end{frame}

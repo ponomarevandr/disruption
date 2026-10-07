@@ -1,0 +1,132 @@
+%!TEX root = ../main.tex
+
+\section{Соотношения баланса энергии}
+
+{\nologo
+\begin{frame}{Функционалы энергии}
+\vspace{-5mm}
+\begin{itemize}
+    \item Плотность энергии электрического поля:
+    \[
+        w_{E} = \half \epsilon[\phi] \cdot \| \nabla \Phi \|_2^2.
+    \]
+    \item Плотность энергии, отнесенной к каналу пробоя:
+    \[
+        w_\text{br} = %
+        \color{light_grey}\left[\color{black} \cfrac{\Gamma}{l^2} [1 - f(\phi)] \color{light_grey}\right]\color{black} + %
+        \color{light_grey}\left[\color{black} \cfrac{\Gamma}{4} \| \nabla \phi \|_2^2 + \cfrac{\beta}{4} \Gamma l^2 \| \nabla \phi \|_2^4 \color{light_grey}\right]\color{black}.
+    \]
+\end{itemize}
+\begin{columns}
+\column{0.49\textwidth}
+    \centering
+    Свободная энергия Гельмгольца
+    \[
+        \psi = -w_E + w_\text{br}, \quad \Psi = \int\limits_\Omega \psi d \vx
+    \]
+\column{0.01\textwidth}
+    \rule{0.4pt}{0.25\textheight}
+\column{0.49\textwidth}
+    \centering
+    Внутренняя энергия
+    \[
+        w = w_E + w_\text{br}, \quad W = \int\limits_\Omega w d \vx
+    \]
+\end{columns}
+\end{frame}
+}
+
+
+\begin{frame}{Балансовые соотношения}
+\begin{block}{Утверждение}
+    \begin{align*}
+        \cfrac{d \Psi}{dt} &= -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx + q^- \cfrac{d \Phi^+}{dt} - \intOmega \rho \partt{\Phi} d \vx; \\
+        \cfrac{dW}{dt} &= -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx - \Phi^+ \left( \cfrac{d q^-}{dt} + \int\limits_{y = 0} \sigma \cfrac{\partial \Phi}{\partial y} dS \right) - \intOmega Q_j d \vx.
+    \end{align*}
+    \vspace{-2mm}
+\end{block}
+\[
+    Q_j = \sigma[\phi] \cdot (\nabla \Phi, \nabla \Phi).
+\]
+\end{frame}
+
+
+{\nologo
+\begin{frame}{Типы граничных условий}
+\vspace{-6mm}
+\begin{columns}
+\column{0.3\textwidth}
+    \vspace{0.85\textheight}
+\column{0.01\textwidth}
+    \rule{0.4pt}{0.85\textheight}
+\column{0.3\textwidth}
+    \vspace{0.85\textheight}
+\column{0.01\textwidth}
+    \rule{0.4pt}{0.85\textheight}
+\column{0.3\textwidth}
+    \vspace{0.85\textheight}
+\end{columns}
+\vspace{-0.83\textheight}
+\begin{columns}
+\column{0.33\textwidth}
+    \centering
+    Постоянный потенциал \\ на обкладках
+\column{0.33\textwidth}
+    \centering
+    Постоянный заряд \\ на обкладках
+\column{0.33\textwidth}
+    \centering
+    Сохранение заряда \\ в системе
+\end{columns}
+\vspace{2mm}
+\noindent\rule[0.5ex]{\linewidth}{0.4pt}
+\vspace*{-7mm}
+\begin{columns}
+\column{0.33\textwidth}
+    \begin{gather*}
+        \Phi^+ = \Const \\
+        \sigma / \epsilon = \Const, \quad \rho_0 = 0 \\
+        \rho \equiv 0
+    \end{gather*}
+\column{0.33\textwidth}
+    \begin{gather*}
+        q^- = -q^+ = \Const \\
+        \sigma / \epsilon = \Const, \quad \rho_0 = 0 \\
+        \rho \equiv 0
+    \end{gather*}
+\column{0.33\textwidth}
+    \begin{gather*}
+        \cfrac{d q^-}{dt} = -\int\limits_{y = 0} \sigma \cfrac{\partial \Phi}{\partial y} dS \\
+        \cfrac{d q^+}{dt} = \int\limits_{y = H} \sigma \cfrac{\partial \Phi}{\partial y} dS
+    \end{gather*}
+\end{columns}
+{\small
+\begin{columns}
+\column{0.33\textwidth}
+    \[
+        \cfrac{d \Psi}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx
+    \]
+\column{0.33\textwidth}
+    \[
+        \cfrac{dW}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx
+    \]
+\column{0.33\textwidth}
+    \[
+        \cfrac{dW}{dt} = -\cfrac{1}{m} \intOmega \left( \partt{\phi} \right)^2 d \vx - \intOmega Q_j d \vx.
+    \]
+\end{columns}
+}
+\vspace{3mm}
+\begin{columns}
+\column{0.33\textwidth}
+    \centering
+    $\Psi$ не возрастает
+\column{0.33\textwidth}
+    \centering
+    $W$ не возрастает
+\column{0.33\textwidth}
+    \centering
+    $W$ не возрастает
+\end{columns}
+\end{frame}
+}
