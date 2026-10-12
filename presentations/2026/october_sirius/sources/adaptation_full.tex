@@ -53,19 +53,7 @@
 	\item $\hat{\phi} = \phi + \tau \cdot \left[ \partt{\phi} \right]_h; \qquad \hat{\rho}_E = \rho_E + \tau \cdot \left[ \partt{\rho} \right]_h$
 \end{enumerate}
 \vspace{2mm}
-\parind $\Pi = \sum h^3 \cdot \left( F(\phi; \| \nabla_h \Phi \|) + \cfrac{\Gamma}{4} \| \nabla_h \phi \|_2^2 + \cfrac{\beta}{4} \Gamma l^2 \| \nabla_h \phi \|_2^4 \right)$
-\end{frame}
-
-
-\begin{frame}{Проблемы}
-\large
-\begin{itemize}
-	\setlength\itemsep{3mm}
-	\item Нелинейная модель
-	\item Сложная динамика с различным временным масштабом процессов
-	\item Необходимость решать СЛАУ на каждом шаге
-	\item Значительные ограничения на шаг по времени из-за параболичности оператора и нелинейности
-\end{itemize}
+\parind $\Psi = \sum h^3 \cdot \left( F(\phi; \| \nabla_h \Phi \|) + \cfrac{\Gamma}{4} \| \nabla_h \phi \|_2^2 + \cfrac{\beta}{4} \Gamma l^2 \| \nabla_h \phi \|_2^4 \right)$
 \end{frame}
 
 
