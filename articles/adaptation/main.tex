@@ -61,7 +61,12 @@
 \DefineBibliographyStrings{russian}{number={\textnumero}}
 
 %%% Прямой символ интеграла
-\usepackage[integrals]{wasysym}
+\IfFileExists{cmupint.sty}{%
+	\usepackage{cmupint}%
+}{%
+	\PackageWarning{idxlayout}{!!!!! No package Cmupint -- using Wasysym instead}%
+	\usepackage[integrals]{wasysym}%
+}
 
 %%% Гиперссылки
 \usepackage[pdftex,unicode]{hyperref}
